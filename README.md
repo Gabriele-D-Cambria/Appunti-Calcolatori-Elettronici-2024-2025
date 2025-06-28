@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="./stilePersonalizzato.css">
-
 # Appunti Calcolatori Elettronici A.A. 2024-2025
 
 Questi sono gli appunti del corso di Calcolatori Elettronici 2024-2025 dell'Università di Pisa.
@@ -55,7 +53,6 @@ Questi appunti sono personali e destinati esclusivamente all'uso didattico.
 
 Fanno riferimento alle lezioni del corso di Calcolatori Elettronici A.A. 2024-2025, tenute dal Prof. Giuseppe Lettieri e al materiale fornito dal professore e reperibile sul sito del corso.
 Non garantisco la loro correttezza, completezza o aggiornamento.
-È sempre consigliato fare riferimento al materiale ufficiale del corso e alle indicazioni del docente.
 Questi appunti non sono ufficiali e non sostituiscono le lezioni o il materiale didattico fornito dal professore.
 
 Per qualsiasi dubbio fare sempre riferimento al materiale ufficiale del corso e alle indicazioni del docente.

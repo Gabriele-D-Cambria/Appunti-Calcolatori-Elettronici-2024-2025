@@ -4,12 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }}</title>
+  <title>{{ page.title | default: site.title }}</title>
   
-  <!-- GitHub Pages theme CSS -->
-  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
-  
-  <!-- CSS personalizzato -->
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 </head>
 <body>
