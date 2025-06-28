@@ -9,7 +9,6 @@ div[class*="language"]{
 /* Forza tutti i blocchi di codice C++ ad avere lo stesso stile */
 code[class*=language]:not([class*="plaintext"]) {
     display: block !important;
-    background-color: rgba(211, 211, 211, 0.3) !important;
     border-radius: 5px;
     padding: 1%;
     width: 90%;
@@ -18,14 +17,18 @@ code[class*=language]:not([class*="plaintext"]) {
     overflow-x: auto;
 }
 
+/* Stile di fallback per quando Prism non è caricato */
+code[class*=language]:not([class*="plaintext"]):not(.token) {
+    background-color: rgba(211, 211, 211, 0.3) !important;
+}
+
 div[class*="language"] pre {
     margin: 0;
     padding: 0;
-    background: transparent;
+    border-radius: 5px;
 }
 
 code[class*=language-plaintext]{
-    display: inherit !important;
     color: goldenrod !important;
     background-color: rgba(211, 211, 211, 0.3) !important;
     border-radius: 5% !important; 

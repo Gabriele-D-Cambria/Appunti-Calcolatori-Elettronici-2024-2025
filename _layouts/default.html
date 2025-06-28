@@ -6,14 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title | default: site.title }}</title>
     
+	<style>
+		.token.comment,
+		.token.prolog,
+		.token.doctype,
+		.token.cdata {
+			color: #999988 !important;
+			font-style: italic;
+		}
+
+		.token.keyword,
+		.token.operator {
+			color: #0066cc !important;
+			font-weight: bold;
+		}
+
+		.token.string,
+		.token.char,
+		.token.attr-value {
+			color: #008800 !important;
+		}
+
+		.token.number {
+			color: #ff6600 !important;
+		}
+
+		.token.function {
+			color: #990000 !important;
+			font-weight: bold;
+		}
+	</style>
+
     <link rel="stylesheet" href="./assets/style.css">
 
     <!-- Colorazione blocchi di codice -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-verilog.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-verilog.min.js"></script>
     
     <!-- Script per compatibilità con div.language-* -->
     <script>
@@ -58,6 +85,9 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-verilog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-verilog.min.js"></script>
 </body>
 </html>
