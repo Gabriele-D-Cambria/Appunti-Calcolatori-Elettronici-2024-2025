@@ -7,7 +7,7 @@ div[class*="language"]{
 }
 
 /* Forza tutti i blocchi di codice C++ ad avere lo stesso stile */
-code[class*=language] {
+code[class*=language]:not([class*="plaintext"]) {
     display: block !important;
     background-color: rgba(211, 211, 211, 0.3) !important;
     border-radius: 5px;
@@ -24,7 +24,8 @@ div[class*="language"] pre {
     background: transparent;
 }
 
-code:not([class*=language]){
+code[class*=language-plaintext]{
+    display: inherit !important;
     color: goldenrod !important;
     background-color: rgba(211, 211, 211, 0.3) !important;
     border-radius: 5% !important; 
