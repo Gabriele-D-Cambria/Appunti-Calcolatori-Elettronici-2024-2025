@@ -4,6 +4,9 @@ kramdown:
   math_engine: mathjax
   input: GFM
   syntax_highlighter: rouge
+  parse_block_html: true
+  parse_span_html: true
+  tables: true
 
 # GitHub Pages settings
 title: "Appunti Calcolatori Elettronici 2024-2025"

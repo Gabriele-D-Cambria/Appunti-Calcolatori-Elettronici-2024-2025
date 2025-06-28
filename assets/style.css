@@ -88,25 +88,58 @@ figure {
 
 /* --- Tables --- */
 table {
-    position: relative;
-    display: block;
-    margin: 0 auto !important;
-    padding: 0px;
-    margin: 0%;
-    align-self: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 1em auto;
+    padding: 0;
+    width: auto;
+    overflow: auto;
+    display: table;
+    background-color: transparent;
 }
-thead th {
-    font-style: italic;
+
+table tr {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    margin: 0;
+    padding: 0;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+
+table tr th {
     font-weight: bold;
+    border: 1px solid #ccc;
     text-align: center;
+    margin: 0;
+    padding: 6px 13px;
+    background-color: #f0f0f0;
+    font-style: italic;
 }
+
+table tr td {
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 0;
+    padding: 6px 13px;
+    font-style: normal;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
 .index tbody td:first-child {
     text-align: right;
     font-weight: bold;
-}
-tbody td{
-    text-align: center;
-    font-style: normal;
 }
 
 /* --- Visualizzazione Flexbox e griglia --- */

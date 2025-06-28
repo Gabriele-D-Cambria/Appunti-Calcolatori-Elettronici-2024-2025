@@ -2,11 +2,20 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="/Appunti-Calcolatori-Elettronici-2024-2025/assets/style.css"> <!-- CSS personalizzato -->
+  
+  <!-- GitHub Pages theme CSS -->
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  
+  <!-- CSS personalizzato -->
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 </head>
 <body>
-  {{ content }}
+  <div class="wrapper">
+    {{ content }}
+  </div>
 
   <!-- MathJax -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
