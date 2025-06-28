@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="./stilePersonalizzato.css">
+<link rel="stylesheet" type="text/css" href="./assets/style.css">
 
 # Appunti Calcolatori Elettronici A.A. 2024-2025
 

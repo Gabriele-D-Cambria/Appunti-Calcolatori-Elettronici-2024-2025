@@ -25,17 +25,17 @@ Chi sa cosa?
 - Memoria -> Informazioni salvate come sequenza di 0 e 1 senza senso
 
 Ordine file markdown:
-o Memoria e Periferiche.md
-o Interruzioni.md
-o Eccezioni.md
-o Protezione.md
-o Sistemi Multiprocesso e Processi.md
-o Realizzazione Primitive.md
-o Semafori.md
-o Delay e new.md
-o Paginazione.md
-o Memoria Virtuale nel Nucleo.md
-o PCI.md
-o IO.md
-o DMA.md
+- Memoria e Periferiche.md
+- Interruzioni.md
+- Eccezioni.md
+- Protezione.md
+- Sistemi Multiprocesso e Processi.md
+- Realizzazione Primitive.md
+- Semafori.md
+- Delay e new.md
+- Paginazione.md
+- Memoria Virtuale nel Nucleo.md
+- PCI.md
+- IO.md
+- DMA.md
 - Architettura Moderna CPU Intel.md
