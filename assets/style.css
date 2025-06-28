@@ -17,12 +17,7 @@ code[class*=language]:not([class*="plaintext"]) {
     overflow-x: auto;
 }
 
-/* Stile di fallback per quando Prism non è caricato */
-code[class*=language]:not([class*="plaintext"]):not(.token) {
-    background-color: rgba(211, 211, 211, 0.3) !important;
-}
-
-div[class*="language"] pre {
+div[class*="language"] pre, pre[class*="language"] {
     margin: 0;
     padding: 0;
     border-radius: 5px;
