@@ -4,21 +4,31 @@
     padding: 1%;
     width: 90%;
     margin: 0em;
-    
+    display: block;
+}
+
+/* Forza tutti i blocchi di codice C++ ad avere lo stesso stile */
+code[class="language-*"] {
+    display: block !important;
+    background-color: rgba(211, 211, 211, 0.3);
+    border-radius: 5px;
+    padding: 1%;
+    width: 90%;
+    margin: 0em;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+div[class="language-*"] pre {
+    margin: 0;
+    padding: 0;
+    background: transparent;
 }
 
 code{
     color: goldenrod;
     background-color: rgba(211, 211, 211, 0.3);
-    border-radius: 5px;
-    padding: 1%;
-}
-
-.language-v code, 
-.language-verilog code, 
-.language-x86asm code, 
-.language-cpp code {
-    all: inherit;
+    border-radius: 5%;
 }
 
 @media print{

@@ -8,6 +8,10 @@ kramdown:
   parse_span_html: true
   tables: true
   hard_wrap: false
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+      wrap: true
 
 # GitHub Pages settings
 title: "Appunti Calcolatori Elettronici 2024-2025"

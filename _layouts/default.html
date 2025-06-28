@@ -1,32 +1,63 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title | default: site.title }}</title>
-  
-  <link rel="stylesheet" href="./assets/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page.title | default: site.title }}</title>
+    
+    <link rel="stylesheet" href="./assets/style.css">
+
+    <!-- Colorazione blocchi di codice -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-verilog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-verilog.min.js"></script>
+    
+    <!-- Script per compatibilità con div.language-* -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trova tutti i div con classe language-*
+            document.querySelectorAll('div[class*="language-"]').forEach(function(div) {
+                const languageClass = Array.from(div.classList).find(cls => cls.startsWith('language-'));
+                if (languageClass) {
+                    const codeElement = div.querySelector('code');
+                    if (codeElement && !codeElement.classList.contains(languageClass)) {
+                        codeElement.classList.add(languageClass);
+                    }
+                }
+            });
+            
+            // Riapplica Prism dopo aver aggiunto le classi
+            if (window.Prism) {
+                Prism.highlightAll();
+            }
+        });
+    </script>
+</head>
 </head>
 <body>
-  <div class="wrapper">
-    {{ content }}
-  </div>
+    <div class="wrapper">
+        {{ content }}
+    </div>
 
-  <!-- MathJax -->
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        processEnvironments: true
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-      }
-    };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    
 </body>
 </html>
