@@ -1,5 +1,7 @@
 <link rel="stylesheet" type="text/css" href="./assets/style.css">
 
+# Appunti Calcolatori Elettronici A.A. 2024-2025
+
 Questi sono gli appunti del corso di Calcolatori Elettronici 2024-2025 dell'Università di Pisa.
 
 ## 📚 Informazioni sul Corso
@@ -10,7 +12,7 @@ Questi sono gli appunti del corso di Calcolatori Elettronici 2024-2025 dell'Univ
 
 **Sito del corso:** https://calcolatori.iet.unipi.it
 
-**Ricevimento:** Lunedì 14:30 - 18:30 $\to$ Polo A secondo piano
+**Ricevimento:** Lunedì 14:30 - 18:30 $$\to$$ Polo A secondo piano
 
 ## 📋 Modalità d'Esame
 
@@ -26,7 +28,7 @@ Il corso estende i concetti studiati in **Reti Logiche** introducendo argomenti 
 - **Interruzioni**
 - **Protezione** 
 - **Memoria Virtuale**
-- **Multiprogrammazione** (1 processore $\to$ diversi processi)
+- **Multiprogrammazione** (1 processore $$\to$$ diversi processi)
 
 Focus sull'architettura **CPU - Memoria - I/O** per l'esecuzione del software.
 
