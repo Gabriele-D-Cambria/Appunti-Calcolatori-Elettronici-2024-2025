@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="./stilePersonalizzato.css">
+
 # 1. Indice
 
 - [1. Indice](#1-indice)
