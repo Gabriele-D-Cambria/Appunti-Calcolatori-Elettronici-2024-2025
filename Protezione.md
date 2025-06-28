@@ -1,9 +1,3 @@
----
-layout: page
----
-
-<link rel="stylesheet" type="text/css" href="./assets/style.css">
-
 # 1. Indice
 
 - [1. Indice](#1-indice)
