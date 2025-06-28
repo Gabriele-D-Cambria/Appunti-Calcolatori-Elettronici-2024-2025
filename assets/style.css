@@ -241,16 +241,3 @@ h1, h2, h3, h4, h5, h6 {
     all:unset;
 }
 
-/* Fix specifico per il rendering delle tabelle in GitHub Pages */
-.flexbox span:has(table),
-.flexbox span:has(+ table),
-.flexbox span + table {
-    display: block;
-}
-
-/* Forza il rendering corretto delle tabelle dentro flexbox */
-.flexbox:has(table) {
-    display: block;
-    text-align: center;
-}
-
