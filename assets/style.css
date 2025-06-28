@@ -9,6 +9,8 @@ div[class*="language"]{
 /* Forza tutti i blocchi di codice C++ ad avere lo stesso stile */
 code[class*=language]:not([class*="plaintext"]) {
     display: block !important;
+    background-color: #282C34 !important;
+    color: #ABB2BF !important;
     border-radius: 5px;
     padding: 1%;
     width: 90%;
@@ -21,6 +23,8 @@ div[class*="language"] pre, pre[class*="language"] {
     margin: 0;
     padding: 0;
     border-radius: 5px;
+    background-color: #282C34 !important;
+    color: #ABB2BF !important;
 }
 
 code[class*=language-plaintext]{
