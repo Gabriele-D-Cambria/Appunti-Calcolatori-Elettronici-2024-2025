@@ -45,7 +45,7 @@ Il primo dilemma riguarda come far variare lo stato del processore quando durant
 Il secondo riguarda invece come riprendere l'esecuzione del programma.
 
 Le eccezioni sono classificabili in tre gruppi, ognuno dei quali ha comportamenti diversi:
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | Tipo    | Quando viene generata                             | Indirizzo salvato                             | Scopo/Effetto                                                                           |
 | ------- | ------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -53,7 +53,7 @@ Le eccezioni sono classificabili in tre gruppi, ognuno dei quali ha comportament
 | `Trap`  | Tra l'esecuzione di un'istruzione e la successiva | Indirizzo dell'istruzione successiva          | -                                                                                       |
 | `Abort` | In qualsiasi momento                              | -                                             | Gestisce errori particolarmente gravi, tipicamente causa lo spegnimento del calcolatore |
 
-</span></div>
+</div>
 
 Non siamo costretti ad utilizzare le eccezioni fornite dal processore o dalle librerie, ma possiamo scriverne di nostre:
 <div class="grid2">

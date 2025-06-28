@@ -69,7 +69,7 @@ Le transazioni si svolgono in più fasi:
 
 I principali collegamenti del bus sono i seguenti: <small>(`#` indica gli attivi bassi)</small>
 
-<div class="flexbox"><span class="index">
+<div class="flexbox index" markdown="1">
 
 | Nome       |   Iniziatore    |    Obiettivo    |                                                                                                   Ruolo                                                                                                    |
 | ---------- | :-------------: | :-------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -83,7 +83,7 @@ I principali collegamenti del bus sono i seguenti: <small>(`#` indica gli attivi
 | `STOP#`    |    ingresso     |     uscita      |                                                                              Serve a terminare prematuramente una transazione                                                                              |
 | `CLK`      |    ingresso     |    ingresso     | Segnale di `clock`, tutti i dispositivi campionano i loro segnali in ingresso sul suo **fronte di salita**. <br>È molto più lento di quello della **CPU** (all'inizio era `33MHz` poi è passato a `64MHz`) |
 
-</span></div>
+</div>
 
 Alcuni esempi di _temporizzazioni_:
 <div class="grid2">

@@ -53,7 +53,7 @@ Infatti, all'interno del processore, sono presenti _circuiti distinti specializz
 
 L'idea della _pipeline_ si basa sul fatto che quando un circuito termina il suo lavoro per una istruzione, rimane in attesa finché non terminano anche le altre fasi. Quello che quindi implementa è permettere al circuito di **iniziare a operare sull'istruzione successiva**:
 
-<div class="flexbox" style="margin-bottom: 0px; padding-bottom: 16px"><span class="index">
+<div class="flexbox index" style="margin-bottom: 0px; padding-bottom: 16px" markdown="1">
 
 |       | Prelievo | Decodifica | Prelevio Operandi (se necessario) | Esecuzione dell'istruzione | Scrittura del risultato nella destinazione |
 | ----- | -------- | ---------- | --------------------------------- | -------------------------- | ------------------------------------------ |
@@ -63,7 +63,7 @@ L'idea della _pipeline_ si basa sul fatto che quando un circuito termina il suo 
 | $t_3$ | `i+3`      | `i+2`        | `i+1`                               | `i`                          |                                            |
 | $t_4$ | `i+4`      | `i+3`        | `i+2`                               | `i+1`                        | `i`                                          |
 
-</span></div>
+</div>
 
 In questo modo aumentiamo il numero di istruzioni completate al secondo per 5, ovvero _il numero di stadi nella pipeline_. Questo migioramento avviene solo se siamo in grado effettivamente di implementarla in maniera corretta.
 Una prima descrizione della _pipeline_ è la seguente:

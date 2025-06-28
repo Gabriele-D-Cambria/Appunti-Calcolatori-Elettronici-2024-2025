@@ -280,7 +280,7 @@ Per fornire informazioni sul _buffer_ al controllore è necessario creare un `PR
 La funzione `bus master IDE` utilizza `16Byte` dello spazio di `I/O`, accessibili come `Byte`, `Word` o `Dword`.
 I registri a disposizione sono i seguenti:
 
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | Offset        | Registro                                        | Diritti di Accesso |
 | ------------- | :---------------------------------------------- | ------------------ |
@@ -297,7 +297,7 @@ I registri a disposizione sono i seguenti:
 
 <small>(`R/W` sono diritti in lettura e scrittura. `RWC` sono diritti in lettura e azzeramento del contenuto)</small>
 
-</span></div>
+</div>
 
 La specifica ci fornisce anche le regole che il dispositivo deve seguire:
 
@@ -314,7 +314,7 @@ La specifica ci fornisce anche le regole che il dispositivo deve seguire:
 - Attributi: `R/W`
 - Dimensione: `8bits`
 
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | Bit   | Descrizione                                                                             |
 | ----- | :-------------------------------------------------------------------------------------- |
@@ -323,7 +323,7 @@ La specifica ci fornisce anche le regole che il dispositivo deve seguire:
 | `2:1` | **Riservati**. Devono restituire `0` in lettura.                                        |
 | `0`   | Avvia/Arresta Bus Master: Portato ad `1` per abilitare il funzionamento del bus master. |
 
-</span></div>
+</div>
 </div>
 <div class="top">
 
@@ -337,7 +337,7 @@ La specifica ci fornisce anche le regole che il dispositivo deve seguire:
 - Attributi: `R/W`, `Clear`
 - Dimensione: `8bits`
 
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | Bit   | Descrizione                                                                                                       |
 | ----- | :---------------------------------------------------------------------------------------------------------------- |
@@ -349,7 +349,7 @@ La specifica ci fornisce anche le regole che il dispositivo deve seguire:
 | `1`   | Errore: Indica un errore nel trasferimento dati. Si azzera scrivendo `1`.                                         |
 | `0`   | Bus Master IDE Active: Indica che il bus master è attivo. Si azzera al termine del trasferimento o scrivendo `0`. |
 
-</span></div>
+</div>
 
 </div>
 </div>
@@ -364,14 +364,14 @@ La specifica ci fornisce anche le regole che il dispositivo deve seguire:
 - Attributi: `R/W`
 - Dimensione: `32bits`
 
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 |  Bit   | Descrizione                                                          |
 | :----: | :------------------------------------------------------------------- |
 | `31:2` | Indirizzo _base_ della `Descriptor Table`, corrispondono a `A[31:2]` |
 | `1:0`  | Riservati                                                            |
 
-</span></div>
+</div>
 
 La `Descriptor Table` deve essere allineata a `Dword`, e **non deve superare il limite di `64KB` in memoria**.
 

@@ -349,7 +349,7 @@ La **Super-MMU** avrà questa forma (le informazioni riquadrate indicano l'_inac
 
 Caricamento del processo `P2`
 </div>
-<div class="flexbox"><span>
+<div class="flexbox" markdown="1">
 
 |       | `P1`  |    `P2`     |          `RAM`           |
 | :---: | :---: | :---------: | :----------------------: |
@@ -362,7 +362,7 @@ Caricamento del processo `P2`
 |   6   |       |             |                          |
 |   7   |       |      7      |          stack2          |
 
-</span>
+</div>
 </div>
 
 La pagina `0` è lasciata con `P = 0` per intercettare le deferenziazioni di `nullptr`.
@@ -376,7 +376,7 @@ La pagina `0` è lasciata con `P = 0` per intercettare le deferenziazioni di `nu
 
 Caricamento del processo `P1`
 </div>
-<div class="flexbox"><span>
+<div class="flexbox" markdown="1">
 
 |       |    `P1`     |    `P2`     |          `RAM`           |
 | :---: | :---------: | :---------: | :----------------------: |
@@ -389,7 +389,7 @@ Caricamento del processo `P1`
 |   6   |             |             |          stack1          |
 |   7   |      6      |      7      |          stack2          |
 
-</span>
+</div>
 </div>
 
 Anche per `P1` la pagina `0` è lasciata con `P = 0` e la pagina `1` corrisponde allo stesso `frame` di sistema inaccessibile da livello `utente`.
@@ -428,7 +428,7 @@ Passa ulteriore tempo e immaginiamo che il `kernel`, per un motivo o per un altr
 
 </div>
 <div class="">
-<div class="flexbox"><span>
+<div class="flexbox" markdown="1">
 
 |       |    `P1`     |    `P2`     |    `P3`     |          `RAM`           |
 | :---: | :---------: | :---------: | :---------: | :----------------------: |
@@ -441,7 +441,7 @@ Passa ulteriore tempo e immaginiamo che il `kernel`, per un motivo o per un altr
 |   6   |             |             |             |                          |
 |   7   |             |      7      |      4      |          stack2          |
 
-</span>
+</div>
 </div>
 </div>
 <div>
@@ -460,7 +460,7 @@ L'accesso viene ancora una volta completato, ed entrambe le **CPU** ricevono lo 
 
 </div>
 <div class="">
-<div class="flexbox"><span>
+<div class="flexbox" markdown="1">
 
 |       |    `P1`     | `P2`  |    `P3`     |          `RAM`           |
 | :---: | :---------: | :---: | :---------: | :----------------------: |
@@ -473,7 +473,7 @@ L'accesso viene ancora una volta completato, ed entrambe le **CPU** ricevono lo 
 |   6   |             |       |             |         .data[1]         |
 |   7   |      7      |       |      4      |          stack1          |
 
-</span>
+</div>
 </div>
 </div>
 </div>

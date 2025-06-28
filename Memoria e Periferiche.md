@@ -40,7 +40,7 @@ Questa architettura è stata progettata con lo scopo di **eseguire software**
 
 Per il nostro studio diventa quindi importante saper rispondere alla domanda "_chi sa cosa_?":
 
-<div class="flexbox"><span class="index">
+<div class="flexbox index" markdown="1">
 
 |         | Cosa conosce                                                                                                                                                                                                                | Cosa non conosce                                                                                                   |
 | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -49,7 +49,7 @@ Per il nostro studio diventa quindi importante saper rispondere alla domanda "_c
 | I/O     | Le periferiche tramite interfacce, viste come letture/scritture di registri con effetti collaterali                                                                                                                         | Il significato delle operazioni, conosce solo l'effetto di lettura/scrittura sui registri                          |
 | Bus     | I segnali trasmessi <u>_uno alla volta_</u> in _broadcast_, tramite indirizzi nello spazio di memoria. <br> In alcuni dispositivi _intel_ più datati la **I/O** possedeva indirizzi propri separati dallo spazio di memoria | Chi comunica. <br> Sono infatti le singole componenti a capire se sono interpellate, tramite delle maschere di bit |
 
-</span></div>
+</div>
 
 
 ## 2.1. Flusso di Controllo
@@ -98,14 +98,14 @@ Inizialmente la memoria era accedibile tramite _parole_, ovvero sequenze di bit 
 Per modificare un bit bisognava recueprare l'intera _parola_ (anche sequenze di `4/8 Byte` per modificare un solo bit).
 
 Nelle memorie per processori _Intelx86_ che vedremo le dimensioni degli accessi in memoria sono i seguenti:
-<div class="flexbox"><span class="index">
+<div class="flexbox index" markdown="1">
 
 |       |  `B`  |  `W`  |  `L`  |  `Q`  |
 | :---: | :---: | :---: | :---: | :---: |
 | Byte  |  `1`  |  `2`  |  `4`  |  `8`  |
 |  Bit  |  `8`  | `16`  | `32`  | `64`  |
 
-</span></div>
+</div>
 
 Le varie opzioni sono rimaste retrocompatbili con le vecchie versioni e sono state implementare per ottimizzare le informazioni.
 Ad esempio nei sistemi a 32bit non esistono le esecuzioni `quad Q`, ma su 64 sono molto utili invece di utilizzare più letture a 32bit.
@@ -118,7 +118,7 @@ Se l'indirizzo si legge a partire dalla fine (`33`) si dice in notazione **Littl
 Le architetture Intel e la maggiorparte di quelle utilizzate sono tutte **_Little Endian_**, mentre i protocolli web sono **_Big Endian_**.
 
 Se salvassimo il valore sopra all'indirizzo `8` conviene utilizzare la seguente rappresentazione per non confondersi
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 |  +7   |  +6   |  +5   |  +4   |  +3   |  +2   |  +1   |  +0   | Indirizzo Base |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :------------: |
@@ -129,7 +129,7 @@ Se salvassimo il valore sopra all'indirizzo `8` conviene utilizzare la seguente 
 |       |       |       |       |       |       |       |       |       32       |
 |       |       |       |       |       |       |       |       |       40       |
 
-</span></div>
+</div>
 
 ### 2.3.1. Offset
 
@@ -481,7 +481,7 @@ L'adattatore ha una sua memoria `ROM` che associa ad ogni codice ASCII un determ
 
 In memoria ogni carattere non è definito solo dal suo _ASCII_, ma anche da una sezione di attributo colore.
 
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | Blinking | Background | Foreground | ASCII  |
 | :------: | :--------: | :--------: | :----: |
@@ -490,7 +490,7 @@ In memoria ogni carattere non è definito solo dal suo _ASCII_, ma anche da una 
 
 <small>(il bit di _blinking_ indica se il carattere lampeggia, in QEMU è inutile)</small>
 
-</span></div>
+</div>
 
 Nella nostra macchina la modalità video inizia all'indirizzo `0xB8000`;
 
@@ -782,7 +782,7 @@ Un modo per avere **RAM** più veloci è quello di utilizzare le **RAM Statiche*
 Le **RAM Statiche** conservano l'informazione tramite `Flip-Flop`, e sono realizzabili con 6/7 transistor.
 Le **RAM Dinamiche** invece utilizzano microcondrensatori che necessitano che l'informazione venga periodicamente "rinfrescata".
 
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | RAM Dinamiche | RAM Statiche |
 | :-----------: | :----------: |
@@ -790,7 +790,7 @@ Le **RAM Dinamiche** invece utilizzano microcondrensatori che necessitano che l'
 |  Economiche   |   Costose    |
 |     Lente     |    Veloci    |
 
-</span></div>
+</div>
 
 Esiste tuttavia un modo per poter utilizzare **RAM** _grandi, economiche e veloci_.
 Infatti, nonostante l'accesso del programmatore alla memoria sia per definizione _casuale_, ovvero non predeterminato, in realtà nella maggior parte dei casi non lo è realmente.

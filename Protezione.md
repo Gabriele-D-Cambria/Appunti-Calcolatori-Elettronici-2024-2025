@@ -94,14 +94,14 @@ Il registro contenente l'indirizzo di separazione viene inizializzato tramite il
 ## 2.2. Passaggi tra contesti
 
 Il livello di privilegio può essere cambiato solo in due modi:
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | Operazione         | Livello di privilegio    |
 | ------------------ | ------------------------ |
 | _gate_ della `IDT` | `utente` $\to$ `sistema` |
 | Istruzione `IRETq` | `sistema` $\to$ `utente` |
 
-</span></div>
+</div>
 
 Ai _gate_ della `IDT` si può passare tramite tre operazioni:
 - _Eccezioni_

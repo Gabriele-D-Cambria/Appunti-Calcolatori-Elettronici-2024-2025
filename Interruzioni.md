@@ -23,7 +23,7 @@ Ipotizziamo di avere una tabella contenente due indici:
 - Nel secondo si trova il valore di una funzione $f(x)$ calcolata sul valore di $x$ attuale.
 
 Vorremmo che venissero stampati le coppie valore $x$-$f(x)$.
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 |   $x$    | $f(x)$ |
 | :------: | :----: |
@@ -33,7 +33,7 @@ Vorremmo che venissero stampati le coppie valore $x$-$f(x)$.
 |   0003   |  ....  |
 | $\vdots$ |  ...   |
 
-</span></div>
+</div>
 
 La stampa degli elementi è gestita  tramite una stampante con due registri:
 - `TBR`: contiene il valore di $f(x)$

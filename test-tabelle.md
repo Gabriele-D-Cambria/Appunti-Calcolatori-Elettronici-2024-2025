@@ -29,7 +29,7 @@ title: Test Tabelle
 
 ## Tabella dentro Flexbox (come nel tuo caso)
 
-<div class="flexbox"><span class="">
+<div class="flexbox" markdown="1">
 
 | Valore | Risultato |
 |:------:|:---------:|
@@ -37,7 +37,7 @@ title: Test Tabelle
 |   2    |    B      |
 |   3    |    C      |
 
-</span></div>
+</div>
 
 ## Tabella Normale dopo Flexbox
 
