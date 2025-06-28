@@ -8,6 +8,25 @@ kramdown:
   parse_span_html: true
   tables: true
   hard_wrap: false
+  math_engine_opts:
+    preview: true
+    preview_as_code: false
+
+# MathJax configuration
+mathjax:
+  source: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  config: |
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
 
 # GitHub Pages settings
 title: "Appunti Calcolatori Elettronici 2024-2025"
