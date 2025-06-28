@@ -1,0 +1,41 @@
+Giuseppe Lettieri -> Parte Teorica
+Federico Galatolo -> Parte Pratica (Mercoledì)
+
+Prova pratica conservata 5 appelli
+Per l'orale almeno 15pt.
+All'esame si può portare tutto, il calcolatore è quello di laboratorio
+
+https:\\calcolatori.iet.unipi.it
+
+Lunedì 14:30 - 18:30 => Polo A secondo piano ricevimento
+
+Struttura del corso:
+
+Estendiamo quello fatto a Reti Logiche e introduciamo argomenti più avanzati tra i quali:
+- Interruzioni
+- Protezione
+- Memoria Virtuale
+
+Andando a studiare la multiprogrammazione (1 processore -> diversi processi)
+
+Architettura CPU - Memoria - I/O per ESEGUIRE SOFTWARE
+
+Chi sa cosa?
+- CPU -> Informazioni dei suoi registri
+- Memoria -> Informazioni salvate come sequenza di 0 e 1 senza senso
+
+Ordine file markdown:
+o Memoria e Periferiche.md
+o Interruzioni.md
+o Eccezioni.md
+o Protezione.md
+o Sistemi Multiprocesso e Processi.md
+o Realizzazione Primitive.md
+o Semafori.md
+o Delay e new.md
+o Paginazione.md
+o Memoria Virtuale nel Nucleo.md
+o PCI.md
+o IO.md
+o DMA.md
+- Architettura Moderna CPU Intel.md
