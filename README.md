@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="./assets/style.css">
+<link rel="stylesheet" type="text/css" href="./stilePersonalizzato.css">
 
 # Appunti Calcolatori Elettronici A.A. 2024-2025
 
@@ -10,7 +10,7 @@ Questi sono gli appunti del corso di Calcolatori Elettronici 2024-2025 dell'Univ
 - **Giuseppe Lettieri** - Parte Teorica
 - **Federico Galatolo** - Parte Pratica (Mercoledì)
 
-**Sito del corso:** https://calcolatori.iet.unipi.it
+**Sito del corso:** [https://calcolatori.iet.unipi.it](https://calcolatori.iet.unipi.it)
 
 **Ricevimento:** Lunedì 14:30 - 18:30 $$\to$$ Polo A secondo piano
 
@@ -34,20 +34,20 @@ Focus sull'architettura **CPU - Memoria - I/O** per l'esecuzione del software.
 
 ## 📖 Ordine di Studio Consigliato
 
-1. [Memoria e Periferiche](./Memoria%20e%20Periferiche.md)
-2. [Interruzioni](./Interruzioni.md)
-3. [Eccezioni](./Eccezioni.md)
-4. [Protezione](./Protezione.md)
-5. [Sistemi Multiprocesso e Processi](./Sistemi%20Multiprocesso%20e%20Processi.md)
-6. [Realizzazione Primitive](./Realizzazione%20Primitive.md)
-7. [Semafori](./Semafori.md)
-8. [Delay e new](./Delay%20e%20new.md)
-9. [Paginazione](./Paginazione.md)
-10. [Memoria Virtuale nel Nucleo](./Memoria%20Virtuale%20nel%20Nucleo.md)
-11. [PCI](./PCI.md)
-12. [IO](./IO.md)
-13. [DMA](./DMA.md)
-14. [Architettura Moderna CPU Intel](./Architettura%20Moderna%20CPU%20Intel.md)
+1. [Memoria e Periferiche](./Memoria%20e%20Periferiche)
+2. [Interruzioni](./Interruzioni)
+3. [Eccezioni](./Eccezioni)
+4. [Protezione](./Protezione)
+5. [Sistemi Multiprocesso e Processi](./Sistemi%20Multiprocesso%20e%20Processi)
+6. [Realizzazione Primitive](./Realizzazione%20Primitive)
+7. [Semafori](./Semafori)
+8. [Delay e new](./Delay%20e%20new)
+9. [Paginazione](./Paginazione)
+10. [Memoria Virtuale nel Nucleo](./Memoria%20Virtuale%20nel%20Nucleo)
+11. [PCI](./PCI)
+12. [IO](./IO)
+13. [DMA](./DMA)
+14. [Architettura Moderna CPU Intel](./Architettura%20Moderna%20CPU%20Intel)
 
 ## 📜 Disclaimer
 

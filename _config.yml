@@ -2,3 +2,21 @@ theme: minima
 markdown: kramdown
 kramdown:
   math_engine: mathjax
+  input: GFM
+  syntax_highlighter: rouge
+
+# GitHub Pages settings
+title: "Appunti Calcolatori Elettronici 2024-2025"
+description: "Appunti del corso di Calcolatori Elettronici - Università di Pisa"
+baseurl: ""
+url: ""
+
+# Plugin settings
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude files from processing
+exclude:
+  - .gitignore
+  - LICENSE
