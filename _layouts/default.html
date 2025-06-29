@@ -113,19 +113,32 @@
         // Script specifico per distinguere i blocchi matematici
         function setupMathBlocks() {
             // Aspetta che MathJax abbia finito il rendering
-            if (window.MathJax && window.MathJax.startup) {
+            if (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise) {
                 MathJax.startup.promise.then(function() {
                     processMathBlocks();
+                }).catch(function(error) {
+                    console.log('MathJax startup error:', error);
+                    // Prova comunque a processare i blocchi math
+                    setTimeout(processMathBlocks, 2000);
                 });
             } else {
-                // Fallback se MathJax non è ancora caricato
-                setTimeout(processMathBlocks, 1000);
+                // Fallback se MathJax non è ancora caricato o non ha la promise
+                setTimeout(processMathBlocks, 2000);
             }
         }
 
         function processMathBlocks() {
+            // Verifica che ci siano contenitori MathJax da processare
+            const mathContainers = document.querySelectorAll('mjx-container.MathJax');
+            if (mathContainers.length === 0) {
+                console.log('Nessun contenitore MathJax trovato');
+                return;
+            }
+
+            console.log('Processando ' + mathContainers.length + ' contenitori MathJax');
+            
             // Trova tutti i contenitori MathJax
-            document.querySelectorAll('mjx-container.MathJax').forEach(function(mathContainer) {
+            mathContainers.forEach(function(mathContainer) {
                 // Controlla se contiene un elemento mjx-mspace
                 const hasSpace = mathContainer.querySelector('mjx-mspace');
                 
