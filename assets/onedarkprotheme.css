@@ -1,0 +1,71 @@
+/* One Dark Pro Theme Colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #5C6370 !important;
+	font-style: italic;
+}
+
+.token.keyword,
+.token.operator {
+	color: #C678DD !important;  /* Purple */
+	font-weight: bold;
+}
+
+.token.string,
+.token.char,
+.token.attr-value {
+	color: #98C379 !important;  /* Green */
+}
+
+.token.number {
+	color: #D19A66 !important;  /* Orange */
+}
+
+.token.function {
+	color: #61AFEF !important;  /* Blue */
+	font-weight: bold;
+}
+
+/* Token aggiuntivi per One Dark Pro */
+.token.class-name {
+	color: #E5C07B !important;  /* Yellow */
+}
+
+.token.variable {
+	color: #E06C75 !important;  /* Red */
+}
+
+.token.property {
+	color: #56B6C2 !important;  /* Cyan */
+}
+
+.token.punctuation {
+	color: #ABB2BF !important;  /* Light Gray */
+}
+
+.token.selector {
+	color: #E06C75 !important;  /* Red */
+}
+
+.token.tag {
+	color: #E06C75 !important;  /* Red */
+}
+
+.token.attr-name {
+	color: #D19A66 !important;  /* Orange */
+}
+
+.token.boolean,
+.token.constant {
+	color: #D19A66 !important;  /* Orange */
+}
+
+.token.deleted {
+	color: #E06C75 !important;  /* Red */
+}
+
+.token.inserted {
+	color: #98C379 !important;  /* Green */
+}
