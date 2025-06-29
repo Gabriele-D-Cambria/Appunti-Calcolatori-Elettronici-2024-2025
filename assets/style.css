@@ -306,6 +306,10 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1em auto !important;
 }
 
+.math-display mjx-math{
+    line-height: 1.0 !important;
+}
+
 /* Classe per math inline */
 .math-inline {
     display: inline !important;
