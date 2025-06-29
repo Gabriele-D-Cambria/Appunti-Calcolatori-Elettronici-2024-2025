@@ -427,8 +427,8 @@ SUB R4, R5, R1
 <div class="top">
 <div class="p">
 
-Dipendenza
- in uscita</div>
+Dipendenza in uscita
+</div>
 
 Sono così definite:
 > Un'istruzione `i` si dice **_dipendente in uscita_** rispetto ad un'altra `j`, se entrambe vogliono scrivere nello stesso registro `dst`.
