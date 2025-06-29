@@ -27,20 +27,23 @@ div[class*="language"] pre, pre[class*="language"] {
     color: #ABB2BF !important;
 }
 
+
+table code[class*=language-plaintext]{
+    background-color: transparent !important;
+    border: none;
+    padding: 0px;
+}
+
 code[class*=language-plaintext]{
     color: #98C379 !important;
     background-color: rgba(171, 178, 191, 0.15) !important;
     padding: 0.2em 0.4em !important;
     border-radius: 6px !important;
-    font-size: 85%;
+    font-size: 85% !important;
     border: 1px solid rgba(171, 178, 191, 0.2) !important;
+    font-weight: bold !important;
 }
 
-table code{
-    background-color: transparent !important;
-    border: none;
-    padding: 0px;
-}
 
 blockquote {
     border-left: 4px solid #30363d;
@@ -295,34 +298,45 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* CSS per MathJax - Blocchi matematici */
-.MathJax_Display {
-    display: block !important;
-    text-align: center !important;
-    margin: 1em 0 !important;
-}
-
-/* Assicurati che i blocchi $$ siano riconosciuti come display math */
-mjx-container[jax="CHTML"][display="true"] {
-    display: block !important;
-    text-align: center !important;
-    margin: 1em 0 !important;
-}
-
-/* Per i blocchi inline */
-mjx-container[jax="CHTML"][display="false"] {
+/* Stile per tutti i contenitori MathJax */
+mjx-container.MathJax {
     display: inline !important;
-    margin: 0 !important;
+    margin: 0.1em 0.1em !important;
 }
 
-/* Forza lo stile dei blocchi matematici indipendentemente dal contenitore */
-.MathJax {
-    font-size: 100% !important;
-}
-
-/* Blocchi matematici in paragrafi separati */
-p > mjx-container[jax="CHTML"][display="true"] {
+/* Stile specifico per blocchi matematici che sono in paragrafi dedicati */
+p > mjx-container.MathJax:only-child,
+div > mjx-container.MathJax:only-child {
     display: block !important;
     text-align: center !important;
     margin: 1em auto !important;
+    width: 100% !important;
+}
+
+/* Per blocchi che sono preceduti e seguiti solo da spazi/newline */
+p:has(> mjx-container.MathJax:only-child) {
+    text-align: center !important;
+    margin: 1em 0 !important;
+}
+
+/* Fallback: se un paragrafo contiene solo MathJax e whitespace */
+p {
+    &:has(> mjx-container.MathJax:first-child:last-child) {
+        text-align: center !important;
+        margin: 1em 0 !important;
+    }
+}
+
+/* Classe specifica per blocchi display che aggiungeremo via JavaScript */
+.math-display {
+    display: block !important;
+    text-align: center !important;
+    margin: 1em auto !important;
+}
+
+/* Classe per math inline */
+.math-inline {
+    display: inline !important;
+    margin: 0 0.1em !important;
 }
 

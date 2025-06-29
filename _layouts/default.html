@@ -85,8 +85,11 @@
     <!-- Colorazione blocchi di codice -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     
-    <!-- Script per compatibilità con div.language-* -->
+    <!-- Script per compatibilità con div.language-* e MathJax -->
     <script>
+		// Esponi la funzione globalmente per MathJax
+        window.processMathBlocks = processMathBlocks;
+
         document.addEventListener('DOMContentLoaded', function() {
             // Trova tutti i div con classe language-*
             document.querySelectorAll('div[class*="language-"]').forEach(function(div) {
@@ -104,28 +107,33 @@
                 Prism.highlightAll();
             }
 
-            // Script per assicurarsi che i blocchi $$ siano trattati come display math
-            function processMathBlocks() {
-                // Trova tutti i paragrafi che contengono solo blocchi matematici
-                document.querySelectorAll('p').forEach(function(p) {
-                    const text = p.textContent.trim();
-                    if (text.startsWith('$$') && text.endsWith('$$') && text.indexOf('$$', 2) === text.length - 2) {
-                        // Questo paragrafo contiene solo un blocco matematico
-                        p.style.textAlign = 'center';
-                        p.style.margin = '1em 0';
-                    }
-                });
-            }
+			setupMathBlocks();
+        });
 
-            // Esegui dopo che MathJax ha processato
-            if (window.MathJax) {
+        // Script specifico per distinguere i blocchi matematici
+        function setupMathBlocks() {
+            // Aspetta che MathJax abbia finito il rendering
+            if (window.MathJax && window.MathJax.startup) {
                 MathJax.startup.promise.then(function() {
                     processMathBlocks();
                 });
             } else {
-                processMathBlocks();
+                // Fallback se MathJax non è ancora caricato
+                setTimeout(processMathBlocks, 1000);
             }
-        });
+        }
+
+        function processMathBlocks() {
+            // Trova tutti i contenitori MathJax
+            document.querySelectorAll('mjx-container.MathJax').forEach(function(mathContainer) {
+                // Controlla se contiene un elemento mjx-mspace
+                const hasSpace = mathContainer.querySelector('mjx-mspace');
+                
+				mathContainer.classList.add( hasSpace? 'math-display' : 'math-inline');
+            });
+        }
+
+
     </script>
 </head>
 </head>
@@ -142,24 +150,39 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
                 processEnvironments: true,
-                processRefs: true
+                processRefs: true,
+                tags: 'none'
             },
             options: {
                 skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
                 processHtmlClass: 'tex2jax_process',
                 ignoreHtmlClass: 'tex2jax_ignore'
             },
+            chtml: {
+                displayAlign: 'center',
+                displayIndent: '0em'
+            },
             startup: {
                 ready() {
                     MathJax.startup.defaultReady();
-                    // Assicurati che i blocchi display math siano riconosciuti correttamente
-                    MathJax.startup.document.updateDocument();
+                    
+                    // Hook per processare il contenuto dopo il rendering
+                    const originalTypesetPromise = MathJax.typesetPromise;
+                    MathJax.typesetPromise = function(elements) {
+                        return originalTypesetPromise.call(this, elements).then(function() {
+                            // Dopo che MathJax ha fatto il rendering, applica le nostre correzioni
+                            if (window.processMathBlocks) {
+                                window.processMathBlocks();
+                            }
+                        });
+                    };
                 }
             }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
+	<!-- Prism - codeblocks -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <!-- Carica prima le dipendenze base -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
