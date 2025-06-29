@@ -11,7 +11,7 @@ code[class*=language]:not([class*="plaintext"]) {
     display: block !important;
     background-color: #282C34 !important;
     color: #ABB2BF !important;
-    border-radius: 5px;
+    border-radius: 6px;
     padding: 1%;
     width: 90%;
     margin: 0em;
@@ -22,15 +22,24 @@ code[class*=language]:not([class*="plaintext"]) {
 div[class*="language"] pre, pre[class*="language"] {
     margin: 0;
     padding: 0;
-    border-radius: 5px;
+    border-radius: 6px;
     background-color: #282C34 !important;
     color: #ABB2BF !important;
 }
 
 code[class*=language-plaintext]{
-    color: goldenrod !important;
-    background-color: rgba(211, 211, 211, 0.3) !important;
-    border-radius: 5% !important; 
+    color: #98C379 !important;
+    background-color: rgba(171, 178, 191, 0.15) !important;
+    padding: 0.2em 0.4em !important;
+    border-radius: 6px !important;
+    font-size: 85%;
+    border: 1px solid rgba(171, 178, 191, 0.2) !important;
+}
+
+table code{
+    background-color: transparent !important;
+    border: none;
+    padding: 0px;
 }
 
 blockquote {
@@ -283,5 +292,37 @@ h1, h2, h3, h4, h5, h6 {
 
 .example *{
     all:unset;
+}
+
+/* CSS per MathJax - Blocchi matematici */
+.MathJax_Display {
+    display: block !important;
+    text-align: center !important;
+    margin: 1em 0 !important;
+}
+
+/* Assicurati che i blocchi $$ siano riconosciuti come display math */
+mjx-container[jax="CHTML"][display="true"] {
+    display: block !important;
+    text-align: center !important;
+    margin: 1em 0 !important;
+}
+
+/* Per i blocchi inline */
+mjx-container[jax="CHTML"][display="false"] {
+    display: inline !important;
+    margin: 0 !important;
+}
+
+/* Forza lo stile dei blocchi matematici indipendentemente dal contenitore */
+.MathJax {
+    font-size: 100% !important;
+}
+
+/* Blocchi matematici in paragrafi separati */
+p > mjx-container[jax="CHTML"][display="true"] {
+    display: block !important;
+    text-align: center !important;
+    margin: 1em auto !important;
 }
 

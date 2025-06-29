@@ -103,6 +103,28 @@
             if (window.Prism) {
                 Prism.highlightAll();
             }
+
+            // Script per assicurarsi che i blocchi $$ siano trattati come display math
+            function processMathBlocks() {
+                // Trova tutti i paragrafi che contengono solo blocchi matematici
+                document.querySelectorAll('p').forEach(function(p) {
+                    const text = p.textContent.trim();
+                    if (text.startsWith('$$') && text.endsWith('$$') && text.indexOf('$$', 2) === text.length - 2) {
+                        // Questo paragrafo contiene solo un blocco matematico
+                        p.style.textAlign = 'center';
+                        p.style.margin = '1em 0';
+                    }
+                });
+            }
+
+            // Esegui dopo che MathJax ha processato
+            if (window.MathJax) {
+                MathJax.startup.promise.then(function() {
+                    processMathBlocks();
+                });
+            } else {
+                processMathBlocks();
+            }
         });
     </script>
 </head>
@@ -119,10 +141,20 @@
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
-                processEnvironments: true
+                processEnvironments: true,
+                processRefs: true
             },
             options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                processHtmlClass: 'tex2jax_process',
+                ignoreHtmlClass: 'tex2jax_ignore'
+            },
+            startup: {
+                ready() {
+                    MathJax.startup.defaultReady();
+                    // Assicurati che i blocchi display math siano riconosciuti correttamente
+                    MathJax.startup.document.updateDocument();
+                }
             }
         };
     </script>

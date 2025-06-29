@@ -1,13 +1,21 @@
-theme: minima
 markdown: kramdown
 kramdown:
   math_engine: mathjax
+  math_engine_opts:
+    preview: true
+    preview_as_code: false
   input: GFM
   syntax_highlighter: rouge
   parse_block_html: true
   parse_span_html: true
   tables: true
   hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
   syntax_highlighter_opts:
     block:
       line_numbers: false
