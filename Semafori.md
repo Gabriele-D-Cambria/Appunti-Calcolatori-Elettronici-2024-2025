@@ -18,7 +18,7 @@ Per quanto riguarda la condivisione della memoria, nel nostro sistema i processi
 Questo tipo di condivisione può essere ottenuta evitando di rimpiazzare la parte di memoria condivisa quando si salta da un processo ad un altro.
 
 Un sistema del genere ha senso se **i processi appartengono tutti allo stesso utente** e **fanno parte di un’unica applicazione**, che l'utente ha deciso di strutturare in più attività concorrenti. 
-Da ora in poi ci limiteremo a considerare <u>_**solo questo caso**_</u>.
+Da ora in poi ci limiteremo a considerare _<u>**solo questo caso**</u>_.
 
 L'utente che scrive un'applicazione strutturata su più processi concorrenti deve affrontare dei problemi molto simili a quelli già affrontati a livello `sistema`.
 
@@ -55,7 +55,7 @@ Abbiamo:
 - Persone `P1`, ..., `Pn`
 - Azioni `A1`, ..., `An`
 
-Vogliamo che le azioni <u>_**non possano mai essere eseguite contemporaneamente**_</u>.
+Vogliamo che le azioni _<u>**non possano mai essere eseguite contemporaneamente**</u>_.
 
 Per risolvere questo problema è sufficente avere **un semaforo** che inizialmente contiene **un gettone** e imporre la regola che:
 > _**"Solo chi ha il gettone può compiere una delle azioni. Al termine dell'azione è obbligatorio reinserire il gettone"**_

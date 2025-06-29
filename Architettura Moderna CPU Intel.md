@@ -651,7 +651,7 @@ Entrambi sfruttano la separazione tra lo stato _architetturale_ e quello _$\mu$-
 Come abbiamo detto alla fine del precedente capitolo, la `LD` recupera delle informazioni _speculativamente_ dalla memoria, salvandole di conseguenza in _cache_.
 Come abbiamo sottolineato, può accadere che si scopra che la `LD` non andava eseguita e si annullino le modifiche che aveva apportato, lasciando però la _cache_ **aggiornata con le informazioni prelevate**.
 
-Una cosa importante da dire prima di descrivere il problema è che, poiché la _cache_ è molto più veloce della **RAM**, misurando il tempo di estrazione di un informazione <u>**possiamo capire se è stata recuperata adesso dalla _RAM_ o se si trovava già in _cache_**</u>.
+Una cosa importante da dire prima di descrivere il problema è che, poiché la _cache_ è molto più veloce della **RAM**, misurando il tempo di estrazione di un informazione **<u>possiamo capire se è stata recuperata adesso dalla _RAM_ o se si trovava già in _cache</u>_**.
 
 Per produrre il problema proviamo ad accedere, dal nostro processo `utente`, ad un'_indirizzo vietato_, come un'indirizzo a livello `sistema`.
 
@@ -689,7 +689,7 @@ Se quindi ci preoccupiamo di intercettarlo, per il continuo del programma sarà 
 Sarà quindi sufficente scrivere una sezione di codice che **_controlla il tempo di estrazione delle informazioni di ogni indice del `vettore`_**.
 Questo produrrà due valori diversi:
 - **Alto**: se l'elemento `vettore[i]` non era presente in _cache_ e abbiamo dovuto recuperarlo dalla **RAM**
-- **Basso**: se l'elemento `vettore[i]` <u>era già presente in _cache_</u>
+- **Basso**: se l'elemento `vettore[i]` <u>era già presente in _cache</u>_
 
 Poiché ci siamo assicurati di svuotare la _cache_ prima di eseguire questo codice di verifica, l'unica _cacheline_ presente sarà proprio quella con indice `%rax`, dove `%rax` era proprio **_il contenuto dell'_**`indirizzo_vietato`.
 

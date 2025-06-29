@@ -35,7 +35,7 @@ Per garantire il vincolo che i _registri_ delle _periferiche_ non occupino indir
 >
 > Il _software_ può impostare questi comparatori all’avvio del sistema, tramite il nuovo _spazio di configurazione_.
 
-Lo _spazio di configurazione_ è fatto in modo da poter accedere a dei **registri di configurazione** che ogni _periferica_ <u>deve avere per rispettare lo _standard_ in modo **univoco** e **senza conflitti**</u>.
+Lo _spazio di configurazione_ è fatto in modo da poter accedere a dei **registri di configurazione** che ogni _periferica_ <u>deve avere per rispettare lo _standard_ in modo **univoco** e **senza conflitti</u>**.
 
 Tramite questi registri il software di avvio (`PCI BIOS`) può scoprire quali periferiche sono connesse al bus.
 Non solo, capisce anche di quanti indirizzi hanno bisogno e programma di conseguenza i comparatori affinché non ci siano _sovrapposizioni_.

@@ -61,7 +61,7 @@ Il nome di questo _software_ è `kernel`.
 
 
 Il `kernel` è quindi un software che sta sempre nello spazio di memoria di sistema (`M1`) e può **riacquisire** occasionalmente il controllo del flusso.
-Il `kernel` gira infatti a **livello sistema** e può recuperare il controllo del flusso <u>**solamente**</u> tramite i _gate_ della `IDT` (interruzioni esterne, eccezioni, chiamate `int`)
+Il `kernel` gira infatti a **livello sistema** e può recuperare il controllo del flusso **<u>solamente</u>** tramite i _gate_ della `IDT` (interruzioni esterne, eccezioni, chiamate `int`)
 </div>
 <div class="">
 <figure class="100">
@@ -358,7 +358,7 @@ Lo schema di riferimento per gli stati dei processi.
 
 
 I processi devono essere prima di tutto **attivati**, in modo che possano cominciare ad essere eseguiti.
-L’attivazione comporta <u>la creazione di tutte le strutture dati necessarie al corretto funzionamento del _processo_</u>.
+L’attivazione comporta <u>la creazione di tutte le strutture dati necessarie al corretto funzionamento del _processo</u>_.
 Queste strutture comprendono due componenti:
 - **Descrittore di processo**
 - **Pile**
@@ -399,7 +399,7 @@ Questo ci permette di dover eseguire una azione di `schedulazione()` solo quando
 Dobbiamo inoltre notare che anche quando un processo `P1` ne attiva un altro `P2` ci troviamo in una situazione simile, in quanto il nuovo processo appena creato viene inserito in `pronti`, e potrebbe avere priorità superiore a quello in `esecuzione`.
 
 Quello che ci impegniamo a garantire quindi è che i processi _**non possano attivarne altri a priorità maggiore della propria**_.
-Perciò nel nostro sistema <u>non saranno mai necessarie _preemption_</u>.
+Perciò nel nostro sistema <u>non saranno mai necessarie _preemption</u>_.
 
 ## 3.1. Transizione Processi
 

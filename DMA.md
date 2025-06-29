@@ -199,7 +199,7 @@ Per poterlo modificare opportunamente il trasferimento, in questo caso, **deve e
 </div>
 
 Per il punto _3._ immaginando quindi di trovarci in un _sistema multiprocesso_ che realizzi _swap-in/out_ dei processi per poter eseguire più processi di quanti ne possano entrare in **RAM**.
-Supponiamo quindi che un processo `P1` avvii un trasferimento in `DMA` attraverso un _buffer privato_. È quindi necessario che `P1` <u>**non venga mai _swappato_**</u>, altrimenti in quegli indirizzi subentrerebbe un processo `P2` che vedrebbe la sua memoria privata modificata.
+Supponiamo quindi che un processo `P1` avvii un trasferimento in `DMA` attraverso un _buffer privato_. È quindi necessario che `P1` **<u>non venga mai _swappato</u>_**, altrimenti in quegli indirizzi subentrerebbe un processo `P2` che vedrebbe la sua memoria privata modificata.
 
 # 3. PCI Bus Mastering
 
