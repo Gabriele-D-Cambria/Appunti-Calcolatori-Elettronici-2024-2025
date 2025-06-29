@@ -134,13 +134,11 @@
                 console.log('Nessun contenitore MathJax trovato');
                 return;
             }
-
-            console.log('Processando ' + mathContainers.length + ' contenitori MathJax');
             
             // Trova tutti i contenitori MathJax
             mathContainers.forEach(function(mathContainer) {
                 // Controlla se contiene un elemento mjx-mspace
-                const hasSpace = mathContainer.querySelector('mjx-mspace');
+                const hasSpace = mathContainer.querySelector('mjx-math mjx-mspace');
                 
 				mathContainer.classList.add( hasSpace? 'math-display' : 'math-inline');
             });

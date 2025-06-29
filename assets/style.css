@@ -298,6 +298,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* CSS per MathJax - Blocchi matematici */
+
+/* Classe specifica per blocchi display che aggiungeremo via JavaScript */
+.math-display {
+    display: block !important;
+    text-align: center !important;
+    margin: 1em auto !important;
+}
+
+/* Classe per math inline */
+.math-inline {
+    display: inline !important;
+    margin: 0 0.1em !important;
+}
+
+
+
 /* Stile per tutti i contenitori MathJax */
 mjx-container.MathJax {
     display: inline !important;
@@ -327,16 +343,4 @@ p {
     }
 }
 
-/* Classe specifica per blocchi display che aggiungeremo via JavaScript */
-.math-display {
-    display: block !important;
-    text-align: center !important;
-    margin: 1em auto !important;
-}
-
-/* Classe per math inline */
-.math-inline {
-    display: inline !important;
-    margin: 0 0.1em !important;
-}
 
