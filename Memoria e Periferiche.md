@@ -760,7 +760,10 @@ L'interfaccia presenta diversi registri a `8bit` e un registro a `16bit`:
 
 - `STS` registro di stato a `8bit` che contiene un bit che permette di capire quando il registro il lettura è pronto per essere letto.
 
-Con questa interfaccia è possibile salvare $2^{8 + 8 + 8 + 4} \cdot \underbrace{2^9} \;= \; 2^{37}B \atop (2^9 \text{ indica la dimensione in byte di un blocco})$, ovvero `128GB`.
+Con questa interfaccia è possibile salvare `128GB`: 
+$$
+    2^{8 + 8 + 8 + 4} \cdot \underbrace{2^9} \;= \; 2^{37}B \atop (2^9 \text{ indica la dimensione in byte di un blocco})
+$$
 
 ## 2.7. Memoria Cache
 

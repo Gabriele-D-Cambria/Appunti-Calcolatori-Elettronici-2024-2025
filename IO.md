@@ -432,7 +432,10 @@ extern "C" void c_activate_pe(void f(natq), natq a, natl prio, natl liv, natb ir
 L'_handler_ associato alla richiesta di interruzione, i _processi esterni_ e la _primitiva di sistema vera e propria_ avranno quindi questa forma:
 <div class="grid2">
 <div class="top">
-<div class="p"><code>sistema.s</code></div><br>
+<div class="p">
+
+<code>sistema.s</code>
+</div>
 
 ```x86asm
 ; Primitiva di sistema wfi() (waiting_for_interrupt)
@@ -455,7 +458,10 @@ a_wfi:
 
 </div>
 <div class="top">
-<div class="p"><code>io.s</code></div><br>
+<div class="p">
+
+<code>io.s</code>
+</div>
 
 ```x86asm
 .global wfi
@@ -465,7 +471,10 @@ wfi:
 
 ```
 
-<div class="p"><code>io.cpp</code></div><br>
+<div class="p">
+
+<code>io.cpp</code>
+</div>
 
 ```cpp
 extern "C" processo_esterno(natl i){

@@ -173,7 +173,10 @@ Questo processo è detto _**ottimizzazione di schedulazione**_.
 Un esempio è il seguente:
 <div class="grid2">
 <div class="top">
-<div class="p">Prima</div>
+<div class="p">
+
+Prima
+</div>
 
 ```x86asm
 ADD R1, R2, R3
@@ -183,7 +186,10 @@ SUB R9, R0, RA
 ```
 </div>
 <div class="top">
-<div class="p">Dopo</div>
+<div class="p">
+
+Dopo
+</div>
 
 ```x86asm
 ADD R1, R2, R3
@@ -403,7 +409,10 @@ Le dipendenze sui nomi si differenziano in due tipi:
 
 <div class="grid2">
 <div class="top">
-<div class="p">Antidipendenza</div>
+<div class="p">
+
+Antidipendenza
+</div>
 
 Sono così definite:
 > Un'istruizone `i` si dice _**antidipendente**_ da un'altra istruzione `j`, _successiva ad essa_, se `i` utilizza come `src` lo stesso registro `dst` di `j`.
@@ -416,7 +425,10 @@ SUB R4, R5, R1
 ```
 </div>
 <div class="top">
-<div class="p">Dipendenza in uscita</div>
+<div class="p">
+
+Dipendenza
+ in uscita</div>
 
 Sono così definite:
 > Un'istruzione `i` si dice **_dipendente in uscita_** rispetto ad un'altra `j`, se entrambe vogliono scrivere nello stesso registro `dst`.
