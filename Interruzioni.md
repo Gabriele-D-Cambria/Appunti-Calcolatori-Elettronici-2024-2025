@@ -225,7 +225,7 @@ Nel caso in cui ci fossero più richieste con la stessa classe di priorità, and
 In ogni caso <u>l'ultima parola sull'eseguire in maniera effettiva o meno l'interruzione spetta alla **CPU**.</u>
 Solamente quando la **CPU** invia il segnale di `INTA` l'`APIC` sceglierà la richiesta di classe più elevata in `IRR` e la sposterà in `ISR`.
 
-È inoltre possibile configurare `APIC` affinché legga le richieste sui fronti di salito o sui fronti di discesa.
+È inoltre possibile configurare `APIC` affinché legga le richieste sui fronti di salita o sui fronti di discesa.
 
 Con la tastiera abbiamo visto la richiesta sul fronte di salita, vediamo ora quello sul fronte di discesa tramite il contatore:
 ```cpp
