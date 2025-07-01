@@ -276,7 +276,7 @@ Quest'ultimo si troverà quindi nel nuovo `modulo I/O`.
 </div>
 <div class="">
 <figure class="100">
-<img class="30" src="./images/Modulo IO/Relazioni Tra Moduli">
+<img class="30" src="./images/Modulo IO/Relazioni Tra Moduli.png">
 <figcaption>
 
 I moduli `utente` e `I/O` permettono la _non atomicità_, che invece è obbligatoria nel modulo `sistema`.

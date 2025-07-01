@@ -979,7 +979,7 @@ Le funzioni sono `readCR3()`, `readCR2()` e `loadCR3(dir)`.
 
 In particolare si utilizza `loadCR3(dir)`, dove `dir` è il `paddr` della tabella radice, va usata per **attivare un nuovo albero di traduzione**.
 
-Il registro `cr2` contiene l'ultimo `vaddr` che ha **causato un'eccezione di `page fult`**, e <u>non è scrivibile da software</u>.
+Il registro `cr2` contiene l'ultimo `vaddr` che ha **causato un'eccezione di `page fault`**, e <u>non è scrivibile da software</u>.
 
 
 Esiste anche la funzione `invalida_entrata_TLB(v)` che serve a **invalidare la traduzione** associata al `vaddr v` nel `TLB` nel caso ne stesse conservando una copia.
