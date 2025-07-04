@@ -164,7 +164,7 @@ Il privilegio di questa definizione è che possiamo ricavare molto semplicemente
 
 ## 2.4. Oggetti Allineati
 
-Tutte le definizioni sicsssive faranno riferimento ad un oggetto $o$ così definito: $o := [x, x+l)$.
+Tutte le definizioni successive faranno riferimento ad un oggetto $o$ così definito: $o := [x, x+l)$.
 
 ### 2.4.1. Allineamento a un numero $2^n$
 
@@ -216,6 +216,8 @@ Possiamo notare che, per ogni regione, gli ultimi $m$ bit rappresentano l'_offse
 
 Nella memoria RAM possiamo identificare una regione come uno spazio di `8Byte`.
 Assegneremo quindi ad ognuna un numero, detto **numero di riga**, che la identificherà.
+
+Ciò significa che dato un indirizzo `A[63:0]`, il numero di riga verrà identificato dai bit `A[63:3]`. I restanti `A[2:0]` rappresentano l'offset all'interno della riga, e vengono chiamati **_Byte Enabler_** `BE`.
 
 ## 2.5. Comunicazione CPU-Memoria
 
@@ -317,10 +319,10 @@ Quello che il processore deve essere in grado di fare è stabilire in quali regi
 Per fare ciò, dovremo quindi stabilire un modo per capire come determinare **la prima regione toccata** e **la prima regione _non_ toccata** dall'intervallo.
 
 Conoscendo la lunghezza $b$ di ogni sezione:
-- Prima regione toccata: &emsp;&emsp;$\qquad$ `r1 = x >> b`
-- Prima regione _non_ toccata: $\qquad$ `r2 = (((y-1) >> b) + 1) & ((1UL << b) - 1)`
+- Prima regione toccata: &emsp;&emsp;&emsp; `r1 = x >> b`
+- Prima regione _non_ toccata: &emsp; `r2 = (((y-1) >> b) + 1) & ((1UL << b) - 1)`
 
-Per quanto riguarda l'offset del primo indirizzo nella regione lo calcoliamo così: $\qquad$ `off = x & ((1UL << b) - 1) `
+Per quanto riguarda l'offset del primo indirizzo nella regione lo calcoliamo così: &emsp; `off = x & ((1UL << b) - 1) `
 
 ## 2.6. Spazio di I/O e periferiche
 
@@ -488,9 +490,9 @@ In memoria ogni carattere non è definito solo dal suo _ASCII_, ma anche da una 
 | Blinking |    RGB     |    IRGB    |        |
 |  `1bit`  |   `3bit`   |   `4bit`   | `8bit` |
 
-<small>(il bit di _blinking_ indica se il carattere lampeggia, in QEMU è inutile)</small>
-
 </div>
+
+<small>(il bit di _blinking_ indica se il carattere lampeggia, in QEMU è inutile)</small>
 
 Nella nostra macchina la modalità video inizia all'indirizzo `0xB8000`;
 
@@ -570,12 +572,12 @@ namespace vid{
 }
 ```
 
-Il cursore lampeggiante è _hardware_ e se ne occupa la scheda video.
-È quindi comunicare alla scheda video la posizione la sua posizione.
+Il cursore lampeggiante è _hardware_ e se ne occupa la scheda video, perciò è sufficiente comunicare alla scheda video la sua posizione.
+
 È importante sapere che `IND` e `DAT` sono gli unici registri visibili da fuori della scheda video.
+
 La posizione del cursore invece si trova su altri due registri da `8bit` (la posizione sarebbe da 16, la dividiamo in un `CUR_HIGH` e `CUR_LOW`).
-Per modificare questi registri si inserice il loro indirizzo su `IND`, e la modifica su `DAT`.
-`IND` funziona da _switch_ che collega le modifiche di `DAT` al registro specificato.
+Per modificare questi registri si inserice il loro indirizzo su `IND`, e la modifica su `DAT`.`IND` funziona da _switch_ che collega le modifiche di `DAT` al registro specificato.
 
 
 ```cpp
@@ -590,7 +592,7 @@ namespace vid{
     const natb CUR_HIGH = 0x0e;
     const natb CUR_LOW = 0x0f;
 
-    name attr;      // Attributo colore
+    natw attr;      // Attributo colore
     natb x, y;      // coordinate inizialmente nulle;
     volatile natw* video = reinterpret_cast<natw*>(0xB8000);
 
@@ -751,18 +753,18 @@ L'interfaccia presenta diversi registri a `8bit` e un registro a `16bit`:
 - `SNR` (_Sector Number_): indica il numero di settore.
 
 - `HND` (_Head aNd Drive_): negli ultimi 4 bit indica la posizione della testina, nei primi ci sono dei bit introdotti con il tempo, in particolare sono presenti:
-  - `LBA` (_Logical Block Address_): quando è settato combina le informazioni dei registri citati (meno significativi `SNR` più significativi `HND`) prima per poi inviare la comunicazione all'**HD**.
+  - `LBA` (_Logical Block Address_): quando è settato combina le informazioni dei registri citati prima (meno significativi `SNR` più significativi `HND`) per poi inviare la comunicazione all'**HD**.
   - `LBA48`: è un ulteriore bit che permette di inserire più volte i dati nei registri per inviare dati ancora più grandi.
 
 - `SCN` (_Sector Count Number_): indica il numero di blocchi in sequenza coinvolti nell'operazione a partire dal primo.
 
 - `BR` (_Buffer Register_): unico registro a `16bit`, permette di leggere il buffer interno dell'interfaccia. Se i blocchi sono a `512bit` vanno effettuate 128 letture/scritture per trasmettere un blocco.
 
-- `STS` registro di stato a `8bit` che contiene un bit che permette di capire quando il registro il lettura è pronto per essere letto.
+- `STS` registro di stato a `8bit` che contiene un bit che permette di capire quando il registro in lettura è pronto per essere letto.
 
-Con questa interfaccia è possibile salvare `128GB`: 
+Ricordando che $2^9$ indica la dimensione in byte di un blocco, con questa interfaccia è possibile salvare ben `128GB`: 
 $$
-    2^{8 + 8 + 8 + 4} \cdot \underbrace{2^9} \;= \; 2^{37}B \atop (2^9 \text{ indica la dimensione in byte di un blocco})
+    2^{8 + 8 + 8 + 4} \cdot 2^9 \;= \; 2^{37}\:\text{B} \; = 2^7\:\text{GB} \;= 128\: \text{GB}
 $$
 
 ## 2.7. Memoria Cache
@@ -783,7 +785,7 @@ La _cache_, a differenza della **RAM Dinamica**, è molto più veloce, e riesce 
 
 Un modo per avere **RAM** più veloci è quello di utilizzare le **RAM Statiche** invece di quelle _dinamiche_.
 Le **RAM Statiche** conservano l'informazione tramite `Flip-Flop`, e sono realizzabili con 6/7 transistor.
-Le **RAM Dinamiche** invece utilizzano microcondrensatori che necessitano che l'informazione venga periodicamente "rinfrescata".
+Le **RAM Dinamiche** invece utilizzano microcondensatori che necessitano che l'informazione venga periodicamente "rinfrescata".
 
 <div class="flexbox" markdown="1">
 
@@ -800,7 +802,8 @@ Infatti, nonostante l'accesso del programmatore alla memoria sia per definizione
 
 Il codice infatti si distribuisce in locazioni di memoria sequenziali, e, statisticamente, **raramente** effettua salti casuali tra istruzioni.
 Su questa assunzione di base si fondano i due **_Principi di Località_**:
-> <span class="bigger">Pricipio di località Temporale</span>: visto un dato è probabile che molto presto si voglia utilizzare di nuovo.
+> <span class="bigger">Principio di località Temporale</span>: visto un dato è probabile che molto presto si voglia utilizzare di nuovo.
+
 > <span class="bigger">Principio di località Spaziale</span>: visto un indirizzo è probabile che a breve ci si ritorni.
 
 <div class="grid2">
@@ -825,8 +828,8 @@ La memoria cache lavora _solo_ sulla **RAM**, non ha alcun senso che lavori per 
 
 Il controllore verifica che un dato richiesto dalla CPU sia già stato memorizzato.
 Se lo è stato lo invia immediatamente, altrimenti effettua una lettura in **RAM** e lo invia alla **CPU**.
-Prima di inviarlo però o salva localmente, eventualmente rimpiazzando altri dati che erano già salvati.
-La scelta della sovrascrizione di un dato può essere obbligata (come vedremo noi) oppure può utilizzare diversi meccanismi legati alla sua architettura per fare una scelta.
+Prima di inviarlo però lo salva localmente, eventualmente rimpiazzando altri dati che erano già salvati.
+La scelta di quale dato sovrascrivere può essere determinata automaticamente dall'architettura (come nel nostro caso) oppure può utilizzare diversi meccanismi di selezione specifici dell'architettura stessa.
 
 ### 2.7.1. Cache ad Indirizzamento Diretto
 
@@ -869,7 +872,7 @@ Il guadagno del non fare direttamente il `write-through` si vede quando effettui
 
 Per migliorare il tempo si aggiunge un'ulteriore `bit` alle etichette chiamato `D` (_Dirty_) che identifica se in una determinata _cache-line_ sono avvenute o meno scritture.
 
-Questo tipo di _cache_ è particolarmente poco efficente quando cerchiamo di leggere e scrivere due _cacheline_ in memoria allineati naturalmente alla dimensione della _cache_.
+Questo tipo di _cache_ è particolarmente poco efficente quando cerchiamo di accedere a due _cacheline_ in memoria allineate naturalmente alla dimensione della _cache_.
 In questo caso ogni accesso causa una `miss`, proprio perché i due indirizzi collidono.
 Un modo per risolvere il problema è attraverso le **cache associative ad insiemi**.
 
