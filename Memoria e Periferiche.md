@@ -904,9 +904,9 @@ Tuttavia, nel processore _x86_, è stato implementato uno `pseudo-LRU` a `3bit`
 <div class="grid2">
 <div class="">
 
-Lo `pseudo-LRU` parte dallo stato stato `000` (`b0`|`b1`|`b2`).
+Vediamo come si comporta lo `pseudo-LRU` ipotizzando di fare sempre `miss`.
 
-Vediamo come si comporta ipotizzando di fare sempre `miss`:
+Lo stato iniziale è `000` (`b0`\|`b1`\|`b2`).
 
 Il primo accesso verrà salvato nella cache `A` seguendo il percorso `b0`-`b1`.
 Questi bit vengono quindi invertiti, portando il nuovo stato a `110`.
@@ -926,11 +926,7 @@ Questa politica si chiama `pseudo-LSU` perché, ipotizzando di aver appena salva
 </div>
 
 Tuttavia anche con il registro `LRU` è possibile generare sempre `miss`.
-Basta infatti effettuare un accesso in più di quelli possibili in parallelo, ad esempio:
-- `ABCD`
-- `1234512345`
-
-Questo genererà sempre `miss`.
+Basta infatti effettuare un accesso in più di quelli possibili in parallelo, ad esempio se avessimo quattro cache e facessimo l'accesso a 5 linee allineate, genereremmo sempre una `miss`.
 
 Questo è ciò che genera gli "scalini" nel grafico visto all'inizio e qui riproposto nel dettaglio:
 <figure class="60">
