@@ -11,12 +11,10 @@
 Fin'ora i programmmi che abbiamo scritto e quelli degli esempi, hanno sempre avuto **il pieno controllo di tutta la macchina `QEMU`**.
 I programmi avevano a disposizione infatti **tutto lo spazio di I/O** e **tutto lo spazio di memoria**.
 
-Nella realtà questa situazione è possibile solo qualora eseguissimo un unico programma alla volta, così come veniva fatto con i primi calcolatori.
+Nella realtà questa situazione è possibile solo qualora eseguissimo un unico programma alla volta, così come veniva fatto con i primi calcolatori, quando un calcolatore occupava l’area di una palestra, ed una Università poteva averne uno o forse due.
 
-Quando un calcolatore occupava l’area di una palestra, ed una Università poteva averne uno o forse due.
-
-I primi _calcolatori_ venivano usati in modalità `batch`:
-Gli utenti—ricercatori o studenti—preparavano i programmi a casa, su fogli di carta, scrivendoli in `linguaggio macchina` o in `FORTRAN`.
+I primi _calcolatori_ venivano infatti usati in modalità `batch`:  
+Gli utenti, ricercatori o studenti, preparavano i programmi a casa su fogli di carta scrivendoli in `linguaggio macchina` o in `FORTRAN`.
 Portavano poi i loro fogli al centro di calcolo, dove alcuni impiegati potevano trascriverli su nastro o su schede perforate.
 Ogni pacco di schede, contenente il programma di un utente, rappresentava un _job_.
 L’utente consegnava poi il suo _job_ agli operatori del calcolatore e in un secondo momento sarebbe dovuto ritornare a ritirare i risultati, tipicamente sotto forma di un tabulato stampato su carta.
@@ -45,14 +43,14 @@ Questa soluzione, che poi sarà quella che vedremo più avanti, presenta però d
 Un'opzione potrebbe essere controllare manualmente i _job_ consegnati per verificare che non disattivino le interruzioni né eseguano processi all'I/O direttamente da programma.
 Tuttavia questa operazione è estremamente difficile e potenzialmente impossibile, in quanto il programmatore può utilizzare metodi più o meno complessi per mascherare le sue azioni.
 
-Sono quindi state apportate delle modifiche sull'**hardware** per insegnare al processore che **_alcune operazioni sono vietate in determinati contesti_**.
-Per risolvere il primo problema creiamo una distinzione del contesto nel quale la **CPU** sta operando:
-- `utente`
-- `sistema`
+Sono quindi state apportate delle modifiche sull'**hardware** per imporre al processore che **_alcune operazioni sono vietate in determinati contesti_**.
+Per risolvere il primo problema creiamo una distinzione del contesto nel quale la **CPU** sta operando, differenziando tra:
+- Contesto `utente`
+- Contesto `sistema`
 
-Andremo quindi a **vietare `IN`, `OUT`, `CLI`, `STI` per il _contesto `utente`_**, permettendole solamente quando ci si trova nel _contesto `sistema`_.
+Andremo quindi a **vietare le istruzioni di `IN`, `OUT`, `CLI`, `STI` per il _contesto `utente`_**, permettendole solamente quando ci si trova nel _contesto `sistema`_.
 
-Dovremo quindi solamente far capire al processore **in quale contesto si trova**, cosa relativamente semplice poiché si tratta di due contesti.
+Dovremo quindi solamente far capire al processore **in quale contesto si trova** (cosa relativamente semplice poiché si tratta di due contesti).
 È infatti sufficente fornire un singolo `bit` al processore che se settato indica il _contesto sistema_, se resettato invece si trova nel _contesto utente_.
 Questo bit si trova nel registro chiamato `CS` (_Code Selector_).
 
@@ -69,7 +67,7 @@ Per far funzionare ciò dobbiamo quindi _togliere agli utenti la possibilità di
 
 Uno dei modi per poterlo fare è quello di **sfruttare le eccezioni**: permetteremo all'utente di utilizzare una determinata eccezione (non modificabile nella memoria), salvando in un registro quale routine si vuole chiamare.
 
-La _intel_ ha adottato un sistema diverso, introducendo un nuovo operando `INT $tipo` che fa da _gate_ per chiamare la _routine_ (_primitiva di sistema_) e passare in modalità `sistema`.
+La _intel_ ha adottato un sistema diverso, introducendo un nuovo operando assembler `INT $tipo` che fa da _gate_ per chiamare la _routine_ (_primitiva di sistema_) e passare in modalità `sistema`.
 `$tipo` è un numero tra `0` e `255`, ed ha lo stesso significato del tipo delle eccezioni e delle interruzioni esterne.
 
 Per fare il passaggio inverso da `sistema` a `utente` l'**unica istruzione utilizzabile** è la `IRETQ`, chiamata alla fine della _routine_.
@@ -99,7 +97,7 @@ Il livello di privilegio può essere cambiato solo in due modi:
 | Operazione         | Livello di privilegio    |
 | ------------------ | ------------------------ |
 | _gate_ della `IDT` | `utente` $\to$ `sistema` |
-| Istruzione `IRETq` | `sistema` $\to$ `utente` |
+| Istruzione `IRETQ` | `sistema` $\to$ `utente` |
 
 </div>
 
@@ -113,9 +111,9 @@ Ogni _gate_ della `IDT` occupa `16Byte` e contiene le segueni informazioni:
 
 - `P` (_Presenza_): indica se la riga contiene bit significativi
 
-- `I/T`: indica se il _gate_ è di tipo _Interrupt_ o _Trap_
+- `I/T`: indica se il _gate_ è di tipo _Interrupt_ (azzera `IF`) o _Trap_ (mantiene `IF` invariato).
 
-- `L` (_Livello_): indica il _livello di privilegio_ al quale portare il processore **dopo** aver passato il _gate_. Nel nostro caso sarà sempre settato a `sistema`.
+- `L` (_Livello_): indica il _livello di privilegio_ al quale portare il processore **dopo** aver passato il _gate_. Nel nostro caso sarà sempre settato a `sistema`.<!--  -->
 
 - `DPL` (_Descriptor Privilege Level_): specifica il **livello di privilegio minimo** che deve avere il processore **prima** di passare il gate. Può vietare l'utilizzo di alcuni gate attraverso l'istruzione `INT` generando un'_eccezione di protezione_ `13`. 
   I programmatori di sistema possono settarlo come:
@@ -125,19 +123,21 @@ Ogni _gate_ della `IDT` occupa `16Byte` e contiene le segueni informazioni:
 La `IDT` viene inizializzata tramite il programma di _bootstrap_, in particolare utilizzando l'istruzione `LIDTR` che carica l'indirizzo della `IDT` nel registro `IDTR` che il processore utilizza per accedere ala tabella e allocando `IDT` nella memoria `M1`.
 Per non permettere la modifica di `IDT` da parte dell'utente l'istruzione `LIDTR` è anch'essa **vietata** nel contesto _utente_.
 
-Quando il processore accede all'`IDT`:
-1. si procura il _tipo_ dell'interruzione
+Quando il processore accede all'`IDT` accadono questi passaggi:
+
+1. Innanzitutto il processore si procura il _tipo_ dell'interruzione
    - In caso di _eccezione_ il tipo è implicito;
    - In caso di _interruzione **esterna**_, riceve il tipo dall'`APIC`;
-   - In caso di _interruzione **software**_ è il tipo dell'istruzione `INT $tipo`.
+   - In caso di _interruzione **software**_ è l'argomento specificato nell'istruzione `INT $tipo`.
 
-2. Verifica se il bit `P` è zero, generando un'eccezione di _gate non presente_ `11` in caso positivo, negli altri casi procede.
+2. Verifica se il bit `P` associato al tipo è zero, generando un'eccezione di _gate non presente_ `11` in caso positivo, negli altri casi procede.
 
 3. Se sta gestendo una _interruzione software_ o `int3`, confronta il livello corrente con il campo `DPL` del gate.
    Se il livello corrente è meno privilegiato di `DPL` si genera una _eccezione di protezione_ `13`.
 
 4. Altrimenti, confronta `CS` con `L`.
-   Se `L` è **inferiore**, si genera ancora un'_eccezione di protezione_ `13`
+   Se `L` è **inferiore**, si genera ancora un'_eccezione di protezione_ `13`. 
+   Questo perché attraverso la `IDT` **<u>non è possibile abbassare il livello di privilegio</u>** ma solamente mantenerlo o aumentarlo.
 
 5. Negli altri casi, il processore salva in un registro di appoggio (chiamiamolo `SRSP`) il contenuto corrente di `RSP`
 
@@ -145,17 +145,17 @@ Quando il processore accede all'`IDT`:
    <small>(vedremo più avanti dove si trova questo valore)</small>
 
 7. Salva in pila `5 long word`. In ordine:
-   [0] `1 long word` non significativa (rimasuglio della segmentazione, ...)
-   [1] Il contenuto di `SRSP` (vecchia pila nel caso di cambio pila)
-   [2] `RFLAGS`
-   [3] `CS`
-   [4] `RIP`
+   - [0] `SS`: `1 long word` non significativa (rimasuglio della segmentazione, ...)
+   - [1] `SRSP`: pila salvata al passo 5. Nel caso di cambio pila è quella `utente`, altrimenti punta alla pila `sistema` stessa
+   - [2] `RFLAGS`: registro dei flag
+   - [3] `CS`: vecchio valore del `CS` da ripristinare successivamente
+   - [4] `RIP`: indirizzo della prima istruzione da eseguire all'uscita del gate. Nel caso di interruzioni software `INT $tipo` questo contiene l'istruzione immediatamente successiva
 
-8. Azzera:
+8. Il processore poi azzera:
    - `TF` in ogni caso;
    - `IF` solo se il gate è di tipo _Interrupt_.
 
-9.  Salta infine all'indirizzo della _routine_ puntata dal gate.
+9. Salta infine all'indirizzo della _routine_ puntata dal gate.
 
 Le interruzioni di protezione sono progetatte per poter **solamente _mantenere o alzare_** il _livello di privilegio_.
 
@@ -165,13 +165,11 @@ Il cambio di pila è **_necessario_**, è ha due motivazioni:
   In particolare, è bene che l’utente non possa modificare il valore salvato di `CS`.
 
 Quando si chiama la `IRETQ` per tornare indietro, si effettua un'accesso alla _pila di sistema_:
-1. Confronta il valore corrente di `CS` con quello salvato in pila
-   Se quello salvato è più **alto** di quello corrente genera una _eccezione di protezione_ `13`
+1. Confronta il valore corrente di `CS` con quello salvato in pila, generando un _eccezione di protezione_ `13` qualora quello salvato fosse più **alto**;
 2. Ripristina i valori di `RIP`, `CS`, `RFLAGS` e `RSP` leggendo i corrispondenti valori dalla pila.
 
 La `IRETQ` è progettata per poter **solamente _abbassare_** il _livello di privilegio_.
 
-Nei primi processori _intel_ ogni _job_ aveva un proprio **segmento** di un registro chiamato `TSS` (simile ad una pila).
-Questo segmento che indicava la pila a disposizione del _job_.
+Nei primi processori _intel_ ogni _job_ aveva un proprio **segmento** di un registro chiamato `TSS`, che indicava la pila a disposizione del _job_.
 Per identificare la _pila sistema_ si accedeva prima ad un'altro registro, `TR` (_Task Register_), che indicava quale segmento era associato a quel _job_.
 
