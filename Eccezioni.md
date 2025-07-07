@@ -14,13 +14,11 @@ Esistono quindi alti tipi di interruzioni inviate tramite fili `NMI` che non pos
 Sulle `NMI` viaggiano tra le altre cose le _**eccezioni**_.
 Le eccezioni, quando vengono _sollevate_, sono quindi gestite immediatamente attraverso _routine_.
 
-Le _routine_ delle eccezioni sono anch'esse salvate nella `IDT`, in particolare nelle **prime 32 entrate**.
-I tipi delle eccezioni sono **fissi e impliciti**, consultabili nel manuale del processore.
-
-Alcune famose sono:
+Le _routine_ delle eccezioni sono anch'esse salvate nella `IDT`, in particolare nelle **prime 32 entrate**. I loro tipi sono **fissi e impliciti**, consultabili nel manuale del processore.
+Alcune eccezioni famose sono:
 - `0`: **Divisione per zero**
 - `1`: **Single-Step**: viene avviato se il flag `TF` è settato.
-  Il processore genererà quindi un'eccezione alla fine di ogni operazione eseguita.
+  Il processore genererà quindi un'eccezione alla fine di ogni istruzione eseguita.
 - `3`: **Eccezione di debug** (istruzione `int3`)
 
 ## 2.1. Eccezione di Debug `int3`
