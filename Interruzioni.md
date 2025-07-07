@@ -46,7 +46,7 @@ Un approccio al problema potrebbe essere questo:
 4. Calcolo $f(x_2)$
 5. ...
 
-Questo approccio però perde del tempo durante l'attesa di `chechFlag()`.
+Questo approccio però perde del tempo durante l'attesa di `checkFlag()`.
 In particolare potremmo utilizzare questo tempo per precalcolare le $f(x_i)$ successive.
 
 Un'opzione che potremmo utilizzare è quello di controllare `checkFlag()` più volte all'interno del programma:
@@ -112,13 +112,13 @@ Per quanto riguarda la gestione delle interruzioni durante _routine_, nel proces
 - `CLI` (_CLear Interact flag_).
 
 
-Quando il processore _accetta un'interruione_ salva nella pila
+Quando il processore _accetta un'interruzione_ salva nella pila diverse informazioni, tra le quali:
 - `RIP` per capire dove tornare al termine della routine
 - `RFLAG` per poter poi ripristinare i flag come se la routine non fosse mai avvenuta.
 
 Nelle routine ci sono alcune regole da seguire:
 1. Ricordarsi di settare e resettare correttamente `IF` tramite le istruzioni `STI` e `CLI`
-1. Utilizzare l'istruzione `IRETq` piuttosto che `RET`. `IRETq` ripristina `RFLAG` e altri registri prima di ripristinare `RIP`.
+1. Utilizzare l'istruzione `IRETq` piuttosto che `RET`. `IRETq` infatti si ripristina lo stato del processore a prima che la routine iniziasse, in particolare ripristina `RFLAG` e gli altri registri prima di ripristinare `RIP`.
 
 ## 2.1. Interruzioni a più sorgenti - APIC
 
@@ -131,12 +131,13 @@ In particolare, nella macchina `QEMU` che studiamo abbiamo tre interfacce che ge
 <div class="grid2">
 <div class="">
 
-Per gestire tutte le richieste viene introdotto una nuova componente, detto **_Controllore delle Interruzioni_** `APIC` (_Advanced Programmable Interrupt Controller_).
+Per gestire tutte le richieste viene introdotto una nuova componente, detto **_Controllore delle Interruzioni_** l'`APIC` (_Advanced Programmable Interrupt Controller_).
 
-Il _controllore_ è collegato alle periferiche tramite tre fili, ognuna collegata ad un piedino noto, in particolare quelli a noi rilevanti sono:
-- **Tastiera** $\harr$ `1`
-- **Timer** $\harr$ `2`
-- **Hard Disk** $\harr$ `14`
+Il _controllore_ è collegato alle periferiche tramite tre fili, ognuna collegata ad un **_piedino noto dalle specifiche_**.
+Nel nostro calcolatore i dispositivi rilevanti sono connessi ai seguenti piedini
+- **Tastiera** $\leftrightarrow$ `1`
+- **Timer** $\leftrightarrow$ `2`
+- **Hard Disk** $\leftrightarrow$ `14`
 
 Quando uno di questi segnali viene settato l'`APIC` invia alla **CPU** un segnale tramite un suo registro interno chiamato `INTR` (_INTervall Request_), inizializzando un _handshake_.
 
@@ -152,12 +153,25 @@ Successivamente l'`APIC` carica il tipo sul _bus_ così che la **CPU** lo possa 
 </div>
 </div>
 
+Vedremo successivamente che l'`APIC` conserva tre informazioni per ogni piedino:
+
+<div class="flexbox" markdown="1">
+
+| Registro |                                   Funzione                                   | Valore di _Default_  |
+| :------: | :--------------------------------------------------------------------------: | :------------------: |
+|  `VECT`  |               Tipo associato alle interruzioni su quel piedino               |          -           |
+|  `TRGM`  |    (_Trigger Mode_) indica se generare segnali su _livello_ o su _fronte_    | `true` (**livello**) |
+|  `MIRQ`  | Maschera che indica se l'`APIC` deve stare in ascolto su quel piedino o meno |   `0` (mascherata)   |
+
+</div>
+
 Affinché tutto questo funzioni, la **CPU** ha un suo registro interno chiamato `IDTR` (_Interact Descriptor Table Register_) che ha salvato l'indirizzo della `IDT` salvata in memoria.
-La `IDT` è una tabella che ha per ogni riga delle informazioni, tra le quali:
+La `IDT` è una tabella che ha per ogni riga delle informazioni che vedremo meglio nel dettaglio nella sezione dedicata alla [Protezione](./Protezione).
+Alcune informazioni sono:
 - _Indirizzo della routine_ dove saltare
 - Flag per capire se la **CPU** deve disabilitare `IF` o meno durante la _routine_.
 
-`IDT` **deve essere allocata dal programmatore**, e ogni sua riga viene identificata dal _tipo_ che il programmatore ha precedentemente dato ai piedini di `APIC`.
+La `IDT` **deve essere allocata dal programmatore**, e ogni sua riga viene identificata dal _tipo_ che il programmatore ha precedentemente dato ai piedini dell'`APIC`.
 
 Da software questo si fa con i seguenti comandi:
 ```cpp
@@ -168,14 +182,12 @@ namespace kbd {
 	const ioaddr iCMR = 0x64;
 	const ioaddr iTBR = 0x60;
 
-	void enable_intr()
-	{
+	void enable_intr() {
 		outputb(0x60, iCMR);
 		outputb(0x61, iTBR);
 	}
 
-	void disable_intr()
-	{
+	void disable_intr() {
 		outputb(0x60, iCMR);
 		outputb(0x60, iTBR);
 	}
@@ -194,18 +206,19 @@ kbd::enable_intr();		        	// Permetto alla tastiera di generare segnali di i
 Il comando `gate_init()` ha un terzo parametro settato di default su `false`, che imposta `IF = 0` durante le _routine_, affinché non possano essere interrotte. Se volessimo invece che una _routine_ possa essere interrotta, dobbiamo impostarlo esplicitamente a `true`.
 
 Per capire se c'è una nuova richiesta o meno, si utilizza un metodo software chiamato **controllo su Livello**.
-Questo tipo di controllo fa in modo che `APIC`, dopo aver inviato una richiesta, guardi nuovamente i piedini **<u>solo dopo aver ricevuto il segnale di gestione completata dell'interruzione</u>**.
-Per inviare questo segnale il _software_ utilizza il registro `EOI` (_End Of Interrupt_) di `APIC`.
+Questo tipo di controllo fa in modo che l'`APIC`, dopo aver inviato una richiesta, guardi nuovamente i piedini **<u>solo dopo aver ricevuto il segnale di gestione completata dell'interruzione</u>**.
+Per inviare questo segnale il _software_ utilizza il registro `EOI` (_End Of Interrupt_) del controllore `APIC`.
 
-È importante che questo `bit` venga settato **quando tutta la routine è terminata** e non c'è altro da fare, per evitare comportamenti indesiderati da parte di `APIC` che potrebbe reinviare segnali di interruzioni su eventi già gestiti.
+Per evitare comportamenti indesiderati da parte dell'`APIC` è importante che questo `bit` venga settato **quando tutta la routine è terminata** e non c'è altro da fare.
+Se così non fosse, il controllore potrebbe reinviare segnali di interruzioni su eventi già gestiti.
 
-Oltre a `EOI`, `APIC` possiede altri due reigstri a `256bit`:
-- `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU**.
-- `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati
+Per gestire le richieste di interruzione, l'`APIC`, oltre a `EOI`, possiede altri due registri a `256bit`:
+- `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
+- `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
 
 Nel _debugger_ della macchina `QEMU` esiste il comando `apic` che ci permette di visualizzare il contenuto di questi due registri.
 
-Vedremo nel dettaglio questi registri più avanti.
+Vediamo quindi nel dettaglio come vengono utilizzati questi registri nel prossimo capitolo.
 
 ### 2.1.1. Gestione più richieste
 
@@ -219,15 +232,15 @@ Il programmatore ha quindi il compito di assegnare una **precedenza** alle varie
 
 Quando assegna un tipo il programmatore ha `8bit`, dove i 4 più significativi indicano la _classe di precedenza_.
 
-Se arriva una nuova richiesta che ha _classe strettamente maggiore_ `APIC` invierà una **nuova richiesta**, negli altri casi attenderà `EOI`, per poi inviare la successiva richiesta con classe più alta in `IRR`.
+Se arriva una nuova richiesta che ha _classe strettamente maggiore_ l'`APIC` invierà una **nuova richiesta**, negli altri casi attenderà `EOI`, per poi inviare la successiva richiesta con classe più alta in `IRR`.
 Nel caso in cui ci fossero più richieste con la stessa classe di priorità, andrà a discriminare sui `4bit` meno significativi, inviando quella con il valore più alto.
 
-In ogni caso <u>l'ultima parola sull'eseguire in maniera effettiva o meno l'interruzione spetta alla **CPU**.</u>
-Solamente quando la **CPU** invia il segnale di `INTA` l'`APIC` sceglierà la richiesta di classe più elevata in `IRR` e la sposterà in `ISR`.
+In ogni caso <u>l'ultima parola sull'eseguire in maniera effettiva o meno l'interruzione spetta alla <strong>CPU</strong>.</u>
+Solamente quando la **CPU** invierà il segnale di `INTA` l'`APIC` sceglierà la richiesta di classe più elevata in `IRR` e la sposterà in `ISR`.
 
-È inoltre possibile configurare `APIC` affinché legga le richieste sui fronti di salita o sui fronti di discesa.
+È inoltre possibile configurare l'`APIC` affinché legga le richieste sui fronti di salita o sui fronti di discesa.
 
-Con la tastiera abbiamo visto la richiesta sul fronte di salita, vediamo ora quello sul fronte di discesa tramite il contatore:
+Con la tastiera abbiamo visto le richieste su livello, vediamo ora come impostare quelle sul fronte di salita tramite il contatore:
 ```cpp
 #include <libce.h>
 
@@ -296,7 +309,7 @@ Infatti, il segnale è settato per `25ms`, che è un tempo **molto maggiore** de
 Il compilatore **non ha idea di come distiguere le _funzioni routine_** dalle altre.
 Perciò il comportamento di _default_  segue le classiche politiche di compilazione:
 - Terminare la traduzione del codice con una classica `RET` invece che di `IRETq`,
-- Ottimizzare il codice, non tenendo conto però del fatto che per via delle interruzioni alcune variabili/registri possano essere utilizzati in maniera non prevedibile
+- Ottimizzare il codice senza tenenre conto del fatto che, per via delle interruzioni, alcune variabili/registri potrebbero subire modifiche in maniera non prevedibile
 
 Per ovviare a ciò quello che facciamo è inserire manualmente degli _snippet_ in **assembler** per poter terminare la chiamata alla funzione con la `IRETq`:
 
@@ -333,6 +346,7 @@ Nel caso in cui **sia il nostro flusso principale che la _routine_** utilizzino 
 
 Per ovviare anche a questo la soluzione è quella di salvare il contenuto di **tutti i registri** nella pila.
 In `assembly` su `64bit` non esistono equivalenti della `PUSHAD`/`POPAD`, ma possiamo utilizzare una macro messa a disposizione dalla libreria, trasformando il nostro codice così:
+
 ```x86asm
 #include <libce.h>
 	.global a_tastiera
@@ -348,6 +362,7 @@ Un altro tipo di problemi che compaiono spesso sono quelli generati quando le _r
 Il compilatore, quando ottimizza, eviterà infatti di effettuare controlli multipli su una variabile che sa non cambiare mai, ignorando che queste modifiche potrebbero avvenire per via della routine.
 
 Per "forzare" il compilatore a controllare queste variabili, un metodo è quello di utilizzare la keyword `volatile`, che indica al compilatore che la variabile ha un comportamento inaspettato, e che quindi non può dare per scontato le sue variazioni.
+
 ```cpp
 volatile bool fine = false;
 ```
