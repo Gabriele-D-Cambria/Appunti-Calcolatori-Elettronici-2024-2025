@@ -29,6 +29,11 @@
                 }
             });
             
+            // Crea un alias per x86asm che usa la grammatica NASM
+            if (window.Prism && Prism.languages.nasm) {
+                Prism.languages.x86asm = Prism.languages.nasm;
+            }
+        
             // Riapplica Prism dopo aver aggiunto le classi
             if (window.Prism) {
                 Prism.highlightAll();
@@ -145,7 +150,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
     <!-- Poi carica C++ che dipende da C -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <!-- Assembly x86 (NASM syntax) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
     <!-- Verilog dovrebbe funzionare da solo -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-verilog.min.js"></script>
+    <!-- Bash/Shell scripting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <!-- Log files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-log.min.js"></script>
 </body>
 </html>
