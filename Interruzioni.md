@@ -6,6 +6,8 @@
 		- [2.1.1. Gestione più richieste](#211-gestione-più-richieste)
 		- [2.1.2. Gestione corretta delle routine](#212-gestione-corretta-delle-routine)
 
+<div class="stop"></div>
+
 # 2. Interruzioni
 
 Il processore lavora su un flusso di controllo, determinato esclusivamente e univocamente da software.

@@ -13,6 +13,7 @@
   - [3.1. Transizione Processi](#31-transizione-processi)
   - [3.2. Creazione nuovo Processo](#32-creazione-nuovo-processo)
 
+<div class="stop"></div>
 
 # 2. Sistemi Multiprocesso
 
@@ -44,11 +45,11 @@ Se un processo `P1` esegue una istruzione `MOV %rax, 1000` si sta riferendo al "
 Mentre se la esegue un processo `P2` parlerà di un diverso `%rax` e di un diverso contenuto dell'indirizzo `1000`.
 
 Il _contesto di un processo_ comprenderà quindi:
-- Tutta la memoria (`M2`) usata dal processo (la immaginiamo per ora salvata nell'`HD`)
+- Tutta la memoria (`M2`) usata dal processo. Qualora il processo non fosse in esecuzione, la immaginiamo per ora salvata nell'`HD`
 - Una **copia privata** di tutti i registri del processore, salvati in una opportuna struttura dati.
 
-Per cambiare il contesto quando passiamo da un processo all'altro (ovvero quando eseguiamo _swap-out_ e _swap-in_ della memoria) si utilizziamo tecniche _sofware_:
-> Ogni volta che si effettua un cambio di processo, andiamo a **salvare in una struttura dati** i valori dei registri e della memoria del processo terminato.
+Per cambiare il contesto quando passiamo da un processo all'altro (ovvero quando eseguiamo _swap-out_ e _swap-in_ della memoria) utilizziamo tecniche _sofware_:
+> Ogni volta che si effettua un cambio di processo, andiamo a **salvare in una struttura dati** i valori dei registri e della memoria del processo terminato.<br>
 > Successivamente _copiamo i valori precedentemente salvati_ nella struttura dati associata al nuovo processo, rendendolo il **processo corrente** (o **processo attivo**)
 
 Dobbiamo quindi implementare il _software_, in `M1`, che fa queste cose.
@@ -116,16 +117,19 @@ Oltre a queste _sottodirectory_ troviamo anche **due file**:
 - `MakeFile`: contiene le istruzioni per il programma `make` del sistema di appoggio.
 - `run`: uno script che permette di avviare il sistema su una `VM`
 
-Il `MakeFile` può essere utilizzato per generare la documentazione (se sono installati `Doxygen` e `PAandoc`) lanciando il comando
-```x86asmh
+Il `MakeFile` può essere utilizzato per generare la documentazione (se sono installati `Doxygen`, `Pandoc` e `Graphviz`) lanciando il comando
+```bash
 make doc
 ```
 Se ha successo si troverà nell'indice `doc/html/index.html`.
 
-Per compilare tutti i moduli si utilizza, **_nella directory_** `nucleo-8.3`:
-```x86asmh
-make
+Per compilare tutti i moduli si utilizza, **_nella directory_** `nucleo-8.3` il comando `make`.
+Questo comando può prendere alcuni parametri:
+```bash
+make clean    # Elimina tutti i file oggetto creati
+make reset    # Elimina tutti i file oggetto e i moduli creati
 ```
+
 
 ### 2.4.1. Scrittura programmi utente
 
@@ -147,7 +151,7 @@ void main(){
     // Necessaria poiché il <main> deve chiedere al sistema di poter terminare
 }
 ```
-> Hello, world!
+> Hello, world!<br>
 > Premere un tasto per continuare
 
 ### 2.4.2. Avvio sistema
@@ -156,7 +160,7 @@ Una volta costruiti i moduli possiamo avviare il sistema.
 La procedura di `boostrap` è la stessa di quella già vista, e può essere avviata tramite lo script `boot`.
 
 I processori _intel_ sono ancora oggi progettati per avviarsi a `16bit` in modalità non protetta.
-Via _software_ vengono poi portati in modalità protetta a `32bit`, in generae grazie ad un programma di `bootstrap` nel `BIOS`.
+Via _software_ vengono poi portati in modalità protetta a `32bit`, in generale grazie ad un programma di `bootstrap` nel `BIOS`.
 Nel nostro caso sarà l'emulatore stesso ad effettuare questo primo passaggio.
 
 Tocca a noi però portare il processore nella modalità a `64bit`, e questo compito lo facciamo svolgere al programma `boot.bin` che può cedere il controllo al modulo `sistema`.
@@ -168,7 +172,7 @@ Una volta avviato vedremo una nuova finestra che rappresenta il video della _VM_
 Nel terminale dal quale abbiamo lanciato `boot` vedremo tutta una serie di messaggi, che altro non sono che quelli inviati sulla porta seriale della _VM_, che adesso andiamo ad analizzare:
 
 <div class="grid2">
-<div class="top">
+<div class="">
 
 Le righe 1-15 arrivano dal programma `boot.bin`:
 - Nelle righe 4–7 il programma `boot.bin` ci informa del fatto che il `bootloader` precedente (nel nostro caso `QEMU` stesso) ha caricato in
@@ -190,96 +194,96 @@ Da questo punto in poi l’inizializzazione prosegue nel _processo_ `main_sistem
 
 Il processo `main_sistema`:
 - Alla riga 41 **attiva il timer**
-- Alle righe 42-43 e crea il processo `main_io`
+- Alle righe 42-43 crea e attiva il processo `main_io`
 - Le righe 44–53 sono invece relative all’inizializzazione del modulo `io`, eseguita da questo processo.
 
 Quando il processo `main_io` termina, processo `main_sistema` **crea il primo processo utente** (righe 54–55) e gli cede il controllo (riga 56), semplicemente terminando (riga 57).
 
 In questo caso il processo `utente` esegue del codice che verrà eseguito per poi terminare.
 
-Il controllo passa quindi a `dummy` (`id 0`), che si accorge che **non ci sono più processi utente** e quindi _**ordina lo shutdown della macchina `QEMU`**_ (riga 60).
+Il controllo passa quindi a `dummy` (`id = 0`), che si accorge che **non ci sono più processi utente** e quindi _**ordina lo shutdown della macchina `QEMU`**_ (riga 60).
 </div>
-<div class="top">
+<div class="">
 
-```txt
- 1 | INF - Boot loader di Calcolatori Elettronici, v1.0
- 2 | INF - Memoria totale: 32 MiB, heap: 636 KiB
- 3 | INF - Argomenti: /home/giuseppe/CE/lib/ce/boot.bin
- 4 | INF - Il boot loader precedente ha caricato 3 moduli:
- 5 | INF - - mod[0]: start=114000 end=12f580 file=build/sistema.strip
- 6 | INF - - mod[1]: start=130000 end=1414e0 file=build/io.strip
- 7 | INF - - mod[2]: start=142000 end=147400 file=build/utente.strip
- 8 | INF - Copio mod[0] agli indirizzi specificati nel file ELF:
- 9 | INF - - copiati 108560 byte da 114000 a 200000
-10 | INF - - copiati 970 byte da 12edb8 a 21bdb8
-11 | INF - - azzerati ulteriori 79030 byte
-12 | INF - - entry point 200178
-13 | INF - Creata finestra sulla memoria centrale: [ 1000, 2000000)
-14 | INF - Creata finestra per memory-mapped-IO: [ 2000000, 100000000)
-15 | INF - Attivo la modalita’ a 64 bit e cedo il controllo a mod[0]...
-16 | INF - Nucleo di Calcolatori Elettronici, v7.1.1
-17 | INF - Heap del modulo sistema: [1000, a0000)
-18 | INF - Numero di frame: 560 (M1) 7632 (M2)
-19 | INF - Suddivisione della memoria virtuale:
-20 | INF - - sis/cond [ 0, 8000000000)
-21 | INF - - sis/priv [ 8000000000, 10000000000)
-22 | INF - - io /cond [ 10000000000, 18000000000)
-23 | INF - - usr/cond [ffff800000000000, ffffc00000000000)
-24 | INF - - usr/priv [ffffc00000000000, 0)
-25 | INF - mappo il modulo I/O:
-26 | INF - - segmento sistema read-only mappato a [ 10000000000, 1000000f000)
-27 | INF - - segmento sistema read/write mappato a [ 10000010000, 10000031000)
-28 | INF - - heap: [ 10000031000, 10000131000)
-29 | INF - - entry point: start [io.s:11]
-30 | INF - mappo il modulo utente:
-31 | INF - - segmento utente read-only mappato a [ffff800000000000, ffff800000005000)
-32 | INF - - segmento utente read/write mappato a [ffff800000005000, ffff800000007000)
-33 | INF - - heap: [ffff800000007000, ffff800000107000)
-34 | INF - - entry point: start [utente.s:10]
-35 | INF - Frame liberi: 7059 (M2)
-36 | INF - Creato il processo dummy (id = 0)
-37 | INF - Creato il processo main_sistema (id = 1)
-38 | INF - Inizializzo l’APIC
-39 | INF - Cedo il controllo al processo main sistema...
-40 | INF 1 Heap del modulo sistema: aggiunto [100000, 200000)
-41 | INF 1 Attivo il timer (DELAY=59659)
-42 | INF 1 Creo il processo main I/O
-43 | INF 1 proc=2 entry=start [io.s:11](1024) prio=1278 liv=0
-44 | INF 1 Attendo inizializzazione modulo I/O...
-45 | INF 2 Heap del modulo I/O: 100000B [0x10000031000, 0x10000131000)
-46 | INF 2 Inizializzo la console (kbd + vid)
-47 | INF 2 estern=3 entry=estern_kbd(int) [io.cpp:168](0) prio=1104 (tipo=50) liv=0 irq=1
-48 | INF 2 kbd: tastiera inizializzata
-49 | INF 2 vid: video inizializzato
-50 | INF 2 Inizializzo la gestione dell’hard disk
-51 | INF 2 bm: 00:01.1
-52 | INF 2 estern=4 entry=estern_hd(int) [io.cpp:509](0) prio=1120 (tipo=60) liv=0 irq=14
-53 | INF 2 Processo 2 terminato
-54 | INF 1 Creo il processo main utente
-55 | INF 1 proc=5 entry=start [utente.s:10](0) prio=1023 liv=3
-56 | INF 1 Cedo il controllo al processo main utente...
-57 | INF 1 Processo 1 terminato
-58 | INF 5 Heap del modulo utente: 100000B [0xffff800000006068, 0xffff800000106068)
-59 | INF 5 Processo 5 terminato
-60 | INF 0 Shutdown
+```log
+ 1 | [INF] - Boot loader di Calcolatori Elettronici, v1.0
+ 2 | [INF] - Memoria totale: 32 MiB, heap: 636 KiB
+ 3 | [INF] - Argomenti: /home/gabrieledc/CE/lib/ce/boot.bin
+ 4 | [INF] - Il boot loader precedente ha caricato 3 moduli:
+ 5 | [INF] - - mod[0]: start=114000 end=12f580 file=build/sistema.strip
+ 6 | [INF] - - mod[1]: start=130000 end=1414e0 file=build/io.strip
+ 7 | [INF] - - mod[2]: start=142000 end=147400 file=build/utente.strip
+ 8 | [INF] - Copio mod[0] agli indirizzi specificati nel file ELF:
+ 9 | [INF] - - copiati 108560 byte da 114000 a 200000
+10 | [INF] - - copiati 970 byte da 12edb8 a 21bdb8
+11 | [INF] - - azzerati ulteriori 79030 byte
+12 | [INF] - - entry point 200178
+13 | [INF] - Creata finestra sulla memoria centrale: [ 1000, 2000000)
+14 | [INF] - Creata finestra per memory-mapped-IO: [ 2000000, 100000000)
+15 | [INF] - Attivo la modalita’ a 64 bit e cedo il controllo a mod[0]...
+16 | [INF] - Nucleo di Calcolatori Elettronici, v7.1.1
+17 | [INF] - Heap del modulo sistema: [1000, a0000)
+18 | [INF] - Numero di frame: 560 (M1) 7632 (M2)
+19 | [INF] - Suddivisione della memoria virtuale:
+20 | [INF] - - sis/cond [ 0, 8000000000)
+21 | [INF] - - sis/priv [ 8000000000, 10000000000)
+22 | [INF] - - io /cond [ 10000000000, 18000000000)
+23 | [INF] - - usr/cond [ffff800000000000, ffffc00000000000)
+24 | [INF] - - usr/priv [ffffc00000000000, 0)
+25 | [INF] - mappo il modulo I/O:
+26 | [INF] - - segmento sistema read-only mappato a [ 10000000000, 1000000f000)
+27 | [INF] - - segmento sistema read/write mappato a [ 10000010000, 10000031000)
+28 | [INF] - - heap: [ 10000031000, 10000131000)
+29 | [INF] - - entry point: start [io.s:11]
+30 | [INF] - mappo il modulo utente:
+31 | [INF] - - segmento utente read-only mappato a [ffff800000000000, ffff800000005000)
+32 | [INF] - - segmento utente read/write mappato a [ffff800000005000, ffff800000007000)
+33 | [INF] - - heap: [ffff800000007000, ffff800000107000)
+34 | [INF] - - entry point: start [utente.s:10]
+35 | [INF] - Frame liberi: 7059 (M2)
+36 | [INF] - Creato il processo dummy (id = 0)
+37 | [INF] - Creato il processo main_sistema (id = 1)
+38 | [INF] - Inizializzo l’APIC
+39 | [INF] - Cedo il controllo al processo main sistema...
+40 | [INF] 1 Heap del modulo sistema: aggiunto [100000, 200000)
+41 | [INF] 1 Attivo il timer (DELAY=59659)
+42 | [INF] 1 Creo il processo main I/O
+43 | [INF] 1 proc=2 entry=start [io.s:11](1024) prio=1278 liv=0
+44 | [INF] 1 Attendo inizializzazione modulo I/O...
+45 | [INF] 2 Heap del modulo I/O: 100000B [0x10000031000, 0x10000131000)
+46 | [INF] 2 Inizializzo la console (kbd + vid)
+47 | [INF] 2 estern=3 entry=estern_kbd(int) [io.cpp:168](0) prio=1104 (tipo=50) liv=0 irq=1
+48 | [INF] 2 kbd: tastiera inizializzata
+49 | [INF] 2 vid: video inizializzato
+50 | [INF] 2 Inizializzo la gestione dell’hard disk
+51 | [INF] 2 bm: 00:01.1
+52 | [INF] 2 estern=4 entry=estern_hd(int) [io.cpp:509](0) prio=1120 (tipo=60) liv=0 irq=14
+53 | [INF] 2 Processo 2 terminato
+54 | [INF] 1 Creo il processo main utente
+55 | [INF] 1 proc=5 entry=start [utente.s:10](0) prio=1023 liv=3
+56 | [INF] 1 Cedo il controllo al processo main utente...
+57 | [INF] 1 Processo 1 terminato
+58 | [INF] 5 Heap del modulo utente: 100000B [0xffff800000006068, 0xffff800000106068)
+59 | [INF] 5 Processo 5 terminato
+60 | [INF] 0 Shutdown
 ```
 </div>
 </div>
 
 
 Il sistema sul quale lavoriamo è progettato affinché qualsiasi eccezione venga sollevata in modalità utente, resituisce il controllo al modulo sistema, il quale **_termina forzatamente il processo_** e invia alcuni messaggi sul log come il seguente:
-```
- 1 | WRN 5 Eccezione 13 (errore di protezione), errore 0, RIP inputb [inputb.s:6]
- 2 | WRN 5 proc 5: corpo start [utente.s:10](0), livello UTENTE, precedenza 1023
- 3 | WRN 5 RIP=inputb [inputb.s:6] CPL=LIV_UTENTE
- 4 | WRN 5 RFLAGS=246 [-- -- -- IF -- -- ZF -- PF --, IOPL=SISTEMA]
- 5 | WRN 5 RAX= fee000b0 RBX= 0 RCX=fffffffffffffe68 RDX= 60
- 6 | WRN 5 RDI= 60 RSI=fffffffffffffe68 RBP=fffffffffffffff0 RSP=ffffffffffffffe8
- 7 | WRN 5 R8 =ffff800000106068 R9 = 0 R10= 0 R11= 0
- 8 | WRN 5 R12= 0 R13= 0 R14= 0 R15= 0
- 9 | WRN 5 backtrace:
-10 | WRN 5 > main [utente.cpp:5]
-11 | WRN 5 Processo 5 abortito
+```log
+ 1 | [WRN] 5 Eccezione 13 (errore di protezione), errore 0, RIP inputb [inputb.s:6]
+ 2 | [WRN] 5 proc 5: corpo start [utente.s:10](0), livello UTENTE, precedenza 1023
+ 3 | [WRN] 5 RIP=inputb [inputb.s:6] CPL=LIV_UTENTE
+ 4 | [WRN] 5 RFLAGS=246 [-- -- -- IF -- -- ZF -- PF --, IOPL=SISTEMA]
+ 5 | [WRN] 5 RAX= fee000b0 RBX= 0 RCX=fffffffffffffe68 RDX= 60
+ 6 | [WRN] 5 RDI= 60 RSI=fffffffffffffe68 RBP=fffffffffffffff0 RSP=ffffffffffffffe8
+ 7 | [WRN] 5 R8 =ffff800000106068 R9 = 0 R10= 0 R11= 0
+ 8 | [WRN] 5 R12= 0 R13= 0 R14= 0 R15= 0
+ 9 | [WRN] 5 backtrace:
+10 | [WRN] 5 > main [utente.cpp:5]
+11 | [WRN] 5 Processo 5 abortito
 ```
 
 Questi messaggi hanno una struttura generalmente simile tra di loro.
@@ -300,18 +304,18 @@ L'ultima riga indica l'esito del processo, nel nostro caso sempre _abortito_.
 
 Tutte queste informazioni che ci vengono fornite, sono processate dallo script `util/show_log.pl` a partire dal log inviato dal sistema che contiene _solamente indirizzi numerici_, usando le informazioni di debug contenute nei file della directory `build/`.
 Nel caso si voglia vedere il contenuto del log non processato si può usare il comando:
-```x86asmh
+```bash
 CERAW=1 boot
 ```
 
 
 ### 2.4.3. Uso debugger
 
-Anche per quanto riguarda il `debug`, così come per gli `esempiIO`, abbiamo la possibilità di _collegate il debugger_ dalla macchina host e osservare tutto quello che accade nel sistema.
+Anche per quanto riguarda il `debug`, così come per gli `esempiIO`, abbiamo la possibilità di _collegare il debugger_ dalla macchina host e osservare tutto quello che accade nel sistema.
 
 La procedura è quella già vista:
 1. Avviamo la _VM_ tramite `boot -g`
-2. Da un altro terminale, ci portiamo nella stessa _directory_ e lanciamo `debug`.
+2. Da un altro terminale, ci portiamo nella stessa _directory_ e lanciamo il comando `debug`.
 
 In questo caso però lo script, oltre alle estensioni già viste, carica altre estensioni dal file `debug/nucleo.py`, in modo che il _debugger_ mostri informazioni specifiche sullo stato del nucleo.
 
@@ -325,7 +329,7 @@ In particolare, ogni volta che il _debugger_ riacquisisce il controllo, viene mo
 - Lo _stato di protezione_ della **CPU**.
 
 
-Oltre ai normali comandi di `gdb`, sono disponibili altri comandi personalizzati per il nostro nuleo.
+Oltre ai normali comandi di `gdb`, sono disponibili altri comandi personalizzati per il nostro nucleo.
 Alcuni di quesi comandi sono:
 - `process list`: mostra una lista di **tutti i processi attivi** (`utente` o `sistema`);
 - `process dump id`:  mostra il contenuto (della parte superiore) **della pila sistema del processo `id`** e **il contenuto dell’array `contesto`** del suo descrittore di processo.
@@ -337,15 +341,15 @@ Possiamo notare inoltre che il _debugger_ è **preimpostato per caricare i simbo
 
 # 3. Descrizione Processi
 
-All'esecuzione di ogni processo abbiamo detto che il processore utilizza un diverso `contesto`.
+Abbiamo già detto che il processore utilizza un `contesto` diverso per l'esecuzione di ogni processo, senza però introdurlo formalmente.
 
-Il `contesto` è una _struttura dati_ salvata in `M2`, ed è formato da:
+Il `contesto` non è altro una _struttura dati_ salvata in `M2`, ed è formato da:
 - `id` : descrittore processo
 - **corpo**: contenuto dei registri del processore
 - `priorità`: indica il livello di priorità del processo
 
 Sappiamo già che il processore lavora per **stati**.
-Anche i _processi_ seguono la stessa logica e, durante la loro vita, si trovano costantenmente in uno degli _stati di esecuzione_.
+Anche i _processi_ seguono la stessa logica e, durante la loro vita, si trovano costantemente in uno degli _stati di esecuzione_:
 
 <figure class="80">
 <img class="50" src="./images/Processi/Stati di esecuzione.png">
@@ -358,7 +362,7 @@ Lo schema di riferimento per gli stati dei processi.
 
 
 I processi devono essere prima di tutto **attivati**, in modo che possano cominciare ad essere eseguiti.
-L’attivazione comporta <u>la creazione di tutte le strutture dati necessarie al corretto funzionamento del _processo</u>_.
+L’attivazione comporta <u>la creazione di tutte le strutture dati necessarie al corretto funzionamento del <em>processo</em></u>.
 Queste strutture comprendono due componenti:
 - **Descrittore di processo**
 - **Pile**
@@ -371,12 +375,22 @@ Una volta attivato correttamente, il _processo_ si trova quindi nello stato di *
 A questo punto, il processore, tramile la _schedulazione_ e il _dispatch_, porta il _processo_ in **esecuzione**, nel nostro sistema rappresentata dalla variabile `esecuzione`.
 
 È importante capire che _Schedulazione_ e _Dispatch_ <u>sono due cose diverse</u>.
-La _schedulazione_  si occupa di gestire l'ordine dei processi pronti all'interno della lista, scegliendo quello che andrà in esecuzione, abbiamo la funzione `sistema` chiamata `schedulatore()` che si occupa di selezionare la testa di `pronti` e inserirla in `esecuzione`.
-Il _dispatch_ si occupa invece di tutti i passaggi necessari per far cedere il controllo ad un processo ed assegnarlo ad un altro. Nel nostro sistema questa avviene quando viene chiamata la `CALL carica_stato; IRETQ` all'uscita del _gate_. Infatti queste fanno adesso riferimento al constesto del nuovo processo in `esecuzione`, aggiornando quindi i dati all'interno dei registri con quelli del nuovo processo.
 
-Se un processo si trova in **esecuzione**, il processore sta eseguendo le sue istruzioni.
+La _schedulazione_  si occupa di gestire l'ordine dei processi pronti all'interno della lista, scegliendo quello che andrà in esecuzione.
+Nel nostro sistema abbiamo una funzione `sistema` chiamata `schedulatore()` che si occupa proprio di selezionare la testa di `pronti` (costruita in modo da essere ordinata per priorità) e inserirla in `esecuzione`.
+
+Il _dispatch_ si occupa invece di tutti i passaggi necessari per far cedere il controllo ad un processo ed assegnarlo ad un altro. 
+Nel nostro sistema questa avviene tramite le operazioni di:
+```x86asm
+CALL carica_stato
+IRETQ
+```
+Chiamate all'uscita del _gate_. 
+Infatti queste fanno adesso riferimento al constesto del processo che si trova in `esecuzione`, aggiornando quindi i dati all'interno dei registri con quelli del nuovo processo.
+
+Se un processo si trova nello stato di **esecuzione**, il processore sta eseguendo le sue istruzioni.
 In questo momento _**il processo ha il controllo del processore**_, e può cambiare nel tempo il suo stato.
-Con un solo processore **un solo processo per volta puo trovarsi in esecuzione**.
+Con un solo processore **un solo processo per volta può trovarsi in esecuzione**.
 
 Mentre si trova in **esecuzione** un processo può chiedere di _terminare_, oppure di _sospendersi_ in attesa di un evento.
 Nel primo caso il processo rientra nello stato di **terminazione** (abbiamo la routine `terminate_p()` nella nostra macchina).
@@ -399,7 +413,7 @@ Questo ci permette di dover eseguire una azione di `schedulazione()` solo quando
 Dobbiamo inoltre notare che anche quando un processo `P1` ne attiva un altro `P2` ci troviamo in una situazione simile, in quanto il nuovo processo appena creato viene inserito in `pronti`, e potrebbe avere priorità superiore a quello in `esecuzione`.
 
 Quello che ci impegniamo a garantire quindi è che i processi _**non possano attivarne altri a priorità maggiore della propria**_.
-Perciò nel nostro sistema <u>non saranno mai necessarie _preemption</u>_.
+Perciò nel nostro sistema <u>non saranno mai necessarie <em>preemption</em></u> dopo le creazioni dei processi.
 
 ## 3.1. Transizione Processi
 
@@ -455,7 +469,7 @@ struct des_proc {
 };
 ```
 
-Lo _scheduler_, che invece identifica e ordina i processi **pronti**, utilizza un'altra variable globale `pronti` che punta ad una lista dove si trovano **tutti** i vari processi.
+Lo _scheduler_, che invece identifica e ordina i processi **pronti**, utilizza un'altra variable globale `pronti` che punta ad una lista dove si trovano i vari processi nello stato di `pronto`.
 Poiché la nostra politica è quella di eseguire i processi a priorità maggiore, quando inseriamo i processi in questa lista, lo facciamo **in ordine di priorità**, cosicché il prossimo processo da eseguire sarà sempre quello **in cima alla lista**.
 
 Per quanto riguarda la gestione dello stato **bloccato** vedremo che sarà necessario considerare ogni azione di bloccaggio in maniera diversa.
@@ -470,7 +484,7 @@ Quando eseguiamo quindi la `salva_stato`, il registro `rsp` punta **proprio la p
 
 Ciò significa che, `carica_stato` ripristinerà la _pila di sistema_ del processo `P2`, e la successiva `IRETQ` ripristinerà proprio le istruzioni relative a quel processo, reinserendo il valore della _pila di stack_ di `P2`.
 
-Tutto il necessario per cambiare _processo_ è quindi **cambiare la variabile `esecuzione`** all'interno del _corpo routine_.
+Tutto il necessario per cambiare _processo_ è quindi **cambiare la variabile `esecuzione`** all'interno del _corpo della routine_.
 
 Quando viene selezionato il prossimo processo però può avvenire che ci sia un solo processo in esecuzione e che questo vada in **blocco**.
 In questo caso la coda `pronti` è vuota, e dovremmo gestire il nostro processore in maniera che faccia comunque qualcosa in attesa il processo in **blocco** torni in **pronti**.
@@ -505,9 +519,9 @@ Alla creazione del processo la `activate_p()`, oltre ad inserire un **puntatore 
     Infatti, in questo caso, la sia _pila sistema_ è <u>sempre vuota</u>.
 
 - `contesto`: contiene il valore dei registri al momento della creazione del processo, quindi sono tutti vuoti, ad eccezione di:
-  
+
   - `contesto[I_RDI]`: parametro `a` passato da `activate_p()`
-  
+
   - `contesto[I_RSI]`: indirizzo della _pila sistema_
 </div>
 <div class="top">
@@ -521,9 +535,9 @@ _Pila Sistema_
 - `CS`: livello di chi è entrato nel _gate_ (solitamente `LIV_UTENTE`)
 
 - `RFLAG`: Registro dei _flag_ completamente **resettato**, tranne per quanto riguarda due flag:
-  
+
   - `IF = 1`: per permettere le interruzioni durante l'esecuzione della _routine_
-  
+
   - `IOPL = sis`, setta la **priorità di sistema** alle periferiche `IO` per vietare l'utilizzo di istruzioni quali `IN`, `OUT`.
     Inoltre modifica il livello di privilegio per bloccare anche le istruzioni `STI` e `CLI`
 

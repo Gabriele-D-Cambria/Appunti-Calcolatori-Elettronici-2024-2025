@@ -26,6 +26,8 @@
     - [2.7.1. Cache ad Indirizzamento Diretto](#271-cache-ad-indirizzamento-diretto)
     - [2.7.2. Cache Associative ad Insiemi](#272-cache-associative-ad-insiemi)
 
+<div class="stop"></div>
+
 # 2. Calcolatori Elettronici
 
 Andremo a studiare un'architettura Architettura CPU - Memoria (RAM e ROM) - I/O.

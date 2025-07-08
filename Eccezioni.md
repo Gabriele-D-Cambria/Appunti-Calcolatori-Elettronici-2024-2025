@@ -5,6 +5,7 @@
   - [2.1. Eccezione di Debug `int3`](#21-eccezione-di-debug-int3)
   - [2.2. Gestione Eccezioni](#22-gestione-eccezioni)
 
+<div class="stop"></div>
 
 # 2. Eccezioni
 

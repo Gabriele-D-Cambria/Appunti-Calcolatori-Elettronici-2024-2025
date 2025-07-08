@@ -5,6 +5,7 @@
   - [2.1. Disponibilità della memoria](#21-disponibilità-della-memoria)
   - [2.2. Passaggi tra contesti](#22-passaggi-tra-contesti)
 
+<div class="stop"></div>
 
 # 2. Protezione
 
