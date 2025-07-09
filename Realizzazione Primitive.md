@@ -6,6 +6,7 @@
 - [4. Scrivere una primitiva](#4-scrivere-una-primitiva)
   - [4.1. Funzioni di supporto](#41-funzioni-di-supporto)
 
+<div class="stop"></div>
 
 # 2. Reaizzazione Primitive
 
@@ -42,11 +43,10 @@ In generale, noi vogliamo che ogni struttura dati si trovi in uno **stato consis
 
 In un sistema che _non prevede interruzioni_, le operazioni che manipolano le strutture dati vengono scritte assumendo che <u>la struttura dati si trovi sempre in uno stato consistente quando l'operazione inizia</u>, e assicurandosi di **portarla in un nuovo stato consistente alla fine dell'operazione**.
 Nel mezzo dell'operazione, però, sono ammessi delle transizioni temporanee della struttura dati attraverso **stati non consistenti**.
-Ripensiamo all'operazione di inserimento in testa alla coda `pronti` eseguita dalla prima primitiva:
+Ripensiamo all'operazione di inserimento in testa alla coda `pronti` eseguita dalla prima primitiva:<br>
 &emsp;Subito dopo la copia di pronti in `d1->puntatore`, la lista **non è in uno stato consistente**, in quanto `d1` ne fa concettualmente parte, ma non è ancora puntato da `pronti`.
 
 Questo stato inconsistente non è un problema in un sistema senza _interruzioni_, in quanto non è osservabile da nessun’altra operazione sulla _coda_.
-
 In presenza di _interruzioni_, però, lo stato inconsistente diventa improvvisamente visibile da un’altra operazione, che era stata scritta assumendo che ciò non potesse mai accadere, e che dunque non è
 preparata per affrontare la situazione.
 
@@ -114,72 +114,39 @@ c_primitiva_i:
     ret
 ```
 
-</div>
-<div class="top">
-<div class="p">
-
-</div>
-
-</div>
-</div>
-
 Per permettere l'invocazione di una primitiva esistono nel nostro modulo `sistema` delle _label_ globali che chiamano i gate della `IDT`.
-L'utente potrà quindi chiamare:
-<div class="grid3">
-<div class="top">
-<div class="p">
 
-`sys.h`
-</div>
-
+Per poter utilizzare le primitive, esse vengono dichiarate nel file `sys.h`:
 ```cpp
 //...
 extern "C" returnType primitiva_i(/*parametri formali*/);
 //...
 ```
 
-Tendenzialmente è inutile che restituiscano risultato, poiché verrebbe sovrascritto nella `carica_stato`.
-Il metodo corretto per propagare nuovi risultati alla fine dell'esecuzione è sfruttare il contesto del processo, in particolare `contesto[I_RAX]`.
-
-</div>
-<div class="top">
-<div class="p">
-
-`utente.cpp`
-</div>
-
+Successivamente potranno essere utilizzate all'interno del file `utente.cpp`:
 ```cpp
 #include <sys.h>
 //...
-void corpo(int a)
-{
-    //...
     primitiva_i(/*parametri attuali*/);
-    //...
-}
+//...
 ```
-Esegue:
+
+Che verrà tradotta in assembler in qualcosa del tipo:
 ```x86asm
 ; Passo i parametri nei registri adeguati
 ; %rdi, %rsi, ...
 
 CALL primitiva_i
 ```
-</div>
-<div class="top">
-<div class="p">
 
-`utente.s`
-</div>
-
+Successivamente l'utente si preoccuperà di inserire in `utente.s`:
 ```x86asm
     .global primitiva_i
 primitiva_i:
     INT $tipo_i
     RET
 ```
-</div>
-</div>
+
 
 # 4. Scrivere una primitiva
 
@@ -188,7 +155,7 @@ Per scrivere una primitiva dobbiamo eseguire una serie di passaggi, alcuni obbli
 Il primo passaggio utile (ma non necessario) è creare una nuova **costante** nel file `costanti.h` così da potervi riferire per nome e non per valore:
 ```cpp
 // ...
-#define TIPO_I  0x29    /// inutile
+#define TIPO_I  0x29    /// tipo inutile
 // ...
 ```
 
@@ -254,13 +221,21 @@ a_inutile:
 
 ```cpp
 // ...
+/**
+* Funzione inutile che somma a, b e la priorità del processo che l'ha invocata
+* @param a numero intero
+* @param b numero intero
+* @return la somma tra i parametri e la priorità del processo in esecuzione.
+*/
 extern "C" void c_inutile(int a, int b){
-    // Nella variabile esecuzione c'è ancora l'id del processo che l'ha invocata
-    // Inoltre nel puntatore di processo si trova il processo che stava eseguendo
+    // Nella variabile esecuzione si trova l'id del processo che l'ha invocata
     int r = a + b + esecuzione->precedenza;
 
     // Per restituire r non possiamo fare return, ma scriviamo:
     esecuzione->contesto[I_RAX] = r;
+    // Questo sovrascrive il contenuto del registro %rax che avevamo 
+    // salvato con la `salva_stato`, così da recuperarlo quando
+    // chiameremo la `carica_stato`
 }
 ```
 </div>
@@ -283,9 +258,7 @@ int main(){
 
 Le seguenti funzioni sono già definite in `sistema.cpp` e possono essere utilizzare nel definire nuove _primitive_:
 
-- `desc_proc* nuovo_des_p(natl id)`: resituisce un puntatore al descrittore del processo di identificatore `id` (`nullptr` se non esiste)
-
-- `void schedulatore()`: sceglie il prossimo processo da mettere in esecuzione, cambiando il valore della variabile `esecuzione`
+- `void schedulatore()`: sceglie il prossimo processo da mettere in esecuzione, estraendolo dalla pila `pronti` e salvandolo nella variabile `esecuzione`
 
 - `void inserimento_lista(des_proc*& p_lista, des_proc* p_elem)`: Inserisce `p_elem` nella _lista_ `p_lista`, mantenendo l’ordinamento basato sul campo precedenza. 
     Se la _lista_ contiene altri elementi che hanno la stessa precedenza del nuovo, il nuovo viene inserito **come ultimo** tra questi.
