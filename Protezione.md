@@ -114,7 +114,7 @@ Ogni _gate_ della `IDT` occupa `16Byte` e contiene le segueni informazioni:
 
 - `I/T`: indica se il _gate_ è di tipo _Interrupt_ (azzera `IF`) o _Trap_ (mantiene `IF` invariato).
 
-- `L` (_Livello_): indica il _livello di privilegio_ al quale portare il processore **dopo** aver passato il _gate_. Nel nostro caso sarà sempre settato a `sistema`.<!--  -->
+- `L` (_Livello_): indica il _livello di privilegio_ al quale portare il processore **dopo** aver passato il _gate_. Nel nostro caso sarà sempre settato a `sistema`.
 
 - `DPL` (_Descriptor Privilege Level_): specifica il **livello di privilegio minimo** che deve avere il processore **prima** di passare il gate. Può vietare l'utilizzo di alcuni gate attraverso l'istruzione `INT` generando un'_eccezione di protezione_ `13`. 
   I programmatori di sistema possono settarlo come:
