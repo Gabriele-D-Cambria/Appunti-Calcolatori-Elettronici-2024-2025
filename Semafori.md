@@ -8,6 +8,7 @@
 	- [2.4. Realizzazione dei semafori](#24-realizzazione-dei-semafori)
 	- [2.5. Utilizzo Debugger](#25-utilizzo-debugger)
 
+<div class="stop"></div>
 
 # 2. Semafori
 
@@ -18,14 +19,14 @@ Per quanto riguarda la condivisione della memoria, nel nostro sistema i processi
 Questo tipo di condivisione può essere ottenuta evitando di rimpiazzare la parte di memoria condivisa quando si salta da un processo ad un altro.
 
 Un sistema del genere ha senso se **i processi appartengono tutti allo stesso utente** e **fanno parte di un’unica applicazione**, che l'utente ha deciso di strutturare in più attività concorrenti. 
-Da ora in poi ci limiteremo a considerare _<u>**solo questo caso**</u>_.
+Da ora in poi ci limiteremo a considerare _**<u>solo questo caso</u>**_.
 
 L'utente che scrive un'applicazione strutturata su più processi concorrenti deve affrontare dei problemi molto simili a quelli già affrontati a livello `sistema`.
 
 In particolare, anche l'utente deve affrontare il problema dell'_**interferenza**_:
-Infatti, mentre un processo sta eseguendo delle modifiche su una struttura dati comune, un altro processo potrebbe inserirsi e cominciare anche lui a modificare la stessa struttura dati e se l'utente non scrive il codice con attenzione, questo può causare malfunzionamenti, come abbiamo visto.
+Infatti, mentre un processo sta eseguendo delle modifiche su una struttura dati comune, un altro processo potrebbe inserirsi e cominciare anche lui a modificare la stessa struttura dati. Se l'utente non scrive il codice con attenzione, questo può causare malfunzionamenti come abbiamo già visto.
 
-Si noti che, mentre nel codice di `sistema` abbiamo risolto il problema ricorrendo all'_atomicità_, realizzata **disabilitando le interruzioni** mentre il codice è in esecuzione, qui non possiamo fare la stessa cosa, in quanto **_le interruzioni devono restare abilitate_** mentre il è in eseuzione il codice `utente`.
+Si noti che, mentre nel codice di `sistema` abbiamo risolto il problema ricorrendo all'_atomicità_ realizzata **disabilitando le interruzioni** mentre il codice è in esecuzione, qui non possiamo fare la stessa cosa, in quanto **_le interruzioni devono restare abilitate_** mentre il è in eseuzione il codice `utente`.
 
 Definiamo quindi due problemi quando ci sono più attività che vogliono essere eseguite in contemporanea:
 - **Mutua esclusione**: l'ordine nel quale eseguiamo le varie attività non è rilevante.
@@ -45,7 +46,7 @@ Questo nome fu dato da _Dijkstra_ in relazione al fatto che nella prima formulaz
 
 Nei _semafori_ possono essere eseguite solo due operazioni con i gettoni: **Inserimento** e **Prelievo**.
 Per quanto riguarda l'inserimento, non è necessario che il processo che insersce il gettone lo abbia precedentemente prelevato da qualche parte, può infatti  crearlo sul momento.
-Nel caso invece del prelievo del gettone, se queto non è presente, il processo **deve aspettare che qualcun altro ne inserisca uno**, entrando in uno stato di attesa dove _<u>non può fare nient’altro</u>_
+Nel caso invece del prelievo del gettone, se questo non è presente, il processo **deve aspettare che qualcun altro ne inserisca uno**, entrando in uno stato di attesa dove _<u>non può fare nient’altro</u>_
 
 ## 2.1. Esempio - Mutua Esclusione
 
@@ -55,13 +56,13 @@ Abbiamo:
 - Persone `P1`, ..., `Pn`
 - Azioni `A1`, ..., `An`
 
-Vogliamo che le azioni _<u>**non possano mai essere eseguite contemporaneamente**</u>_.
+Vogliamo che le azioni _**<u>non possano mai essere eseguite contemporaneamente</u>**_.
 
 Per risolvere questo problema è sufficente avere **un semaforo** che inizialmente contiene **un gettone** e imporre la regola che:
 > _**"Solo chi ha il gettone può compiere una delle azioni. Al termine dell'azione è obbligatorio reinserire il gettone"**_
 
 In questo modo, se una persona vuole compiere un'azione _deve prendere il gettone_, svuotando la scatola.
-Se una seconda persona volesse compiere un'altra azione troverà quindi il **semaforo vuoto** e quindi dovrà attendere che la prima termini la sua.
+Se una seconda persona volesse compiere la stessa azione troverà il **semaforo vuoto**, e si troverà costretta attendere che la prima termini la sua.
 
 L'attesa del gettone nella scatola vuota è quello che avevamo precedentemente chiamato come stato `bloccato` delle procedure.
 
@@ -203,7 +204,7 @@ Possiamo vedere di seguito la parte `C++` della primitiva `sem_ini()`:
 ```cpp
 des_sem array_dess[MAX_SEM * 2];
 
-extern "C" void c_sem_ini(int v){
+extern "C" void c_sem_ini(int val){
     natl i = alloca_sem();
     if(i != 0xFFFFFFFF)
         array_dess[i].counter = val;
@@ -270,11 +271,8 @@ extern "C" void c_sem_signal(natl sem)
 }
 ```
 
-Se ci sono _processi_ in coda sul semaforo, la primitiva ne estrae quello a priorità più alta attraverso la funzione `rimozione_lista()`. 
-
-A questo punto la primitiva deve scegliere quale processo deve proseguire, tra quello in esecuzione e quello appena estratto. 
-
-La cosa più semplice è di inserire entrambi i processi in coda pronti e lasciar scegliere alla funzione `schedulatore()`.
+Se ci sono _processi_ in coda sul semaforo, la primitiva estrae quello a priorità più alta attraverso la funzione `rimozione_lista()`. A questo punto la primitiva deve scegliere quale processo deve proseguire, tra quello in esecuzione e quello appena estratto.
+La cosa più semplice è di inserire entrambi i processi in coda `pronti` e lasciar scegliere alla funzione `schedulatore()`, applicando la _preemption_.
 
 Sia la `sem_wait()` che la `sem_signal()`, prima di usare `sem`, controllano che questo sia **un valido identificatore di semaforo**, ovvero che sia stato precedentemente restituito da una `sem_ini()` **_per il livello corretto_**, e terminare forzatamente il processo in caso contrario. 
 
