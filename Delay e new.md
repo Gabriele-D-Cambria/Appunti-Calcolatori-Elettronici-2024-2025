@@ -5,36 +5,38 @@
 	- [2.1. Implementazione del nucleo](#21-implementazione-del-nucleo)
 - [3. new](#3-new)
 
+<div class="stop"></div>
 
 # 2. Delay
 
 Una funzionalità utile per chi programma è la possibilità di mettere in pausa o comunque poter tener traccia del tempo che passa durante l'esecuzione di un programma.
 Ad esempio, in `Unix` esiste la funzione `sleep(x)` che un processo può invocare per "andare a dormire" per `x` secondi.
 
-Quando un processo sta "dormendo" è a tutti gli effetti `bloccato`, e in attesa di un evento che lo sblocchi, in questo caso il passaggio del tempo richiesto.
+Quando un processo sta "dormendo" è a tutti gli effetti `bloccato`, ovvero in attesa di un evento che lo sblocchi. In questo caso l'evento è proprio il passaggio del tempo richiesto.
 
-Per realizzare questa funzionalità, il metodo più semplice è quello di impostare un _timer_ affinché invii una richiesta di interruzione con **periodo fisso**.
+Per realizzare questa funzionalità, il metodo più semplice è quello di impostare un _timer_ affinché venga inviata una richiesta di interruzione con **periodo fisso**.
 Questa è la soluzione che attuiamo nel nostro sistema, utilizzando il `timer 0` del _PC AT_, e programmandolo in modo che invii una richiesta ogni `50ms`.
 
 Forniamo inoltre una _primitiva_ `void delay(natl n)` tramite la quale un processo può chiedere di essere sospeso per `n` **cicli del timer**.
 
 La primitiva inserisce il processo in una _coda di **processi sospesi**_, salvando il valore di `n`.
 Chiamiamo `driver` (del timer) la _routine_ che va in esecuzione ogni volta che il timer invia una richiesta di interruzione.
-Il `driver` dovrà quindi:
-- Decrementare `n`
-- Rimettere i processi con `n == 0` in _coda `pronti`_.
 
-Supponendo di avere tanti processi sospesi `Pi`, ognuno che deve attendere `ci` cicli $(0 \le i \le n)$.
+Il `driver` dovrà quindi occuparsi di:
+- Decrementare `n` opportunamente
+- Risvegliare i processi in attesa quando il loro `n == 0`, inserendoli in _coda `pronti`_.
 
-Se `n` è molto grande, questa souzione risulta molto costosa.
-Infatti richiederebbe che il `driver` debba decrementare **tutti gli `n` contatori** ad ogni esecuzione.
+Per capire come vengono gestite le strutture dati che si occupano di questo processo nel nostro sistema, supponiamo di avere tanti processi sospesi `Pi`, ognuno con `ni` cicli di attesa $(0 \le i \le k)$.
 
-Operativamente quello che facciamo è diverso: continuiamo a mantenere i processi **ordinati** in una lista in modo che $c_1 \le ... \le c_n$ e, per ogni processo ricordiamo soltato **quanti cicli in più rispetto al precedente** deve attendere.
+Se `k` fosse molto grande, andare a modificare tutti i singoli `ni` risulterebbe in un operazione molto costosa, poiché richiederebbe che il `driver` debba decrementare **tutti i `k` contatori** ad ogni interruzione del timer.
 
-In altre parole, l'elemento in cima alla lista $r_1$ memorizza $c_1$.
-Gli elementi $r_i$ memorizzeranno: $\quad c_i - c_{i-1} \quad 1<t\le n$.
+Operativamente quello che facciamo è quindi diverso:
+- Manteniamo i processi in attesa in una lista **ordinata** per cicli di attesa crescenti $n_1 \le ... \le n_k$
+- Per ogni processo non salviamo il numero di cicli totali che deve attendere, ma **quanti cicli in più rispetto al precedente**.
 
-In questo modo il `driver` deve decrementare **_solo_** il primo elemento della lista.
+In altre parole, l'elemento in cima alla lista $r_1$ memorizza $n_1$, gli elementi $r_i$ con $(1 < i \le k)$ memorizzeranno:&emsp;$n_i - n_{i-1}$.
+
+In questo modo il `driver` deve occuparsi di decrementare **_solo l'elemento in testa alla lista_**.
 Quando questo elemento avrà il contatore a $0$, allora sposteremo i primi $k$ elementi con contatore nullo nella lista `pronti`, reinserendovi anche il processo in `esecuzione`, per poi chiamare lo `schedulatore()`.
 
 Facciamo un esempio:
@@ -43,15 +45,15 @@ Facciamo un esempio:
 
 ```cpp
 // P1
-delay(10);		// P1 salvato come primo con t = 10
+delay(10);		// P1 inserito come primo con t = 10
 // P2
-delay(15);		// P2 salvato come secondo con t = 15 - 10 = 5
+delay(15);		// P2 inserito come secondo con t = 15 - 10 = 5
 // P3
-delay(12);		// P3 salvato come secondo con t = 12 - 10 = 2
+delay(12);		// P3 inserito come secondo con t = 12 - 10 = 2
 				// P2 aggiornato come terzo con t = 5-2 = 3
 // P4
 delay(11);		// P4 inserito come secondo con t = 11 - 10 = 1
-				// P3 aggiornato come terzo ocn t = 2 - 1 = 1
+				// P3 aggiornato come terzo con t = 2 - 1 = 1
 				// P2 rimane invariato
 ```
 </div>
@@ -86,11 +88,11 @@ struct richiesta {
 richiesta* sospesi;
 ```
 
-Ogni elemento della lista, oltre al puntatore `p_rich`, necessario per realizzare la lista, contiene:
+Ogni elemento della lista, oltre al puntatore `p_rich` necessario per realizzare la lista, contiene:
 - `pp` : _puntatore al descrittore_ del processo sospeso
 - `d_attesa`: tempo di attesa aggiuntivo rispetto alla richiesta precedente.
 
-La variabile `sospesi` punta _**alla testa della lista**_.
+La variabile globale `sospesi` punta _**alla testa della lista**_.
 
 Vediamo l'implementazione di `inserimento_lista_attesa`:
 ```cpp
@@ -160,8 +162,7 @@ a_delay:
 </div>
 
 ```cpp
-extern "C" void c_delay(natl n)
-{
+extern "C" void c_delay(natl n) {
 	// caso particolare:
     // se n è 0 non facciamo niente
 	if (!n)
@@ -209,8 +210,7 @@ driver_td:
 
 `sistema.cpp`
 ```cpp
-extern "C" void c_driver_td(void)
-{
+extern "C" void c_driver_td(void) {
     inspronti();
 
 	if (sospesi != nullptr) {
@@ -231,8 +231,8 @@ extern "C" void c_driver_td(void)
 </div>
 </div>
 
-Un'altra  sostanziale differenza è che _nessuno esegue attivamente il `driver`_.
-Infatti l'unico candidato non lo ha fatto volontariamente, e probabilmente non è nemmeno interessato a ciò che il `driver` deve fare.
+Un'altra sostanziale differenza rispetto alle normali primitive, è che _nessuno esegue attivamente il `driver`_.
+Infatti il processo che lo esegue **non lo ha fatto volontariamente**, ma è stato interrotto dall'evento. È persino probabile che il processo non sia nemmeno interessato a ciò che il `driver` deve fare.
 
 # 3. new
 
@@ -246,7 +246,7 @@ Quando tutti sono stati caricati correttamente, la memoria viene liberata, e rim
 
 Mentre per la modalità sistema gli accessi all'`heap` sono atomici, in quanto le _interruzioni_ sono **disabilitate**, per quanto riguarda invece la modalità `utente`, poiché le _interruzioni_ sono qui attive, l'accesso ad esso rientra nel problema della **mutua esclusione**, risolvibile con un semaforo.
 
-Nel nostro nucleo gli operatori di `new` e `delete` si limitano a richiamare in modo appropriato `operator new` e `operator delete`, gli _overload_ forniti dalla `libce` si  limitano ad usare `alloc()`, `alloc_aligned()` e `dealloc()`.
+Nel nostro nucleo gli operatori di `new` e `delete` si limitano a richiamare in modo appropriato gli _overload_ di `operator new` e `operator delete` forniti dalla `libce`. Questi si limitano ad usare in maniera opportuna `alloc()`, `alloc_aligned()` e `dealloc()`.
 
 ```cpp
 /* libce.h */
@@ -256,22 +256,19 @@ void operator delete(void *p);
 ```
 ```cpp
 /* bare/new.cpp */
-void* operator new(size_t s)
-{
+void* operator new(size_t s) {
 	return alloc(s);
 }
 ```
 ```cpp
 /* bare/new_alligned.cpp */
-void* operator new(size_t s, std::align_val_t a)
-{
+void* operator new(size_t s, std::align_val_t a) {
 	return alloc_aligned(s, a);
 }
 ```
 ```cpp
 /* bare/delete.cpp */
-void operator delete(void *p)
-{
+void operator delete(void *p) {
 	dealloc(p);
 }
 ```
