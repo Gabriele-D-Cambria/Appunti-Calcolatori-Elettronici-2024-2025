@@ -2,42 +2,43 @@
 
 - [1. Indice](#1-indice)
 - [2. Paginazione](#2-paginazione)
-  - [2.1. Registri limite inferiore e superiore](#21-registri-limite-inferiore-e-superiore)
+	- [2.1. Registri limite inferiore e superiore](#21-registri-limite-inferiore-e-superiore)
 - [3. Paginazione](#3-paginazione)
-  - [3.1. Super MMU](#31-super-mmu)
-    - [3.1.1. Esempio](#311-esempio)
-  - [3.2. Trie-MMU](#32-trie-mmu)
-    - [3.2.1. Formato delle tabelle](#321-formato-delle-tabelle)
-    - [3.2.2. Regioni e Sottoregioni](#322-regioni-e-sottoregioni)
-  - [3.3. MMU](#33-mmu)
-    - [3.3.1. Traduzioni Identità](#331-traduzioni-identità)
-    - [3.3.2. TLB](#332-tlb)
-  - [3.4. Pagine di grandi dimensioni](#34-pagine-di-grandi-dimensioni)
+	- [3.1. Super MMU](#31-super-mmu)
+		- [3.1.1. Esempio](#311-esempio)
+	- [3.2. Trie-MMU](#32-trie-mmu)
+		- [3.2.1. Formato delle tabelle](#321-formato-delle-tabelle)
+		- [3.2.2. Regioni e Sottoregioni](#322-regioni-e-sottoregioni)
+	- [3.3. MMU](#33-mmu)
+		- [3.3.1. Traduzioni Identità](#331-traduzioni-identità)
+		- [3.3.2. TLB](#332-tlb)
+	- [3.4. Pagine di grandi dimensioni](#34-pagine-di-grandi-dimensioni)
 - [4. Funzioni di Supporto per la Paginazione](#4-funzioni-di-supporto-per-la-paginazione)
-  - [4.1. Calcoli con gli Indirizzi](#41-calcoli-con-gli-indirizzi)
-  - [4.2. Manipolare le singole entrate](#42-manipolare-le-singole-entrate)
-  - [4.3. Lavorare su singole tabelle](#43-lavorare-su-singole-tabelle)
-  - [4.4. Interagire con l'Hardware](#44-interagire-con-lhardware)
-  - [4.5. Lavorare con interi `TRIE`](#45-lavorare-con-interi-trie)
-  - [4.6. Funzioni `map` e `unmap`](#46-funzioni-map-e-unmap)
-  - [4.7. Debugger](#47-debugger)
+	- [4.1. Calcoli con gli Indirizzi](#41-calcoli-con-gli-indirizzi)
+	- [4.2. Manipolare le singole entrate](#42-manipolare-le-singole-entrate)
+	- [4.3. Lavorare su singole tabelle](#43-lavorare-su-singole-tabelle)
+	- [4.4. Interagire con l'Hardware](#44-interagire-con-lhardware)
+	- [4.5. Lavorare con interi `TRIE`](#45-lavorare-con-interi-trie)
+	- [4.6. Funzioni `map` e `unmap`](#46-funzioni-map-e-unmap)
+	- [4.7. Debugger](#47-debugger)
 
+<div class="stop"></div>
 
 # 2. Paginazione
 
-Fin'ora abbiamo visto la memoria come divisa, dall'indirizzo in un registro, in due sezioni:
-- `M1`: accedibile sia al `sistema` che all'`utente`
-- `M2`: riservata solo al `sistema`
+Fin'ora quando parlavamo di memoria l'abbiamo sempre intesa come divisa in due sezioni a partire da un indirizzo salvato in un qualche registro registro:
+- `M1`: dedicata esclusivamente al `sistema`
+- `M2`: dedicata sia al `sistema` che all'`utente`
 
 Fin'ora abbiamo assunto che in `M2`, in ogni istante, si trova **_solo la memoria privata del processo attualmente in esecuzione_**, così da evitare che un processo acceda alla memoria dell'altro.
 
-La memoria privata degli altri processi l'abbiamo localizzata in un `HD` esterno, che effettia _swap_ dell'intero `M2` quando si cambia processo.
+La memoria privata degli altri processi l'abbiamo localizzata in un `HD` esterno, che effettua lo _swap_ dell'intero blocco `M2` quando si cambia processo. Tutto questo è incredibilmente dispendioso e inefficente. 
 
-Tuttavia questo processo è incredibilmente dispendioso e inefficente. Quello che vogliamo fare ora è eliminare, o almeno ridurre, le copie da e verso lo _swap_, tenendo a mente che ci piacerebbe comunque **preservare i vantaggi** che ha trasferire tutta la `M2`, ovvero:
-- _Isolamento tra i processi_: ciascun processo può accedere solo alla propria memoria privata
-- _Semplicità nel collegamento dei programmi_: il _collegatore_ può assumere che ogni programma abbia a disposizione l'intera `M2`
-- _Semplicità nel (s)caricamento dei processi_: la memoria privata di ogni processo viene ricaricata **esattemente nella stessa posizione** ogni volta che il processo torna in esecuzione
-- _Possibilità di condivisione della memoria_: se più processi hanno bisogno di condividere memoria tra loro, il sistema può concederlo evitando di sostituire le parti di memoria condivise ogni volta che cambia processo.
+Quello che vogliamo fare ora è eliminare, o almeno ridurre, le copie da e verso lo _swap_, tenendo a mente che ci piacerebbe comunque **preservare i vantaggi** che ha trasferire tutta la `M2`, ovvero:
+- **Isolamento tra i processi**: ciascun processo può accedere solo alla propria memoria privata
+- **Semplicità nel collegamento dei programmi**: il _collegatore_ può assumere che ogni programma abbia a disposizione l'intera `M2`
+- **Semplicità nel (s)caricamento dei processi**: la memoria privata di ogni processo viene ricaricata **esattemente nella stessa posizione** ogni volta che il processo torna in esecuzione
+- **Possibilità di condivisione della memoria**: se più processi hanno bisogno di condividere memoria tra loro, il sistema può concederlo evitando di sostituire le parti di memoria condivise ogni volta che cambia processo.
 
 Un modo per riassumere la situazione è dire che ogni processo "pensa" di avere la **CPU** e la `M2` tutta per sé, quando in realtà ha una **CPU** _virtuale_ e una `M2` _virtuale_.
 Le vere componenti **incarnano ad ogni istante** le loro controparti virtuali del _processo attualmente in esecuzione_.
@@ -70,7 +71,7 @@ Esistono diversi metodi per implementarlo, noi ne vedremo qualcuno.
 
 Questo metodo suppone di sapere **di quanta memoria ha bisogno ogni processo**.
 
-Ogni processo dovrà avere sufficente spazio per contenere:
+Ogni processo dovrà quindi avere sufficente spazio per contenere:
 - La sezione `.text` con il codice del programma da eseguire
 - La sezione `.data` di variabili globali
 - La sezione dedicata a `stack` e `heap`
@@ -120,7 +121,7 @@ Il primo risiede nel capire **dove salvare la sezione `.text` di ogni processo**
 
 Ci sono due modi per risolvere questo problema:
 1. Compilare tutti i programmi in modo che siano indipendenti dalla posizione.
-    Questo è possibile e funziona _entro certi limiti_, poiché gli _offset_ possibili sono di dimensione massima `32bit` (`2GB`)
+    Questo è possibile e funziona _entro certi limiti_, poiché gli _offset_ possibili sono esprimibili su massimo `32bit` (`2GB`)
 2. Creare un **caricatore rilocante**, che riloca il programma al posto del _collegatore_ e, nel momento della carica, lo modifica in modo da adattarlo all'indirizzo di caricamento.
 
 
@@ -181,7 +182,7 @@ La posizione `x` si riferirà alla `x`-esima `pagina` del processo.
 <div class="">
 
 A questo punto scomponiamo ogni indirizzo in due parti `{a[p], o}` dove:
-- `a[o]`: indica il numero di `pagina`, che viene convertito tramite la **tabella** nell'indirizzo del `frame` (`f`).
+- `a[p]`: indica il numero di `pagina`, che viene convertito tramite la **tabella** nell'indirizzo del `frame` (`f`).
 - `o`: è l'offset rispetto all'inizio della `pagina`.
 
 In questo modo, quando accediamo all'indirizzo virtuale `x` di un processo, andiamo nell'indirizzo reale `f + o`.
@@ -197,11 +198,11 @@ Questa soluzione mantiene l'**isolamento**, poiché ogni _processo_ avrà **una 
 Quando questo non accade verrà sollevata l'eccezione di _page fault_ (o _segmentation fault_ nei sistemi _Unix_).
 Inoltre, questa soluzione non richiede di salvare la **tabella** nel contesto, poiché la ricreeremo ogni volta che il processo verrà caricato.
 
-Ci permette inoltre di **implementare una memoria condivisa**.
-Per permettere a due o più _processi_ di condividere dei `frame`, basta inserirli nelle loro **tabelle**.
-Possiamo quindi decidere:
+Siamo inoltre in grado di **implementare una memoria condivisa**. Per permettere a due o più _processi_ di condividere dei `frame`, basta inserirli nelle loro **tabelle**.
+
+Questa soluzione ci permette quindi di decidere:
 - Quali processi condividono della memoria
-- Quali frame adibire ad essere condivisi tra processi.
+- Quali frame mantenere privati ad un processo e quali rendere condivisibili
 
 ## 3.1. Super MMU
 
@@ -212,17 +213,13 @@ La **super MMU** si occupa quindi della traduzione: _indirizzi virtuali_ $\to$ _
 
 Vediamo quindi come modificare il `kernel` per implementare questo nuovo tipo di memoria nel caricamento dei processi.
 
-Affinché tutto funzioni correttamente, diamo per scontato il fatto che **_la `Super MMU` è sempre attiva, anche mentre è in esecuzione il `kernel`_**.
+Affinché tutto funzioni correttamente, diamo per scontato il fatto che **_la `Super MMU` sia sempre attiva, anche mentre è in esecuzione il `kernel`_**.
 
-Possiamo quindi inserire nella **super MMU** un nuovo _array_ dedicato proprio a quest'ultimo.
-L'_array_ conserverà per ogni `frame` **il processo che lo sta occupando**.
+Possiamo quindi inserire nella **super MMU** un nuovo _array_ dedicato proprio a quest'ultimo. L'_array_ conserverà quindi per ogni `frame` **il processo che lo sta occupando**. Sottolineiamo che questa soluzione <u>non è</u> quella utilizzata dai processori _Intelx86_.
 
-Tuttavia questa soluzione <u>non è</u> quella utilizzata dai processori _intelx86_.
-
-Capiamo quindi cosa succede durante le eccezioni quando vengono sollevate:
-
-Il `kernel` deve accedere innanzitutto accedere alla riga corrispondente della `IDT`, ma per accedervi deve passare per la `MMU`, poiché non conosce l'indirizzo reale di questa.
-È quindi necessario che la **MMU** abbia già fatto il cambio di tabella.
+Data questa struttura, capiamo quindi cosa succede durante le eccezioni quando vengono sollevate.
+Il `kernel` deve innanzitutto accedere alla riga corrispondente della `IDT`, ma per accedervi deve passare per la `MMU` poiché non ne conosce l'indirizzo fisico.
+È quindi necessario che la **MMU** abbia già fatto il cambio di tabella prima che l'eccezione venga sollevata.
 Per ovviare a possibili concorrenze che portano solamente ad errori, quello che facciamo è _"giocare di anticipo"_:
 > Salveremo in ogni tabella di corrispondenza i frame relativi a `M1`.
 
@@ -235,11 +232,11 @@ Andiamo quindi a codificare in maniera più "complessa" le righe della **tabella
 - `P`: _flag di presenza_, indica se la traduzione nell'indirizzo esiste o meno, generando un'_eccezione_ di _page fault_ (in `Unix` _segmentation fault_).
   È sempre `0` nella prima pagina (per il caso `nullptr`), e nei `kernel` reali è azzerato per diverse prime pagine (per gestire opportunamente il caso di strutture più grandi di `4KiB`).
 
-- `R/W`: indica se sono ammesse scritture nella pagina o meno
+- `R/W`: se settato indica che sono ammesse scritture nella pagina
 
-- `U/S`: dice se sono ammessi accessi alla pagina da livello utente o sistema. È questo `bit` che ci permette di vietare all'utente l'accesso alla memoria `M1`.
+- `U/S`: se settato indica che sono ammessi accessi alla pagina da livello utente. È questo `bit` che ci permette di vietare all'utente l'accesso alla memoria `M1`.
 
-- `PCD`: _Page Cache Disable_, se settato, ordina alla _cache_ di **non intercettare** l'operazione e lasciarla passare inalterata sul bus, similmente a come si comporta per l'`I/O`
+- `PCD`: _Page Cache Disable_, se settato ordina alla _cache_ di **non intercettare** l'operazione e lasciarla passare inalterata sul bus, similmente a come si comporta per l'`I/O`
 
 - `PWT`: _Page Write Through_, se settato ordina alla cache di usare la politica di _write-through_ per questo accesso (solo se in scrittura).
   È annullato da `PCD` se quest'ultimo è settato
@@ -266,7 +263,7 @@ int main() {
 Dobbiamo tradurre questo programma in una sequenza di `byte` da dare al processore.
 
 Per poterlo fare dobbiamo sapere:
-- Che **CPU** utilizziamo (_intelx64_)
+- Che **CPU** utilizziamo (_Intelx64_)
 - Come è gestita la memoria
 
 Per questo esempio supponiamo che lo spazio di memoria virtuale sia di soltanto `32KiB`.
@@ -363,13 +360,10 @@ Caricamento del processo `P2`
 |   7   |       |      7      |          stack2          |
 
 </div>
-</div>
 
 La pagina `0` è lasciata con `P = 0` per intercettare le deferenziazioni di `nullptr`.
-
 `P2` non utilizza le pagine `3`, `4`, `5` e `6`.
 
-</span>
 </div>
 <div class="top">
 <div class="p">
@@ -390,41 +384,40 @@ Caricamento del processo `P1`
 |   7   |      6      |      7      |          stack2          |
 
 </div>
-</div>
 
 Anche per `P1` la pagina `0` è lasciata con `P = 0` e la pagina `1` corrisponde allo stesso `frame` di sistema inaccessibile da livello `utente`.
 
 `P1` non utilizza le pagine `5` e `6`
 
-</span>
 </div>
 </div>
 
 Quando mandiamo in esecuzione `P1` **_tutte le pagine che non sono nel suo codominio diventano <u>inaccessibili</u>_**.
 
-`P1` comincia la sua esecuzione, con la **CPU** fisica che esegue una lettura all'indirizzo `2000` come quella virtuale.
+`P1` comincia la sua esecuzione, con la **CPU** fisica che esegue una lettura all'indirizzo `0x2000` come quella virtuale.
 
-La `MMU` intercetta l'operazione e scompone l'indirizzo in `2|000`, ovvero `pagina` e _offset_. Consulta quindi l'entrata (`2`) della **tabella** restituendo il corrispondente numero di `frame` (`3`).
+La `MMU` intercetta l'operazione e scompone l'indirizzo in `0x2|000`, ovvero `pagina` e _offset_. Consulta quindi l'entrata (`2`) della **tabella** restituendo il corrispondente numero di `frame` (`3`).
 L'accesso viene completato e la **CPU** fisica riceve `PUSHq %rbp` esattamente come la virtuale, ed inizia ad eseguirla.
-Successivamente decrementa `%rsp` di `8`, cercando quindi di effettuare una scrittura all'indirizzo `7ff8`.
-La `MMU` intercetta quindi l'operazione e scompone l'indirizzo in `7|ff8`, consultando l'entrata `7` e trovando il `frame` `6`.
-La scrittura viene quindi completata all'indirizzo _reale_ `6ff8`.
+Successivamente decrementa `%rsp` di `8`, cercando quindi di effettuare una scrittura all'indirizzo `0x7ff8`.
+La `MMU` intercetta quindi l'operazione e scompone l'indirizzo in `0x7|ff8`, consultando l'entrata `7` e trovando il `frame` `6`.
+La scrittura viene quindi completata all'indirizzo _reale_ `0x6ff8`.
 
 La **CPU** _fisica_ e _virtuale_ continuano di paripasso eseguendo le medesime istruzioni.
 
 Ipotizziamo quindi che ad un certo punto si generi un'interruzione con cambio di processo e vada in esecuzione `P2`.
 A questo punto `P1` si "_congela_", mentre il `kernel` carica i registri di `P2` e attiva la sua **tabella**.
 
-`P2` inizia la sua esecuzione, con la **CPU** (sia _fisica_ che _virtuale_) che eseguono una lettura all'indirizzo `2000`.
-La **MMU** infatti intercetta `2|000` e corrisponde alla _pagina_ `2` il _frame_ `2`.
-Viene raccolta quindi l'istruzione `PUSH %rbp`, che decrementerà `%rsp` di `8` e andrà a scrivere il contenuto all'indirizzo virtuale contenuto, che stavolta si riferisce a `7ff8`, salvandola nell'opportuna _pila_.
+`P2` inizia la sua esecuzione, con la **CPU** (sia _fisica_ che _virtuale_) che eseguono una lettura all'indirizzo `0x2000`.
+La **MMU** infatti intercetta `0x2|000` e corrisponde alla _pagina_ `2` il _frame_ `2`.
+Viene raccolta quindi l'istruzione `PUSH %rbp`, che decrementerà `%rsp` di `8` e andrà a scrivere il contenuto all'indirizzo virtuale contenuto, che stavolta si riferisce a `0x7ff8`, salvandola nell'opportuna _pila_.
 
 <div class="grid2">
 <div class="">
 
+Passa ulteriore tempo e viene avviato un nuovo processo `P3`. Immaginiamo che il `kernel`, per un motivo o per un altro, decida di **_rimuovere le pagine di `P1`_** dopo averle copiate nello _swap_ eseguendo un'operazione di _swap-out_.
+Viene quindi caricato in memoria `P3`, inizializzando la sua **tabella di corrispondenza* (sulla destra).
 
-
-Passa ulteriore tempo e immaginiamo che il `kernel`, per un motivo o per un altro, decida di **_rimuovere le pagine di `P1`_** dopo avere copiate nello _swap_, eseguendo un'operazione di _swap-out_, decidendo di caricare un nuovo processo `P3` con una sua **tabella di corrispondenza**:
+Da notare come non viene rimossa la traduzione per la parte sistema condivisa di `P1`, che non è ancora terminato, ma semplicemente _swappato_.
 
 </div>
 <div class="">
@@ -443,7 +436,6 @@ Passa ulteriore tempo e immaginiamo che il `kernel`, per un motivo o per un altr
 
 </div>
 </div>
-</div>
 <div>
 
 Passa altro tempo e `P2` termina. Il `kernel` procederà quindi a  liberare tutte le sue pagine.
@@ -451,11 +443,11 @@ Ancora dopo il `kernel` decide di ricaricare `P1` per rimetterlo in esecuzione (
 
 Le pagine di `P1` non  occupano più gli stessi frame che occupavano in precedenza.
 Tuttavia anche la tabella di corrispondenza di `P1` è adesso diversa, ed in linea con i nuovi `frame`.
-Se infatti va in esecuzione `P1`, ricordiamo che stava per prelevare `MOVSbl buf(%rcx), %eax` all'indirizzo `2028`.
+Se infatti va in esecuzione `P1`, ricordiamo che stava per prelevare `MOVSbl buf(%rcx), %eax` all'indirizzo `0x2028`.
 
-A questo punto la **CPU** fisica e la virtuale prelevano l'istruzione, quindi sommano il contenuto di `%rcx` e la costante `3000` ottenendo `3001` come indirizzo, per poi effettuarvi una lettura.
+A questo punto la **CPU** fisica e la virtuale prelevano l'istruzione, quindi sommano il contenuto di `%rcx` e la costante `0x3000` ottenendo `0x3001` come indirizzo, per poi effettuarvi una lettura.
 
-Ancora una volta la `MMU` scompone in `3|001` per ottenere il `frame` `5` all'offset `001`.
+Ancora una volta la `MMU` scompone in `0x3|001` per ottenere il `frame` `5` all'offset `0x001`.
 L'accesso viene ancora una volta completato, ed entrambe le **CPU** ricevono lo stesso valore continuando di pari passo completamente intoccate ed estranee al fatto che le `pagine` di `P1` siano state spostate.
 
 </div>
@@ -476,10 +468,8 @@ L'accesso viene ancora una volta completato, ed entrambe le **CPU** ricevono lo 
 </div>
 </div>
 </div>
-</div>
 
 ## 3.2. Trie-MMU
-
 
 <div class="grid2">
 <div class="">
@@ -487,14 +477,14 @@ L'accesso viene ancora una volta completato, ed entrambe le **CPU** ricevono lo 
 Abbiamo già detto che nella realtà non utilizziamo la **Super-MMU**. Uno dei motivi è legato alle sue dimensioni se fosse implementata.
 Proviamo infatti a calcolare la dimensione delle _tabelle di corrispondenza_ usate dalla **Super-MMU**.
 
-Partiamo dal dire che nei processori _intelx86_ a `64bit` **non tutti gli indirizzi sono utilizzabili**.
+Partiamo dal dire che nei processori _Intelx86_ a `64bit` **non tutti gli indirizzi sono utilizzabili**.
 Normalmente sono utilizzabili "solamente" `48bit`, ma esistono anche casi di memoria grande `57bit`, ma ne ometteremo l'analisi poiché del tutto analoga alla prima.
 
 Questa scelta è supportata dal fatto che maggiore il numero di bit maggiore è il numero di complicazioni alle quali andiamo incontro. Inoltre, `48bit` non sono in realtà per niente pochi, più che sufficenti per i nostri scopi.
 
 Affinché l'indirizzo, che si trova comunque su `64bit` sia utilizzabile, lo _standard_ prevede che i bit dal `48` al `63` siano **tutti uguali al bit `47`**, e quindi o **tutti `0` o tutti `1`**.
 Gli indirizzi che rispettano questa caratteristica sono detti **_indirizzi normalizzati_**.
-Questa scelta produce però un "buco" nel quale si troano tutti quegli indirizzi non utilizzabili.
+Questa scelta produce però un "buco" nel quale si trovano tutti quegli indirizzi non utilizzabili.
 
 </div>
 <div class="">
@@ -508,7 +498,7 @@ $$
     {2^{48} \over 2^{12}} = 2^{36} = 64 \text{Gi pagine}
 $$
 
-La tabella di corrisponendza di ogni processo deve avere **una entrata per ognuna** di queste pagine. Ogni entrata deve poi contenere almeno i bit `P`, `R/W`, `U/S`, `PCD`, `PWT`, `A`, `D` e il numero di frame che fornisce i bit da `12` a `51` dell'indirizzo fisico, per un totale di `47bit` arrotondabili in `6Byte`.
+La tabella di corrisponendza di ogni processo deve avere **una entrata per ognuna** di queste pagine. Ogni entrata deve poi contenere almeno i bit `P`, `R/W`, `U/S`, `PCD`, `PWT`, `A`, `D` e il numero di frame che fornisce i bit da `12` a `57/51` dell'indirizzo fisico, per un totale nel peggiore dei casi di `47bit` arrotondabili in `6Byte`.
 
 Se poi vogliamo che la dimensione di ogni entrata sia una potenza di 2 saranno necessari almeno `8Byte`, che per le `64Gi` pagine comporta un totale di `512GiB`.
 
@@ -516,6 +506,7 @@ Difficilmente quindi possiamo pensare che la **Super-MMU** esista davvero.
 Per affrontare il problema notiamo infatti che la stragrande maggioranza dei programmi ha bisogno solo di una piccola frazione dei $2^{48}$Byte disponibili nella _memoria virtuale_, ed è solo di quella porzione che vorremmo contenere le informazioni.
 
 È quindi stata introdotta la `Trie-MMU`, una `MMU` del tutto identica alla **Super-MMU**, tranne che per il formato della tabella di corrispondenza e, sperabilmente, per le dimensioni.
+
 Come la **Super**, la **Trie** possiede:
 - Memoria interna dove salvare le tabelle
 - Registro `cr3` che serve ad individuare la _tabella di corrispondenza_ attiva ad ogni istante.
@@ -535,8 +526,11 @@ L'albero memorizza le associazioni:
 - `hot` $\to$ `caldo`
 - `house` $\to$ `casa`
 
-Si noti inoltre come gli archi dell'albero siano contrassegnati con i caratteri delle chiavi e il valore associato ad ogni chiave si trova nella _foglia_ che si raggionge partendo dalla radice e seguendo il percorso indicato dalla chiave.
-<small>(in trie generici si può trovare anche nei nodi intermedi, tuttavia nel nostro caso le chiavi hanno tutte la stessa dimensione)</small>
+Si noti inoltre che:
+- Gli archi dell'albero sono contrassegnati con i caratteri delle chiavi
+- Il valore associato ad ogni chiave si trova nella _foglia_ che si raggiunge partendo dalla radice e seguendo il percorso indicato dalla chiave.
+
+<small>(in trie generici una chiave si può trovare anche nei nodi intermedi, tuttavia nel nostro caso le chiavi hanno tutte la stessa dimensione)</small>
 
 Un modo per implementare un _trie_ è di avere in ogni nodo _un array di 128 entrate_, ciascuna delle quali contenga il puntatore al prossimo nodo da visitare in base al codice _ASCII_ del prossimo carattere della chiave.
 
@@ -585,6 +579,8 @@ In questa struttura è molto comodo utilizzare la **rappresentazione in base `8`
 <figcaption>
 
 Ciascun nodo dell'albero è una tabella di `512` entrate di `8Byte` ciascuna, per un totale di `4094Byte` = `4KiB` ciascuna.
+
+I valori in basso all'immagine fanno riferimento al caso in cui tutte le possibilli tabelle fossero piene.
 </figcaption>
 </figure>
 </div>
@@ -596,19 +592,20 @@ Per fare ciò poniamo semplicemente `P = 0` nelle righe tabelle di livello `2`, 
 
 Se ad esempio un processo non usa nessun indirizzo il cui numero di `pagina` inizi con $(777)_8$, il _trie_ di questo processo **non ha bisogno di tutto il sottoalbero** di quel nodo, ed eviterà quindi di allocarlo.
 
-Ipotizziamo che il nostro _trie_ si trovi a dover tradurre l'indirizzo virtuale $v = (000\;777\;000\;777\;1234)_8$.
+Ipotizziamo che il nostro _trie_ si trovi a dover tradurre l'indirizzo virtuale `v = (000 777 000 777 1234)_8`, che ha quindi come **numero di pagina**: `(000 777 000 777)_8`.
 
-Il **numero di pagina è**: $(000\;777\;000\;777)_8$.
 I primi `9bit` sono $(000)_8$, perciò verrà utilizzata l'entrata di indice `0` del livello `4`, recuperandone il contenuto.
-Questo contenuto rappresenta l'indirizzo dove si trova la tabella da considerare di livello `3`.
+Questo contenuto rappresenta l'indirizzo dove si trova la tabella da interpretare come di livello `3`.
+
 Si passa quindi a questa per valutare i successivi `9bit` $(777)_8$ per sapere dove si trova la tabella di livello `2` da consultare.
-La _trie_ utilizzarà l'ultima entrata e passerà alla seconda tabella di livello 2 dall'alto in figura.
+La _trie_ utilizzarà l'ultima entrata e passerà alla seconda tabella di livello `2` dall'alto in figura.
+
 Qui verranno utilizzati i bit $(000)_8$ verso la terza tabella di livello `1` dall'alto, trovando infine la traduzione che stava cercando nell'entrata $(777)_8$ di questa tabella.
 
-Questa struttura ci permette di **non dovere allocare più volte in uno stesso _tree_ una zona di memoria condivisa**.
-Per condividere la memoria sarà sufficente far puntare allo stesso nodo i _trie_ di due processi distinti.
-Inoltre possiamo adesso **scegliere dove _virtualmente_ ogni processo vede la memoria condivisa**.
-Inoltre, possiamo, tramite i bit `R/W` di questi nuovi percorsi chi può scrivere nella memoria condivisa e chi non può.
+Questa struttura ci permette di **non dovere allocare più volte in uno stesso _trie_ una zona di memoria condivisa**.
+Per condividere la memoria sarà sufficente far puntare allo stesso nodo i _trie_ di due processi distinti, ovvero inserire nella tabella di livello `4` lo stesso indirizzo allo stesso offset, così da puntare alla stessa tabella di livello `3`.
+
+Inoltre possiamo adesso **scegliere dove, _virtualmente_, ogni processo vede la memoria condivisa**, oltre che a poter decidere, manipolando i bit `R/W` di questi nuovi percorsi, chi può scrivere nella memoria condivisa e chi non può.
 
 ### 3.2.1. Formato delle tabelle
 
@@ -633,7 +630,7 @@ Per quanto riguarda `A` e `D`:
 - `D`: ha senso solo al **livello 1**. Ogni volta che il sistema carica le pagine di un processo in memoria, dovrebbe porlo `D = 0` in tutte le entrate della tabella di corrispondenza.
   Al momento di eseguire uno _swap-out_ del processo, il sistema può evitare di salvare tutte le pagine del processo nel dispositivo di _swap_, esaminando solo quelle pagine dove adesso `D = 1` a seguito di una scrittura.
 
-I **_descrittori di livello 2, 3 e 4_** (_descrittori delle tabelle di livello 1, 2, e 3_) invece hanno quindi la seguente forma:
+I **_descrittori di livello 2, 3 e 4_** hanno invece la seguente forma:
 <figure class="80">
 <img class="60" src="./images/Paginazione/Trie-MMU/tabella livello i.png">
 <figcaption>
@@ -644,7 +641,7 @@ Da notare i padding tra i bit `0` e `11`, dovuti all'allineamento a multipli di 
 </figure>
 
 Viene introdotto un nuovo `bit`, il `PS` (_Page Size_), che per ogni livello intermedio indica il punto di arresto della traduzione.
-In questi modo comunica che il `frame` ha la dimensione della regione da lui identificata.
+In questo viene comunicato che il `frame` ha la dimensione della regione da lui identificata.
 
 Questi descrittori, seppur simili, sono diversi da quelli di livello `1`:
 - Questi descrivono **tabelle**
@@ -654,7 +651,7 @@ Il processo di traduzione si articola in questo modo:
 
 <img class="60" src="./images/Paginazione/Trie-MMU/traduzione virtuale fisico.png">
 
-Durante la traduzione la **Trie-MMU** esegue anche altri compiti, analoghi ai compiti aggiuntivi che svolgeva la **Super-MMU**:
+Durante la traduzione la **Trie-MMU** esegue anche altri compiti aggiuntivi, che le permettono di avere un comportamento analogo alla **Super-MMU**:
 - Controlla **tutti i bit** `R/W`: permette le operazioni di scrittura solo se **_tutti e_** `4bit` lungo il percorso la permettono
 - Controlla **tutti i bit** `U/S`: permette le operazioni di accesso solo se **_tutti e_** `4bit` lungo il percorso la permettono
 - Passa al controllore _cache_ le informazioni dei bit `PWD` e `PCD` del _descrittore di livello 1_
@@ -667,26 +664,26 @@ Ciascuna delle tabelle di corrispondenza deve essere sostituita quindi con uno d
 
 ### 3.2.2. Regioni e Sottoregioni
 
-Un altro modo per pensare alle operazioni svolte dalla **Trie-MMU** è di _ragionare in termini di regioni naturali_
+Un altro modo per pensare alle operazioni svolte dalla **Trie-MMU** è di _ragionare in termini di regioni naturali_.
 <small>(intervalli di indirizzi con dimensione pari ad una potenza di 2 e allineate naturalmente)</small>
 
 Possiamo quindi identificare ciascuna tabella del _trie_ specificando la sequenza di bit della chiave che porta dalla radice alla tabella in questione.
 
-Per esempio, la terza tabella di **livello 2** dall’alto nell'immagine sopra è identificata dalla sequenza di `18bit` $(777\;000)_8$.
+Per esempio, la terza tabella di **livello 2** dall’alto nell'immagine sopra è identificata dalla sequenza di `18bit` `(777 000)_8`.
 
 La traduzione di **tutti gli indirizzi virtuali che iniziano con questo prefisso deve passare da questa tabella**.
 
-Questa tabella, dunque, è "_responsabile_" della traduzione dell’intera regione naturale, grande `248−18` = `230` = `1GiB`, il cui numero di regione è appunto $(777\;000)_8$.
+Questa tabella, dunque, è "_responsabile_" della traduzione dell’intera regione naturale, grande `248−18` = `230` = `1GiB`, il cui numero di regione è appunto `(777 000)_8`.
 
 Aggiungendo ulteriori `9bit` possiamo identificare anche **ogni singola entrata della tabella**.
 
-Per esempio, i `27bit` $(777\;000\;777)_8$ identificano
+Per esempio, i `27bit` `(777 000 777)_8` identificano
 - La terza tabella di livello 1 dal basso (`t`),
 - L’ultima entrata della seconda tabella di livello 2 dal basso (`e`).
 
-Di nuovo, la traduzione di tutti gli indirizzi virtuali che iniziano con $(777\;000\;777)_8$ deve passare dall’entrata e e poi da una dalle entrate della tabella `t`.
+Di nuovo, la traduzione di tutti gli indirizzi virtuali che iniziano con `(777 000 777)_8` deve passare dall’entrata e e poi da una dalle entrate della tabella `t`.
 
-Tutti questi indirizzi virtuali _appartengono alla stessa regione naturale_ grande `248−27` = `221` = `2MiB`, il cui numero di regione è $(777\;000\;777)_8$.
+Tutti questi indirizzi virtuali _appartengono alla stessa regione naturale_ grande `248−27` = `221` = `2MiB`, il cui numero di regione è `(777 000 777)_8`.
 
 Possiamo perciò dire che l’entrata `e`, oppure l’intera tabella `t`, **sono responsabili della traduzione in questa regione**.
 
@@ -695,7 +692,7 @@ In generale, diremo che:
 
 > Ogni tabella di livello $i$ sarà responsabile nella sua interezza **della traduzione di una regione naturale dello stesso livello** $i$.
 
-In questa definizione incontriamo le _regioni di livello 0_ **non sono altro che le `pagine`**, grandi ognuna `12byte`.
+In questa definizione incontriamo le _regioni di livello 0_ **non sono altro che le `pagine`**, ognuna di grandezza `12Byte`.
 
 In generale una regione di livello $j$, con $0\le j\le 4$, è grande $29j + 12$byte.
 
@@ -703,7 +700,7 @@ Perciò ogni entrata di una tabella di livello 1 è responsabile della traduzion
 
 ## 3.3. MMU
 
-Eliminiamo ora le semplificazioni fatte fin'ora e studiamo la `MMU` che si trova nei sistemi _intel/AMD_ a `64bit`.
+Eliminiamo ora le semplificazioni fatte fin'ora e studiamo la `MMU` che si trova nei sistemi _Intel/AMD_ a `64bit`.
 
 La `Trie-MMU` aveva una memoria interna per memorizzare le tabelle dei vari livelli, mentre nella `MMU` **non funziona così**, ma **_le tabelle devono essere memorizzate nella memoria fisica_**.
 Infatti anche le tabelle sono allineate a `4KiB`, quindi perfettamente inseribili nei `frame` di `M2`.
@@ -729,8 +726,8 @@ MOV (%rax), %rbx    ; Copio il contenuto dell'indirizzo fisico %rax
 Per ovviare a questo problema di traduzione, il `kernel` fa in modo di utilizzare **traduzioni identità**.
 
 Nello spazio di memoria _virtuale_ di un processo, diviso in due metà come abbiamo visto prima, riserviamo la parte alta al `sistema`, mentre la parte bassa all'`utente`.
-Nella parte `sistema` inizializziamo quindi le **traduzioni identità**, che mappano un indirizzo virtuale `x` nell'indirizzo fisio `x`, affinché gli indirizzi virtuali e fisici combacino numericamente.
-Questo permette alle esecuzioni in modalità `sistema` di poter accedere a tutta la **RAM**, "bypassando" gli indirizzi virtuali, accedendo praticemente agli indirizzi fisici.
+Nella parte `sistema` inizializziamo quindi le **traduzioni identità**, che mappano un indirizzo virtuale `x` nell'indirizzo fisico `x`, affinché gli indirizzi virtuali e fisici combacino numericamente.
+Questo permette alle esecuzioni in modalità `sistema` di poter accedere a tutta la **RAM**, "bypassando" gli indirizzi virtuali, accedendo praticamente agli indirizzi fisici.
 
 L'indirizzo contenuto in `cr3` si riferirà quindi a questa porzione, in modo che il codice visto prima, quando eseguito dalla **CPU**, funzioni correttamente.
 
@@ -740,7 +737,7 @@ In questo modo possiamo quindi anche inserire gli indirizzi di `APIC` e `I/O` ne
 
 ### 3.3.2. TLB
 
-Per ogni accesso in memoria `MMU` vengono effettuati un minimo di 4 tabelle per accedere in memoria.
+Introducendo la `MMU`, per ogni accesso in memoria da parte del software, accediamo ad un minimo di 4 tabelle per recuperare l'indirizzo fisico al quale successivamente accedere.
 Se consideriamo che la `MMU` deve aggiornare i `bit` `A` e `D`, possiamo arrivare a **8 accessi** o persino **12** nei casi peggiori.
 Ciò riguarda anche gli accessi in _cache_.
 
@@ -755,7 +752,7 @@ Agli accessi successivi si controllerà prima se in `TLB` è già presente il de
 
 La `TLB`, per struttura, è poco accessibile da _software_, tuttavia ne è permesso lo **svuotamento**.
 Questo processo è obbligatorio nei cambi di contesto, in quanto le traduzioni di `P1` non hanno senso per `P2`.
-Nei processori _intel_ questo svuotamento avviene **in automatico quando viene scritto `%cr3`**, anche se viene cambiato in se stesso. (`MOV %cr3, %cr3`)
+Nei processori _Intel_ questo svuotamento avviene **in automatico quando viene scritto `%cr3`**, anche se viene cambiato in se stesso. (`MOV %cr3, %cr3`)
 
 Un esempio di `TLB` a due vie può essere il seguente:
 
@@ -776,7 +773,7 @@ Per ottimizzare lo spazio, all'interno dei dati nel `TBL` non sono salvate alcun
 È importante focalizzarci su due punti riguardanti il bit `A` e il bit `D`.
 
 Il bit `A` viene settato **_durante il table-walk_**, qiventa quindi un problema quindi azzerarlo via software. Infatti, se l'indirizzo è presente nel `TLB`, non viene rieseguito fatto l'accesso al _trie_.
-In questo caso la soluzione è quella di **azzerare le righe corrispondenti in `TLB`** prima di affettuare gli accessi che modificano `A`.
+In questo caso la soluzione è quella di **azzerare le righe corrispondenti nel `TLB`** prima di affettuare gli accessi che modificano `A`.
 
 Il bit `D` deve essere settato _**solo quando effetuiamo un'accesso in scrittura**_.
 Nel caso in cui effettuiamo un accesso in lettura tramite _table-walk_ (che non setta `D`) a un indirizzo, lo salveremo nel `TLB`.
@@ -793,9 +790,9 @@ Il modo per farlo è non consultare la `TLB` negli accessi in scrittura di frame
 Quando effettuiamo una traduzione, non possiamo saperne a priori le dimensioni.
 Infatti questa informazione sarà accessibile solo alla quando arriveremo al `livello 1`, guardando il bit `PS`.
 
-Perciò dobbiamo trovare una soluzione per quanto riguarda il salvataggio di indirizzi più grandi in `TLB`.
+Perciò dobbiamo trovare una soluzione per quanto riguarda il salvataggio di indirizzi più grandi nel `TLB`.
 
-Nei primi processori, gli accessi a pagine più grandi dei `4KiB` occupavano più righe della `TLB`.
+Nei primi processori, gli accessi a pagine più grandi dei `4KiB` occupavano più righe del `TLB`.
 Ad esempio pagine da `2MB` ne occupavano ben **512 righe**.
 
 Nel caso di pagine da `1GiB` la traduzione è la seguente:
@@ -816,7 +813,7 @@ Nella libreria `libce.h` sono definite una serie di funzioni e tipi che ci perme
 
 Lo standard `C++`non suporta la conversione tra puntatore e tipo nativo, anche se è proprio ciò che desideriamo fare quando gestiamo il `kernel`.
 
-Nella libreria definiamo i _tipi numerici_ `paddr` (_physical-address_) e `vaddr` (_virtual-addres_).
+Nella libreria definiamo i _tipi numerici_ `paddr` (_physical-address_) e `vaddr` (_virtual-address_).
 Entrambi sono puramente `typedef` di `natq`, ma facciamo la distinzione per puro scopo di lettura e utilizzo.
 
 Quando vogliamo convertirlo in un puntatore a `type` utilizziamo il _cast_:
@@ -983,7 +980,7 @@ Il registro `cr2` contiene l'ultimo `vaddr` che ha **causato un'eccezione di `pa
 
 
 Esiste anche la funzione `invalida_entrata_TLB(v)` che serve a **invalidare la traduzione** associata al `vaddr v` nel `TLB` nel caso ne stesse conservando una copia.
-Per invalidare l'intero `TLB` si può utilizzare `invalida_TLB()`, che nei processori _intel_ è equivalente a `loadCR3(read(CR3))`.
+Per invalidare l'intero `TLB` si può utilizzare `invalida_TLB()`, che nei processori _Intel_ è equivalente a `loadCR3(read(CR3))`.
 
 ## 4.5. Lavorare con interi `TRIE`
 
@@ -1019,7 +1016,7 @@ for(tab_iter it(tab4, v); it; it.next()) {
 ```
 
 `it` si troverà in ordine su `tab4`, `tab3`, `tab2` e infine su `tab1`.
-Successivamente la visita sarà terminatà e la conversione a `bool` resituirà `false`.
+Successivamente la visita sarà terminata e la conversione a `bool` resituirà `false`.
 
 </div>
 <div class="top">
@@ -1028,7 +1025,7 @@ Successivamente la visita sarà terminatà e la conversione a `bool` resituirà 
 // Albero di radice cr3
 // Pagine v e v+DIM_PAGINA
 // (suppenendo v non sia né l'ultima né adiacente al buco)
-for(tab_iter iT(tab4, v, 2*DIM_PAGINA); it; it.next()) {
+for(tab_iter it(tab4, v, 2*DIM_PAGINA); it; it.next()) {
     printf("tab %6lx, liv %d, entry %6lx\n",
         it.get_tab(),
         it.get_l(),
@@ -1048,7 +1045,7 @@ Per implementare invece una _visita posticipata_:
 ```cpp
 tab_iter it(tab4, v);
 for(it.post(); it; it.next_post()) {
-    pritnf("tab %6lx, liv %d, entry %6lx\n",
+    printf("tab %6lx, liv %d, entry %6lx\n",
         it.get_tab(),
         it.get_l(),
         it.get_e());
@@ -1066,7 +1063,7 @@ while(it.down()) {
 }
 ```
 
-La differenza tra `it.next()` e `it.down()` è che la `tab_iter::down()` ad ogni passo **scende di un livello**. Arrivata quindi alla tabella di livello 1, considera la visita terminata. La `tab_iter::next()` invece si può muovere anche tra entrate di una stessa tabella. Arrivata quindi alla tabella di livello 1, se chiamata passa semplicemente all'entrata successiva. Termina solamente quando si raggiunge la dimensione massima specificata ( o quelal di _default_).
+La differenza tra `it.next()` e `it.down()` è che la `tab_iter::down()` ad ogni passo **scende di un livello**. Arrivata quindi alla tabella di livello 1, considera la visita terminata. La `tab_iter::next()` invece si può muovere anche tra entrate di una stessa tabella. Arrivata quindi alla tabella di livello 1, se chiamata passa semplicemente all'entrata successiva. Termina solamente quando si raggiunge la dimensione massima specificata (o quella di _default_).
 
 Proseguendo con altre funzioni troviamo la funzione `trasforma(root, v)` che converte l'indirizzo virtuale `v` nel corrispondendte indirizzo fisico in base al _trie_ con radice `root`.
 
@@ -1081,7 +1078,7 @@ La funzione `map()` riceve:
 - Parametro _template_ `getpaddr` che si deve comportare come una funzione che traduce da `vaddr` a `paddr`.
 
 La funzione `map` creerà quindi nell'albero di radice `tab` le traduzioni `v`$\to$`getpaddr(v)` per tutti gli indirizzi di pagina `v` nell'intervallo `[begin, end)`.
-La funzione riceve anche un parametro `flags` con il quale si può specificare il valore desiderato per i _flag_.
+La funzione riceve anche un parametro `flags` con il quale si può specificare il valore desiderato per i _flag_ per tutte le traduzioni generate.
 
 Nel caso venga passato un intervallo già occupato, la `map()` genererà un errore.
 
@@ -1099,10 +1096,10 @@ void foo() {
 ```
 
 La funzione creerà il mapping:
-- `1000`$\to$`identity_map(1000)`$\to$`1000`
-- `2000`$\to$`identity_map(2000)`$\to$`2000`
+- `0x1000`$\to$`identity_map(0x1000)`$\to$`0x1000`
+- `0x2000`$\to$`identity_map(0x2000)`$\to$`0x2000`
 - ...
-- `7ff000`$\to$`identity_map(7ff000)`$\to$`7ff000`
+- `0x7ff000`$\to$`identity_map(0x7ff000)`$\to$`0x7ff000`
 
 Se invece vogliamo mappare gli stessi indirizzi su nei nuovi frame di `M2`, basta sostituire `identity_map`:
 ```cpp
@@ -1120,7 +1117,9 @@ void foo() {
 In questo caso sono molto utili le **_espressioni lambda_** al posto dei puntatori a funzione.
 Le espressioni _lambda_ hanno la seguente sintassi:
 ```cpp
-// Per i passaggi per riferimento è sufficente scrivere [&] invece di []
+// Se vogliamo che la lambda possa accedere e modificare
+// le variabili nello scope della funzione, è sufficente
+// scrivere [&] invece di [].
 [/* & */](argomenti) -> returnType {
     /*
     * corpo funzione
@@ -1131,8 +1130,10 @@ Le espressioni _lambda_ hanno la seguente sintassi:
 ```
 
 Un'altra possibilità è quella di usare oggetti istanza di classi/strutture che ridefiniscono `operator()`.
+
 Questo è utile quando per creare correttamente le traduzioni non è sufficente conoscere l'indirizzo virtuale, ma abbiamo necessità di avere altre informazioni.
 Un esempio nel nostro nucleo è data dalla funzione `carica_modulo()`, che deve creare un _mapping_ per ogni segmento di un file `ELF`.
+
 Vediamo però un esempio più semplice: creare un mapping tra lo stesso intervallo di prima e degli indirizzi fisici arbitrari contenuti in un array `paddr a[]`:
 ```cpp
 class my_addrs{
@@ -1157,13 +1158,13 @@ void foo{
 
 La funzione `unmap()` esegue l'operazione inversa di `map()`: **distrugge tutte le traduzioni** in un dato intervallo di _indirizzi virtuali_.
 
-La funzione si occupa di _deallocare_ anche le tabelle vuote dopo aver eliminate le tradizioni tramite `rilascia_tab()`.
+La funzione si occupa di _deallocare_ anche le tabelle vuote dopo aver eliminato le tradizioni, utilizzando la funzione `rilascia_tab()`.
 
 La funzione riceve un parametro _template_ `putaddr` che l'utente può usare per decidere **cosa fare di ogni indirizzo fisico che prima era mappato da qualche indirizzo virtuale**.
-Per esempio, per ditruggere il _mapping_ creato tramite `identity_map()` non è necessario fare niente, e `putaddr` può essere una `NOP`:
+Per esempio, per ditruggere il _mapping_ creato tramite `identity_map()` non è necessario fare niente, e `putaddr` può essere l'equivalente di una `NOP`:
 ```cpp
 void do_nothing(vaddr v, paddr p, int lvl) {
-
+	return;
 }
 
 void foo() {
@@ -1173,7 +1174,7 @@ void foo() {
 }
 ```
 
-Invece, per disfare i mapping creati tramite `my_alloc_frame()` è necessario chiamare `rilascia_frame()`:
+Invece, per disfare i mapping creati tramite `my_alloc_frame()` è necessario che la funzione passata chiami `rilascia_frame()` sui vari indirizzi fisici:
 ```cpp
 void my_rel_frame(vaddr v, paddr p, int lvl) {
     rilascia_frame(p);
@@ -1186,12 +1187,11 @@ void foo() {
 }
 ```
 
-`map` e `unmap` utilizzano alcune funzioni per _allocare_ e _deallocare_ le tabelle.
-
+La `map` e la `unmap` utilizzano alcune funzioni per _allocare_ e _deallocare_ le tabelle, e la loro definizione si trova nel file `include/vm.h` nella `libce`.
 La `libce` fornisce una versione semplificata di queste funzioni, allocandole sullo `heap`, senza mai _deallocarle_.
 
 Il modulo `sistema` invece fornisce una versione **più sofisticata** che mantiene per ogni tabella un **_contatore delle entrate valide_** che permette di _deallocare_ le tabelle quando questo contatore vale `0`.
-<small>(conta i bit di presenza `P` settati)</small>
+<small>(banalmente vengono contati i bit di presenza `P` settati)</small>
 
 ## 4.7. Debugger
 
