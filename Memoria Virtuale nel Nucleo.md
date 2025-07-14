@@ -4,14 +4,15 @@
 - [2. La Memoria Virtuale](#2-la-memoria-virtuale)
 - [3. Implementazione](#3-implementazione)
 
+<div class="stop"></div>
 
 # 2. La Memoria Virtuale
 
 Abbiamo definito la _memoria virtuale_, adesso è il momento di implementarla.
 
-Nel nostro calcolatore realizzeremo un caso _ibrido_ rispetto alla visibilità della memora: i processi hanno sia **zone di memoria condivise tra tutti**, sia **zone di memoria private per ciascuno**.
+Nel nostro calcolatore realizzeremo un caso _ibrido_ rispetto alla visibilità della memora: i processi avranno sia **zone di memoria condivise tra tutti**, sia **zone di memoria private per ciascuno**.
 
-Tutti i processi `utente` avranno caricato nella propria memoria virtuale **un unico programma**: quello contenuto nel `modulo utente`.
+Tutti i processi `utente` avranno caricato nella propria memoria virtuale **un unico programma**: quello contenuto nel modulo `utente`.
 
 <div class="grid2">
 <div class="">
@@ -19,12 +20,15 @@ Tutti i processi `utente` avranno caricato nella propria memoria virtuale **un u
 La memoria virtuale di ogni processo sarà quindi organizzata come nell'immagine a destra.
 
 La memoria virtuale di un processo è divisa in due macrozone: `utente` e `sistema`, sfruttando la naturale divisione dovuta alla _normalizzazione_ degli indirizzi.
-La parte che va dall'indirizzo `0000 0000 0000 0000` all'indirizzo `0000 7fff ffff ffff` è deditata al `sistema`, ed ha quindi settato il bit `U/S = 0`, mentre la parte che va da `ffff 8000 0000 0000` a `ffff ffff ffff ffff` è dedicata all'`utente`, ed ha quindi settato il bit `U/S = 1`.
+
+La parte che va dall'indirizzo `0x0000 0000 0000 0000` all'indirizzo `0x0000 7fff ffff ffff` è deditata al `sistema`, ed ha quindi settato il bit `U/S = 0`, mentre la parte che va da `0xffff 8000 0000 0000` a `0xffff ffff ffff ffff` è dedicata all'`utente`, ed ha quindi settato il bit `U/S = 1`.
+
 Inoltre gli indirizzi virtuali della prima pagina (`0` a `fff`) sono lasciati **_non mappati_**, per intercettare dereferenzazioni di `nullptr` indipendentemente dal livello del privilegio del processore.
 
 Ogni macro-zona è **ulteriormente divisa**.
 La sezione `sistema` è divisa in:
-- Memoria `sistema` **condivisa**: la sua dimensione è decisa a _priori_, mentre la dimensione della finestra dipende dalla memoria fisica installata
+- Memoria `sistema` **condivisa**: la sua dimensione è decisa a _priori_, e dipende dalla memoria fisica installata (per via della finestra). 
+  Contiene la finestra sulla memoria fisica, le variabili/strutture dati sistema globali e il codice del modulo `sistema`.
 - Memoria `sistema` **privata**: contiene la _pila sistema del processo_.
 - Memoria `I/O` **condivisa**: contiene il modulo `I/O`, ovvero le sezioni `.text` e `.data` estratte dal file `build/io` e mappate al loro indirizzo di collegamento. Contiene anche lo _heap I/O_, utilizzato dagli operatori di `new` e `delete` nel modulo `I/O`.
 
@@ -33,17 +37,16 @@ La sezione `utente` è divisa invece in:
 - Memoria `utente` **privata**: contiene la _pila utente_ del processo.
 
 La **RAM** è divisa in _frame_, che sono rappresentati da una _pila_.
-Ciò ci è comodo per la sua gestione, in quanto se necessitiamo di un nuovo _frame_ è sufficente estrarre il primo.
+Ciò ci è comodo per la sua gestione, in quanto se necessitiamo di un nuovo _frame_ è sufficente estrarre il primo libero.
 
-Alla _pila_ è associato un _array_, che contiene **un elemento per ogni frame**.
+Alla _pila_ è associato un _array_ (`des_frame vdf[N_FRAME]`), che contiene **un elemento per ogni frame**.
 In questo _array_ troviamo il **numero di indirizzi validi** in un determinato _frame_.
 In questo modo siamo in grado di capire quando un _frame_ è pieno o quando è _vuoto_.
 
-
 La memoria fisica è suddivisa al solito in una parte `M1` e una parte `M2`.
 La parte `M1` della memoria fisica è così organizzata:
-- Primi due `MiB` contengolo lo _heap di sistema_: è una zona di memoria in cui le primitive _allocano i_ `des_proc`, le strutture `richiesta` e in generale qualunque struttura dati allocata _dinamicamente_ tramite `new` e `delete`.
-  Quando il `modulo sistema` parte, il _bootloader_ ha già usato parte dello _heap sistema_ per allocare alcune strutture dati, come le _tabelle di traduzioni per la finestra e il segmento `TSS`_.
+- I primi due `MiB` contengolo lo _heap di sistema_: è una zona di memoria in cui le primitive _allocano i `des_proc`_, le strutture `richiesta` e in generale qualunque struttura dati allocata _dinamicamente_ tramite `new` e `delete`.
+  Quando il modulo `sistema` parte, il _bootloader_ ha già usato parte dello _heap sistema_ per allocare alcune strutture dati, come le _tabelle di traduzioni per la finestra e il segmento `TSS`_.
 - La parte dedicata al `modulo sistema` contiene le sezioni `.text` e `.data` estratte dal file `build/sistema` e caricate al loro _indirizzo di collegamento_.
 
 Dal simbolo `end` definito nel `modulo sistema`, otterremo l'inizio della parte `M2`.
@@ -56,8 +59,11 @@ Dal simbolo `end` definito nel `modulo sistema`, otterremo l'inizio della parte 
 
 Indirizzamento virtuale di due processi `P1` e `P2`.
 Il nome delle costanti ha tre parti:
+
 La stringa `ini` per l'_inizio_ o `fin` per la _fine_
+
 La stringa `sis` per le sezioni _sistema_, `mio` per la sezione _modulo I/O_ e `utn` per le sezioni _utente_
+
 Il carattere `c` per le sezioni _condivise_ o `p` per quelle _private_.
 </figcaption>
 </figure>
@@ -80,19 +86,27 @@ Per semplicità le varie parti occupano **ciascuna un numero intero di regioni d
 
 ```cpp
 //costanti.h
-#define I_SIS_C		0 		///< prima entrata sistema/condivisa
-#define I_SIS_P		1		///< prima entrata sistema/privata
-#define I_MIO_C		2		///< prima entrata modulo IO/condivisa
-#define I_UTN_C     256		///< prima entrata utente/condivisa
-#define I_UTN_P	    384		///< prima entrata utente/privata
+///< prima entrata sistema/condivisa
+#define I_SIS_C		0
+///< prima entrata sistema/privata
+#define I_SIS_P		1
+///< prima entrata modulo IO/condivisa
+#define I_MIO_C		2
+///< prima entrata utente/condivisa
+#define I_UTN_C     256
+///< prima entrata utente/privata
+#define I_UTN_P	    384
 
-#define N_SIS_C		1		///< numero entrate sistema/condivisa
-#define N_SIS_P		1		///< numero entrate sistema/privata
-#define N_MIO_C		1		///< numero entrate modulo IO/condivisa
-#define N_UTN_C	    128		///< numero entrate utente/convidisa
-#define N_UTN_P	    128		///< numero entrate utente/privata
-
-
+///< numero entrate sistema/condivisa
+#define N_SIS_C		1
+///< numero entrate sistema/privata
+#define N_SIS_P		1
+///< numero entrate modulo IO/condivisa
+#define N_MIO_C		1
+///< numero entrate utente/convidisa
+#define N_UTN_C	    128
+///< numero entrate utente/privata
+#define N_UTN_P	    128
 ```
 </div>
 <div class="top">
@@ -101,17 +115,27 @@ Per semplicità le varie parti occupano **ciascuna un numero intero di regioni d
 // sistema.cpp
 static const natq PART_SIZE = dim_region(MAX_LIV - 1);
 
-const vaddr ini_sis_c = norm(I_SIS_C * PART_SIZE); ///< base di sistema/condivisa
-const vaddr ini_sis_p = norm(I_SIS_P * PART_SIZE); ///< base di sistema/privata
-const vaddr ini_mio_c = norm(I_MIO_C * PART_SIZE); ///< base di modulo IO/condivisa
-const vaddr ini_utn_c = norm(I_UTN_C * PART_SIZE); ///< base di utente/condivisa
-const vaddr ini_utn_p = norm(I_UTN_P * PART_SIZE); ///< base di utente/privata
+///< base di sistema/condivisa
+const vaddr ini_sis_c = norm(I_SIS_C * PART_SIZE);
+///< base di sistema/privata
+const vaddr ini_sis_p = norm(I_SIS_P * PART_SIZE);
+///< base di modulo IO/condivisa
+const vaddr ini_mio_c = norm(I_MIO_C * PART_SIZE);
+///< base di utente/condivisa
+const vaddr ini_utn_c = norm(I_UTN_C * PART_SIZE);
+///< base di utente/privata
+const vaddr ini_utn_p = norm(I_UTN_P * PART_SIZE);
 
-const vaddr fin_sis_c = ini_sis_c + PART_SIZE * N_SIS_C; ///< limite di sistema/condivisa
-const vaddr fin_sis_p = ini_sis_p + PART_SIZE * N_SIS_P; ///< limite di sistema/privata
-const vaddr fin_mio_c = ini_mio_c + PART_SIZE * N_MIO_C; ///< limite di modulo IO/condivisa
-const vaddr fin_utn_c = ini_utn_c + PART_SIZE * N_UTN_C; ///< limite di utente/condivisa
-const vaddr fin_utn_p = ini_utn_p + PART_SIZE * N_UTN_P; ///< limite di utente/privata
+///< limite di sistema/condivisa
+const vaddr fin_sis_c = ini_sis_c + PART_SIZE * N_SIS_C;
+///< limite di sistema/privata
+const vaddr fin_sis_p = ini_sis_p + PART_SIZE * N_SIS_P;
+///< limite di modulo IO/condivisa
+const vaddr fin_mio_c = ini_mio_c + PART_SIZE * N_MIO_C;
+///< limite di utente/condivisa
+const vaddr fin_utn_c = ini_utn_c + PART_SIZE * N_UTN_C;
+///< limite di utente/privata
+const vaddr fin_utn_p = ini_utn_p + PART_SIZE * N_UTN_P;
 ```
 </div>
 </div>
@@ -128,28 +152,24 @@ struct des_frame {
 		natl prossimo_libero;
 	};
 };
-```
-```cpp
+
 /// Numero totale di frame (M1 + M2)
 natq const N_FRAME = MEM_TOT / DIM_PAGINA;
-```
-```cpp
-/// Numero di frame in M1
-natq N_M1;
-```
-```cpp
-/// Numero di frame in M2
-natq N_M2;
-```
-```cpp
+
 /// Array dei descrittori di frame
 des_frame vdf[N_FRAME];
 ```
 ```cpp
-/// Testa della lista dei frame liberi
-natq primo_frame_libero;
+/// Numero di frame in M1
+natq N_M1;
+
+/// Numero di frame in M2
+natq N_M2;
 ```
 ```cpp
+/// Testa della lista dei frame liberi
+natq primo_frame_libero;
+
 /// Numero di frame nella lista dei frame liberi
 natq num_frame_liberi;
 ```
@@ -157,7 +177,7 @@ natq num_frame_liberi;
 Tramite questa struttura siamo in grado di capire se un `frame` è libero o meno, ed eventualmente quale sarà il prossimo `frame` libero in lista.
 
 I descrittori di frame sono raccolti in `vdf[]`, indicizzato proprio dal **numero di frame**.
-La funzione `init_frame()`, chiamata in fase di inizializzazione, si occupa rporpio di inizializzare questo _array_ inserendo **tutti i frame di `M2` nella lista dei frame liberi**.
+La funzione `init_frame()`, chiamata in fase di inizializzazione, si occupa prorpio di inizializzare questo _array_ inserendo **tutti i frame di `M2` nella lista dei frame liberi**.
 ```cpp
 void init_frame(){
 	extern char _end[];
@@ -246,13 +266,11 @@ Le funzioni di utilità `inc_ref()`, `dec_ref()` e `get_ref()` servono a **manip
 void inc_ref(paddr f){
 	vdf[f / DIM_PAGINA].nvalide++;
 }
-```
-```cpp
+
 void dec_ref(paddr f){
 	vdf[f / DIM_PAGINA].nvalide--;
 }
-```
-```cpp
+
 natl get_ref(paddr f){
 	return vdf[f / DIM_PAGINA].nvalide;
 }
@@ -281,7 +299,7 @@ void rilascia_tab(paddr f){
 
 Le traduzioni relative alle parti condivise dei processi possono invece essere create **una sola volta** all'avvio del sistema.
 I processi possono infatti condividere tutto il sottoalbero che implementa queste traduzioni, a partire _dal livello inferiore a quello della radice_. Per esempio possiamo creare la traduzione della finestra sulla memoria **una sola volta**.
-Tutte le entrate di indice 0 delle tabelle di tutti i processi punteranno poi alla stessa tabella di livello inferiore, e dunque tutto il sottoalbero sarà diviso tra tutti i processi, risparmiando molto spazio e tempo ad ogni creazione di un nuovo processo.
+Tutte le entrate di indice 0 delle tabelle di tutti i processi punteranno poi alla stessa tabella di livello inferiore, e dunque tutto il sottoalbero sarà condiviso tra tutti i processi, risparmiando molto spazio e tempo ad ogni creazione di un nuovo processo.
 
 Le traduzioni della parte `sistema/condivisa` sono create dal _bootloader_ **prima di abilitare la paginazione** tramite la funzione `crea_finestra_FM()`.
 
@@ -323,8 +341,9 @@ bool crea_finestra_FM(paddr root_tab, paddr mem_tot){
 	/// Mappiamo tutti gli altri indirizzi, fino a 4GiB, settando sia PWT che PCD.
 	/// Questa zona di indirizzi è utilizzata in particolare dall'APIC per mappare i propri registri.
     /// Proprio per questo sono settati i bit PCD e PWT
-	vaddr	beg_pci = allinea(mem_tot, 2*MiB),
-		end_pci = 4*GiB;
+	vaddr beg_pci = allinea(mem_tot, 2*MiB);
+	vaddr end_pci = 4*GiB;
+
 	if (map(root_tab, beg_pci, end_pci, BIT_RW|BIT_PCD|BIT_PWT, identity_map, 2) != end_pci)
 		return false;
 
@@ -419,15 +438,16 @@ des_proc* crea_processo(void f(natq), natq a, int prio, char liv){
 		p->punt_nucleo = fin_sis_p;
 
 		//   tutti gli altri campi valgono 0
+	}
 ```		
 ```cpp
-	} else {
+	else {
 		// processo di livello sistema
 		// inizializzazione della pila sistema
 		pl[-6] = int_cast<natq>(f);		      // RIP (codice sistema)
 		pl[-5] = SEL_CODICE_SISTEMA;          // CS (codice sistema)
-		pl[-4] = BIT_IF;  	        	      // RFLAGS
-		pl[-3] = fin_sis_p - sizeof(natq);    // RSP
+		pl[-4] = BIT_IF;  	        	      // RFLAGS (abilitiamo le interruzioni)
+		pl[-3] = fin_sis_p - sizeof(natq);    // RSP (primo elemento della pila)
 		pl[-2] = 0;			                  // SS
 		pl[-1] = 0;			                  // ind. rit.
 							                  //(non significativo)
@@ -452,10 +472,10 @@ des_proc* crea_processo(void f(natq), natq a, int prio, char liv){
 ```cpp
 err_del_sstack:	distruggi_pila(p->cr3, fin_sis_p, DIM_SYS_STACK);
 err_rel_tab:	clear_root_tab(p->cr3);
-		rilascia_tab(p->cr3);
-err_rel_id:	rilascia_proc_id(p->id);
-err_del_p:	delete p;
-err_out:	return nullptr;
+				rilascia_tab(p->cr3);
+err_rel_id:		rilascia_proc_id(p->id);
+err_del_p:		delete p;
+err_out:		return nullptr;
 }
 ```
 
