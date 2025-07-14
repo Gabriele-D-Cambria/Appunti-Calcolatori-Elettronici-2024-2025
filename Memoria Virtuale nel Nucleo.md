@@ -23,7 +23,7 @@ La memoria virtuale di un processo è divisa in due macrozone: `utente` e `siste
 
 La parte che va dall'indirizzo `0x0000 0000 0000 0000` all'indirizzo `0x0000 7fff ffff ffff` è deditata al `sistema`, ed ha quindi settato il bit `U/S = 0`, mentre la parte che va da `0xffff 8000 0000 0000` a `0xffff ffff ffff ffff` è dedicata all'`utente`, ed ha quindi settato il bit `U/S = 1`.
 
-Inoltre gli indirizzi virtuali della prima pagina (`0` a `fff`) sono lasciati **_non mappati_**, per intercettare dereferenzazioni di `nullptr` indipendentemente dal livello del privilegio del processore.
+Inoltre gli indirizzi virtuali della prima pagina (`0` a `0xfff`) sono lasciati **_non mappati_**, per intercettare dereferenzazioni di `nullptr` indipendentemente dal livello del privilegio del processore.
 
 Ogni macro-zona è **ulteriormente divisa**.
 La sezione `sistema` è divisa in:
