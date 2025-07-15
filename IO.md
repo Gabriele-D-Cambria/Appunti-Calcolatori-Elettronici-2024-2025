@@ -1,14 +1,14 @@
 # 1. Indice
 
 - [1. Indice](#1-indice)
-- [2. IO Driver](#2-io-driver)
+- [2. Driver I/O](#2-driver-io)
 	- [2.1. Gestione Primitiva](#21-gestione-primitiva)
 	- [2.2. Gestione Driver](#22-gestione-driver)
 	- [2.3. Verifica Dati Utente](#23-verifica-dati-utente)
 - [3. Modulo I/O](#3-modulo-io)
 
 
-# 2. IO Driver
+# 2. Driver I/O
 
 Aver implementato la **Protezione** implica adesso che se un processo vuole fare un'operazione di `I/O`, **_non può parlare direttamente con le periferiche_** (tastiera, video, ...).
 L'unica possibilità che gli abbiamo lasciato è quella di usare una _primitiva_, nella nostra macchina ad esempio abbiamo `readconsole()` e `writeconsole()`.
@@ -24,7 +24,7 @@ extern "C" void write_n(natl id, const char* buf, natq quanti);
 
 La _primitiva_ cede quindi il controllo al `sistema` e avvia l'operazione, rendendo `P1` bloccato e _schedulando_ un nuovo processo indipendente `P2`.
 
-`P1` <u>non sa di questo passaggio</u>, e crede che **tutto sia stato eseguito come una semplice chiamata a funzione**.
+`P1` <u>non sa di questo passaggio</u>, e non deve farlo. Dobbiamo quindi fargli credere che **tutto sia stato eseguito come una semplice chiamata a funzione**.
 Sarà quindi necessario "sbloccare" il processo `P1`, ovvero riportarlo in coda `pronti`, solo quando l'operazione di `I/O` sarà terminata.
 
 Tuttavia il completamento dell'operazione del processo `P1` avviene mentre esso è sospeso, e in esecuzione vi è un altro processo `P2` _generalmente scorrelato_.
@@ -47,15 +47,19 @@ L'operazione nel suo complesso ha quindi due attori:
 
 ## 2.1. Gestione Primitiva
 
-Finché abbiamo in esecuzione un solo processo nel nostro calcolatore non subentrano problemi. Quando vi sono però **più processi in attesa degli stessi segnali** cominciano a crearsi situazione da gestire opportunamente.
-Nel nostro esempio sopra immaginiamo quindi che anche `P2` ad un certo punto voglia effettuare la stessa operazione di `I/O` di `P1`, accodandosi.
+Finché abbiamo in esecuzione un solo processo nel nostro calcolatore non subentrano problemi. Quando vi sono però **più processi in attesa degli stessi segnali** cominciano a crearsi situazioni da gestire opportunamente.
 
-Questa concorrenza genera problemi di _mutua esclusione_ e di _sincronizzazione_. Per gestirli una prima idea potrebbe essere quella di utilizzare i `semafori`.
+Nel nostro esempio sopra immaginiamo quindi che anche `P2` ad un certo punto voglia effettuare la stessa operazione di `I/O` di `P1`, accodandosi.
+Questa concorrenza genera problemi di _mutua esclusione_ oltre che di _sincronizzazione_.
+
+Per gestirli una prima idea potrebbe essere quella di utilizzare i `semafori`.
 Questi ci permetterebbero infatti di:
 - Gestire le code di processi in attesa dello stesso evento. (_Mutua esclusione_)
 - Risvegliare il processo nel momento corretto.
 
-Tuttavia l'utilizzo dei `semafori` nel contesto `sistema` comporta delle problematiche, due in particolare. In primis non vorremmo utilizzare la `int` in modalità sistema (vincolo facilmente "bypassabile" chiamando direttamente le primitive `c_sem_wait`, `c_sem_ini` e `c_sem_signal`). COsa ancora più importante invece è il fatto che la primitiva **deve essere atomica**, quindi non dovrebbe effettuare `salva_stato` e `carica_stato` all'entrata e all'uscita del sistema.
+Tuttavia l'utilizzo dei `semafori` nel contesto `sistema` comporta delle problematiche, due in particolare:
+1. Non vorremmo utilizzare la `int` in modalità sistema (vincolo facilmente "bypassabile" chiamando direttamente le primitive `c_sem_wait`, `c_sem_ini` e `c_sem_signal`). 
+2. Fatto più importante, la primitiva **deve essere atomica**, quindi non dovrebbe effettuare `salva_stato` e `carica_stato` all'entrata e all'uscita del sistema.
 
 Il motivo per il quale richiediamo l'_atomiticità_ è per via delle modifiche alle strutture dati condivise, così da garantirne la _mutua esclusione_, in particolare alle **code processi**.
 
@@ -118,7 +122,7 @@ struct des_io{
 };
 ```
 
-È quindi sufficiente avere un _array_ di tali descrittori e usare `id` come indice degli elementi al suo interno.
+È quindi sufficiente avere un _array_ di tali descrittori `array_des_io` e usare il campo `id` come indice degli elementi al suo interno.
 
 La `c_read_n` sarà quindi così strutturata:
 ```cpp
@@ -206,22 +210,21 @@ Questo intervallo di indirizzi di memoria `[buf, buf + quanti)`, potrebbe infatt
 Questo problema, che ricade nei problemi degli _**indirizzi cavalli di Troia**_, richiede quindi un'estrema attenzione e un'attenta validazione dei dati.
 
 Per risolverlo dovremo quindi verificare:
-1. Che l'indirizzo sia nel _trie_ del processo;
-2. Che l'indirizzo sia _mappato_ e _normalizzato_;
-3. Nel caso di letture da salvare nel _buffer_, che l'indirizzo abbia accesso in scrittura
+1. Che l'indirizzo sia _normalizzato_;
+2. Che l'indirizzo sia _mappato_ nel _trie_ del processo;
+3. Nel caso di scritture di _buffer_, che si abbia accesso in scrittura a quest'ultimo
 4. Che `buf + i` non faccia _wrap-around_, con $0 \le i < quanti$
 5. Che `[buf, buf+quanti)` stia tutto nella stessa porzione di memoria
 
 Questi controlli, tediosi ma generalmente semplici, sono affetti da un'ulteriore complicazione: il _driver_ gira infatti mentre in `esecuzione` c'è `P2` e non `P1`.
-L'indirizzo privato fornitoci da `P1`, senza apporre le guste precauzioni, verrebbe utilizzato nel contesto di `P2`, sovrascrivendone la memoria privata.
+L'indirizzo privato fornitoci da `P1`, senza apporre le giuste precauzioni, verrebbe utilizzato nel contesto di `P2`, sovrascrivendone la memoria privata.
 
 La soluzione più semplice, che è anche quella che generalmente adoperiamo, è quella di **imporre** la necessità che il _buffer_ **_stia tutto nella parte condivisa_**, così da non scrivere nelle parti private di altri processi.
 <small>(nell'implementazione è sufficiente che sia dichiarato come _variabile globale_ o nello _heap_)</small>
 
-Per effettuare tutti questi controlli, nel nostro sistema è fornita una funzione `c_access()`:
+Per effettuare tutti questi controlli, nel nostro sistema è fornita una funzione `access()`, la cui parte `cpp` è la seguente:
 ```cpp
-extern "C" bool c_access(vaddr begin, natq dim, bool writeable, bool shared = true)
-{
+extern "C" bool c_access(vaddr begin, natq dim, bool writeable, bool shared = true) {
 	esecuzione->contesto[I_RAX] = false;
 
 	if (!tab_iter::valid_interval(begin, dim))
@@ -246,13 +249,15 @@ extern "C" bool c_access(vaddr begin, natq dim, bool writeable, bool shared = tr
 
 La funzione `c_read_n` avrà quindi il seguente controllo:
 ```cpp
-if(!c_acces(begin, quanti, true, ce)){
-    flog(LOG_WARN, "buf non valido!");
+if(!c_access(begin, quanti, true, true)){
+    flog(LOG_WARN, "buffer non valido!");
     abort_p();
 }
 ```
 
 Notiamo che utilizziamo `abort_p` e non `c_abort_p` perché questa sezione si trova in `c_read_n` che non ha effettuato né `salva_stato` né `carica_stato`.
+
+<div class="stop"></div>
 
 # 3. Modulo I/O
 
@@ -267,7 +272,7 @@ Il primo punto può causare problemi, in quanto costringe anche le interruzioni 
 
 Per risolvere invece il secondo punto "trasformiamo" il _driver_ in un _processo_ in un nuovo modulo, chiamato `modulo I/O`.
 
-Il `modulo I/O` è un modulo a se stante, così come `sistema` e `utente`.
+Il `modulo I/O` è un modulo indipendente, così come `sistema` e `utente`.
 Come `utente`, anch'egli può affidarsi sulle funzioni di `sistema`, come se fosse un'altra via per accedervi.
 
 Più precisamente, facciamo in modo che l'interruzione non mandi in esecuzione l'intero _driver_, ma solo un piccolo _handler_ che ha come scopo mandare in esecuzione il _processo_, chiamato **processo esterno**, che si preoccuperà di svolgere le istruzioni che prima erano svolte dal driver.
@@ -306,7 +311,7 @@ Non avendo però a disposizione questo livello ideale siamo costretti a scenglie
 Questa scelta deriva da tutta una serie di motivi, in particolare:
 - Nell'architettura come l'abbiamo pensata fino a questo punto, non riusciremmo a distinguere `utente` e `I/O` nella gestione delle periferiche _io_ se fossero allo stesso livello.
 	Infatti chi ha il permesso di poter utilizzare i comandi di _io_ è scritto in `RFLAGS`, e fa riferimento al livello minimo necessario.
-- Nei processori _intel_ vi è un'associazione tra `IN` e `OUT` ai comandi `CLI` e `STI`. Se ponessimo il `LIV_UTENTE`, forniremmo l'accesso all'`utente`, cosa che abbiamo già visto non va fatta.
+- Nei processori _iItel_ vi è un'associazione tra `IN` e `OUT` ai comandi `CLI` e `STI`. Se ponessimo il `LIV_UTENTE`, forniremmo l'accesso all'`utente` anche a queste istruzioni, cosa che abbiamo già visto non va fatta.
 
 Pur avendo `LIV_SISTEMA`, il modulo girerà **a interruzioni abilitate** così come il codice del modulo `utente`. Questo vale sia per il codice dei _processi esterni_ sia per il codice delle _nuove primitive interne_.
 Eventuali problemi di _mutua esclusione_ dovranno quindi essere risolti **utilizzando i semafori del `sistema`**.
@@ -314,14 +319,14 @@ Eventuali problemi di _mutua esclusione_ dovranno quindi essere risolti **utiliz
 In `I/O` e in `sistema` devono essere inoltre caricate ulteriori primitive aggiuntive, dedicate esclusivamente a `I/O`, salvate nella tabella `IDT` con il bit `DPL = LIV_SISTEMA`.
 
 Una delle _primitive_ riservate al modulo `I/O` è la primitiva `activate_pe()`, che serve ad **attivare un processo esterno**.
-Questa primitiva ha gli stessi parametri della normale `activate_p()`, con l'aggiunta di un'ulteriore parametro corrispondente al **numero del piedino dell'`APIC` da cui arriveranno le richieste** al quale il processo dovrà rispondere.
+Questa primitiva ha gli stessi parametri della normale `activate_p()`, con l'aggiunta di un'ulteriore parametro `irq` corrispondente al **numero del piedino dell'`APIC` da cui arriveranno le richieste** al quale il processo dovrà rispondere.
 
 In particolare `I/O` ha una tabella `a_p` con **un entrata per ogni piedino dell'`APIC`** <small>(24 piedini $\to$ 24 entrate)</small>.
 La `activate_pe()`, dopo aver attivato un _processo_, inserirà il corrispondente `des_proc` nell'entrata opportuna di `a_p` invece che inserirlo in `pronti`.
 
 Per gestire le possibili interruzioni il `sistema` deve quindi predisporre un _handler_ che si preoccupa di mettere in esecuzione il _processo esterno_ corrispondente, recuperando il `des_proc` da `a_p`.
 
-L'_handler_ tuttavia non recupera alcun parametro per capire chi è la sorgente dell'interruzione. 
+L'_handler_ tuttavia non recupera alcun parametro per capire chi è la sorgente dell'interruzione.
 Per poterlo fare, ipotizzando che `i` sia uno dei piedini dell'`APIC`, dovranno quindi esistere tanti _handler_ quanti sono i piedini.
 Ogni `handler_i` metterà in esecuzione il processo in `a_p[i]`.
 
@@ -337,7 +342,7 @@ handler_i:
 	CALL inspronti
 
 	; Equivalente di esecuzione = a_p[i]
-	MOVq a_p+$i*8, %rax
+	MOVq a_p+i*8, %rax
 	MOVq %rax, esecuzione
 
 	; Cedo il controllo al processo esterno, (sotto)
@@ -361,8 +366,7 @@ La `activate_pe()` perciò:
 - Installerà un _gate_ che punti a `handler_i` nell'entrata `prio` della `IDT`.
 
 ```cpp
-extern "C" void c_activate_pe(void f(natq), natq a, natl prio, natl liv, natb irq)
-{
+extern "C" void c_activate_pe(void f(natq), natq a, natl prio, natl liv, natb irq) {
 	des_proc* p;		// des_proc per il nuovo processo
 	natw tipo;			// entrata nella IDT
 
@@ -407,17 +411,17 @@ extern "C" void c_activate_pe(void f(natq), natq a, natl prio, natl liv, natb ir
 
 	// irq->tipo (tramite l'APIC)
 	apic::set_VECT(irq, tipo);
-	
+
 	// Associazione tipo->handler (tramite la IDT)
-	// Nota: in sistema.s abbiamo creato un handler diverso per ogni possibile irq. 
+	// Nota: in sistema.s abbiamo creato un handler diverso per ogni possibile irq.
 	// L'irq che passiamo a load_handler serve ad identificare l'handler che ci serve.
 	load_handler(tipo, irq);
-	
+
 	// Associazione handler->processo esterno (tramite 'a_p')
 	a_p[irq] = p;
 
 	// Ora che tutti i collegamenti sono stati creati possiamo iniziare a ricevere
-	// interruzioni da irq. 
+	// interruzioni da irq.
 	// Smascheriamo dunque le richieste irq nell'APIC
 	apic::set_MIRQ(irq, false);
 
@@ -443,7 +447,7 @@ a_wfi:
 	; Stato del processo esterno riferito sopra
 	CALL salva_stato
 	CALL apic_send_EOI
-	
+
 	; Non abbiamo certezza di chi riprenderà l'esecuzione
 	; Infatti questa porzione viene eseguita con interruzioni
 	; abilitate, perciò potrebbe esserci qualcun'altro diverso
@@ -483,7 +487,7 @@ extern "C" processo_esterno(natl i){
 	// Non è necessario validarlo poiché viene dal modulo io stesso
 	des_io* d = &array_des_io[i];
 
-	// Vado in attesa fino alla prossima wait_for_interrupt 
+	// Vado in attesa fino alla prossima wait_for_interrupt
 	// Senza mai terminare
 	for(;;){
 		// Corpo del Processo
