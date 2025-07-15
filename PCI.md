@@ -6,13 +6,15 @@
   - [2.2. Gestione Interruzioni](#22-gestione-interruzioni)
   - [2.3. Il bus nel `PC AT`](#23-il-bus-nel-pc-at)
 
+<div class="stop"></div>
+
 # 2. Bus PCI
 
 Il _bus_ `PCI` (_Peripheral Component Interconnect_) è uno standard per i _bus_ introdotto da _Intel_.
 
 La maggior parte dei _computer_ dell'epoca (come oggi) erano **espandibili**, ovvero potevano essere inserite delle _schede di espansione_ indipendenti da _IBM_ per aggiungere funzionalità al sistema.
 
-Tuttavia questa possibilità genera dei problemi, specialmente in un mercato dove non era presente il coordinamento tra i vari produttori di schede.
+Tuttavia questa possibilità generò dei problemi, specialmente in un mercato dove non era presente il coordinamento tra i vari produttori di schede.
 Poteva infatti capitare che due schede diverse facessero riferimento agli stessi indirizzi di memoria, e che quindi quegli indirizzamenti fossero **sovrapposti**.
 Questo problema si propagava anche in come venivano scritti i _driver_, che non erano quindi più in grado di distinguere se la scheda desiderata era effettivamente inserita, se si trattava di una scheda diversa oppure se non ci fosse installato nulla.
 
@@ -31,11 +33,11 @@ Lo standard definisce inoltre **tre spazi di indirizzamento**: _spazio di memori
 I primi due spazi sono completamente analoghi a quelli che già conosciamo e sono quelli che il _software_ **deve utilizzare per dialogare con le periferiche connesse al bus**.
 
 Per garantire il vincolo che i _registri_ delle _periferiche_ non occupino indirizzi sovrapposti si introducono due regole:
-> Le _periferiche_ che rispettano lo standard **non possono scegliere autonomamente gli indirizzi dei propri registri**, ma devono contenere dei _**comparatori programmabili**_ in modo che questi indirizzi _siano impostati dal software della macchina_.
+> 1. Le _periferiche_ che rispettano lo standard **non possono scegliere autonomamente gli indirizzi dei propri registri**, ma devono contenere dei _**comparatori programmabili**_ in modo che questi indirizzi _siano impostati dal software della macchina_.
 >
-> Il _software_ può impostare questi comparatori all’avvio del sistema, tramite il nuovo _spazio di configurazione_.
+> 2. Il _software_ può impostare questi comparatori all’avvio del sistema, tramite il nuovo _spazio di configurazione_.
 
-Lo _spazio di configurazione_ è fatto in modo da poter accedere a dei **registri di configurazione** che ogni _periferica_ <u>deve avere per rispettare lo _standard_ in modo **univoco** e **senza conflitti</u>**.
+Lo _spazio di configurazione_ è fatto in modo da poter accedere a dei **registri di configurazione** che ogni _periferica_ <u>deve avere per rispettare lo _standard_ in modo <strong>univoco</strong> e <strong>senza conflitti</strong></u>.
 
 Tramite questi registri il software di avvio (`PCI BIOS`) può scoprire quali periferiche sono connesse al bus.
 Non solo, capisce anche di quanti indirizzi hanno bisogno e programma di conseguenza i comparatori affinché non ci siano _sovrapposizioni_.
@@ -110,7 +112,7 @@ Scrittura con 4 fasi di trasferimento dati.
 </div>
 </div>
 
-Segue il seguente protocollo:
+Il collegamento segue il seguente protocollo:
 - L'_iniziatore_ pilota `C[3:0]` e `AD[31:0]` con il tipo di operazione e l'indirizzo iniziale del trasferimento
 - Attiva `FRAME#` per segnalare l'inizio di una _transazione_
 - Se un dispositivo riconosce il tipo di operazione e l'indirizzo attiva `DEVSEL#`
@@ -122,7 +124,7 @@ Nelle **operazioni di lettura**:
 - Attende quindi che l'_iniziatore_ segnali di aver ricevuto i dati attivando `IRDY#`.
 - Viceversa, l'_iniziatore_ era in attesa di `TRDY#` e quando lo trova attivo campiona `AD[31:0]` e una volta pronto attiva `IRDY#`.
 
-Nelle scritture invece avviene l'opposto:
+Nelle **operazioni di scrittura** invece avviene l'opposto:
 - L'_iniziatore_ pilota le linee `AD[31:0]` e `BE#[3:0]` per poi attivare `IRDY#` quando è pronto,
 - Attende quindi che l'_obiettivo_ segnali che le linee sono valide tramite `TRDY#`.
 - Viceversa, l'_obiettivo_ era in attesa di `IRDY#`, e quando lo trova attivo campiona `AD[31:0]` e `BE#[3:0]` e una volta pronto attiva `TRDY#`.
@@ -130,7 +132,7 @@ Nelle scritture invece avviene l'opposto:
 Ogni fase dati trasferisce **al più `4Byte` allineati naturalmente**.
 Ciascuna fase si conclude quando sia `IRDY#` che `TRDY#` sono **attivi sullo stesso fronte di salita del clock**.
 
-Il riutilizzo delle stesse linee per scopi diversi riduce i costi a scapito però della velocità di trasferimento. Fortunatamente, la possibilità di eseguire **più fasi dati** con _una singola fase di indirizzamento_ ci fa recuperaro un po' di velocità. È infatti sufficiente che l'_iniziatore_ mantenga `FRAME#` attivo quando lo è anche `IRDY#`.
+Il riutilizzo delle stesse linee per scopi diversi riduce i costi a scapito però della velocità di trasferimento. Fortunatamente, la possibilità di eseguire **più fasi dati** con _una singola fase di indirizzamento_ ci fa recuperare un po' di velocità. È infatti sufficiente che l'_iniziatore_ mantenga `FRAME#` attivo quando lo è anche `IRDY#`.
 
 L'_obiettivo_ può inoltre **attivare** `STOP#` per terminare forzatamente la transazione.
 
@@ -206,9 +208,9 @@ Lo scopo principale della fase di configurazione dei dispositivi è quello di **
 
 Una volta che `CAP` è stato impostato, il _ponte ospite-PCI_ tradurrà le letture e le scritture in `CDP` in corrispondenti transizioni nello _spazio di configurazione_.
 
-Prima di impostare `CAP` però il ponte attiverà l'uscita `IDSEL`, che è un entrata, presente in ogni _slot di espansione_, che è necessario attivare per poter trasmettere il numero della funzione e l'_offset_ della parola che contiene il registro (oltre ai _byte enable_ relativi al registro).
+Prima di impostare `CAP` però il ponte attiverà l'uscita `IDSEL`, che è un entrata presente in ogni _slot di espansione_ che è necessario attivare per poter trasmettere il numero della funzione e l'_offset_ della parola che contiene il registro (oltre ai _byte enable_ relativi al registro).
 
-Un vincolo presente in tutti i dispositivi è che **la funzione `0` deve essere sempre presente**. In questo modo si permette allo _spazio di configurazione_  di essere accessibile già all'avvio del sistema.
+Un vincolo presente in tutti i dispositivi è che **la funzione `0` deve essere sempre presente**. In questo modo si permette allo _spazio di configurazione_ di essere accessibile già all'avvio del sistema.
 
 Il costruttore di un blocco, oltre a deciderne la locazione, l'organizzazione interna e i _blocchi di indirizzi_ all'interno dei quali rendere disponibili i registri specifici della funzione, deve prevedere un `BAR` _Base Address Register_ nello spazio di configurazione.
 
@@ -240,7 +242,7 @@ Si può scoprire il suo valore provando a scrivere tutti `1` nel `BAR` e rilegge
 I blocchi possono essere assegnati solo a regioni allineate naturalmente alla loro dimensione.
 Il _software di inizializzazione_ sceglierà quindi la regione e ne scriverà il numero nei bit scrivibili del `BAR`, così che contenga l'indirizzo di partenza del blocco.
 
-Dopo aver assegnato una regione il _software di inizializzazione_ setterà il bit `0` o `1` del registro `ComMand`.
+Dopo aver assegnato una regione il _software di inizializzazione_ setterà il bit `0` o `1` del registro `Command`.
 Da quel momento in poi la funzione **risponderà alle transazioni i cui indirizzi cadono in quella regione**.
 
 Nella macchina `QEMU` l'inizializzazione è fatta dal `PCI BIOS`, e viene completata prima che il vostro _software_ parta.
@@ -258,7 +260,7 @@ Inoltre, funzioni dello stesso dispositivo possono essere collegate allo stesso 
 Il piedino utilizzato deve essere leggibile dal _registro di configurazione_ chiamato `Intr. Pin`, grande `1Byte` e di sola _lettura_.
 Se vale `0` indica che la funzione non genera interruzione, `1` che utilizza `INTA#`, `2` che utilizza `INTB#` e così via...
 
-Chi scrive il _software_ però vorrebbe sapere a quale piedino dell'`APIC` ciascuna funzione è collegata, informazione che dipende però dal progettista in quantonon standardizzata.
+Chi scrive il _software_ però vorrebbe sapere a quale piedino dell'`APIC` ciascuna funzione è collegata, informazione che dipende però dal progettista in quanto non standardizzata.
 Questo deve quindi garantire che il `BIOS` scriva qualche informazione nel registro `Intr. line` (`1Byte`, _lettura_/_scrittura_) affinché il _software_ possa ricavare l'informazione.
 
 Nel nostro caso il `BIOS` scrive in `Intr. line` **proprio il numero del piedino** dell'`APIC`, quindi possiamo limitarci a leggere questo registro.
