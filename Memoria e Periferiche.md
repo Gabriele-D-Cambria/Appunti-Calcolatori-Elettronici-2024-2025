@@ -863,7 +863,7 @@ In particolare, le sezioni che possono fare conflitto in una stessa locazione so
 <figcaption>
 
 Ipotizzando che la _cache_ abbia `l` locazioni, otteniamo che i bit di riga sono gli utlimi `k = log(l)` (tolti gli ultimi `3` che identificano la riga all'interno del blocco).
-Le etichette sono quindi grandi `n-k-3+2 bit`, poiché l'ultimo bit, detto `validity`, serve per capire se l'etichetta in quella riga è valida o contiene valori casuali, mentre il penultimo, detto `dirty`, serve per ottimizzare i tempi.
+Le etichette sono quindi grandi `n-k-3+2 bit`, poiché l'ultimo bit, detto `validity`, serve per capire se l'etichetta in quella riga è valida o contiene valori casuali, mentre il penultimo, detto `dirty`, serve per ottimizzare i tempi in caso di scritture in **RAM** dovute a rimpiazamenti di _cacheline_.
 </figcaption>
 </figure>
 </div>

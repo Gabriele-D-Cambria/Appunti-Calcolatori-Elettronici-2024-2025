@@ -19,6 +19,8 @@
 		- [4.4.1. Allineamento e Confini](#441-allineamento-e-confini)
 		- [4.4.2. Inizializzare un PRD](#442-inizializzare-un-prd)
 
+<div class="stop"></div>
+
 # 2. DMA
 
 Per trasferire una serie di informazioni alla memoria abbiamo visto fino ad ora due modalità:
@@ -27,7 +29,7 @@ Per trasferire una serie di informazioni alla memoria abbiamo visto fino ad ora 
 
 Per entrambe le modalità è previsto il coinvolgimento della **CPU**, che dovrà eseguire prima una _lettura_ (_registro_ pronti, **RAM** $\to$ **CPU**) e poi una scrittura (**CPU** $\to$ `IO`), comportando due scambi dati sul `bus`
 
-La modalità `DMA` (_Direct Memory Access_) prevede invece che sia direttamente il dispositivo ad eseguire le operazioni di lettura o scrittura necessarie sulla **RAM** **_senza coinvolgere la CPU_**.
+La modalità `DMA` (_Direct Memory Access_) prevede invece che sia direttamente il dispositivo ad eseguire le operazioni di lettura o scrittura necessarie sulla **RAM**, **_senza coinvolgere la CPU_**.
 Per fare ciò si dotano i dispositivi di un _software_ particolare che eseguirà in autonomia un trasferimento dati dal dispositivo verso un _buffer_ in **RAM** (ingresso/lettura) o viceversa (uscita/scrittura).
 
 Supponiamo che il _buffer_ si trovi all'indirizzo `b` e sia grande `n` byte (comunicati al dispositivo), occupando quindi gli indirizzi `[b, b+n)`. Una volta ottenuti questi dati il dispositivo si preoccuperà di **eseguire autonomamente** le operazioni in **RAM**.
@@ -56,7 +58,7 @@ La comunicazione si sviluppa così:
 4. Il dispositivo _attiva i suoi piedini di uscita_ ed esegue il trasferimento, quindi _rimette le uscite in alta impedenza_ e disattiva `HOLD`;
 5. La **CPU** disattiva `HOLDA`, attiva i suoi piedini e riprende il suo normale funzionamento.
 
-In pratica. la **CPU** dà la precedenza al `DMA` nell'accesso al bus. La tecnica è chiamata _"cycle stealing"_, in quanto il `DMA` ruba cicli di bus alla **CPU**.
+In pratica, la **CPU** si mette in attesa dando la precedenza al `DMA` nell'accesso al bus. Questa tecnica è chiamata _"cycle stealing"_, in quanto il `DMA` "ruba" cicli di bus alla **CPU**.
 
 Questo porta un rallentamento nell'esecuzione delle istruzioni, poiché molte rischiano di andare in attesa per un tempo indeterminato nel caso in cui il `DMA` fosse sempre in accesso alla **RAM**.
 Tuttavia il meccanismo resta vantaggioso in almeno tre casi:
@@ -115,7 +117,7 @@ Il _software_  dovrà quindi eseguire tutte le istruzioni specificando l'interva
 In questa politica le scritture della **CPU** vengono mantenute soltanto in _cache_ e effettuate in maniera _sincrona_ in secondi momenti (come quando la `cacheline dirty` verrebbe sovrascritta).
 Le `cacheline ~dirty` invece continuano a contenere _le stesse informazioni_ della **RAM**.
 
-Questa politica comporta un problema sia nelle operazioni di _uscita_ su `DMA`, poiché il buffer di lettura IN **RAM** **potrebbe contenere memoria non aggiornata**, sia per le operazioni di _entrata_ in `DMA`, dove la faccenda è più complessa.
+Questa politica comporta un problema sia nelle operazioni di _uscita_ su `DMA`, poiché il buffer di lettura in **RAM** **potrebbe contenere memoria non aggiornata**, sia per le operazioni di _entrata_ in `DMA`, dove la faccenda è più complessa.
 Infatti, nelle _scritture_, il `DMA` potrebbe andare a modificare **_solo una parte della `cacheline dirty`_**, perciò la mera _invalidazione_ porterebbe a perdere le modifiche effettuate sulle parti di `cacheline` non comprese nel _buffer_.
 
 
@@ -149,11 +151,10 @@ Il primo passo è il medesimo delle letture, successivamente anche qui ci posson
   - Se il `DMA` sovrascrivesse un'intera `cacheline` è sufficente invalidarla e scrivere direttamente in **RAM** (_Write and Invalidate_)
   - Altrimenti abbiamo due possibilità:
     - Il `DMA` lascia il controllo al _controllore cache_ per fargli eseguire il `write-back` in **RAM**, quindi riesegue la sua operazione di scrittura
-    - Il _controllore cache_ trasmette la `cacheline dirty` <u>solamente al `DMA`</u>, invalidando successivamente la propria copia.
-  	  Il `DMA` lavora quindi sui dati forniti dal _controllore cache_, e scrivendo in **RAM** l'intera `cacheline` aggiornata
+    - Il _controllore cache_ trasmette la `cacheline dirty` <u>solamente al <code>DMA</code></u>, invalidando successivamente la propria copia.
+  	  Il `DMA` lavora quindi sui dati forniti dal _controllore cache_, e procede scrivendo in **RAM** l'intera `cacheline` aggiornata.
 
-Nella soluzione interamente _software_, la politica più comune è quella di esegiuire sempre il `write-back` di un certo intervallo di indirizzi (quelli del _buffer_) **_prima di avviare il trasferimento_**, invalidandoli successivamente.
-Questa operazione è detta di **_invalidazione senza write back_**.
+Nella soluzione interamente _software_, la politica più comune è quella di **_invalidazione senza write back_**. COnsiste nell'esegiuire sempre il `write-back` di un certo intervallo di indirizzi (quelli del _buffer_) **_prima di avviare il trasferimento_**, invalidandoli successivamente.
 
 ### 2.1.5. Scrittura di intere `cacheline`
 
@@ -174,7 +175,7 @@ Tuttavia il _software_ utilizza **_soltanto indirizzi virtuali_** `[b, b+n)`.
 
 Sono quindi necessari i seguenti accorgimenti per integrare `DMA` e `MMU`:
 1. Al `DMA` andrà comunicato l'indirizzo **fisico** `f(b)` e non quello _virtuale_ `b`
-2. Se l'intervallo `[b, b+n)` attraversa **più pagine non tradotte in _frame_ contigui**, il trasferimento _**deve essere spezzato in più trasferimenti in modo che ciascuno di essi coinvolga solo _frame contigui_**_.
+2. Se l'intervallo `[b, b+n)` attraversa **più pagine non tradotte in _frame_ contigui**, il trasferimento _**deve essere spezzato in più trasferimenti in modo che ciascuno di essi coinvolga solo <u>frame contigui</u>**_.
 3. La traduzione degli indirizzi coinvolti in un trasferimento **_non deve cambiare mentre il trasferimento è in corso_**
 
 Considerando il punto _1._, comunicando `b` il `DMA` lo utilizzerebbe come fisico, accedendo a parti di memoria che non centrano niente con il _buffer_ (tranne nei rari casi dove `b = f(b)`).
@@ -199,7 +200,7 @@ Per poterlo modificare opportunamente il trasferimento, in questo caso, **deve e
 </div>
 
 Per il punto _3._ immaginando quindi di trovarci in un _sistema multiprocesso_ che realizzi _swap-in/out_ dei processi per poter eseguire più processi di quanti ne possano entrare in **RAM**.
-Supponiamo quindi che un processo `P1` avvii un trasferimento in `DMA` attraverso un _buffer privato_. È quindi necessario che `P1` **<u>non venga mai _swappato</u>_**, altrimenti in quegli indirizzi subentrerebbe un processo `P2` che vedrebbe la sua memoria privata modificata.
+Supponiamo quindi che un processo `P1` avvii un trasferimento in `DMA` attraverso un _buffer privato_. È quindi necessario che `P1` **<u>non venga mai <em>swappato</em></u>**, altrimenti in quegli indirizzi subentrerebbe un processo `P2` che vedrebbe la sua memoria privata modificata.
 
 # 3. PCI Bus Mastering
 
@@ -214,7 +215,7 @@ Avevamo già detto quando abbiamo visto il `bus PCI` che **diversi dispositivi**
 
 Vediamo quindi in particolare come i `bus master` effettuano trasferimenti da e verso la **RAM**.
 
-Per essere precisi in realtà i `bus master` inizializzano il trasferimento verso il `ponte` non direttamente verso la **RAM**. È infatti il `ponte` che poi reindirizza i dati alla **RAM**.
+Per essere precisi, in realtà i `bus master` inizializzano il trasferimento verso il `ponte` non direttamente verso la **RAM**. È infatti quest'ultimo che poi reindirizza i dati alla **RAM**.
 
 Poiché diversi dispositivi possono agire da `bus master` dobbiamo prevederne _un coordinamento_, affinché non possano entrare in comunicazione tutti insieme.
 Introduciamo quindi un `arbitro`, un ulteriore dispositivo (spesso integrato nel `ponte` stesso) che gestisce tramite _handshake_ tutte le richieste di trasferimento.
@@ -267,8 +268,7 @@ Il `ponte PCI-SATA` si comporta infatti da `bus master` sostituendo a tutti gli 
 L'`HD` si preoccupa quindi di comunicare con il `ponte` come se questo fosse il controllore. Il `ponte` dal suo canto, trasferisce i dati sul `PCI` in meniera coerente con le regole del _bus_.
 
 Tutte le operazioni che sono descritte in seguito sono presenti nelle **specifiche del nucleo**, in particolare nella sezione `3.1`.
-
-Le specifiche della programmazione dei `Bus Master IDE Controller` si può trovare [a questo link](https://calcolatori.iet.unipi.it/deep/idems100.pdf).
+Le specifiche della programmazione dei `Bus Master IDE Controller` si può trovare invece [a questo link](https://calcolatori.iet.unipi.it/deep/idems100.pdf).
 
 L'interfaccia implementa un meccanismo di _scatter/gather_ che permette il trasferimento di grandi blocchi che dovranno essere sparsi/raccolti dalla memoria, utilizzando di fatto **_buffer_ discontigui**.
 Grazie a questo meccanismo è possibile diminuire il numero di _interrupt_ al sistema.
@@ -278,7 +278,8 @@ Per fornire informazioni sul _buffer_ al controllore è necessario creare un `PR
 <img class="60" src="./images/DMA/PRD.png">
 
 La funzione `bus master IDE` utilizza `16Byte` dello spazio di `I/O`, accessibili come `Byte`, `Word` o `Dword`.
-I registri a disposizione sono i seguenti:
+
+I registri a disposizione sono i seguenti:<small>(`R/W` sono diritti in lettura e scrittura. `RWC` sono diritti in lettura e azzeramento del contenuto)</small>
 
 <div class="flexbox" markdown="1">
 
@@ -294,8 +295,6 @@ I registri a disposizione sono i seguenti:
 | `0x0A`        | Registro di stato Bus Master IDE Secondario     | `RWC`              |
 | `0x0B`        | Specifico del dispositivo                       |                    |
 | `0x0C - 0x0F` | Indirizzo tabella PRD Bus Master IDE Secondario | `R/W`              |
-
-<small>(`R/W` sono diritti in lettura e scrittura. `RWC` sono diritti in lettura e azzeramento del contenuto)</small>
 
 </div>
 
@@ -408,7 +407,7 @@ Dobbiamo innanzitutto trovare il ponte tra i dispositivi `PCI` installati.
 Dalle specifiche ricaviamo che i primi due byte del _Class Code_ del ponte devono valere `0x0101` (sezione 5 punto 1).
 Il _Class Code_ è il campo di `3Byte` all'offset `9` dello spazio di configurazione `PCI`.
 
-La funzine `bm::find()` cerca dunque il primo dispositivo che contenga `0x0101` nella `word` all'_offset_ `10`.
+La funzione `bm::find()` cerca dunque il primo dispositivo che contenga `0x0101` nella `word` all'_offset_ `10`.
 
 ```cpp
 bool bm::find(natb& bus, natb& dev, natb& fun) {
@@ -424,7 +423,7 @@ bool bm::find(natb& bus, natb& dev, natb& fun) {
 ```
 
 Le specifiche ci dicono inoltre che l'indirizzo base dei registri del ponte è controllato dalla `BAR`, che si trova all'_offset_ `36` (sezione 5 punto 2).
-Inoltre, sempre nelle specifiche è indicato che i registri si trovano nello spazio di `I/O` agli offset `0`, `2` e `4` rispetto alla base.
+Inoltre, sempre nelle specifiche, è indicato che i registri si trovano nello spazio di `I/O` agli offset `0`, `2` e `4` rispetto alla base.
 
 ```cpp
 void init(natb bus, natb dev, natb fun)	{
@@ -636,7 +635,7 @@ Per fare ciò:
 ioaddr iBMPTR,	///< Indirizzo del buffer di destinazione
 	   iBMLEN,	///< Numero di byte da trasferire
 	   iCMD;	///< Registro di comando
-	   
+
 paddr f, g;
 char* vv;
 int totali, rimanenti;
@@ -649,7 +648,7 @@ natl sync = sem_ini(0);
 char* tmp = vv;
 while(totali > 0){
 	f = trasforma(tmp);
-	
+
 	if(tmp & 0x1){
 		flog(ERROR_LOG, "indirizzo fisico di una pagina di vv dispari");
 		return 0;
@@ -660,7 +659,7 @@ while(totali > 0){
 
 	// Dimensione della porzione da trasmettere
 	rimanenti = g - f;
-	
+
 	// Se siamo alla fine
 	if(rimanenti > totali){
 		rimanenti = totali;
