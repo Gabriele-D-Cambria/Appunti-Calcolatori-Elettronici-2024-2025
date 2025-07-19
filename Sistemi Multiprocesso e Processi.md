@@ -30,7 +30,7 @@ Questa definizione si applica bene ai programmi di tipo _batch_, in cui gli ingr
 Tuttavia non è difficile immaginarsi l'estensione di questa definizione ai programmi "interattivi".
 
 L'importante è capire che _programma_ e _processo_ sono due cose <u>completamente distinte</u>, infatti:
-- Uno stesso programma piò essere associato a **più processi**;
+- Uno stesso programma può essere associato a **più processi**;
 - Uno stesso processo può eseguire, in sequenza, **più programmi**;
 - In generale non è esclusivamente il programma a decidere attraverso quali stati il processo dovrà passare, ma hanno influenze anche i vari segnali di _input_;
 - Il programma potrebbe contenere dei cicli, che scrivono le cose da ripetere una sola volta, mentre nel processo vediamo le azioni ripetute tante volte.

@@ -3,7 +3,7 @@
 - [1. Indice](#1-indice)
 - [2. Pipeline](#2-pipeline)
 	- [2.1. Processori `RISC`](#21-processori-risc)
-	- [2.2. Problemi legati alla Pipeline](#22-problemi-legati-alla-pipeline)
+	- [2.2. Problemi legati alla Pipeline (`ALEE`)](#22-problemi-legati-alla-pipeline-alee)
 	- [2.3. Ottimizzazioni](#23-ottimizzazioni)
 		- [2.3.1. ALEE sui dati](#231-alee-sui-dati)
 		- [2.3.2. ALEE sul controllo](#232-alee-sul-controllo)
@@ -33,7 +33,7 @@ Il processore per come lo abbiamo visto fin'ora si occupa di eseguire tre operaz
 Le **CPU** moderne fanno ancora la stessa cosa, ma introducendo tutta una serie di accorgimenti che permettono di aumentare la velocità di esecuzione delle istruzioni.
 
 Tra le varie possibilità per migliorare l'efficenza del processore abbiamo:
-- Rendere il _clock_ più veloce: ma ha un limite sotto al quale il processore non riesce a stare al passo
+- Rendere il _clock_ più veloce: ma la **CPU** ha un limite sopra al quale non riesce a stare al passo
 - Diminuire le dimensioni dei _transistor_ nel processore, così da poterne inserire di più: anche qui ormai siamo ai limiti imposti dalla fisica quantistica
 - Inserire più processori in uno stesso _chip_, creando architetture **_multicore_**.
 
@@ -65,17 +65,18 @@ L'idea della _pipeline_ si basa sul fatto che quando un circuito termina il suo 
 
 </div>
 
-In questo modo aumentiamo il numero di istruzioni completate al secondo per 5, ovvero _il numero di stadi nella pipeline_. Questo migioramento avviene solo se siamo in grado effettivamente di implementarla in maniera corretta.
+In questo modo moltiplichiamo il numero di istruzioni completate al secondo per 5, ovvero _il numero di stadi nella pipeline_. Questo migioramento avviene solo se siamo in grado effettivamente di implementarla in maniera corretta.
+
 Una prima descrizione della _pipeline_ è la seguente:
 
 <img class="80" src="./images/Pipeline/Pipeline Scheme.png">
 
-Con questa configurazione il `clock` deve avere adesso un periodo che deve essere almeno uguale al massimo <code>$\Delta_i$</code>:
+Con questa configurazione però il `clock` deve avere un periodo che deve essere almeno uguale al massimo <code>$\Delta_i$</code>:
 $$
 	\Delta = \max_{i\:\in\:[1,5]}\{\Delta_i\} + t_{setup}
 $$
 
-Potremmo quindi velocizzare di `5 volte` il `clock` solamente se $\Delta_i = \Delta_j, \; \forall i \ne j$, ovvero $\Delta_i = {1 \over 5}\Delta_T$.
+Potremmo quindi velocizzare di `5 volte` il `clock` solamente se $\Delta_i = \Delta_j, \forall i \ne j$, ovvero $\Delta_i = {1 \over 5}\Delta_T$.
 
 Questo però può essere possibile solamente in circuiti creati proprio con l'idea della _pipeline_ poiché in generale i $\Delta_i$ saranno diversi.
 Il recupero di un informazione da un registro è infatti molto più veloce del tempo di attraversamento di una _RC di Divisione Intera_.
@@ -106,7 +107,7 @@ Il formato `RISC` impone che le istruzioni siano _regolari_ e _semplici_, e inol
 
 Il `RISC` permette di _**semplificare le operazioni necessarie all'`assembler` per eseguire una qualsiasi operazione**_, così da poter  diminuire il tempo di esecuzione.
 
-Un'ulteriore differenza è che i processori `RISC` presentano una **netta separazione** tra le operazioni che operano nella memoria e quelle che non lo fanno. Saranno quindi solamente le operazioni di `LD` (_LoaD_) e `ST` (_STore_) a comunicare con la memoria, e avranno il formato:
+Un'ulteriore differenza è che i processori `RISC` presentano una **netta separazione** tra le operazioni che operano nella memoria e quelle che non lo fanno. Saranno solamente le operazioni di `LD` (_LoaD_) e `ST` (_STore_) a comunicare con la memoria, e avranno il formato:
 ```x86asm
 LD offset(base), dst
 ST src, offset(base)
@@ -116,7 +117,7 @@ Un compilatore dovrà quindi cercare di creare un programma che lavori il più p
 Le regole `RISC`, tra le altre cose, implementano proprio il fatto che alcuni operatori, come la `ADD`, possono operare **_solo con i registri_**.
 Questo risolve il probema del _prelievo_, ma abbiamo ancora risolvere il problema detto delle `ALEE`.
 
-## 2.2. Problemi legati alla Pipeline
+## 2.2. Problemi legati alla Pipeline (`ALEE`)
 
 All'interno del flusso delle istruzioni ci sono alcune situazioni che ci impediscono di eseguire un'istruzione ad ogni ciclo di _clock_.
 Queste situazioni prendono il nome di `ALEE`.
@@ -146,7 +147,7 @@ op1 R1, R2, R3
 op2 R3, R4, R5
 ```
 
-Senza _pipeline_ questo problema non sussite, in quanto attenderemmo che la prima operazione sia terminata prima di passsare a quella successiva.
+Senza _pipeline_ questo problema non sussite, in quanto attenderemmo che la prima operazione sia terminata prima di passare a quella successiva.
 
 Utilizzando invece la _pipeline_, quando `op2` necessita `R3` come sorgente, `op1` si trova ancora all'esecuzione, e non avrà ancora inserito il risultato.
 
@@ -334,7 +335,7 @@ for(int i = 0; i < 100000; ++i){
 ```
 
 Ogni operazione effettuata nei vari cicli del `for` **_è indipendente dalle altre_**.
-Non abbiamo quindi _nessun obbligo ad eseguirle nell'ordine che il programmatore desidera_. Infatti, se avessimo sufficenti sommatori a disposizione, potremmo persino _effettuarle tutte insieme_.
+Non abbiamo quindi _nessun obbligo ad eseguirle nell'ordine che il programmatore desidera_. Infatti, se avessimo sufficenti sommatori a disposizione, potremmo persino _effettuarle tutte insieme in parallelo_.
 Se i vettori sono grossi, è possibile inoltre che una loro parte si trovi persino in _cache_, quindi sarebbe molto più veloce da recuperare piuttosto alle altre in **RAM**.
 Quindi, mentre attendiamo che arrivino dalla **RAM** le `miss` della _cache_ è conveniente cominciare a calcolare quelle operazioni che invece hanno fornito una `hit`.
 
@@ -460,7 +461,7 @@ Il campo `C` di un registro viene:
 Le **Dipendenze sul Controllo** indicano quindi che l'esecuzione di una serie di istruzioni dipende dal controllo dell'esito di una precedente.
 ```x86asm
 	CMP ;...
-	JE fine2
+	JE fine1
 
 	ADD ;...		# Sono Dipendenti sul Controllo della JE
 	SUB ;...		# Sono Dipendenti sul Controllo della JE
@@ -491,9 +492,10 @@ Vediamo quindi uno schema delle dipendenze date due istruzioni `i` e `j` con `i`
 È importante sottolineare che tutte le azioni che vedremo adesso non influenzano le uscite della `Decode`, ma lavorano su di esse.
 
 Per quanto riguarda le **dipendenze sui nomi**, esse sono anche chiamate **dipendenze fittizie**, questo perché se andiamo a sovrascrivere il contenuto di un registro è perché adesso lo vogliamo utilizzare per fare altro.
-Possiamo quindi risolvere:
-- _Antidipendenza_: è sufficiente cambiare il registro `dst` di `j`.
-- _Dipendenza in uscita_: cerchiamo per ogni scrittura un registro non utilizzato da nessun'altro.
+
+Possiamo quindi risolverle in questo modo:
+- _Antidipendenze_: è sufficiente cambiare il registro `dst` di `j`.
+- _Dipendenze in uscita_: cerchiamo per ogni scrittura un registro non utilizzato da nessun'altro.
 
 Per riuscire a implementare questa ottimizzazione, chiamata **_riscrittura sui registri_**, dobbiamo ovviamente poi continuare a modificare questi registri per tutte le operazioni successive.
 
@@ -502,7 +504,7 @@ Un modo per semplificare questo passaggio è inserire, prima degli $n$ registri 
 In questa nuova architettura, le istruzioni tradotte dalla `decode` faranno riferimento ai **registri logici**.
 
 L'`emissione` si preoccuperà quindi anche di tradurli in _**registri fisici**_ `Fi` con l'accortezza che:
-> Il `dst` di una operazione deve **sempre** essere un registro fisico _non puntato da nessun altro e non utilizzato dalla `ALU`_ (`W == 0 && Count == 0`).
+> Il `dst` di una operazione deve **sempre** essere un registro fisico _attualmente non puntato da nessun altro e non utilizzato dalla `ALU`_ (`W == 0 && Count == 0`).
 
 Vediamo quindi una possibile traduzione da _logico_ a _fisico_:
 <div class="grid2">
@@ -534,12 +536,12 @@ $$
 
 \begin{matrix}
 		&     &     & & [\;\text{Dati}\;| \;C\; | \;W\; ] \\[0.5em] \hline
-	R_1 & \to & F_1 & = & [\quad | \;1\; | \quad ] \\ \hline
-	R_2 & \to & F_2 & = & [\quad | \;1\; | \quad ] \\ \hline
-	R_3 & \to & F_6 & = & [\quad | \quad | \;1\; ] \\ \hline\hline
-	R_4 & \to & F_4 & = & [\quad | \;1\; | \quad ] \\ \hline
-	R_5 & \to & F_5 & = & [\quad | \;1\; | \quad ] \\ \hline
-	R_2 & \to & F_6 & = & [\quad | \quad | \;1\; ] \\ \hline
+	R_1 & \to & F_1 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+	R_2 & \to & F_2 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+	R_3 & \to & F_6 & = & [\;X\; | \;0\; | \;1\; ] \\ \hline
+	R_4 & \to & F_4 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+	R_5 & \to & F_5 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+	R_2 & \to & F_6 & = & [\;X\; | \;0\; | \;1\; ] \\ \hline
 	
 \end{matrix}
 $$
@@ -556,7 +558,7 @@ Infatti la `Fetch & Decode` ha continuato a prelevare istruzioni dal punto indic
 In questo caso la nostra architettura andrà a _eseguire_ queste istruzioni predette **prima di sapere se debbano o meno essere eseguite**.
 Questa tecnica si chiama **_Speculazione_**.
 
-Per un'implementazione corretta della _specuazione_ è necessaria una nuova struttura dati chiamata **_ReOrder Buffer_** `ROB`. Questa struttur data è una _coda_ che **ricostruisce l'ordine di emissione delle istruzioni**.
+Per un'implementazione corretta della _specuazione_ è necessaria una nuova struttura dati chiamata **_ReOrder Buffer_** `ROB`. Questa struttura dati è una _coda_ che **ricostruisce l'ordine di emissione delle istruzioni**.
 Al suo interno ha un bit `T` che, se settato, indica che l'operazione associata è terminata.
 
 In questa nuova architettura, le istruzioni vanno a scrivere i risultati nei registri **_solo dopo che sono state ritirate dal `ROB`_**.
@@ -565,18 +567,18 @@ Il trucco è che il `ROB`, in quanto _coda_, <u>può solo effettuare prelievi da
 
 Adesso, quando terminiamo un'istruzione di `Jcond` e ne conosciamo l'esito, setteremo il suo bit `T` e la estraemo. Successivamente, valutandone l'esito:
 - Se **si effettua dove ci aspettiamo** continuiamo a prelevare dal `ROB`
-- Se **abbiamo sbagliato** allora **_<u>svuotiamo il `ROB`</u>_**.
+- Se **abbiamo sbagliato** allora **_<u>svuotiamo il <code>ROB</code></u>_**.
 
 Finché le istruzioni del `ROB` non sono prelevate **_non abbiamo infatti effetti sui registri veri e propri_**, perciò possiamo tranquillamente eseguire codice che non siamo sicuri vada eseguito.
 
-Il fatto che le modifiche sui registri non si manifestino immediatamente al completamento dell'esecuzione dell'`ALU`, comporta però che le `stazioni di prenotazione`, qual'ora vogliano prelevare un valore da un registro, esso non sia stato ancora sovrascritto dal valore desiderato, ancora bloccato nella coda `ROB`.
+Il fatto che le modifiche sui registri non si manifestino immediatamente al completamento dell'esecuzione dell'`ALU`, comporta però che le `stazioni di prenotazione`, qual'ora vogliano prelevare un valore da un registro, non lo trovino aggiornato dal valore desiderato, che si trova ancora bloccato nella coda `ROB`.
 Dobbiamo quindi modificare il modo in cui le `stazioni di prenotazione` prelevano i valori, introducendo un meccanismo di prelievo dal `ROB`.
 
-Invece di avere un solo indirizzo logico, per ogni registro ne conserviamo adesso due:
-- Nel primo inseriamo l'_informazione certa_, quella che siamo sicuri vada lì
-- Nel secondo inseriamo invece l'_informazione speculativa_ derivata dal `ROB`
+Modifichiamo quindi gli indirizzi logici, in modo che invece di avere un solo indirizzo logico per ogni registro, ne conserviamo adesso due:
+- Nel primo inseriamo l'_informazione certa_, quella che siamo sicuri vada lì ottenuta dall'estrazione dal `ROB`
+- Nel secondo inseriamo invece l'_informazione speculativa_ derivata dalle `ALU` e potenzialmente annullabile con l'annullamento del `ROB`
 
-L'`esecutore`, nella traduzione degli indirizzi logici in fisici **utilizzerà quelli speculativi** per i sorgenti.
+L'`esecutore`, nella traduzione degli indirizzi logici in fisici per i sorgenti, **utilizzerà il contenuto dei registri speculativi**.
 Il registro `dst` verrà sempre tradotto in un nuovo registro non utilizzato per quello che abbiamo detto prima.
 
 Quando la `ALU` termina, scrive quindi l'esito dell'operazione nel _registro logico speculativo_ e setta il bit `T` della `ROB`.
@@ -589,7 +591,7 @@ Così facendo, alla prossima operazione, prelevando dal registro _non speculativ
 In questa architettura l'esecuzione va in attesa **_<u>solo per via di limiti fisici</u>_**.
 Per migliorare le prestazioni è infatti sufficente aumentare i parametri fisici: le dimensioni del `ROB`, il numero di `ALU` e `stazioni di controllo`, il numero di _registri_, ...
 
-<img class="" src="./images/Pipeline/ROB.png">
+<img class="75" src="./images/Pipeline/ROB.png">
 
 
 ## 3.4. Istuzioni di `LD` e `ST`
@@ -601,7 +603,7 @@ Come prima cosa, la `ST` effettua **modifiche in memoria**. Perciò, se dovesse 
 Questo si ottiene inserendo uno `Store Buffer`, una _coda_ nella quale effettuiamo le scritture/letture durante l'esecuzione speculativa, senza quindi accedere direttamente in memoria. 
 Copieremo i dati in memoria _**solamente quando l'istruzione verrà recuperata**_ dal `ROB`.
 
-Per le letture, questa operazione si chiama `Store Buffer Forwarding`. Permettiamo infatti alla `ALU` di eseguire l'operazione, ma prima di permetterle di andare a recuperare i dati dalla memoria, controlliamo eventuali `hit` all'interno dello `Store Buffer`.
+Per le letture, questa operazione si chiama `Store Buffer Forwarding`. Permettiamo infatti alla `ALU` di eseguire l'operazione, ma prima di andare a recuperare i dati dalla memoria, controlliamo eventuali `hit` all'interno dello `Store Buffer`.
 
 Il problema principale con questi meccanismi è che **non possiamo vedere direttamente lo stato dell'istruzione**.
 Le istruzione `LD` e `ST` contengono indirizzi del tipo `offset(base)`, calcolati solamente quando le istruzioni vengono valutate.
@@ -612,7 +614,7 @@ Vediamo un'esempio:
 ```x86asm
 	CMP $1000, %rbx
 	JAE fine
-	MOV off($rbx), %rax
+	MOV off(%rbx), %rax
 fine:
 ```
 
@@ -628,7 +630,7 @@ Così facendo, nel momento in cui il processore si rende conto di aver sbagliato
 Grazie ai processi di _speculazione_ riusciamo inoltre a **prevedere le `hit/miss` della cache**, così da permetterci di prelevare il dato prima rispetto a quando sarebbe accaduto senza questi accorgimenti.
 Anche se la _cache_ comunicasse una `miss`, e dovessimo quindi attendere la **RAM**, la richiesta dei dati a quest'ultima avviene comunque prima.
 
-Per ragioni in realtà non ben definite, i vari errori che avvengono durante la speculazione **_<u>non vanno a ripulire gli effetti provocati sulla cache</u>_**.
+Per ragioni in realtà non ben definite, i vari errori che avvengono durante la speculazione **_<u>non vanno a ripulire gli effetti provocati sulla <em>cache</em></u>_**.
 Qual'ora avessimo eseguito speculativamente una lettura in memoria, questa salva la corrispondente porzione di memoria all'interno di una delle _cacheline_, e successivamente la trasmette al processore.
 
 Se la lettura speculativa fosse annullata poiché ci rendiamo conto di aver speculato male una `Jcond`, **puliamo i registri speculativi e il `ROB`**, ma **_lasciamo inalterata la cacheline recuperata impropriamente_**.
@@ -651,7 +653,7 @@ Entrambi sfruttano la separazione tra lo stato _architetturale_ e quello _$\mu$-
 Come abbiamo detto alla fine del precedente capitolo, la `LD` recupera delle informazioni _speculativamente_ dalla memoria, salvandole di conseguenza in _cache_.
 Come abbiamo sottolineato, può accadere che si scopra che la `LD` non andava eseguita e si annullino le modifiche che aveva apportato, lasciando però la _cache_ **aggiornata con le informazioni prelevate**.
 
-Una cosa importante da dire prima di descrivere il problema è che, poiché la _cache_ è molto più veloce della **RAM**, misurando il tempo di estrazione di un informazione **<u>possiamo capire se è stata recuperata adesso dalla _RAM_ o se si trovava già in _cache</u>_**.
+Una cosa importante da dire prima di descrivere il problema è che, poiché la _cache_ è molto più veloce della **RAM**, misurando il tempo di estrazione di un informazione **<u>possiamo capire se è stata recuperata adesso dalla _RAM_ o se si trovava già in <em>cache</em></u>**.
 
 Per produrre il problema proviamo ad accedere, dal nostro processo `utente`, ad un'_indirizzo vietato_, come un'indirizzo a livello `sistema`.
 
@@ -689,7 +691,7 @@ Se quindi ci preoccupiamo di intercettarlo, per il continuo del programma sarà 
 Sarà quindi sufficente scrivere una sezione di codice che **_controlla il tempo di estrazione delle informazioni di ogni indice del `vettore`_**.
 Questo produrrà due valori diversi:
 - **Alto**: se l'elemento `vettore[i]` non era presente in _cache_ e abbiamo dovuto recuperarlo dalla **RAM**
-- **Basso**: se l'elemento `vettore[i]` <u>era già presente in _cache</u>_
+- **Basso**: se l'elemento `vettore[i]` <u>era già presente in <em>cache</em></u>
 
 Poiché ci siamo assicurati di svuotare la _cache_ prima di eseguire questo codice di verifica, l'unica _cacheline_ presente sarà proprio quella con indice `%rax`, dove `%rax` era proprio **_il contenuto dell'_**`indirizzo_vietato`.
 
@@ -709,7 +711,7 @@ _Spectre_ rappresenta tutta una serie di debolezze _**intrinseche al concetto st
 Parte di questa famiglia di problemi **addestra il `BTB` a sbagliare**.
 È infatti sufficiente utilizzare _istruzioni codificate con gli stessi bit delle istruzioni di salto_, per creare collisioni all'interno del `BTB`, generando di conseguenza **falsi dati**.
 
-Il `BTB`, pur avendo una struttura molto simile a quelal di una _cache_, non verifica che _**l'indice ricavato dal dato in ingresso si riferisca proprio a quel dato e non ad uno a lui naturalmente allineato**_, cosa che invece fa la _cache_ tramite la corrispondenza `indice`-`offset`.
+Il `BTB`, pur avendo una struttura molto simile a quelal di una _cache_, non verifica che _**l'indice ricavato dal dato in ingresso si riferisca proprio a quel dato e non ad uno a lui naturalmente allineato**_, cosa che invece fa la _cache_ tramite la corrispondenza `etichetta`-`indice`.
 Sfruttando questo mancato controllo, possiamo far prelevare al `BTB` dati che sovrascrivono sempre gli stessi indici, di fatto addestrandolo ad andare **_dove vuole l'utente_**.
 
 In questo modo l'**_utente può costringere anche il codice privilegiato a speculare nel modo che vuole lui_**.
