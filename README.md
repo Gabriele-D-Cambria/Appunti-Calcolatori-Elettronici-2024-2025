@@ -47,6 +47,19 @@ Focus sull'architettura **CPU - Memoria - I/O** per l'esecuzione del software.
 13. [DMA](./DMA)
 14. [Architettura Moderna CPU Intel](./Architettura%20Moderna%20CPU%20Intel)
 
+## ❓ Domande e Risposte
+
+È disponibile una raccolta di **[Domande e Risposte](./Domande%20e%20Risposte.md)** che copre i principali argomenti del corso, organizzata per facilitare la preparazione all'esame.
+
+⚠️ **Avvertenze importanti:**
+- Alcune domande sono ancora **in fase di completamento** e potrebbero non avere una risposta pubblica
+- Le risposte fornite potrebbero contenere **errori o imprecisioni** in quanto estrapolate dai file di appunti markdown presenti in questo repository
+- Il materiale è in **continuo aggiornamento** e miglioramento
+- **Non sostituisce** lo studio del materiale ufficiale del corso
+- Per qualsiasi dubbio, fare sempre **riferimento alle lezioni** e al materiale del professore
+
+📝 **Stato del lavoro:** Sto attivamente lavorando all'espansione e al miglioramento di questa sezione.
+
 ## 📜 Disclaimer
 
 Questi appunti sono personali e destinati esclusivamente all'uso didattico. 

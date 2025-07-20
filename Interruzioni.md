@@ -109,9 +109,9 @@ Per rimediare a questi problemi è sufficente inserire un **generatore di impuls
 </div>
 </div>
 
-Per quanto riguarda la gestione delle interruzioni durante _routine_, nel processore _intelx86_ esiste un **flag aggiuntivo** in `RFLAG`, chiamato `IF` (_Interact Flag_). Se il bit è resettato, il processore **non accetta nuove richieste** finché non ha terminato quella attuale. Per poterlo manipolare esistono due istruzioni:
-- `STI` (_SeT Interact flag_)
-- `CLI` (_CLear Interact flag_).
+Per quanto riguarda la gestione delle interruzioni durante _routine_, nel processore _intelx86_ esiste un **flag aggiuntivo** in `RFLAG`, chiamato `IF` (_Interrupt Flag_). Se il bit è resettato, il processore **non accetta nuove richieste** finché non ha terminato quella attuale. Per poterlo manipolare esistono due istruzioni:
+- `STI` (_SeT Interrupt flag_)
+- `CLI` (_CLear Interrupt flag_).
 
 
 Quando il processore _accetta un'interruzione_ salva nella pila diverse informazioni, tra le quali:
@@ -167,7 +167,7 @@ Vedremo successivamente che l'`APIC` conserva tre informazioni per ogni piedino:
 
 </div>
 
-Affinché tutto questo funzioni, la **CPU** ha un suo registro interno chiamato `IDTR` (_Interact Descriptor Table Register_) che ha salvato l'indirizzo della `IDT` salvata in memoria.
+Affinché tutto questo funzioni, la **CPU** ha un suo registro interno chiamato `IDTR` (_Interrupt Descriptor Table Register_) che ha salvato l'indirizzo della `IDT` salvata in memoria.
 La `IDT` è una tabella che ha per ogni riga delle informazioni che vedremo meglio nel dettaglio nella sezione dedicata alla [Protezione](./Protezione).
 Alcune informazioni sono:
 - _Indirizzo della routine_ dove saltare

@@ -236,7 +236,7 @@ Una qualsiasi informazione che va nella memoria possiede due proprietà:
 <div class="">
 
 **CPU** e **RAM** sono collegate da un _bus_ che è composto da:
-- `D`: Rappresenta le **Linee di indirizzo**. In teoria sarebbero `64` ma nei processori _Intelx86_ il massimo è `57`. Nei processori comuni tendenzialmente questi fili però sono "solamente" `37`. Questo perché $2^{64}$ indirizzi di memoria sono decisamente troppi per un calcolatore comune.
+- `D`: Rappresenta le **Linee di indirizzo**. In teoria sarebbero `64` ma nei processori _Intelx86_ il massimo è `57`. Nei processori comuni tendenzialmente questi fili però sono "solamente" `48`. Questo perché $2^{64}$ indirizzi di memoria sono decisamente troppi per un calcolatore comune.
 - `A`: indica il **numero di riga** in **RAM** alla quale vogliamo accedere.
 - `C`: rappresenta i fili che contengolo le variabili di controllo (`/mw`, `/mr`, ...)
 - `/be`: sono i _Byte Enabler_. Ne esiste uno per ogni byte di _una riga_. Vengono utilizzati principalmente in scrittura, perché permettono di poter modificare solamente i singoli bit in un indirizzo.
