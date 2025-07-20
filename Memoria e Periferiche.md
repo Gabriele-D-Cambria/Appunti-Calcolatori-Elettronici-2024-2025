@@ -1,7 +1,7 @@
 # 1. Indice
 
 - [1. Indice](#1-indice)
-- [2. Calcolatori Elettronici](#2-calcolatori-elettronici)
+- [2. Architettura cpu-memoria-io](#2-architettura-cpu-memoria-io)
   - [2.1. Flusso di Controllo](#21-flusso-di-controllo)
   - [2.2. Informazioni Hardware o Software?](#22-informazioni-hardware-o-software)
   - [2.3. Memoria](#23-memoria)
@@ -11,24 +11,24 @@
     - [2.4.1. Allineamento a un numero $2^n$](#241-allineamento-a-un-numero-2n)
     - [2.4.2. Allineamenti ad oggetti](#242-allineamenti-ad-oggetti)
     - [2.4.3. Allineamento Naturale](#243-allineamento-naturale)
-  - [Regione e Confine](#regione-e-confine)
-  - [2.5. Comunicazione CPU-Memoria](#25-comunicazione-cpu-memoria)
-    - [2.5.1. Intervalli e allineamenti](#251-intervalli-e-allineamenti)
-  - [2.6. Spazio di I/O e periferiche](#26-spazio-di-io-e-periferiche)
-    - [2.6.1. Tastiera](#261-tastiera)
-    - [2.6.2. Video](#262-video)
-      - [2.6.2.1. Modalità Testo](#2621-modalità-testo)
-      - [2.6.2.2. Modalità Grafica](#2622-modalità-grafica)
-    - [2.6.3. Timer](#263-timer)
-    - [2.6.4. Hard Disk](#264-hard-disk)
-      - [2.6.4.1. Hard Disk - Interfaccia](#2641-hard-disk---interfaccia)
-  - [2.7. Memoria Cache](#27-memoria-cache)
-    - [2.7.1. Cache ad Indirizzamento Diretto](#271-cache-ad-indirizzamento-diretto)
-    - [2.7.2. Cache Associative ad Insiemi](#272-cache-associative-ad-insiemi)
+  - [2.5. Regione e Confine](#25-regione-e-confine)
+  - [2.6. Comunicazione CPU-Memoria](#26-comunicazione-cpu-memoria)
+    - [2.6.1. Intervalli e allineamenti](#261-intervalli-e-allineamenti)
+  - [2.7. Spazio di I/O e periferiche](#27-spazio-di-io-e-periferiche)
+    - [2.7.1. Tastiera](#271-tastiera)
+    - [2.7.2. Video](#272-video)
+      - [2.7.2.1. Modalità Testo](#2721-modalità-testo)
+      - [2.7.2.2. Modalità Grafica](#2722-modalità-grafica)
+    - [2.7.3. Timer](#273-timer)
+    - [2.7.4. Hard Disk](#274-hard-disk)
+      - [2.7.4.1. Hard Disk - Interfaccia](#2741-hard-disk---interfaccia)
+- [3. Memoria Cache](#3-memoria-cache)
+  - [3.1. Cache ad Indirizzamento Diretto](#31-cache-ad-indirizzamento-diretto)
+  - [3.2. Cache Associative ad Insiemi](#32-cache-associative-ad-insiemi)
 
 <div class="stop"></div>
 
-# 2. Calcolatori Elettronici
+# 2. Architettura cpu-memoria-io
 
 Andremo a studiare un'architettura Architettura CPU - Memoria (RAM e ROM) - I/O.
 <figure class="60">
@@ -193,7 +193,7 @@ $$
     \boxed{|o|_{sizeof(o)} = 0}
 $$
 
-## Regione e Confine
+## 2.5. Regione e Confine
 
 I **confini** non sono altro degli indirizzi particolari. Una **regione** è identificata da due _confini_.
 
@@ -221,7 +221,7 @@ Assegneremo quindi ad ognuna un numero, detto **numero di riga**, che la identif
 
 Ciò significa che dato un indirizzo `A[63:0]`, il numero di riga verrà identificato dai bit `A[63:3]`. I restanti `A[2:0]` rappresentano l'offset all'interno della riga, e vengono chiamati **_Byte Enabler_** `BE`.
 
-## 2.5. Comunicazione CPU-Memoria
+## 2.6. Comunicazione CPU-Memoria
 
 Il formato delle istruzioni _Intelx86_ può avere al massimo **1 operando esplicito in memoria**.
 
@@ -312,7 +312,7 @@ Tutte queste operazioni vengono eseguite non dal software (l'operazione `MOVQ 40
 </figure>
 
 
-### 2.5.1. Intervalli e allineamenti
+### 2.6.1. Intervalli e allineamenti
 
 Non necessariamente avremo intervalli $[x, y)$ che andiamo ad interrogare si trovano in un'unica regione.
 
@@ -326,7 +326,7 @@ Conoscendo la lunghezza $b$ di ogni sezione:
 
 Per quanto riguarda l'offset del primo indirizzo nella regione lo calcoliamo così: &emsp; `off = x & ((1UL << b) - 1) `
 
-## 2.6. Spazio di I/O e periferiche
+## 2.7. Spazio di I/O e periferiche
 
 Nei sistemi moderni è presente un sistema di _protezione_ che non ci permette di accedere alle periferiche della macchina.
 
@@ -345,7 +345,7 @@ Le periferiche sono quindi:
 - **Timer** (_PC AT_)
 - **HardDisk** (_PC AT_ quando venne inserito)
 
-### 2.6.1. Tastiera
+### 2.7.1. Tastiera
 
 Lo scopo della tastiera è di rilevare i tasti premuti e rilasciati e di comunicarli al PC.
 
@@ -455,7 +455,7 @@ void main(){
 }
 ```
 
-### 2.6.2. Video
+### 2.7.2. Video
 
 Andiamo adesso a studiare la periferica per il video tramite teconologia `VGA` (_Video Graphic Adapter_), perché studiare quelle moderne con collegamenti con teconologia `USB` è molto più complesso, e poco rilevante per gli scopi di questo corso.
 
@@ -474,7 +474,7 @@ La teconologia `VGA` permette l'interpretazione da parte dell'adattatore della m
 - **Modalità Testo**
 - **Modalità Video**
 
-#### 2.6.2.1. Modalità Testo
+#### 2.7.2.1. Modalità Testo
 
 Sia la memoria che il display vengono interpretati come caratteri ASCII e ogniuno viene portato in una determinata intersezione riga-colonna.
 Di _default_ i vecchi dispositivi si accendono in questa modalità.
@@ -613,7 +613,7 @@ namespace vid{
 }
 ```
 
-#### 2.6.2.2. Modalità Grafica
+#### 2.7.2.2. Modalità Grafica
 
 La modalità grafica può andare dal complicatissimo all'estremamente semplice.
 Questa permette al programmatore di accedere e modificare **i singoli pixel** nella matrice.
@@ -642,7 +642,7 @@ void main(){
 }
 ```
 
-### 2.6.3. Timer
+### 2.7.3. Timer
 
 È un interfaccia che permette di contare il tempo che passa.
 Viene implementata tramite un'interfaccia più generale che conta degli eventi, in particolare degli impulsi elettrici.
@@ -709,7 +709,7 @@ main(){
 }
 ```
 
-### 2.6.4. Hard Disk
+### 2.7.4. Hard Disk
 
 L'hard disk è una memoria di massa.
 Il processore **non può eseguire i programmi nell'hard disk**, per via di incopatibilità nelle interfacce.
@@ -742,7 +742,7 @@ Infatti nei blocchi più esterni la lettura è più rapida ma presenta anche pi�
 
 Le locazioni non vengono utilizzate dal programmatore con il loro vero numero, bensì viene creata dall'interfaccia un'array di blocchi chiamato `LBA` (_Logical Block Address_) che non fa testo sulle posizioni reali dei blocchi ma crea come una _hashmap_ che non comunica all'utilizzatore.
 
-#### 2.6.4.1. Hard Disk - Interfaccia
+#### 2.7.4.1. Hard Disk - Interfaccia
 
 L'interfaccia che vedremo noi è quella con i registri che fanno riferimento ai primi HD dell'_IBM_, ovvero l'interfaccia **ATA**.
 
@@ -769,7 +769,7 @@ $$
     2^{8 + 8 + 8 + 4} \cdot 2^9 \;= \; 2^{37}\:\text{B} \; = 2^7\:\text{GB} \;= 128\: \text{GB}
 $$
 
-## 2.7. Memoria Cache
+# 3. Memoria Cache
 
 La **RAM** è estrememante lenta rispetto al processore, circa 200/300 volte più lenta, ciò mette in attesa il processore.
 
@@ -833,7 +833,7 @@ Se lo è stato lo invia immediatamente, altrimenti effettua una lettura in **RAM
 Prima di inviarlo però lo salva localmente, eventualmente rimpiazzando altri dati che erano già salvati.
 La scelta di quale dato sovrascrivere può essere determinata automaticamente dall'architettura (come nel nostro caso) oppure può utilizzare diversi meccanismi di selezione specifici dell'architettura stessa.
 
-### 2.7.1. Cache ad Indirizzamento Diretto
+## 3.1. Cache ad Indirizzamento Diretto
 
 <div class="grid2">
 <div class="">
@@ -878,7 +878,7 @@ Questo tipo di _cache_ è particolarmente poco efficente quando cerchiamo di acc
 In questo caso ogni accesso causa una `miss`, proprio perché i due indirizzi collidono.
 Un modo per risolvere il problema è attraverso le **cache associative ad insiemi**.
 
-### 2.7.2. Cache Associative ad Insiemi
+## 3.2. Cache Associative ad Insiemi
 
 Si basano sulle _cache ad indirizzamento diretto_.
 Infatti non sono altro che più cache allineate tra di loro:
