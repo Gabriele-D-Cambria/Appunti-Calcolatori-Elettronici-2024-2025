@@ -274,7 +274,7 @@ L'interno del rettagolo tratteggiato è una scheda di memoria, la parte esterna 
 Ipotizzando un calcolatore a $n$ bit.
 
 Per l'$i$-esimo chip di RAM dovremo collegare:
-```v
+```verilog
 assign w_ = W_;
 assign r_ = R_;
 

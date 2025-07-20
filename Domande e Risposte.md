@@ -253,7 +253,7 @@ Il flusso di controllo all'avvio del calcolatore è gestito attraverso una seque
 **Esempio concreto della sequenza di avvio:**
 Dal log di avvio del sistema possiamo vedere la sequenza completa:
 
-> ```
+> ```log
 > 1 | [INF] - Boot loader di Calcolatori Elettronici, v1.0
 > 2 | [INF] - Memoria totale: 32 MiB, heap: 636 KiB
 > 3 | [INF] - Argomenti: /home/gabrieledc/CE/lib/ce/boot.bin
@@ -370,7 +370,7 @@ I Byte Enabler permettono di effettuare operazioni selettive sui singoli byte di
 **Collegamento dei chip di memoria:**
 Nell'implementazione hardware, ogni chip di memoria è collegato attraverso un sistema che utilizza i Byte Enabler per determinare quale parte della riga deve essere effettivamente scritta:
 
-> ```v
+> ```verilog
 > assign w_ = W_;
 > assign r_ = R_;
 > 
