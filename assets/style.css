@@ -349,7 +349,19 @@ body {
     padding: 0 1rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
+}
+
+.nav-internal {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-external {
+    display: flex;
+    align-items: center;
 }
 
 .home-link, .questions-link {
@@ -370,6 +382,34 @@ body {
     transform: translateY(-1px);
 }
 
+.github-link {
+    color: #7d8590 !important;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    background-color: rgba(125, 133, 144, 0.05);
+    border: 1px solid rgba(125, 133, 144, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.github-link:hover {
+    color: #f0f6fc !important;
+    background-color: rgba(125, 133, 144, 0.15);
+    border-color: rgba(125, 133, 144, 0.4);
+    transform: translateY(-1px);
+}
+
+.github-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
 .separator {
     color: #474c52;
     font-weight: 300;
@@ -379,12 +419,21 @@ body {
 @media (max-width: 768px) {
     .site-nav {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 1rem;
         text-align: center;
+    }
+    
+    .nav-internal {
+        flex-direction: column;
+        gap: 0.5rem;
     }
     
     .separator {
         display: none;
+    }
+    
+    .nav-external {
+        margin-top: 0.5rem;
     }
 }
 
