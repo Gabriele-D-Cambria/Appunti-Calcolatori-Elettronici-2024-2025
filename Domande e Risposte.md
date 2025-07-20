@@ -452,7 +452,10 @@ Gli accessi non allineati alla memoria rappresentano un problema fondamentale ne
 
 **Allineamento naturale degli oggetti:**
 Un oggetto si dice allineato naturalmente se il suo indirizzo è divisibile per la sua dimensione. Formalmente:
-> Un oggetto $o$ si dice _allineato naturalmente_ se $|o|_{sizeof(o)} = 0$
+> Un oggetto $o$ si dice _allineato naturalmente_ se
+> $$
+>     \boxed{|o|_{sizeof(o)} = 0}
+> $$
 >
 > *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#243-allineamento-naturale)*
 

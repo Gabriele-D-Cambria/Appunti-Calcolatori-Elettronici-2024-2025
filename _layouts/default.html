@@ -4,7 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page.title | default: site.title }}</title>
+    {% comment %}
+    Estrae il secondo header H1 dal contenuto per usarlo come titolo
+    {% endcomment %}
+    {% assign content_lines = content | split: '
+' %}
+    {% assign page_title = '' %}
+    {% assign h1_count = 0 %}
+    {% for line in content_lines %}
+        {% if line contains '# ' %}
+            {% assign h1_count = h1_count | plus: 1 %}
+            {% if h1_count == 2 and page_title == '' %}
+                {% assign page_title = line | remove: '# ' | strip %}
+                {% break %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    <title>{{ page_title | default: page.title | default: site.title }}</title>
     
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="./assets/onedarkprotheme.css">
