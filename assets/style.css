@@ -321,3 +321,60 @@ h1, h2, h3, h4, h5, h6 {
 mjx-container.MathJax {
     font-size: larger !important;
 }
+
+/* Header di navigazione */
+.site-header {
+    background-color: #0d1117;
+    border-bottom: 1px solid #30363d;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.site-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.home-link, .questions-link {
+    color: #58a6ff !important;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    background-color: rgba(88, 166, 255, 0.1);
+    border: 1px solid rgba(88, 166, 255, 0.2);
+}
+
+.home-link:hover, .questions-link:hover {
+    background-color: rgba(88, 166, 255, 0.2);
+    border-color: rgba(88, 166, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.separator {
+    color: #7d8590;
+    font-weight: 300;
+}
+
+/* Responsive design per dispositivi mobili */
+@media (max-width: 768px) {
+    .site-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .separator {
+        display: none;
+    }
+}
