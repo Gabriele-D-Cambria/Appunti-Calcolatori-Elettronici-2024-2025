@@ -324,14 +324,32 @@ mjx-container.MathJax {
 
 /* Header di navigazione */
 .site-header {
-    background-color: #0d1117;
+    background-color: transparent;
     border-bottom: 1px solid #30363d;
     padding: 1rem 0;
     margin-bottom: 2rem;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(0);
+}
+
+.site-header.hidden {
+    transform: translateY(-100%);
+}
+
+.site-header.visible {
+    transform: translateY(0);
+}
+
+/* Compensazione per header fisso */
+body {
+    padding-top: 4rem;
 }
 
 .site-nav {
@@ -362,7 +380,7 @@ mjx-container.MathJax {
 }
 
 .separator {
-    color: #7d8590;
+    color: #474c52;
     font-weight: 300;
 }
 

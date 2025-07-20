@@ -197,7 +197,7 @@ Nell'architettura classica CPU-Memoria-I/O, ogni componente ha una visione parzi
 **Riferimento:**
 > "La CPU comunica con la memoria e le periferiche tramite bus dedicati. Ogni componente è progettato per ignorare i dettagli interni degli altri, garantendo modularità e sicurezza."
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#architettura-cpu-memoria-io)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#architettura-cpu-memoria-io)*
 
 **Esempio pratico:**
 > Quando la CPU esegue un'istruzione di scrittura, invia un indirizzo e un dato sul bus. La RAM riceve la richiesta e memorizza il dato, senza sapere se proviene da un programma utente o dal sistema operativo. Analogamente, una periferica riceve comandi senza sapere chi li ha generati.
@@ -219,7 +219,7 @@ Il flusso di controllo all'avvio del calcolatore è gestito attraverso una seque
 > Al'avvio del calcolatore però il contenuto della memoria **RAM** è _casuale_.
 > È quindi necessario che il programma di `bootstrap`, ovvero quelle informazioni necessarie a inizializzare in maniera corretta l'`%rip`.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#21-flusso-di-controllo)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#21-flusso-di-controllo)*
 
 **Soluzione tramite ROM e BIOS:**
 > Il programma `bootstrap` deve essere salvato in una memoria **ROM** sulla quale il programma deve essere salvato.
@@ -227,7 +227,7 @@ Il flusso di controllo all'avvio del calcolatore è gestito attraverso una seque
 > All'inizio della storia dei calcolatori il programma di `bootstrap` veniva caricato **manualmente** dagli operatori ad ogni accensione del calcolatore.
 > La **ROM** permette di non dover fare più questa operazione, è infatti sufficente impostare che in fase di `/reset` la **CPU** vada a consultare quest'ultima. Il `BIOS` è contenuto in questa parte di programma.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#21-flusso-di-controllo)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#21-flusso-di-controllo)*
 
 **Sequenza di avvio nei processori Intel:**
 
@@ -238,7 +238,7 @@ Il flusso di controllo all'avvio del calcolatore è gestito attraverso una seque
 >
 > Tocca a noi però portare il processore nella modalità a `64bit`, e questo compito lo facciamo svolgere al programma `boot.bin` che può cedere il controllo al modulo `sistema`.
 >
-> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi.md#242-avvio-sistema)*
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#242-avvio-sistema)*
 
 **Processo di bootstrap dettagliato:**
 
@@ -248,7 +248,7 @@ Il flusso di controllo all'avvio del calcolatore è gestito attraverso una seque
 > Le righe 1-15 arrivano dal programma `boot.bin`:
 > - Nelle righe 4–7 il programma `boot.bin` ci informa del fatto che il `bootloader` precedente (nel nostro caso `QEMU` stesso) ha caricato in memoria _tre file_, in particolare il file `build/sistema.strip4` all'indirizzo `0x114000`.
 >
-> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi.md#242-avvio-sistema)*
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#242-avvio-sistema)*
 
 **Esempio concreto della sequenza di avvio:**
 Dal log di avvio del sistema possiamo vedere la sequenza completa:
@@ -271,7 +271,7 @@ Dal log di avvio del sistema possiamo vedere la sequenza completa:
 > 15 | [INF] - Attivo la modalita' a 64 bit e cedo il controllo a mod[0]...
 > ```
 >
-> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi.md#242-avvio-sistema)*
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#242-avvio-sistema)*
 
 **Controllo del flusso di esecuzione:**
 
@@ -281,7 +281,7 @@ Dal log di avvio del sistema possiamo vedere la sequenza completa:
 >
 > Il controllo **è unico** e può essere solo scambiato tra i vari stati della **CPU**, a loro volta scanditi dal _programma in esecuzione_.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#21-flusso-di-controllo)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#21-flusso-di-controllo)*
 
 **Attivazione della modalità 64-bit:**
 Il passaggio finale alla modalità a 64-bit avviene attraverso la paginazione:
@@ -303,7 +303,7 @@ Il passaggio finale alla modalità a 64-bit avviene attraverso la paginazione:
 >
 > La modifica al _bootstrap_ di un processo per creare questa opzione è in realtà abbastanza banale, in quanto all'accensione la `MMU` è disattivata, e la **CPU** utilizza direttamente gli indirizzi **fisici**.
 >
-> *Fonte: [Memoria Virtuale nel Nucleo.md](./Memoria%20Virtuale%20nel%20Nucleo.md) e [Paginazione.md](./Paginazione.md#331-traduzioni-identità)*
+> *Fonte: [Memoria Virtuale nel Nucleo.md](./Memoria%20Virtuale%20nel%20Nucleo.md) e [Paginazione.md](./Paginazione#331-traduzioni-identità)*
 
 **Inizializzazione del sistema:**
 Una volta completato il bootstrap, il sistema inizializza i suoi componenti:
@@ -312,7 +312,7 @@ Una volta completato il bootstrap, il sistema inizializza i suoi componenti:
 > - Alla riga 38 vediamo che viene inizializzato l'`APIC`.
 > - Nella riga 40 veniamo informati dell'inizializzazione dello _heap di sistema_ (riutilizzando lo spazio occupato da `boot.bin`).
 >
-> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi.md#242-avvio-sistema)*
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#242-avvio-sistema)*
 
 In sintesi, il flusso di controllo all'avvio è gestito attraverso una catena di responsabilità: ROM/BIOS → bootloader → boot.bin → modulo sistema, dove ogni componente ha il compito di inizializzare il successivo e trasferirgli il controllo, risolvendo il problema del contenuto casuale della RAM attraverso l'uso di memoria non volatile (ROM) per i programmi di bootstrap.
 
@@ -341,7 +341,7 @@ La comunicazione tra CPU e RAM nell'architettura CPU-Memoria-I/O avviene attrave
 > - `C`: rappresenta i fili che contengolo le variabili di controllo (`/mw`, `/mr`, ...)
 > - `/be`: sono i _Byte Enabler_. Ne esiste uno per ogni byte di _una riga_. Vengono utilizzati principalmente in scrittura, perché permettono di poter modificare solamente i singoli bit in un indirizzo.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 **Interfaccia dei chip di memoria:**
 
@@ -353,7 +353,7 @@ La comunicazione tra CPU e RAM nell'architettura CPU-Memoria-I/O avviene attrave
 > - `/w`: comando di scrittura
 > - `D`: dati, su `8bit`
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 **I segnali Byte Enabler (`/be`):**
 
@@ -395,7 +395,7 @@ Nell'implementazione hardware, ogni chip di memoria è collegato attraverso un s
 > assign s_ = (BE_[i] | mask_);
 > ```
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 **Esempio di utilizzo nel bus PCI:**
 
@@ -418,7 +418,7 @@ I Byte Enabler sono utilizzati anche in altri contesti sistemici, come nel bus P
 > - **Indirizzo**: indirizzo della prima locazione di memoria desiderata
 > - **Dimensione**: talvolta si deduce dai registri, talvolta necessita di essere esplicitata con il _suffisso_, indica a quanti byte vogliamo accedere.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 **Dimensioni degli accessi in memoria:**
 
@@ -429,7 +429,7 @@ I Byte Enabler sono utilizzati anche in altri contesti sistemici, come nel bus P
 > |:---:|:---:|:---:|:---:|:---:|
 > | Byte | `1` | `2` | `4` | `8` |
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#23-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#23-memoria)*
 
 **Importanza degli allineamenti:**
 
@@ -438,7 +438,7 @@ I Byte Enabler sono utilizzati anche in altri contesti sistemici, come nel bus P
 >
 > Se volessimo infatti accedere a indirizzi non allineati è **necessario** fare **2 accessi**.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 In sintesi, la comunicazione CPU-RAM avviene attraverso un bus strutturato con linee dati, indirizzi e controllo, dove i segnali `/be` (Byte Enabler) permettono operazioni selettive sui singoli byte, ottimizzando le prestazioni ed evitando riscritture non necessarie di intere righe di memoria. Questo meccanismo è fondamentale per l'efficienza del sistema di memoria e viene implementato a livello hardware attraverso logiche di selezione che determinano quali chip di memoria devono essere attivati per ciascuna operazione.
 
@@ -454,7 +454,7 @@ Gli accessi non allineati alla memoria rappresentano un problema fondamentale ne
 Un oggetto si dice allineato naturalmente se il suo indirizzo è divisibile per la sua dimensione. Formalmente:
 > Un oggetto $o$ si dice _allineato naturalmente_ se $|o|_{sizeof(o)} = 0$
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#243-allineamento-naturale)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#243-allineamento-naturale)*
 
 **Tipi di allineamento richiesti:**
 - Un `BYTE` (1 byte) può essere posizionato a qualsiasi indirizzo
@@ -468,7 +468,7 @@ Un oggetto si dice allineato naturalmente se il suo indirizzo è divisibile per 
 > 
 > Ciò significa che dato un indirizzo `A[63:0]`, il numero di riga verrà identificato dai bit `A[63:3]`. I restanti `A[2:0]` rappresentano l'offset all'interno della riga, e vengono chiamati **_Byte Enabler_** `BE`.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#regione-e-confine)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#regione-e-confine)*
 
 **Analisi del caso specifico: `MOVQ 4097, %RAX`:**
 L'operazione `MOVQ 4097, %RAX` richiede la lettura di 8 byte consecutivi a partire dall'indirizzo 4097.
@@ -484,7 +484,7 @@ Un `QUAD` (8 bytes) che inizia all'offset 1 si estende fino all'offset 8, ma ogn
 > Data questa configurazione risulta chiara l'importanza degli allineamenti.
 > Se volessimo infatti accedere a indirizzi non allineati è **necessario** fare **2 accessi**.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 **Processo di gestione hardware:**
 1. **Primo accesso:** Legge la riga 512 per ottenere i byte agli offset 1, 2, 3, 4, 5, 6, 7 (7 bytes)
@@ -493,12 +493,12 @@ Un `QUAD` (8 bytes) che inizia all'offset 1 si estende fino all'offset 8, ma ogn
 **Ricomposizione dei dati:**
 > Inoltre potrebbe diventare necessario sistemare il padding dei byte, in quanto quelli all'indirizzo precedente si trovano nella regione delle _MSB_, anche se per quello che ci riguarda sono nella _LSB_.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 **Il ruolo del μ-codice della CPU:**
 > Tutte queste operazioni vengono eseguite non dal software (l'operazione `MOVQ 4097, %RAX` di fatto fa tutto in una riga), ma dall'**hardware**, in particolare nel _$\mu$-codice che implementa l'accesso in memoria_ che si trova nella **CPU**.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#25-comunicazione-cpu-memoria)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#25-comunicazione-cpu-memoria)*
 
 **Operazioni gestite dal μ-codice:**
 1. **Rilevare** che l'accesso è non allineato
@@ -532,7 +532,7 @@ La memoria cache è una soluzione hardware fondamentale per risolvere il problem
 **Problema che risolve la cache:**
 > La **RAM** è estrememante lenta rispetto al processore, circa 200/300 volte più lenta, ciò mette in attesa il processore.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#27-memoria-cache)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#27-memoria-cache)*
 
 **Soluzione technologica:**
 > Un modo per avere **RAM** più veloci è quello di utilizzare le **RAM Statiche** invece di quelle _dinamiche_.
@@ -547,7 +547,7 @@ La memoria cache è una soluzione hardware fondamentale per risolvere il problem
 
 > Esiste tuttavia un modo per poter utilizzare **RAM** _grandi, economiche e veloci_.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#27-memoria-cache)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#27-memoria-cache)*
 
 **Principi di località:**
 La cache si basa sui **principi di località**, che sono osservazioni statistiche sul comportamento dei programmi:
@@ -559,7 +559,7 @@ La cache si basa sui **principi di località**, che sono osservazioni statistich
 > 
 > **Principio di località Spaziale**: visto un indirizzo è probabile che a breve ci si ritorni.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#27-memoria-cache)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#27-memoria-cache)*
 
 **Funzionamento del controllore cache:**
 > La memoria _cache_ funziona proprio basandosi su questi principi.
@@ -568,7 +568,7 @@ La cache si basa sui **principi di località**, che sono osservazioni statistich
 > L'esecuzione della _cache_ è gestita da un **_controllore_** che lavora in maniera totalmente trasparente, **senza che il processore e il programmatore sappiano della sua esistenza**.
 > Tuttavia il programmatore può _approfittare dei principi_, affinché possa sfruttare al massimo la _cache_.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#27-memoria-cache)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#27-memoria-cache)*
 
 **Meccanismo di funzionamento:**
 > Il controllore verifica che un dato richiesto dalla CPU sia già stato memorizzato.
@@ -576,7 +576,7 @@ La cache si basa sui **principi di località**, che sono osservazioni statistich
 > Prima di inviarlo però lo salva localmente, eventualmente rimpiazzando altri dati che erano già salvati.
 > La scelta di quale dato sovrascrivere può essere determinata automaticamente dall'architettura (come nel nostro caso) oppure può utilizzare diversi meccanismi di selezione specifici dell'architettura stessa.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#27-memoria-cache)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#27-memoria-cache)*
 
 **Hit e Miss:**
 > Quando il processore richiede una locazione di memoria, si effettua un controllo per verificare che si trovi o meno nella _cache_.
@@ -584,7 +584,7 @@ La cache si basa sui **principi di località**, che sono osservazioni statistich
 > 
 > Il segnale di `miss` indica invece che la memoria non è nella _cache_, perciò va recuperato dalla **RAM** per poter essere letto.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#271-cache-ad-indirizzamento-diretto)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#271-cache-ad-indirizzamento-diretto)*
 
 **Politiche di scrittura:**
 In caso di scrittura con `hit` abbiamo due possibili politiche:
@@ -599,12 +599,12 @@ Anche in caso di `miss` la scrittura ha due possibili politiche:
 > Il motivo per il quale, data una riga, recuperiamo in cache tutta la sezione dov'è contenuta è perché, per il principio di località, è probabile che il processore richieda in un secondo momento locazioni vicine (_località spaziale_).
 > Inoltre, se il tempo di lettura di una riga fosse $t$, quella di lettura di un blocco è un tempo $\ll 8t$.
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#271-cache-ad-indirizzamento-diretto)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#271-cache-ad-indirizzamento-diretto)*
 
 **Trasparenza:**
 > La memoria cache lavora _solo_ sulla **RAM**, non ha alcun senso che lavori per l'_I/O_, poiché manca il principio base (_I/O_ ha effetti collaterali voluti).
 >
-> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#27-memoria-cache)*
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#27-memoria-cache)*
 
 In sintesi, la cache è una memoria piccola, veloce e costosa che funge da buffer intelligente tra CPU e RAM, sfruttando i principi di località per predire quali dati serviranno al processore, migliorando drasticamente le prestazioni del sistema.
 
@@ -656,7 +656,7 @@ La cache associativa per insiemi è un'evoluzione della cache a indirizzamento d
 > Questo tipo di _cache_ è particolarmente poco efficente quando cerchiamo di accedere a due _cacheline_ in memoria allineate naturalmente alla dimensione della _cache_.
 > In questo caso ogni accesso causa una `miss`, proprio perché i due indirizzi collidono.
 
-*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#271-cache-ad-indirizzamento-diretto)*
+*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#271-cache-ad-indirizzamento-diretto)*
 
 **Funzionamento della cache associativa per insiemi:**
 
@@ -667,7 +667,7 @@ La cache associativa per insiemi è un'evoluzione della cache a indirizzamento d
 > 
 > Si utilizzano le due cache in parallelo, in caso di conflitti, andremo a sovrascrivere la _cacheline_ che non si utilizza da più tempo.
 
-*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#272-cache-associative-ad-insiemi)*
+*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#272-cache-associative-ad-insiemi)*
 
 **Gestione della sostituzione - Registro LRU:**
 
@@ -678,14 +678,14 @@ La cache associativa per insiemi è un'evoluzione della cache a indirizzamento d
 > 
 > Tuttavia, nel processore _x86_, è stato implementato uno `pseudo-LRU` a `3bit`
 
-*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#272-cache-associative-ad-insiemi)*
+*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#272-cache-associative-ad-insiemi)*
 
 **Limitazioni della cache associativa per insiemi:**
 
 > Tuttavia anche con il registro `LRU` è possibile generare sempre `miss`.
 > Basta infatti effettuare un accesso in più di quelli possibili in parallelo, ad esempio se avessimo quattro cache e facessimo l'accesso a 5 linee allineate, genereremmo sempre una `miss`.
 
-*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche.md#272-cache-associative-ad-insiemi)*
+*Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#272-cache-associative-ad-insiemi)*
 
 **Vantaggi principali del confronto:**
 - **Cache a indirizzamento diretto**: Semplice, veloce, ma soffre di conflitti quando si accede a indirizzi allineati naturalmente
@@ -735,7 +735,7 @@ Il problema di Dijkstra è un classico esempio che dimostra la necessità delle 
 > 
 > Vorremmo che venissero stampati le coppie valore $x$-$f(x)$.
 >
-> *Fonte [Interruzioni.md](./Interruzioni.md#2-interruzioni)*
+> *Fonte [Interruzioni.md](./Interruzioni#2-interruzioni)*
 
 **Architettura della stampante:**
 > La stampa degli elementi è gestita tramite una stampante con due registri:
@@ -814,7 +814,7 @@ L'APIC (Advanced Programmable Interrupt Controller) è un controllore delle inte
 > 
 > Quando uno di questi segnali viene settato l'`APIC` invia alla **CPU** un segnale tramite un suo registro interno chiamato `INTR` (_INTervall Request_), inizializzando un _handshake_.
 
-*Fonte: [Interruzioni.md](./Interruzioni.md#21-interruzioni-a-più-sorgenti---apic)*
+*Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
 
 **Meccanismo di gestione delle interruzioni multiple:**
 
@@ -824,7 +824,7 @@ L'APIC risolve il problema delle interruzioni a più sorgenti attraverso diversi
 > - `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
 > - `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
 
-*Fonte: [Interruzioni.md](./Interruzioni.md#21-interruzioni-a-più-sorgenti---apic)*
+*Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
 
 **Sistema di priorità e tipizzazione:**
 
@@ -836,7 +836,7 @@ Il programmatore assegna un **tipo** (8 bit) a ogni piedino dell'APIC:
 > 
 > Se arriva una nuova richiesta che ha _classe strettamente maggiore_ l'`APIC` invierà una **nuova richiesta**, negli altri casi attenderà `EOI`, per poi inviare la successiva richiesta con classe più alta in `IRR`.
 
-*Fonte: [Interruzioni.md](./Interruzioni.md#211-gestione-più-richieste)*
+*Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
 
 **Protocollo di handshake:**
 
@@ -846,11 +846,11 @@ Il programmatore assegna un **tipo** (8 bit) a ogni piedino dell'APIC:
 > 
 > Successivamente l'`APIC` carica il tipo sul _bus_ così che la **CPU** lo possa leggere.
 
-*Fonte: [Interruzioni.md](./Interruzioni.md#21-interruzioni-a-più-sorgenti---apic)*
+*Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
 
 **Configurazione software dell'APIC:**
 
-Dal file [`IO.md`](./IO.md#3-modulo-io):
+Dal file [`IO.md`](./IO#3-modulo-io):
 
 ```cpp
 // Associazione irq->tipo (tramite l'APIC)
@@ -874,7 +874,7 @@ I registri ISR e IRR sono componenti fondamentali dell'APIC per la gestione dell
 > - `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
 > - `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
 >
-> *Fonte: [Interruzioni.md](./Interruzioni.md#21-interruzioni-a-più-sorgenti---apic)*
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
 
 **Dispositivi collegati:**
 > Nel nostro calcolatore i dispositivi rilevanti sono connessi ai seguenti piedini
@@ -890,7 +890,7 @@ I registri ISR e IRR sono componenti fondamentali dell'APIC per la gestione dell
 > Se così non fosse, il controllore potrebbe reinviare segnali di interruzioni su eventi già gestiti.
 
 **Esempio pratico nel codice:**
-Dal file [`IO.md`](./IO.md#3-modulo-io) - Configurazione APIC:
+Dal file [`IO.md`](./IO#3-modulo-io) - Configurazione APIC:
 ```cpp
 // Associazione irq->tipo (tramite l'APIC)
 apic::set_VECT(irq, tipo);
@@ -934,7 +934,7 @@ I gate della IDT sono strutture hardware fondamentali per la gestione delle inte
 > - `L` (_Livello_): indica il _livello di privilegio_ al quale portare il processore **dopo** aver passato il _gate_. Nel nostro caso sarà sempre settato a `sistema`.
 > - `DPL` (_Descriptor Privilege Level_): specifica il **livello di privilegio minimo** che deve avere il processore **prima** di passare il gate.
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 **Funzione dei campi principali:**
 
@@ -944,7 +944,7 @@ I gate della IDT sono strutture hardware fondamentali per la gestione delle inte
 > - `sistema`: nei _gate_ delle _interruzioni esterne_, così che possano essere attraversati solo da codice protetto
 > - `utente`: nei _gate_ delle _primitive_, per permetterne l'utilizzo da parte degli utenti
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 **Meccanismo di attraversamento del gate:**
 Quando il processore attraversa un gate della IDT, segue una sequenza precisa:
@@ -954,7 +954,7 @@ Quando il processore attraversa un gate della IDT, segue una sequenza precisa:
 > 3. Se sta gestendo una _interruzione software_ o `int3`, confronta il livello corrente con il campo `DPL` del gate.
 > 4. Altrimenti, confronta `CS` con `L`. Se `L` è **inferiore**, si genera ancora un'_eccezione di protezione_ `13`.
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 **Cambio di pila e origine del nuovo `%rsp`:**
 
@@ -963,7 +963,7 @@ Quando il processore attraversa un gate della IDT, segue una sequenza precisa:
 > - Il processore deve garantire di poter scrivere le 5 `long word` senza sovrascrivere altre cose, e non può quindi fidarsi di `RSP` che è completamente a servizio dell'utente.
 > - Queste informazioni sono salvate nella memoria di sistema, in modo che l'utente **non le possa corrompere**.
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 **Meccanismo del cambio pila:**
 > 5. Negli altri casi, il processore salva in un registro di appoggio (chiamiamolo `SRSP`) il contenuto corrente di `RSP`
@@ -973,7 +973,7 @@ Quando il processore attraversa un gate della IDT, segue una sequenza precisa:
 > Nei primi processori _intel_ ogni _job_ aveva un proprio **segmento** di un registro chiamato `TSS`, che indicava la pila a disposizione del _job_.
 > Per identificare la _pila sistema_ si accedeva prima ad un'altro registro, `TR` (_Task Register_), che indicava quale segmento era associato a quel _job_.
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 **Cosa viene salvato in pila:**
 > 7. Salva in pila `5 long word`. In ordine:
@@ -983,7 +983,7 @@ Quando il processore attraversa un gate della IDT, segue una sequenza precisa:
 > - [3] `CS`: vecchio valore del `CS` da ripristinare successivamente
 > - [4] `RIP`: indirizzo della prima istruzione da eseguire all'uscita del gate.
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 **Esempio pratico nella creazione di processi:**
 Nel sistema studiato, la pila sistema viene preparata durante la creazione del processo:
@@ -1003,13 +1003,13 @@ Nel sistema studiato, la pila sistema viene preparata durante la creazione del p
 >
 > In particolare, è bene che l'utente non possa modificare il valore salvato di `CS`.
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 **Configurazione della IDT:**
 > La `IDT` viene inizializzata tramite il programma di _bootstrap_, in particolare utilizzando l'istruzione `LIDTR` che carica l'indirizzo della `IDT` nel registro `IDTR` che il processore utilizza per accedere ala tabella e allocando `IDT` nella memoria `M1`.
 > Per non permettere la modifica di `IDT` da parte dell'utente l'istruzione `LIDTR` è anch'essa **vietata** nel contesto _utente_.
 >
-> *Fonte: [Protezione.md](./Protezione.md#22-passaggi-tra-contesti)*
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
 
 In sintesi, i gate della IDT sono meccanismi sofisticati che garantiscono transizioni sicure tra contesti, mentre il nuovo `%rsp` proveniva dal TSS (Task State Segment) che contiene la pila sistema dedicata a ciascun processo, assicurando che le informazioni critiche siano protette dalla corruzione da parte del codice utente. 
 Con l'introduzione della paginazione, la base della pila sistema si trova per ogni processo all'indirizzo virtuale `fin_sis_p`, e di conseguenza il nuovo valore di `%rsp` dopo il cambio pila sarà `fin_sis_p - 5 * sizeof(natq)`.
@@ -1142,7 +1142,7 @@ La differenza fondamentale tra interruzioni ed eccezioni riguarda il **timing** 
 **Interruzioni:**
 > Quello che possiamo fare per supportare gli eventi di questa interfaccia è collegare fisicamente il bit della stampante alla **CPU** e aggiungere una $\mu$-istruzione che controlla il bit al termine di ogni istruzione.
 >
-> *Fonte: [Interruzioni.md](./Interruzioni.md#2-interruzioni)*
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
 
 Le interruzioni vengono **controllate e accettate solo tra un'istruzione e la successiva**. Il processore verifica la presenza di richieste di interruzione alla fine di ogni istruzione completata, quando il processore si trova in uno stato consistente.
 
@@ -1155,7 +1155,7 @@ Le interruzioni vengono **controllate e accettate solo tra un'istruzione e la su
 **Eccezioni:**
 > Mentre le interruzioni possono accedere solo tra un'istruzione e la successiva, le eccezioni possono essere sollevate **in un momento qualunque di un'istruzione** (lettura, decodifica, esecuzione).
 >
-> *Fonte: [Eccezioni.md](./Eccezioni.md#22-gestione-eccezioni)*
+> *Fonte: [Eccezioni.md](./Eccezioni#22-gestione-eccezioni)*
 
 Le eccezioni possono essere sollevate **durante qualsiasi fase dell'esecuzione di un'istruzione**:
 - Durante la **fetch** dell'istruzione
@@ -1163,7 +1163,7 @@ Le eccezioni possono essere sollevate **durante qualsiasi fase dell'esecuzione d
 - Durante l'**esecuzione** vera e propria
 
 **Classificazione delle eccezioni per timing:**
-Dal file [`Eccezioni.md`](./Eccezioni.md#22-gestione-eccezioni):
+Dal file [`Eccezioni.md`](./Eccezioni#22-gestione-eccezioni):
 
 | Tipo    | Quando viene generata                             | Indirizzo salvato                             | Gestione                                                    |
 | ------- | ------------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------- |
@@ -1432,7 +1432,7 @@ I registri LINF e LSUP sono una soluzione hardware per implementare la protezion
 > Per vietare all'`utente` l'accesso alle porzioni di `M2` di processi diversi, si inseriscono nella **CPU** _due registri_, `LINF` e `LSUP`, che hanno come compito quello **di contenere gli indirizzi dell'inizio e della fine della porzione di memoria virtuale del processo in esecuzione**.
 > Entrambi i registri sono scrivibili _**solo da livello `sistema`**_.
 >
-> *Fonte: [Paginazione.md](./Paginazione.md#21-registri-limite-inferiore-e-superiore)*
+> *Fonte: [Paginazione.md](./Paginazione#21-registri-limite-inferiore-e-superiore)*
 
 **Meccanismo di protezione:**
 > Quando la **CPU** lavora in modalità `utente`, deve controllare che gli accessi siano in indirizzi **_compresi_** nell'intervallo $\Bigl[$`LINF`, `LSUP`$\Bigr)$.
@@ -2226,10 +2226,10 @@ L'interazione tra DMA e cache presenta sfide significative per la coerenza dei d
 **Problemi principali:**
 > Questi problemi nascono dal fatto che le operazioni del `DMA` potrebbero coinvolgere parti di **RAM** che erano state _**precedentemente copiate in cache**_.
 >
-> *Fonte: [DMA.md](./DMA.md#21-interazione-con-la-cache)*
+> *Fonte: [DMA.md](./DMA#21-interazione-con-la-cache)*
 
 **Politica Write-Through:**
-Con la politica `write-through`, dal file [`DMA.md`](./DMA.md#211-politica-write-through):
+Con la politica `write-through`, dal file [`DMA.md`](./DMA#211-politica-write-through):
 
 *Soluzione Hardware (Intel):*
 > Nei processori _Intel_ la soluzione è risolta in `hardware`. Si fa in modo che il _controllore cache_ **_osservi tutte le possibili sorgenti di scritture in RAM_** attraverso il bus condiviso, processo chiamato di _snooping_.
@@ -2242,12 +2242,12 @@ Con la politica `write-through`, dal file [`DMA.md`](./DMA.md#211-politica-write
 **Politica Write-Back:**
 > In questa politica le scritture della **CPU** vengono mantenute soltanto in _cache_ e effettuate in maniera _sincrona_ in secondi momenti. Questa politica comporta un problema sia nelle operazioni di _uscita_ su `DMA`, poiché il buffer di lettura in **RAM** **potrebbe contenere memoria non aggiornata**.
 >
-> *Fonte: [DMA.md](./DMA.md#21-interazione-con-la-cache)*
+> *Fonte: [DMA.md](./DMA#21-interazione-con-la-cache)*
 
 **Esempio pratico - Gestione letture DMA:**
 > Per risolvere possiamo utilizzare la tecinca di _snooping_, ma in questo caso il _controllore cache_ **_deve implementare lo snarfing per le cacheline dirty_**.
 >
-> *Fonte: [DMA.md](./DMA.md#21-interazione-con-la-cache)*
+> *Fonte: [DMA.md](./DMA#21-interazione-con-la-cache)*
 
 **Differenze principali:**
 - **Intel**: Risoluzione hardware automatica tramite snooping
@@ -2324,7 +2324,7 @@ Le dipendenze nell'esecuzione delle istruzioni sono vincoli che impediscono di r
 > 
 > Le **_dipendenze_** sono **proprietà del programma**, _indipendenti dal circuito che esegue il programma_.
 >
-> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel.md#33-dipendenze)*
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#33-dipendenze)*
 
 **1. Dipendenze sui Dati (Data Dependencies)**
 
@@ -2366,7 +2366,7 @@ SUB R4, R5, R3    ; Scrive R3 - dipendenza in uscita
 ```
 
 **Gestione delle dipendenze:**
-Dal file [`Architettura Moderna CPU Intel.md`](./Architettura%20Moderna%20CPU%20Intel.md#331-dipendenze-sui-dati):
+Dal file [`Architettura Moderna CPU Intel.md`](./Architettura%20Moderna%20CPU%20Intel#331-dipendenze-sui-dati):
 
 **1. Gestione dipendenze sui dati:**
 > Per risolvere questo tipo di dipendenze, facciamo in modo che l'`emissione` setti il bit `W` del registro `dst` dell'istruzione che sta emettendo.

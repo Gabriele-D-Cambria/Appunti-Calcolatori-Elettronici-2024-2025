@@ -49,7 +49,7 @@ Focus sull'architettura **CPU - Memoria - I/O** per l'esecuzione del software.
 
 ## ❓ Domande e Risposte
 
-È disponibile una raccolta di **[Domande e Risposte](./Domande%20e%20Risposte.md)** che copre i principali argomenti del corso, organizzata per facilitare la preparazione all'esame.
+È disponibile una raccolta di **[Domande e Risposte](./Domande%20e%20Risposte)** che copre i principali argomenti del corso, organizzata per facilitare la preparazione all'esame.
 
 ⚠️ **Avvertenze importanti:**
 - Alcune domande sono ancora **in fase di completamento** e potrebbero non avere una risposta pubblica
