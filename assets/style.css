@@ -398,7 +398,6 @@ body {
 }
 
 .github-link:hover {
-    color: #f0f6fc !important;
     background-color: rgba(125, 133, 144, 0.15);
     border-color: rgba(125, 133, 144, 0.4);
     transform: translateY(-1px);
