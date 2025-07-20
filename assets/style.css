@@ -68,15 +68,6 @@ blockquote p:not(:last-child) {
     margin-bottom: 8px;
 }
 
-@media print{
-    @page{
-        size: A4 landscape;
-    }
-    .stop{
-        page-break-after: always;
-    }
-}
-
 /* Immagini */
 img {
     position: relative;
@@ -393,6 +384,18 @@ body {
     }
     
     .separator {
+        display: none;
+    }
+}
+
+@media print{
+    @page{
+        size: A4 landscape;
+    }
+    .stop{
+        page-break-after: always;
+    }
+    .site-header{
         display: none;
     }
 }

@@ -1,3 +1,7 @@
+---
+title: "Semafori"
+---
+
 # 1. Indice
 
 - [1. Indice](#1-indice)
