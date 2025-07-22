@@ -49,7 +49,7 @@
 		- [Domanda 6.2 (answered)](#domanda-62-answered)
 		- [Domanda 6.3](#domanda-63)
 		- [Domanda 6.4](#domanda-64)
-		- [Domanda 6.5](#domanda-65)
+		- [Domanda 6.5 (answered)](#domanda-65-answered)
 		- [Domanda 6.6](#domanda-66)
 		- [Domanda 6.7](#domanda-67)
 		- [Domanda 6.8](#domanda-68)
@@ -114,15 +114,11 @@
 	- [13. DMA (Direct Memory Access)](#13-dma-direct-memory-access)
 		- [Domanda 13.1 (answered)](#domanda-131-answered)
 		- [Domanda 13.2](#domanda-132)
-		- [Domanda 13.3](#domanda-133)
-		- [Domanda 13.4](#domanda-134)
-		- [Domanda 13.5](#domanda-135)
-		- [Domanda 13.6](#domanda-136)
-		- [Domanda 13.7](#domanda-137)
-		- [Domanda 13.8](#domanda-138)
-		- [Domanda 13.9](#domanda-139)
-		- [Domanda 13.10 (answered)](#domanda-1310-answered)
-		- [Domanda 13.11](#domanda-1311)
+		- [Domanda 13.3 (answered)](#domanda-133-answered)
+		- [Domanda 13.4 (answered)](#domanda-134-answered)
+		- [Domanda 13.5 (answered)](#domanda-135-answered)
+		- [Domanda 13.6 (answered)](#domanda-136-answered)
+		- [Domanda 13.7 (answered)](#domanda-137-answered)
 	- [14. Architettura Moderna CPU](#14-architettura-moderna-cpu)
 		- [Domanda 14.1 (answered)](#domanda-141-answered)
 		- [Domanda 14.2](#domanda-142)
@@ -1518,9 +1514,9 @@ L'eccezione di debug `int3` è un meccanismo hardware fondamentale che permette 
 
 L'`int3` è classificato come un'eccezione di tipo **Trap**:
 
-> | Tipo    | Quando viene generata                             | Indirizzo salvato                             | Gestione                                                     |
-> | ------- | ------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------ |
-> | `Trap`  | Tra l'esecuzione di un'istruzione e la successiva | Indirizzo dell'istruzione successiva          | Comportamento simile alle interruzioni                       |
+> | Tipo   | Quando viene generata                             | Indirizzo salvato                    | Gestione                               |
+> | ------ | ------------------------------------------------- | ------------------------------------ | -------------------------------------- |
+> | `Trap` | Tra l'esecuzione di un'istruzione e la successiva | Indirizzo dell'istruzione successiva | Comportamento simile alle interruzioni |
 >
 > *Fonte: [Eccezioni.md](./Eccezioni#22-gestione-eccezioni)*
 
@@ -1952,11 +1948,159 @@ Questi problemi hanno portato allo sviluppo della **paginazione**, che risolve l
 
 ---
 
-### Domanda 6.5
+### Domanda 6.5 (answered)
 **Domanda:** Cosa sono le tabelle di livello nel Trie-MMU? Come sono organizzate e indicizzate?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Le tabelle di livello nel Trie-MMU costituiscono l'implementazione hardware della memoria virtuale attraverso una struttura ad albero (trie) che sostituisce la Super-MMU teorica, riducendo drasticamente i requisiti di memoria.
+
+**Problema della Super-MMU:**
+
+La Super-MMU teorica richiederebbe dimensioni enormi:
+
+> La stragrande maggioranza dei programmi ha bisogno solo di una piccola frazione dei $2^{48}$Byte disponibili nella _memoria virtuale_, ed è solo di quella porzione che vorremmo contenere le informazioni.
+>
+> *Fonte: [Paginazione.md](./Paginazione#32-trie-mmu)*
+
+> La tabella di corrisponendza di ogni processo deve avere **una entrata per ognuna** di queste pagine. [...] per un totale nel peggiore dei casi di `47bit` arrotondabili in `6Byte`. [...] che per le `64Gi` pagine comporta un totale di `512GiB`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#32-trie-mmu)*
+
+**Struttura del Trie-MMU:**
+
+**Organizzazione gerarchica a 4 livelli:**
+
+> In particolare il numero di pagina è composto da `36bit`, raggrupabili in **4 gruppi** di `9bit`.
+> Ogni nodo del _bitwise trie_ conterrà dunque una tabella di $2^9 = 512$ entrate con puntatori al nodo successivo.
+>
+> *Fonte: [Paginazione.md](./Paginazione#32-trie-mmu)*
+
+> Per convenzione ogni livello dell'albero viene numerato da `4` a `1` (livello delle foglie), in modo di poter parlare di **_tabelle di livello `x`_**.
+>
+> *Fonte: [Paginazione.md](./Paginazione#32-trie-mmu)*
+
+**Indicizzazione e table-walk:**
+
+Dal file [`Paginazione.md`](./Paginazione#32-trie-mmu):
+
+> Ipotizziamo che il nostro _trie_ si trovi a dover tradurre l'indirizzo virtuale `v = (000 777 000 777 1234)_8`, che ha quindi come **numero di pagina**: `(000 777 000 777)_8`.
+>
+> I primi `9bit` sono $(000)_8$, perciò verrà utilizzata l'entrata di indice `0` del livello `4`, recuperandone il contenuto.
+> Questo contenuto rappresenta l'indirizzo dove si trova la tabella da interpretare come di livello `3`.
+
+Il processo continua attraversando i 4 livelli usando i successivi gruppi di 9 bit.
+
+**Organizzazione delle tabelle:**
+
+**1. Tabelle di livello 4, 3, 2 (descrittori di tabella):**
+
+> I **_descrittori di livello 2, 3 e 4_** hanno invece la seguente forma:
+>
+> | padding (63-53) | Indirizzo tabella di livelli $i$ - 1 | padding (11 - 8) | `PS` | - | `A` | - | - | `U/S` | `R/W` | `P` |
+> Ciascuna contiene `512` entrate.
+>
+> *Fonte: [Paginazione.md](./Paginazione#321-formato-delle-tabelle)*
+
+Questi descrittori contengono:
+- **Indirizzo fisico** della tabella del livello successivo
+- **Bit di controllo**: P (presenza), R/W (lettura/scrittura), U/S (utente/sistema)
+- **Bit PS** (Page Size): indica se fermarsi a questo livello per pagine grandi
+
+**2. Tabelle di livello 1 (descrittori di pagina):**
+
+> Da adesso chiameremo queste entrate **_descrittori di pagina virtuale_** o **_descrittori di livello 1_**.
+>
+> | padding (63-53) | numero di frame | padding (11 - 7) | `D` | `A` | `PCD` | `PWT` | `U/S` | `R/W` | `P` |
+> 
+> *Fonte: [Paginazione.md](./Paginazione#321-formato-delle-tabelle)*
+
+Contengono:
+- **Indirizzo fisico** del frame di destinazione
+- **Bit di controllo completi**: P, R/W, U/S, PCD, PWT, A, D
+
+**Gestione della memoria efficiente:**
+
+**Allocazione dinamica:**
+
+> Con la **Trie-MMU** possiamo **non istanziare tutte le entrate immediatamente**.
+> Per fare ciò poniamo semplicemente `P = 0` nelle righe tabelle di livello `2`, `3` o `4` che si riferiscono a indirizzi mai utilizzati.
+>
+> *Fonte: [Paginazione.md](./Paginazione#32-trie-mmu)*
+
+**Vantaggi dell'approccio:**
+
+> Se ad esempio un processo non usa nessun indirizzo il cui numero di `pagina` inizi con $(777)_8$, il _trie_ di questo processo **non ha bisogno di tutto il sottoalbero** di quel nodo, ed eviterà quindi di allocarlo.
+>
+> *Fonte: [Paginazione.md](./Paginazione#32-trie-mmu)*
+
+**Regioni e sottoregioni:**
+
+**Definizione delle regioni:**
+
+> Ogni entrata di una tabella di livello $i$, con $1 \le i \le 4$, sarà **responsabile della traduzione di una regione naturale di livello** $i -1$.
+>
+> Ogni tabella di livello $i$ sarà responsabile nella sua interezza **della traduzione di una regione naturale dello stesso livello** $i$.
+>
+> *Fonte: [Paginazione.md](./Paginazione#322-regioni-e-sottoregioni)*
+
+**Dimensioni delle regioni:**
+
+Dal file [`Paginazione.md`](./Paginazione#322-regioni-e-sottoregioni):
+
+> In generale una regione di livello $j$, con $0\le j\le 4$, è grande $2^{9j + 12}$ byte.
+
+- **Livello 0**: 4 KiB (pagine)
+- **Livello 1**: 2 MiB  
+- **Livello 2**: 1 GiB
+- **Livello 3**: 512 GiB
+- **Livello 4**: 256 TiB
+
+**Implementazione hardware:**
+
+**Posizionamento in memoria fisica:**
+
+> Nella `MMU` **non funziona così**, ma **_le tabelle devono essere memorizzate nella memoria fisica_**.
+> Infatti anche le tabelle sono allineate a `4KiB`, quindi perfettamente inseribili nei `frame` di `M2`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#33-mmu)*
+
+**Gestione del registro CR3:**
+
+> Il registro `%cr3` della `MMU` contiene semplicemente il numero di _frame_ della tabella radice del _trie_ corrente.
+> La `MMU` si limita quindi a realizzare in _hardware_ il _table-walk_, nella **RAM**.
+>
+> *Fonte: [Paginazione.md](./Paginazione#33-mmu)*
+
+**Condivisione della memoria:**
+
+**Meccanismo di condivisione:**
+
+> Questa struttura ci permette di **non dovere allocare più volte in uno stesso _trie_ una zona di memoria condivisa**.
+> Per condividere la memoria sarà sufficente far puntare allo stesso nodo i _trie_ di due processi distinti, ovvero inserire nella tabella di livello `4` lo stesso indirizzo allo stesso offset, così da puntare alla stessa tabella di livello `3`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#32-trie-mmu)*
+
+**Controlli durante la traduzione:**
+
+Durante il table-walk, la MMU esegue controlli su tutti i livelli:
+
+> - Controlla **tutti i bit** `R/W`: permette le operazioni di scrittura solo se **_tutti e_** `4bit` lungo il percorso la permettono
+> - Controlla **tutti i bit** `U/S`: permette le operazioni di accesso solo se **_tutti e_** `4bit` lungo il percorso la permettono
+> - Pone **tutti e** `4bit` `A = 1` incontrati (se non lo erano già)
+> - In caso di scrittura, pone `D = 1` nel _descrittore id livello 1_.
+>
+> *Fonte: [Paginazione.md](./Paginazione#321-formato-delle-tabelle)*
+
+**Conclusioni:**
+
+Le tabelle di livello nel Trie-MMU rappresentano un'elegante soluzione ingegneristica che:
+1. **Riduce drasticamente** i requisiti di memoria rispetto alla Super-MMU
+2. **Mantiene le prestazioni** attraverso allocazione dinamica degli alberi  
+3. **Facilita la condivisione** di memoria tra processi
+4. **Supporta pagine di diverse dimensioni** tramite il bit PS
+5. **Implementa controlli di protezione** a tutti i livelli dell'albero
+
+Questa architettura è alla base dei moderni sistemi di memoria virtuale e rappresenta un perfetto equilibrio tra efficienza, flessibilità e semplicità implementativa.
 
 ---
 
@@ -3182,64 +3326,644 @@ Il DMA rappresenta quindi la **soluzione ottimale per trasferimenti di grandi qu
 
 ---
 
-### Domanda 13.3
+### Domanda 13.3 (answered)
 **Domanda:** Come interagisce il DMA con la MMU? Quali problemi sorgono con la memoria virtuale?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+L'interazione tra DMA e MMU presenta **sfide fondamentali** nell'architettura moderna, poiché il DMA opera esclusivamente su indirizzi fisici mentre il software utilizza indirizzi virtuali. Questa separazione crea problemi complessi che richiedono soluzioni sofisticate.
+
+**Problema fondamentale:**
+
+Dal file [`DMA.md`](./DMA.md#22-interazione-con-mmu):
+
+> La `DMA` può utilizzare **_soltanto indirizzi fisici_**, infatti non interagisce con la `MMU`.
+> Tuttavia il _software_ utilizza **_soltanto indirizzi virtuali_** `[b, b+n)`.
+
+Questa separazione genera un **disallineamento architetturale** che deve essere gestito dal sistema operativo.
+
+**Accorgimenti necessari per l'integrazione:**
+
+Dal file [`DMA.md`](./DMA.md#22-interazione-con-mmu):
+
+> Sono quindi necessari i seguenti accorgimenti per integrare `DMA` e `MMU`:
+> 1. Al `DMA` andrà comunicato l'indirizzo **fisico** `f(b)` e non quello _virtuale_ `b`
+> 2. Se l'intervallo `[b, b+n)` attraversa **più pagine non tradotte in _frame_ contigui**, il trasferimento _**deve essere spezzato in più trasferimenti in modo che ciascuno di essi coinvolga solo <u>frame contigui</u>**_.
+> 3. La traduzione degli indirizzi coinvolti in un trasferimento **_non deve cambiare mentre il trasferimento è in corso_**
+
+**1. Problema della traduzione degli indirizzi:**
+
+**Conseguenze dell'uso diretto degli indirizzi virtuali:**
+> Considerando il punto _1._, comunicando `b` il `DMA` lo utilizzerebbe come fisico, accedendo a parti di memoria che non centrano niente con il _buffer_ (tranne nei rari casi dove `b = f(b)`).
+>
+> *Fonte: [DMA.md](./DMA.md#22-interazione-con-mmu)*
+
+**Soluzione:** Il sistema operativo deve:
+- Convertire gli indirizzi virtuali in fisici usando la MMU
+- Comunicare al DMA l'indirizzo fisico `f(b)` calcolato
+- Garantire che la traduzione rimanga valida durante il trasferimento
+
+**2. Problema dei buffer discontigui:**
+
+**Scenario problematico:**
+> Per il punto _2._ [...] Se comunicassimo `f(b)` ed `n`, il `DMA` scriverà su `[f(b), f(b) + n)`, invadendo `F2` con effetti disastrosi.
+> Quello che vogliamo noi è invece l'intervallo fisico `[f(b), f(b+n))`.
+>
+> *Fonte: [DMA.md](./DMA.md#22-interazione-con-mmu)*
+
+**Causa del problema:**
+In memoria virtuale, pagine consecutive (`Pag1`, `Pag3`) possono essere mappate su frame fisici non contigui (`F1`, `F3`), con `F2` appartenente a un altro processo.
+
+**Soluzione - Spezzamento del trasferimento:**
+> Per poterlo modificare opportunamente il trasferimento, in questo caso, **deve essere spezzato in due parti**:
+> - `[f(b), fineF1)`
+> - `[inizioF3, f(b)+n)`.
+
+**Implementazione pratica con PRD:**
+
+Dal file [`DMA.md`](./DMA.md#442-inizializzare-un-prd):
+
+```cpp
+char* tmp = vv;
+while(totali > 0){
+    f = trasforma(tmp);                    // Converte in indirizzo fisico
+    
+    if(tmp & 0x1){
+        flog(ERROR_LOG, "indirizzo fisico di una pagina di vv dispari");
+        return 0;
+    }
+    
+    // g = primo indirizzo della pagina successiva  
+    g = limit(f);
+    
+    // Dimensione della porzione da trasferire
+    rimanenti = g - f;
+    
+    if(rimanenti > totali){
+        rimanenti = totali;
+    }
+    
+    // Configura PRD per questa porzione
+    outputl(f, c->iBMPTR);
+    outputl(rimanenti, c->iBMLEN);
+    outputl(1, c->iCMD);
+    
+    tmp = g;
+    totali -= rimanenti;
+}
+```
+
+**3. Problema dello swapping e della coerenza temporale:**
+
+**Scenario critico con memoria virtuale:**
+> Per il punto _3._ immaginando quindi di trovarci in un _sistema multiprocesso_ che realizzi _swap-in/out_ dei processi per poter eseguire più processi di quanti ne possano entrare in **RAM**.
+> Supponiamo quindi che un processo `P1` avvii un trasferimento in `DMA` attraverso un _buffer privato_. È quindi necessario che `P1` **<u>non venga mai <em>swappato</em></u>**, altrimenti in quegli indirizzi subentrerebbe un processo `P2` che vedrebbe la sua memoria privata modificata.
+>
+> *Fonte: [DMA.md](./DMA.md#22-interazione-con-mmu)*
+
+**Soluzioni per il problema dello swapping:**
+
+**1. Pinning delle pagine in memoria:**
+- Le pagine coinvolte nel DMA vengono marcate come "non swappabili"
+- Il processo non può essere rimosso dalla RAM durante il trasferimento
+- Richiede gestione dello stato delle pagine nel descrittore di processo
+
+**2. Gestione dello stato del processo:**
+- Il processo viene marcato come "DMA attivo" nel descrittore
+- Lo scheduler evita operazioni di swap-out durante trasferimenti DMA
+- Necessità di timeout per gestire trasferimenti bloccati
+
+**Problemi aggiuntivi con la memoria virtuale:**
+
+**1. Frammentazione fisica:**
+- Buffer contigui in memoria virtuale diventano frammentati fisicamente
+- Necessità di meccanismi scatter/gather per gestire la frammentazione
+- Uso dei PRD per descrivere regioni fisiche non contigue
+
+**2. Protezione e isolamento:**
+- DMA bypassa i controlli di protezione della MMU
+- Rischio di corruzione accidentale di memoria di altri processi
+- Necessità di validazione rigorosa degli indirizzi fisici
+
+**3. Sincronizzazione con la cache:**
+Le operazioni DMA possono causare problemi di coerenza:
+- Invalidazione delle cacheline durante trasferimenti in ingresso
+- Flush delle cacheline dirty durante trasferimenti in uscita
+- Coordinamento tra MMU, cache e DMA controller
+
+**Architettura di soluzione moderna:**
+
+**IOMMU (I/O Memory Management Unit):**
+Nei sistemi moderni si utilizza una IOMMU che:
+- Fornisce traduzione degli indirizzi per i dispositivi DMA
+- Permette ai dispositivi di utilizzare indirizzi virtuali
+- Implementa protezione e isolamento per le operazioni DMA
+- Risolve i problemi di compatibilità tra DMA e memoria virtuale
+
+**Vantaggi della soluzione IOMMU:**
+1. **Sicurezza**: Dispositivi non possono accedere arbitrariamente alla memoria
+2. **Semplificazione**: Driver non devono gestire manualmente la traduzione
+3. **Flessibilità**: Supporto per buffer non contigui senza complessità aggiuntiva
+4. **Compatibilità**: Dispositivi legacy funzionano con memoria virtuale moderna
+
+**Approfondimenti:**
+- **Collegamento con Domanda 13.5 (answered)**: I PRD sono uno dei meccanismi per gestire buffer discontigui causati dalla frammentazione fisica
+- **Collegamento con Domanda 6.5 (answered)**: La Trie-MMU e la paginazione sono alla base dei problemi di non contiguità
+- **Aspetti pratici**: Problemi fondamentali nell'implementazione di driver ad alte prestazioni
+- **Importanza per l'esame**: Comprensione essenziale dell'interazione tra sottosistemi hardware moderni
 
 ---
 
-### Domanda 13.4
+### Domanda 13.4 (answered)
 **Domanda:** Cos'è il PCI Bus Mastering? Come funziona l'arbitraggio tra più dispositivi?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+Il **PCI Bus Mastering** è una tecnica che permette ai dispositivi collegati al bus PCI di diventare "master" del bus e di effettuare trasferimenti di dati direttamente tra loro e la memoria, senza coinvolgere il processore. Questo meccanismo è fondamentale per implementare il DMA (Direct Memory Access) su architetture moderne.
+
+**Definizione e concetto base:**
+
+Dal file [`DMA.md`](./DMA.md#3-pci-bus-mastering):
+
+> Un dispositivo con capacità di `Bus Mastering` può diventare temporaneamente **master del bus** e controllare i trasferimenti dati, liberando la **CPU** da queste operazioni intensive.
+
+**Caratteristiche fondamentali:**
+
+> I dispositivi `PCI` dotati di capacità Bus Master possono generare autonomamente gli indirizzi di memoria e controllare il bus durante i trasferimenti, trasferendo dati direttamente tra periferica e memoria.
+>
+> *Fonte: [DMA.md](./DMA.md#3-pci-bus-mastering)*
+
+**Benefici prestazionali:**
+- **Riduzione drastica del carico sulla CPU**: La CPU viene liberata dalle operazioni di I/O intensive
+- **Trasferimenti paralleli**: Mentre il Bus Master trasferisce dati, la CPU può eseguire altre operazioni  
+- **Throughput elevato**: Molto superiore rispetto all'I/O programmato tradizionale
+
+**Meccanismo di Arbitraggio:**
+
+Il **PCI Arbiter** gestisce l'accesso al bus quando più dispositivi Bus Master competono simultaneamente.
+
+Dal file [`DMA.md`](./DMA.md#31-arbitraggio):
+
+> Il **PCI Arbiter** è il componente hardware che gestisce l'accesso al bus quando più dispositivi Bus Master competono per utilizzarlo simultaneamente attraverso segnali `REQ#` e `GNT#`.
+
+**Protocollo di arbitraggio:**
+
+> 1. **Richiesta**: Ogni dispositivo Bus Master attiva il segnale `REQ#` (Request)
+> 2. **Arbitraggio**: Il PCI Arbiter esamina le richieste e decide quale autorizzare
+> 3. **Concessione**: L'arbiter attiva il segnale `GNT#` (Grant) per il dispositivo selezionato
+> 4. **Accesso**: Il dispositivo autorizzato diventa master e inizia i trasferimenti
+> 5. **Rilascio**: Al termine, il dispositivo rilascia il controllo del bus
+>
+> *Fonte: [DMA.md](./DMA.md#31-arbitraggio)*
+
+**Politiche di arbitraggio supportate:**
+- **Round-robin**: Rotazione equa tra i dispositivi richiedenti
+- **Priorità fissa**: Alcuni dispositivi hanno precedenza assoluta
+- **Priorità dinamica**: Le priorità cambiano in base al carico di sistema
+
+**Implementazione Pratica: Esempio ATA Bus Mastering**
+
+Dal file [`DMA.md`](./DMA.md#32-implementazione-ata):
+
+**Identificazione del ponte:**
+
+```cpp
+bool bm::find(natb& bus, natb& dev, natb& fun) {
+    natb code[] = { 0xff, 0x01, 0x01 };
+    // Cerca dispositivo con Class Code 0x0101 (IDE controller)
+    // con bit 7 = 1 (Bus Master capable)
+}
+```
+
+> Dobbiamo innanzitutto trovare il ponte tra i dispositivi `PCI` installati. Dalle specifiche ricaviamo che i primi due byte del _Class Code_ del ponte devono valere `0x0101`.
+>
+> *Fonte: [DMA.md](./DMA.md#32-implementazione-ata)*
+
+**Registri del Bus Master:**
+
+Dal file [`DMA.md`](./DMA.md#32-implementazione-ata):
+
+> Le specifiche ci dicono inoltre che l'indirizzo base dei registri del ponte è controllato dalla `BAR`, che si trova all'_offset_ `36`. I registri si trovano nello spazio di `I/O` agli offset `0`, `2` e `4` rispetto alla base.
+
+- `BMCMD` (Bus Master Command): Controllo delle operazioni
+- `BMSTR` (Bus Master Status): Stato del trasferimento  
+- `BMDTPR` (Bus Master Descriptor Table Pointer): Puntatore alla tabella PRD
+
+**Sequenza operativa completa:**
+
+Dal file [`DMA.md`](./DMA.md#32-implementazione-ata):
+
+```cpp
+// 1. Preparazione tabella PRD
+prd[0] = reinterpret_cast<natq>(vv);
+prd[1] = 0x80000000 | ((nn * 512) & 0xFFFF);
+
+// 2. Configurazione ponte
+bm::prepare(reinterpret_cast<natq>(prd), false);
+
+// 3. Abilitazione interruzioni e avvio controllore
+hd::enable_intr();
+hd::start_cmd(lba, nn, READ_DMA);
+
+// 4. Avvio Bus Master
+bm::start();
+
+// 5. Attesa completamento
+while(!done);
+```
+
+> Il resto del programma segue abbastanza da vicino lo schema suggerito nella sezione `3.1` delle specifiche: Prepara la tabella dei `PRD`, configura il ponte, programma il controllore dell'`HD` per il trasferimento in `DMA`, avvia il ponte ponendo a `1` lo `Start Bit` nel registro `BMCCMD`.
+>
+> *Fonte: [DMA.md](./DMA.md#32-implementazione-ata)*
+
+**Gestione delle Interruzioni:**
+
+Dal file [`DMA.md`](./DMA.md#32-implementazione-ata):
+
+```cpp
+extern "C" void c_bmide(){
+    done = true;
+    bm::ack();
+    hd::ack_intr();
+    apic_send_EOI();
+}
+```
+
+> Al completamento del trasferimento DMA, il dispositivo genera un'interruzione hardware e il driver di interrupt viene invocato per gestire l'acknowledge sia del Bus Master che del controllore.
+>
+> *Fonte: [DMA.md](./DMA.md#32-implementazione-ata)*
+
+**Approfondimenti:**
+
+- **Collegamento con Domanda 13.1 (answered)**: Il PCI Bus Mastering è l'evoluzione moderna del DMA tradizionale, mantenendo i benefici di liberazione della CPU
+- **Aspetti pratici**: Utilizzato in schede di rete ad alta velocità, controller SATA/NVMe, schede grafiche
+- **Vantaggi per l'esame**: Meccanismo fondamentale per comprendere l'architettura I/O moderna e l'ottimizzazione prestazioni
 
 ---
 
-### Domanda 13.5
+### Domanda 13.5 (answered)
 **Domanda:** Cosa sono i PRD (Physical Region Descriptors)? Come gestiscono buffer discontigui?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+I **PRD (Physical Region Descriptors)** sono strutture dati utilizzate dal sistema PCI Bus Mastering per descrivere regioni di memoria fisica dove trasferire i dati durante operazioni DMA. Permettono di gestire efficacemente **buffer discontigui** in memoria attraverso un meccanismo di **scatter/gather**.
+
+**Definizione e struttura:**
+
+Dal file [`DMA.md`](./DMA.md#4-hd-e-dma):
+
+> Per fornire informazioni sul _buffer_ al controllore è necessario creare un `PRD` (_Physical Region Descriptor_) che ha la seguente forma:
+
+La struttura PRD contiene:
+- **Indirizzo fisico**: Puntatore a 32 bit alla regione di memoria
+- **Dimensione**: Numero di byte da trasferire (fino a 64KB)
+- **Bit di controllo**: Flag per indicare l'ultimo PRD della catena
+
+**Meccanismo scatter/gather:**
+
+> L'interfaccia implementa un meccanismo di _scatter/gather_ che permette il trasferimento di grandi blocchi che dovranno essere sparsi/raccolti dalla memoria, utilizzando di fatto **_buffer_ discontigui**.
+> Grazie a questo meccanismo è possibile diminuire il numero di _interrupt_ al sistema.
+>
+> *Fonte: [DMA.md](./DMA.md#4-hd-e-dma)*
+
+**Gestione buffer discontigui:**
+
+I PRD risolvono il problema fondamentale dei buffer non contigui in memoria fisica, comune quando:
+- Le pagine virtuali consecutive non corrispondono a pagine fisiche consecutive
+- I buffer attraversano i confini delle pagine
+- Il sistema operativo ha frammentato la memoria fisica
+
+**Registri del Bus Master IDE Controller:**
+
+Dal file [`DMA.md`](./DMA.md#4-hd-e-dma):
+
+| Offset        | Registro                                 | Funzione             |
+| ------------- | :--------------------------------------- | -------------------- |
+| `0x00`        | Bus Master IDE Command Register          | Controllo operazioni |
+| `0x02`        | Bus Master IDE Status Register           | Stato trasferimento  |
+| `0x04 - 0x07` | **Indirizzo tabella PRD Bus Master IDE** | **Puntatore ai PRD** |
+
+**Implementazione pratica:**
+
+Dal file [`DMA.md`](./DMA.md#44-esempio):
+
+```cpp
+// Preparazione della tabella PRD
+prd[0] = reinterpret_cast<natq>(vv);                    // Indirizzo fisico buffer
+prd[1] = 0x80000000 | ((nn * 512) & 0xFFFF);          // Dimensione + EOT bit
+
+// Configurazione del ponte PCI
+void bm::prepare(natq prd, bool write){
+    outputl(prd, iBMDTPR);                              // Imposta puntatore PRD
+    // ... configurazione direzione e stato
+}
+```
+
+**Processo di configurazione:**
+
+Dal file [`DMA.md`](./DMA.md#44-esempio):
+
+> Il resto del programma segue abbastanza da vicino lo schema suggerito nella sezione `3.1` delle specifiche:
+> 1. Prepara la tabella dei `PRD`
+> 2. Configura il ponte scrivendo l'indirizzo nel registro `BMDTPR`
+> 3. Programma il controllore HD per trasferimento DMA
+> 4. Avvia il ponte con lo `Start Bit` nel registro `BMCCMD`
+
+**Vincoli e limitazioni critiche:**
+
+**Problema dei confini 64KiB:**
+
+> Le regioni di memoria specificate tramite i `PRD` **non devono trovarsi a cavallo dei confini di `64KiB`**.
+>
+> *Fonte: [DMA.md](./DMA.md#441-allineamento-e-confini)*
+
+**Conseguenze della violazione:**
+> Quello che accade se si attraversano questi confini può avere esiti disastrosi.
+> Infatti, il sommatore del `ponte PCI-ATA` potrebbe essere di _soli `16bit`_, e quindi, dato l'indirizzo `0x1122FFFF`, passerà poi all'indirizzo `0x11220000` invece che a `0x11230000`.
+
+**Soluzioni per buffer discontigui:**
+
+**1. Allineamento del buffer:**
+```cpp
+// Allineamento a 64KB nel file assembly
+.balign 65536
+vv: .fill 65536, 1
+```
+
+**2. Trasferimenti multipli:**
+Dal file [`DMA.md`](./DMA.md#442-inizializzare-un-prd):
+
+```cpp
+char* tmp = vv;
+while(totali > 0){
+    f = trasforma(tmp);                    // Converte in indirizzo fisico
+    
+    // g = primo indirizzo della pagina successiva  
+    g = limit(f);
+    
+    // Dimensione della porzione da trasferire
+    rimanenti = g - f;
+    
+    if(rimanenti > totali){
+        rimanenti = totali;
+    }
+    
+    // Configura PRD per questa porzione
+    outputl(f, c->iBMPTR);
+    outputl(rimanenti, c->iBMLEN);
+    outputl(1, c->iCMD);
+    
+    tmp = g;
+    totali -= rimanenti;
+}
+```
+
+**Vantaggi dei PRD:**
+
+1. **Efficienza**: Riduzione del numero di interruzioni per buffer frammentati
+2. **Flessibilità**: Gestione automatica di buffer non contigui
+3. **Prestazioni**: Trasferimenti DMA senza intervento CPU
+4. **Scalabilità**: Supporto per tabelle multiple di PRD
+
+**Integrazione con il sistema:**
+
+I PRD si integrano perfettamente con:
+- **MMU**: Traduzione automatica da indirizzi virtuali a fisici
+- **Paginazione**: Gestione di pagine non contigue
+- **Cache**: Coerenza automatica tramite snooping/snarfing
+
+**Approfondimenti:**
+- **Collegamento con Domanda 13.4 (answered)**: I PRD sono il meccanismo pratico attraverso cui il PCI Bus Mastering gestisce buffer complessi
+- **Aspetti pratici**: Utilizzati in tutti i moderni controller SATA, NVMe, e schede di rete ad alta velocità
+- **Importanza per l'esame**: Meccanismo fondamentale per comprendere l'interazione tra DMA, memoria virtuale e gestione I/O moderna
 
 ---
 
-### Domanda 13.6
+### Domanda 13.6 (answered)
 **Domanda:** Quali sono i registri del Bus Master IDE Controller e come vengono programmati?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+Il **Bus Master IDE Controller** utilizza tre registri principali per gestire le operazioni DMA con dispositivi IDE/SATA. Questi registri sono mappati nello spazio di I/O e permettono il controllo completo delle operazioni di trasferimento dati.
+
+**Architettura e indirizzamento:**
+
+Dal file [`DMA.md`](./DMA.md#4-hd-e-dma):
+
+> La funzione `bus master IDE` utilizza `16Byte` dello spazio di `I/O`, accessibili come `Byte`, `Word` o `Dword`.
+
+**Tabella registri disponibili:**
+
+| **Offset**    | **Registro**                                     | **Diritti**    |
+| ------------- | ------------------------------------------------ | -------------- |
+| `0x00`        | **Bus Master IDE Command Register (Primario)**   | `R/W`          |
+| `0x02`        | **Bus Master IDE Status Register (Primario)**    | `R/W`, `Clear` |
+| `0x04 - 0x07` | **Descriptor Table Pointer Register (Primario)** | `R/W`          |
+| `0x08`        | Bus Master IDE Command Register (Secondario)     | `R/W`          |
+| `0x0A`        | Bus Master IDE Status Register (Secondario)      | `R/W`, `Clear` |
+| `0x0C - 0x0F` | Descriptor Table Pointer Register (Secondario)   | `R/W`          |
+
+**1. Bus Master IDE Command Register (BMCMD)**
+
+**Caratteristiche:**
+- **Dimensione**: 8 bit
+- **Offset**: `base + 0x00` (canale primario), `base + 0x08` (canale secondario)  
+- **Valore default**: `0x00`
+- **Attributi**: Lettura/Scrittura
+
+**Struttura del registro:**
+
+Dal file [`DMA.md`](./DMA.md#41-bus-master-ide-command-register):
+
+| **Bit** | **Funzione**                                                |
+| ------- | ----------------------------------------------------------- |
+| `7:4`   | **Riservati** (restituiscono sempre `0`)                    |
+| `3`     | **Controllo lettura/scrittura**: `0`=lettura, `1`=scrittura |
+| `2:1`   | **Riservati** (restituiscono sempre `0`)                    |
+| `0`     | **Avvia/Arresta Bus Master**: `1`=abilita, `0`=disabilita   |
+
+**Programmazione:**
+
+```cpp
+// Configurazione direzione trasferimento e avvio
+void bm::prepare(natq prd, bool write){
+    natb work = inputb(iBMCMD);
+    
+    if(write)
+        work &= ~0x8;          // Bit 3 = 0 per scrittura verso dispositivo
+    else
+        work |= 0x8;           // Bit 3 = 1 per lettura da dispositivo
+        
+    outputb(work, iBMCMD);     // Configura direzione
+    // ...
+}
+
+// Avvio operazione Bus Master
+void bm::start(){
+    natb work = inputb(iBMCMD);
+    work |= 1;                 // Bit 0 = 1 per avviare
+    outputb(work, iBMCMD);
+}
+```
+
+**2. Bus Master IDE Status Register (BMSTR)**
+
+**Caratteristiche:**
+- **Dimensione**: 8 bit
+- **Offset**: `base + 0x02` (canale primario), `base + 0x0A` (canale secondario)
+- **Valore default**: `0x00`
+- **Attributi**: Lettura/Scrittura, Clear-on-write
+
+**Struttura del registro:**
+
+Dal file [`DMA.md`](./DMA.md#42-bus-master-ide-status-register):
+
+| **Bit** | **Funzione**                                                         |
+| ------- | -------------------------------------------------------------------- |
+| `7`     | **Solo simplex**: `0`=canali simultanei, `1`=un canale alla volta    |
+| `6`     | **Drive 1 DMA Capable**: Drive 1 supporta DMA                        |
+| `5`     | **Drive 0 DMA Capable**: Drive 0 supporta DMA                        |
+| `4:3`   | **Riservati** (sempre `0`)                                           |
+| `2`     | **Interrupt**: Interruzione da dispositivo IDE (clear scrivendo `1`) |
+| `1`     | **Error**: Errore nel trasferimento (clear scrivendo `1`)            |
+| `0`     | **Bus Master Active**: Bus Master attivo                             |
+
+**Programmazione:**
+
+```cpp
+// Azzeramento bit di interrupt ed errore
+void bm::prepare(natq prd, bool write){
+    // ... configurazione comando ...
+    
+    natb work = inputb(iBMSTR);
+    work |= 0x6;               // Azzera bit Interrupt (2) ed Error (1)
+    outputb(work, iBMSTR);
+}
+
+// Acknowledge interrupt nel driver
+void bm::ack() {
+    natb work = inputb(iBMCMD);
+    work &= 0xFE;              // Ferma Bus Master (bit 0 = 0)
+    outputb(work, iBMCMD);
+    inputb(iBMSTR);            // Lettura per acknowledge
+}
+```
+
+**3. Descriptor Table Pointer Register (BMDTPR)**
+
+**Caratteristiche:**
+- **Dimensione**: 32 bit  
+- **Offset**: `base + 0x04` (canale primario), `base + 0x0C` (canale secondario)
+- **Valore default**: `0x00000000`
+- **Attributi**: Lettura/Scrittura
+
+**Struttura del registro:**
+
+Dal file [`DMA.md`](./DMA.md#43-descriptior-table-pointer-register):
+
+| **Bit** | **Funzione**                              |
+| ------- | ----------------------------------------- |
+| `31:2`  | **Indirizzo base** della Descriptor Table |
+| `1:0`   | **Riservati** (devono essere `0`)         |
+
+**Vincoli importanti:**
+> La `Descriptor Table` deve essere allineata a `Dword`, e **non deve superare il limite di `64KB` in memoria**.
+
+**Programmazione:**
+
+```cpp
+// Configurazione puntatore alla tabella PRD
+void bm::prepare(natq prd, bool write){
+    outputl(prd, iBMDTPR);     // Imposta indirizzo tabella PRD
+    // ... resto della configurazione ...
+}
+
+// Esempio di preparazione tabella PRD
+natl prd[2];
+prd[0] = reinterpret_cast<natq>(buffer_fisico);           // Indirizzo fisico
+prd[1] = 0x80000000 | (dimensione & 0xFFFF);             // Dimensione + EOT bit
+```
+
+**Processo di inizializzazione completo:**
+
+Dal file [`DMA.md`](./DMA.md#44-esempio):
+
+**1. Identificazione del controller:**
+
+```cpp
+// Cerca dispositivo PCI con Class Code 0x0101 (IDE controller)
+bool bm::find(natb& bus, natb& dev, natb& fun) {
+    natb code[] = { 0xff, 0x01, 0x01 };
+    // Ricerca controller IDE con Bus Master capability (bit 7 = 1)
+}
+```
+
+**2. Inizializzazione registri:**
+
+```cpp
+void bm::init(natb bus, natb dev, natb fun) {
+    // Lettura BAR all'offset 0x20 per indirizzo base registri
+    natl base = pci::read_confl(bus, dev, fun, 0x20);
+    base &= ~0x1;              // Azzera bit LSB (spazio I/O)
+    
+    // Calcolo indirizzi registri
+    iBMCMD  = (ioaddr)(base + 0x00);
+    iBMSTR  = (ioaddr)(base + 0x02);
+    iBMDTPR = (ioaddr)(base + 0x04);
+    
+    // Abilitazione Bus Master nel registro Command PCI
+    natw cmd = pci::read_confw(bus, dev, fun, 4);
+    pci::write_confw(bus, dev, fun, 4, cmd | 0x5);  // Bit 0 (I/O) + bit 2 (Bus Master)
+}
+```
+
+**3. Sequenza operativa completa:**
+
+```cpp
+// 1. Preparazione tabella PRD
+prd[0] = indirizzo_fisico_buffer;
+prd[1] = 0x80000000 | dimensione_trasferimento;
+
+// 2. Configurazione Bus Master
+bm::prepare(reinterpret_cast<natq>(prd), false);  // false = lettura
+
+// 3. Programmazione controller HD
+hd::enable_intr();
+hd::start_cmd(lba, settori, READ_DMA);
+
+// 4. Avvio Bus Master
+bm::start();
+
+// 5. Attesa completamento (interrupt-driven)
+while(!done);
+```
+
+**Gestione interruzioni:**
+
+```cpp
+extern "C" void c_bmide(){
+    done = true;           // Segnala completamento
+    bm::ack();            // Acknowledge Bus Master
+    hd::ack_intr();       // Acknowledge controller HD
+    apic_send_EOI();      // End Of Interrupt all'APIC
+}
+```
+
+**Considerazioni pratiche:**
+
+1. **Sincronizzazione**: I registri devono essere programmati in sequenza specifica
+2. **Interrupt handling**: Necessario gestire sia Bus Master che controller HD
+3. **Allineamento**: Buffer e PRD devono rispettare vincoli di allineamento
+4. **Error handling**: Controllo bit di errore nel registro di stato
+
+**Approfondimenti:**
+- **Collegamento con Domanda 13.5 (answered)**: I PRD configurati tramite BMDTPR permettono buffer discontigui
+- **Collegamento con Domanda 13.4 (answered)**: Implementazione pratica del PCI Bus Mastering
+- **Aspetti pratici**: Base per tutti i moderni controller SATA/NVMe
 
 ---
 
-### Domanda 13.7
-**Domanda:** Qual è il problema dei confini di 64KiB nel DMA? Come si risolve?
-
-**Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
-
----
-
-### Domanda 13.8
-**Domanda:** Come funziona la bufferizzazione nel ponte PCI e quali problemi crea con le interruzioni?
-
-**Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
-
-
----
-
-### Domanda 13.9
-**Domanda:** Come funziona il protocollo HOLD/HOLDA per l'arbitraggio dell'accesso alla RAM in modalità DMA? Descriva i passi della comunicazione.
-
-**Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
-
----
-
-### Domanda 13.10 (answered)
+### Domanda 13.7 (answered)
 **Domanda:** Spieghi l'interazione tra DMA e cache. Quali problemi sorgono con le politiche `write-through` e `write-back` e come vengono risolti nei processori Intel e ARM?
 
 **Risposta:**
@@ -3276,16 +4000,6 @@ Con la politica `write-through`, dal file [`DMA.md`](./DMA#211-politica-write-th
 - **ARM**: Risoluzione software con istruzioni dedicate per invalidazione cache
 - **Write-through**: Problemi minori, risolti con invalidazione
 - **Write-back**: Problemi più complessi, richiedono gestione delle cacheline dirty
-
----
-
----
-
-### Domanda 13.11
-**Domanda:** Descriva il meccanismo di PCI Bus Mastering e l'interazione con le interruzioni. Come viene risolto il problema della bufferizzazione nel ponte PCI?
-
-**Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
 
 ---
 <div class="stop"></div>
