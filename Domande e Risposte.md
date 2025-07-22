@@ -2,133 +2,134 @@
 
 ## Indice
 - [Domande e Risposte - Calcolatori Elettronici A.A. 2024-2025](#domande-e-risposte---calcolatori-elettronici-aa-2024-2025)
-	- [Indice](#indice)
-	- [1. Architettura di Base e Memoria](#1-architettura-di-base-e-memoria)
-		- [Domanda 1.1 (answered)](#domanda-11-answered)
-		- [Domanda 1.2 (answered)](#domanda-12-answered)
-		- [Domanda 1.3 (answered)](#domanda-13-answered)
-		- [Domanda 1.4 (answered)](#domanda-14-answered)
-	- [2. Memoria Cache](#2-memoria-cache)
-		- [Domanda 2.1 (answered)](#domanda-21-answered)
-		- [Domanda 2.2 (answered)](#domanda-22-answered)
-		- [Domanda 2.3 (answered)](#domanda-23-answered)
-		- [Domanda 2.4 (answered)](#domanda-24-answered)
-		- [Domanda 2.5](#domanda-25)
-		- [Domanda 2.6 (answered)](#domanda-26-answered)
-		- [Domanda 2.7](#domanda-27)
-		- [Domanda 2.8](#domanda-28)
-	- [3. Interruzioni](#3-interruzioni)
-		- [Domanda 3.1 (answered)](#domanda-31-answered)
-		- [Domanda 3.2 (answered)](#domanda-32-answered)
-		- [Domanda 3.3 (answered)](#domanda-33-answered)
-		- [Domanda 3.4 (answered)](#domanda-34-answered)
-		- [Domanda 3.5](#domanda-35)
-		- [Domanda 3.6](#domanda-36)
-		- [Domanda 3.7](#domanda-37)
-		- [Domanda 3.8](#domanda-38)
-		- [Domanda 3.9](#domanda-39)
-		- [Domanda 3.10](#domanda-310)
-		- [Domanda 3.11](#domanda-311)
-		- [Domanda 3.12](#domanda-312)
-		- [Domanda 3.13](#domanda-313)
-	- [4. Eccezioni](#4-eccezioni)
-		- [Domanda 4.1 (answered)](#domanda-41-answered)
-		- [Domanda 4.2 (answered)](#domanda-42-answered)
-		- [Domanda 4.3](#domanda-43)
-		- [Domanda 4.4](#domanda-44)
-	- [5. Protezione](#5-protezione)
-		- [Domanda 5.1 (answered)](#domanda-51-answered)
-		- [Domanda 5.2](#domanda-52)
-		- [Domanda 5.3 (answered)](#domanda-53-answered)
-		- [Domanda 5.4](#domanda-54)
-		- [Domanda 5.5](#domanda-55)
-		- [Domanda 5.6](#domanda-56)
-		- [Domanda 5.7](#domanda-57)
-	- [6. Paginazione e Memoria Virtuale](#6-paginazione-e-memoria-virtuale)
-		- [Domanda 6.1](#domanda-61)
-		- [Domanda 6.2 (answered)](#domanda-62-answered)
-		- [Domanda 6.3](#domanda-63)
-		- [Domanda 6.4](#domanda-64)
-		- [Domanda 6.5 (answered)](#domanda-65-answered)
-		- [Domanda 6.6](#domanda-66)
-		- [Domanda 6.7](#domanda-67)
-		- [Domanda 6.8](#domanda-68)
-		- [Domanda 6.9](#domanda-69)
-		- [Domanda 6.10](#domanda-610)
-		- [Domanda 6.11](#domanda-611)
-		- [Domanda 6.12](#domanda-612)
-		- [Domanda 6.13](#domanda-613)
-		- [Domanda 6.14](#domanda-614)
-		- [Domanda 6.15](#domanda-615)
-		- [Domanda 6.16](#domanda-616)
-		- [Domanda 6.17](#domanda-617)
-		- [Domanda 6.18](#domanda-618)
-		- [Domanda 6.19](#domanda-619)
-		- [Domanda 6.20](#domanda-620)
-	- [7. Sistemi Multiprocesso e Processi](#7-sistemi-multiprocesso-e-processi)
-		- [Domanda 7.1 (answered)](#domanda-71-answered)
-		- [Domanda 7.2](#domanda-72)
-		- [Domanda 7.3](#domanda-73)
-		- [Domanda 7.4](#domanda-74)
-		- [Domanda 7.5](#domanda-75)
-		- [Domanda 7.6](#domanda-76)
-		- [Domanda 7.7](#domanda-77)
-		- [Domanda 7.8](#domanda-78)
-		- [Domanda 7.9](#domanda-79)
-		- [Domanda 7.10](#domanda-710)
-		- [Domanda 7.11](#domanda-711)
-	- [8. Realizzazione delle Primitive](#8-realizzazione-delle-primitive)
-		- [Domanda 8.1 (answered)](#domanda-81-answered)
-		- [Domanda 8.2](#domanda-82)
-		- [Domanda 8.3](#domanda-83)
-		- [Domanda 8.4](#domanda-84)
-		- [Domanda 8.5](#domanda-85)
-		- [Domanda 8.6](#domanda-86)
-		- [Domanda 8.7](#domanda-87)
-		- [Domanda 8.8](#domanda-88)
-		- [Domanda 8.9](#domanda-89)
-		- [Domanda 8.10](#domanda-810)
-	- [9. Semafori](#9-semafori)
-		- [Domanda 9.1 (answered)](#domanda-91-answered)
-		- [Domanda 9.2](#domanda-92)
-		- [Domanda 9.3](#domanda-93)
-	- [10. Delay e Gestione del Tempo](#10-delay-e-gestione-del-tempo)
-		- [Domanda 10.1 (answered)](#domanda-101-answered)
-		- [Domanda 10.2](#domanda-102)
-		- [Domanda 10.3](#domanda-103)
-	- [11. Bus PCI](#11-bus-pci)
-		- [Domanda 11.1 (answered)](#domanda-111-answered)
-		- [Domanda 11.2](#domanda-112)
-	- [12. I/O e Driver](#12-io-e-driver)
-		- [Domanda 12.1 (answered)](#domanda-121-answered)
-		- [Domanda 12.2](#domanda-122)
-		- [Domanda 12.3](#domanda-123)
-		- [Domanda 12.4](#domanda-124)
-		- [Domanda 12.5](#domanda-125)
-		- [Domanda 12.6](#domanda-126)
-		- [Domanda 12.7](#domanda-127)
-		- [Domanda 12.8](#domanda-128)
-		- [Domanda 12.9](#domanda-129)
-		- [Domanda 12.10](#domanda-1210)
-		- [Domanda 12.11](#domanda-1211)
-	- [13. DMA (Direct Memory Access)](#13-dma-direct-memory-access)
-		- [Domanda 13.1 (answered)](#domanda-131-answered)
-		- [Domanda 13.2](#domanda-132)
-		- [Domanda 13.3 (answered)](#domanda-133-answered)
-		- [Domanda 13.4 (answered)](#domanda-134-answered)
-		- [Domanda 13.5 (answered)](#domanda-135-answered)
-		- [Domanda 13.6 (answered)](#domanda-136-answered)
-		- [Domanda 13.7 (answered)](#domanda-137-answered)
-	- [14. Architettura Moderna CPU](#14-architettura-moderna-cpu)
-		- [Domanda 14.1 (answered)](#domanda-141-answered)
-		- [Domanda 14.2](#domanda-142)
-		- [Domanda 14.3](#domanda-143)
-		- [Domanda 14.4](#domanda-144)
-		- [Domanda 14.5](#domanda-145)
-		- [Domanda 14.6](#domanda-146)
-		- [Domanda 14.7](#domanda-147)
-		- [Domanda 14.8](#domanda-148)
-	- [Note per lo Studio](#note-per-lo-studio)
+  - [Indice](#indice)
+  - [1. Architettura di Base e Memoria](#1-architettura-di-base-e-memoria)
+    - [Domanda 1.1 (answered)](#domanda-11-answered)
+    - [Domanda 1.2 (answered)](#domanda-12-answered)
+    - [Domanda 1.3 (answered)](#domanda-13-answered)
+    - [Domanda 1.4 (answered)](#domanda-14-answered)
+  - [2. Memoria Cache](#2-memoria-cache)
+    - [Domanda 2.1 (answered)](#domanda-21-answered)
+    - [Domanda 2.2 (answered)](#domanda-22-answered)
+    - [Domanda 2.3 (answered)](#domanda-23-answered)
+    - [Domanda 2.4 (answered)](#domanda-24-answered)
+    - [Domanda 2.5](#domanda-25)
+    - [Domanda 2.6 (answered)](#domanda-26-answered)
+    - [Domanda 2.7](#domanda-27)
+    - [Domanda 2.8](#domanda-28)
+  - [3. Interruzioni](#3-interruzioni)
+    - [Domanda 3.1 (answered)](#domanda-31-answered)
+    - [Domanda 3.2 (answered)](#domanda-32-answered)
+    - [Domanda 3.3 (answered)](#domanda-33-answered)
+    - [Domanda 3.4 (answered)](#domanda-34-answered)
+    - [Domanda 3.5](#domanda-35)
+    - [Domanda 3.6](#domanda-36)
+    - [Domanda 3.7](#domanda-37)
+    - [Domanda 3.8](#domanda-38)
+    - [Domanda 3.9](#domanda-39)
+    - [Domanda 3.10](#domanda-310)
+    - [Domanda 3.11](#domanda-311)
+    - [Domanda 3.12](#domanda-312)
+    - [Domanda 3.13 (answered)](#domanda-313-answered)
+  - [4. Eccezioni](#4-eccezioni)
+    - [Domanda 4.1 (answered)](#domanda-41-answered)
+    - [Domanda 4.2 (answered)](#domanda-42-answered)
+    - [Domanda 4.3](#domanda-43)
+    - [Domanda 4.4](#domanda-44)
+  - [5. Protezione](#5-protezione)
+    - [Domanda 5.1 (answered)](#domanda-51-answered)
+    - [Domanda 5.2](#domanda-52)
+    - [Domanda 5.3 (answered)](#domanda-53-answered)
+    - [Domanda 5.4](#domanda-54)
+    - [Domanda 5.5](#domanda-55)
+    - [Domanda 5.6](#domanda-56)
+    - [Domanda 5.7](#domanda-57)
+  - [6. Paginazione e Memoria Virtuale](#6-paginazione-e-memoria-virtuale)
+    - [Domanda 6.1](#domanda-61)
+    - [Domanda 6.2 (answered)](#domanda-62-answered)
+    - [Domanda 6.3](#domanda-63)
+    - [Domanda 6.4](#domanda-64)
+    - [Domanda 6.5 (answered)](#domanda-65-answered)
+    - [Domanda 6.6](#domanda-66)
+    - [Domanda 6.7](#domanda-67)
+    - [Domanda 6.8](#domanda-68)
+    - [Domanda 6.9 (answered)](#domanda-69-answered)
+    - [Domanda 6.10](#domanda-610)
+    - [Domanda 6.11](#domanda-611)
+    - [Domanda 6.12](#domanda-612)
+    - [Domanda 6.13](#domanda-613)
+    - [Domanda 6.14](#domanda-614)
+    - [Domanda 6.15](#domanda-615)
+    - [Domanda 6.16](#domanda-616)
+    - [Domanda 6.17](#domanda-617)
+    - [Domanda 6.18](#domanda-618)
+    - [Domanda 6.19](#domanda-619)
+    - [Domanda 6.20](#domanda-620)
+  - [7. Sistemi Multiprocesso e Processi](#7-sistemi-multiprocesso-e-processi)
+    - [Domanda 7.1 (answered)](#domanda-71-answered)
+    - [Domanda 7.2](#domanda-72)
+    - [Domanda 7.3](#domanda-73)
+    - [Domanda 7.4](#domanda-74)
+    - [Domanda 7.5](#domanda-75)
+    - [Domanda 7.6](#domanda-76)
+    - [Domanda 7.7](#domanda-77)
+    - [Domanda 7.8](#domanda-78)
+    - [Domanda 7.9](#domanda-79)
+    - [Domanda 7.10](#domanda-710)
+    - [Domanda 7.11](#domanda-711)
+  - [8. Realizzazione delle Primitive](#8-realizzazione-delle-primitive)
+    - [Domanda 8.1 (answered)](#domanda-81-answered)
+    - [Domanda 8.2](#domanda-82)
+    - [Domanda 8.3](#domanda-83)
+    - [Domanda 8.4](#domanda-84)
+    - [Domanda 8.5](#domanda-85)
+    - [Domanda 8.6](#domanda-86)
+    - [Domanda 8.7](#domanda-87)
+    - [Domanda 8.8](#domanda-88)
+    - [Domanda 8.9](#domanda-89)
+    - [Domanda 8.10](#domanda-810)
+  - [9. Semafori](#9-semafori)
+    - [Domanda 9.1 (answered)](#domanda-91-answered)
+    - [Domanda 9.2](#domanda-92)
+    - [Domanda 9.3](#domanda-93)
+  - [10. Delay e Gestione del Tempo](#10-delay-e-gestione-del-tempo)
+    - [Domanda 10.1 (answered)](#domanda-101-answered)
+    - [Domanda 10.2](#domanda-102)
+    - [Domanda 10.3](#domanda-103)
+  - [11. Bus PCI](#11-bus-pci)
+    - [Domanda 11.1 (answered)](#domanda-111-answered)
+    - [Domanda 11.2 (answered)](#domanda-112-answered)
+    - [Domanda 11.3 (answered)](#domanda-113-answered)
+  - [12. I/O e Driver](#12-io-e-driver)
+    - [Domanda 12.1 (answered)](#domanda-121-answered)
+    - [Domanda 12.2](#domanda-122)
+    - [Domanda 12.3](#domanda-123)
+    - [Domanda 12.4 (answered)](#domanda-124-answered)
+    - [Domanda 12.5](#domanda-125)
+    - [Domanda 12.6 (answered)](#domanda-126-answered)
+    - [Domanda 12.7](#domanda-127)
+    - [Domanda 12.8](#domanda-128)
+    - [Domanda 12.9](#domanda-129)
+    - [Domanda 12.10 (answered)](#domanda-1210-answered)
+    - [Domanda 12.11](#domanda-1211)
+  - [13. DMA (Direct Memory Access)](#13-dma-direct-memory-access)
+    - [Domanda 13.1 (answered)](#domanda-131-answered)
+    - [Domanda 13.2](#domanda-132)
+    - [Domanda 13.3 (answered)](#domanda-133-answered)
+    - [Domanda 13.4 (answered)](#domanda-134-answered)
+    - [Domanda 13.5 (answered)](#domanda-135-answered)
+    - [Domanda 13.6 (answered)](#domanda-136-answered)
+    - [Domanda 13.7 (answered)](#domanda-137-answered)
+  - [14. Architettura Moderna CPU](#14-architettura-moderna-cpu)
+    - [Domanda 14.1 (answered)](#domanda-141-answered)
+    - [Domanda 14.2](#domanda-142)
+    - [Domanda 14.3](#domanda-143)
+    - [Domanda 14.4](#domanda-144)
+    - [Domanda 14.5](#domanda-145)
+    - [Domanda 14.6](#domanda-146)
+    - [Domanda 14.7](#domanda-147)
+    - [Domanda 14.8](#domanda-148)
+  - [Note per lo Studio](#note-per-lo-studio)
 
 <div class="stop"></div>
 
@@ -1433,11 +1434,190 @@ Una semplice `CALL` non può garantire questi requisiti di sicurezza e controllo
 
 ---
 
-### Domanda 3.13
+### Domanda 3.13 (answered)
 **Domanda:** Cosa fa, dove e come si salta dopo `carica_stato`? Descriva il meccanismo di cambio di contesto.
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+La funzione `carica_stato` è un meccanismo fondamentale per il cambio di contesto tra processi. Esaminiamo cosa fa, dove viene eseguita e come funziona il salto successivo.
+
+**Cosa fa `carica_stato`:**
+
+**1. Ripristino dei registri:**
+La funzione `carica_stato` ripristina **tutti i registri del processore** dal descrittore del processo puntato dalla variabile globale `esecuzione`:
+
+> Ciò significa che, `carica_stato` ripristinerà la _pila di sistema_ del processo `P2`, e la successiva `IRETQ` ripristinerà proprio le istruzioni relative a quel processo, reinserendo il valore della _pila di stack_ di `P2`.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**2. Meccanismo di funzionamento:**
+```x86asm
+carica_stato:
+    ; Ripristina tutti i registri dal array contesto[N_REG] 
+    ; del processo puntato da esecuzione
+    ; effettua alcuni controlli:
+    ;   - se cr3 non cambia non lo aggiorna (evita lo svuotamento del TLB)
+    ;   - prima di cambirare %rsp, effettua una POPq del contenuto (%rip dell'istruzione dove andare finita la carica_stato), cambia %rsp e poi effettua una PUSHq di quel valore
+    ;   - fa un controllo aggiuntivo per capire se il processo in realtà è stato abortito/terminato e nel caso chiama `distruggi_pila`
+    ;
+    ; Ricarica i vari registri: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, ...
+```
+
+Dal file [`Realizzazione Primitive.md`](./Realizzazione%20Primitive#4-realizzazione-primitive):
+```cpp
+// Per restituire r non possiamo fare return, ma scriviamo:
+esecuzione->contesto[I_RAX] = r;
+// Questo sovrascrive il contenuto del registro %rax che avevamo 
+// salvato con la `salva_stato`, così da recuperarlo quando
+// chiameremo la `carica_stato`
+```
+
+**Dove si usa `carica_stato`:**
+
+**1. Nelle routine delle primitive:**
+> Le routine avranno quindi tutte **lo stesso formato**.
+>
+> ```x86asm
+> a_primitiva_i:
+>     CALL salva_stato
+>     CALL c_primitiva;
+>     CALL carica_stato
+>     IRETQ
+> ```
+>
+> *Fonte: [Realizzazione Primitive.md](./Realizzazione%20Primitive#3-meccanismo-di-chiamata)*
+
+**2. Negli handler di interruzione:**
+Dal file [`IO.md`](./IO#3-modulo-io):
+```x86asm
+; Primitiva di sistema wfi() (waiting_for_interrupt)
+a_wfi:
+	; Stato del processo esterno riferito sopra
+	CALL salva_stato
+	CALL apic_send_EOI
+
+	; Non abbiamo certezza di chi riprenderà l'esecuzione
+	CALL schedulatore
+	CALL carica_stato
+	RET
+```
+
+**3. Negli interrupt handler:**
+```x86asm
+driver_td:
+	call salva_stato
+	call c_driver_td
+    ; Aggiungiamo il segnale all'APIC
+	call apic_send_EOI
+	call carica_stato
+```
+*Fonte: [Delay e new.md](./Delay%20e%20new#21-implementazione-del-nucleo)*
+
+**Dove si salta dopo `carica_stato`:**
+
+**1. Sequenza normale in una primitiva:**
+```x86asm
+a_primitiva:
+    CALL salva_stato    ; Salva contesto processo corrente
+    CALL c_primitiva    ; Esegue il corpo della primitiva (può cambiare esecuzione)
+    CALL carica_stato   ; Ripristina contesto del processo in esecuzione
+    IRETQ               ; ← SALTO: Ripristina le 5 long word e torna al processo
+```
+
+**2. Il salto avviene tramite `IRETQ`:**
+L'istruzione `IRETQ` che segue `carica_stato` ripristina:
+
+> 7. Salva in pila `5 long word` [SS, SRSP, RFLAGS, CS, RIP]
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+Quindi `IRETQ` ripristina:
+- **RIP**: Indirizzo della prossima istruzione da eseguire  
+- **CS**: Selettore del segmento codice
+- **RFLAGS**: Registro dei flag
+- **RSP**: Stack pointer
+- **SS**: Selettore del segmento stack
+
+**Meccanismo di cambio di contesto:**
+
+**1. Principio fondamentale:**
+> **_L'unico modo per transizionare da un processo ad un altro è tramite un gate della `IDT`_**.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**2. Struttura dati del processo:**
+Nel sistema, ogni processo ha un descrittore `des_proc` che contiene:
+
+```cpp
+struct des_proc {
+    natw id;                    // identificatore numerico del processo
+    natw livello;              // livello di privilegio (LIV_UTENTE o LIV_SISTEMA)
+    natl precedenza;           // precedenza nelle code dei processi
+    vaddr punt_nucleo;         // indirizzo della base della pila sistema
+    natq contesto[N_REG];      // copia dei registri generali del processore
+    paddr cr3;                 // radice del TRIE del processo
+    des_proc* puntatore;       // prossimo processo in coda
+    void (*corpo)(natq);       // funzione da eseguire
+    natq parametro;            // parametro della funzione
+};
+```
+*Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi)*
+
+**3. Sequenza completa del cambio contesto:**
+
+**Fase 1 - Entrata nel gate:**
+1. Si verifica un evento (interruzione, eccezione, `INT`)
+2. Il processore salva automaticamente le 5 long word in pila
+3. Si salta alla routine handler
+
+**Fase 2 - Salvataggio stato:**
+```x86asm
+CALL salva_stato    ; Salva tutti i registri in esecuzione->contesto[N_REG]
+```
+
+**Fase 3 - Corpo della routine:**
+```cpp
+// Il corpo della routine può cambiare la variabile esecuzione
+esecuzione = nuovo_processo;  // Cambio di contesto!
+```
+
+> Tutto il necessario per cambiare _processo_ è quindi **cambiare la variabile `esecuzione`** all'interno del _corpo della routine_.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Fase 4 - Ripristino stato:**
+```x86asm
+CALL carica_stato   ; Ripristina i registri dal nuovo processo
+```
+
+**Fase 5 - Ritorno:**
+```x86asm
+IRETQ              ; Salta al nuovo processo ripristinando le 5 long word
+```
+
+**4. Gestione della variabile `esecuzione`:**
+> Per capire a quale processo ci stiamo riferendo quando invochiamo `salva_stato` e `carica_stato` utilizziamo come già detto una variabile globale `esecuzione`.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Esempio pratico di cambio contesto:**
+
+**Scenario**: Il processo P1 chiama una primitiva che lo sospende e attiva P2.
+
+1. **P1 esegue**: `INT $TIPO_PRIMITIVA`
+2. **Hardware salva**: [SS_P1, RSP_P1, RFLAGS_P1, CS_P1, RIP_P1] nella pila sistema di P1
+3. **`salva_stato`**: Salva tutti i registri di P1 in `P1->contesto[N_REG]`
+4. **Corpo primitiva**: Cambia `esecuzione` da P1 a P2
+5. **`carica_stato`**: Ripristina tutti i registri da `P2->contesto[N_REG]`
+6. **`IRETQ`**: Ripristina [SS_P2, RSP_P2, RFLAGS_P2, CS_P2, RIP_P2] dalla pila sistema di P2
+
+**Risultato**: Il processore ora esegue le istruzioni del processo P2 dal punto in cui era stato sospeso.
+
+**Dove salta esattamente:**
+Dopo `carica_stato` + `IRETQ`, il processore salta a:
+- **RIP del nuovo processo**: La prossima istruzione che il nuovo processo deve eseguire
+- **Contesto del nuovo processo**: Con tutti i suoi registri, pila e stato
+
+Il meccanismo garantisce un **cambio di contesto atomico e trasparente** tra i processi, mantenendo l'illusione che ogni processo abbia il controllo esclusivo del processore.
 
 ---
 <div class="stop"></div>
@@ -1996,7 +2176,7 @@ Il processo continua attraversando i 4 livelli usando i successivi gruppi di 9 b
 
 > I **_descrittori di livello 2, 3 e 4_** hanno invece la seguente forma:
 >
-> | padding (63-53) | Indirizzo tabella di livelli $i$ - 1 | padding (11 - 8) | `PS` | - | `A` | - | - | `U/S` | `R/W` | `P` |
+> | padding (63-53) | Indirizzo tabella di livello $i$ - 1 | padding (11 - 8) | `PS` | - | `A` | - | - | `U/S` | `R/W` | `P` |
 > Ciascuna contiene `512` entrate.
 >
 > *Fonte: [Paginazione.md](./Paginazione#321-formato-delle-tabelle)*
@@ -2128,11 +2308,184 @@ Questa architettura è alla base dei moderni sistemi di memoria virtuale e rappr
 
 ---
 
-### Domanda 6.9
+### Domanda 6.9 (answered)
 **Domanda:** Spiega il funzionamento del TLB (Translation Lookaside Buffer). Perché è necessario per le prestazioni?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+Il **TLB (Translation Lookaside Buffer)** è una cache hardware specializzata che memorizza le traduzioni di indirizzi virtuali in indirizzi fisici utilizzate più recentemente, rappresentando un componente fondamentale per le prestazioni dei sistemi con memoria virtuale.
+
+**Problema delle prestazioni senza TLB:**
+
+Dal file [`Paginazione.md`](./Paginazione#332-tlb):
+
+> Introducendo la `MMU`, per ogni accesso in memoria da parte del software, accediamo ad un minimo di 4 tabelle per recuperare l'indirizzo fisico al quale successivamente accedere.
+> Se consideriamo che la `MMU` deve aggiornare i `bit` `A` e `D`, possiamo arrivare a **8 accessi** o persino **12** nei casi peggiori.
+> Ciò riguarda anche gli accessi in _cache_.
+>
+> Tutto questo processo non fa altro che **rallentare la nostra CPU**.
+
+**Soluzione TLB:**
+
+> Inseriamo quindi una _cache_ alla `MMU` chiamata `TLB` (_Translation Lookaside Buffer_).
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Funzionamento del TLB:**
+
+**1. Scopo e meccanismo base:**
+
+> Lo scopo della `TLB` è di **ricordare le _traduzioni_ utilizzate più recentemente**, dove per _traduzioni_ intendiamo ciò che è contenuto nei descrittori di `livello 1`, insieme alle informazioni accessorie.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**2. Processo di consultazione:**
+
+> Quando `MMU` accede alla memoria tramite un'indirizzo virtuale, può quindi salvare nel `TLB` la sua traduzione.
+> Agli accessi successivi si controllerà prima se in `TLB` è già presente il descrittore che si sta cercando, altrimenti ci si comporta come descritto fin'ora, tramite _table-walk_.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Architettura del TLB:**
+
+**Struttura hardware:**
+
+Dal file [`Paginazione.md`](./Paginazione#332-tlb):
+
+> Un esempio di `TLB` a due vie può essere il seguente:
+>
+> Figura 1: `V` rappresenta l'indirizzo _virtuale_, `F` rappresenta l'indirizzo _fisico_.
+
+Il TLB è organizzato come una cache associativa che contiene:
+- **Indirizzo virtuale**: Parte dell'indirizzo di input per il matching
+- **Indirizzo fisico**: Risultato della traduzione 
+- **Bit di controllo**: Informazioni sui permessi e stato della pagina
+
+**Ottimizzazioni di spazio:**
+
+> Per ottimizzare lo spazio, all'interno dei dati nel `TBL` non sono salvate alcune informazioni:
+> - `P`: se l'indirizzo si trova in _cache_ vuol dire che era presente
+> - `A`: se l'indirizzo si trova in _cache_ vuol dire che vi abbiamo effettuato un accesso
+> - `U/S`: salvato un solo bit ottenuto dall'`AND` dei quattro bit incontrati nel _table-walk_
+> - `R/W`: salvato un solo bit ottenuto dall'`AND` dei quattro bit incontrati nel _table-walk_
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Gestione del TLB:**
+
+**1. Svuotamento nei cambi di contesto:**
+
+> La `TLB`, per struttura, è poco accessibile da _software_, tuttavia ne è permesso lo **svuotamento**.
+> Questo processo è obbligatorio nei cambi di contesto, in quanto le traduzioni di `P1` non hanno senso per `P2`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**2. Automatismo hardware:**
+
+> Nei processori _Intel_ questo svuotamento avviene **in automatico quando viene scritto `%cr3`**, anche se viene cambiato in se stesso. (`MOV %cr3, %cr3`)
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Problemi specifici del TLB:**
+
+**1. Gestione del bit A (Accessed):**
+
+> Il bit `A` viene settato **_durante il table-walk_**, diventa quindi un problema azzerarlo via software. Infatti, se l'indirizzo è presente nel `TLB`, non viene rieseguito l'accesso al _trie_.
+> In questo caso la soluzione è quella di **azzerare le righe corrispondenti nel `TLB`** prima di effettuare gli accessi che modificano `A`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**2. Gestione del bit D (Dirty):**
+
+> Il bit `D` deve essere settato _**solo quando effettuiamo un accesso in scrittura**_.
+> Nel caso in cui effettuiamo un accesso in lettura tramite _table-walk_ (che non setta `D`) a un indirizzo, lo salveremo nel `TLB`.
+> A questo punto se effettuiamo un accesso in scrittura allo stesso indirizzo, dovremmo settare `D` nel _trie_, ma non vi accediamo mai in quanto si trova nella `TLB`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Soluzione per il bit D:**
+
+> Settare quello nella `TLB` è completamente inefficace per il _software_ poiché non solo è per lui inaccessibile, ma il contenuto stesso del `TLB` è volatile, in quanto è una **cache**, quindi ogni riga può essere soggetta a sovrascritture.
+> È necessario quindi effettuare un _table-walk_ per sovrascrivere il bit `D`.
+> Il modo per farlo è non consultare la `TLB` negli accessi in scrittura di frame che avevano `D = 0`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**TLB per pagine di diverse dimensioni:**
+
+**Problema delle pagine grandi:**
+
+> Quando effettuiamo una traduzione, non possiamo saperne a priori le dimensioni.
+> Infatti questa informazione sarà accessibile solo quando arriveremo al `livello 1`, guardando il bit `PS`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#34-pagine-di-grandi-dimensioni)*
+
+**Evoluzione delle soluzioni:**
+
+> Nei primi processori, gli accessi a pagine più grandi dei `4KiB` occupavano più righe del `TLB`.
+> Ad esempio pagine da `2MB` ne occupavano ben **512 righe**.
+>
+> *Fonte: [Paginazione.md](./Paginazione#34-pagine-di-grandi-dimensioni)*
+
+**Soluzione moderna:**
+
+> La soluzione moderna a questo problema è quella di avere un `TLB` **per ogni dimensione**.
+> La traduzione verrà quindi cercata **_in parallelo_** in _ciascuno_ dei `TLB`, come nel caso di `TLB` a più vie, e verrà selezionata solamente quella desiderata.
+>
+> *Fonte: [Paginazione.md](./Paginazione#34-pagine-di-grandi-dimensioni)*
+
+**Funzioni di controllo del TLB:**
+
+**Invalidazione selettiva:**
+
+Dal file [`Paginazione.md`](./Paginazione#44-interagire-con-lhardware):
+
+> Esiste anche la funzione `invalida_entrata_TLB(v)` che serve a **invalidare la traduzione** associata al `vaddr v` nel `TLB` nel caso ne stesse conservando una copia.
+> Per invalidare l'intero `TLB` si può utilizzare `invalida_TLB()`, che nei processori _Intel_ è equivalente a `loadCR3(read(CR3))`.
+
+**Necessità per le prestazioni:**
+
+**1. Eliminazione dell'overhead:**
+Il TLB riduce drasticamente il numero di accessi alla memoria:
+- **Senza TLB**: 4-12 accessi alla RAM per ogni traduzione
+- **Con TLB hit**: 0 accessi aggiuntivi alla RAM per la traduzione
+
+**2. Sfruttamento della località:**
+Il TLB beneficia della **località temporale** degli accessi alla memoria:
+- I programmi tendono a riutilizzare le stesse pagine
+- La maggior parte degli accessi risulta in TLB hit
+
+**3. Parallelismo efficiente:**
+- **TLB multipli**: Permette ricerche parallele per diverse dimensioni di pagina
+- **Riduzione contesa**: Meno conflitti tra accessi diversi
+
+**4. Impatto sulle prestazioni:**
+- **TLB hit**: Tempo di traduzione trascurabile
+- **TLB miss**: Penalità significativa dovuta al table-walk completo
+- **Rapporto critico**: TLB hit rate deve essere > 95% per prestazioni accettabili
+
+**Vantaggi architetturali:**
+
+> I `TLB` aggiuntivi permettono di alleggerire il carico sul `TLB` principale, velocizandone le operazioni.
+>
+> *Fonte: [Paginazione.md](./Paginazione#34-pagine-di-grandi-dimensioni)*
+
+**Conclusioni:**
+
+Il TLB rappresenta un componente **assolutamente critico** per le prestazioni dei sistemi moderni perché:
+
+1. **Elimina l'overhead** del table-walk nella maggior parte dei casi
+2. **Sfrutta la località** degli accessi alla memoria dei programmi
+3. **Permette parallelismo** attraverso architetture multi-TLB
+4. **Mantiene coerenza** con il sistema di paginazione tramite invalidazione controllata
+5. **Scala efficacemente** con dimensioni di pagina diverse
+
+Senza il TLB, la memoria virtuale sarebbe **praticamente inutilizzabile** nei sistemi ad alte prestazioni, rendendo questo componente un esempio perfetto di come l'hardware specialized possa risolvere bottleneck architetturali fondamentali.
+
+**Approfondimenti:**
+- **Collegamento con Domanda 6.10 (non answered)**: La gestione del bit D evidenzia la complessità dell'interazione TLB-memoria
+- **Collegamento con Domanda 6.5 (answered)**: Il Trie-MMU fornisce la struttura dati che il TLB memorizza in cache
+- **Aspetti pratici**: Il TLB è fondamentale in applicazioni che utilizzano molte pagine (database, compilatori, sistemi virtuali)
 
 ---
 
@@ -2968,16 +3321,326 @@ Dal file [`PCI.md`](./PCI.md):
 
 ---
 
-### Domanda 11.2
+### Domanda 11.2 (answered)
 **Domanda:** Cosa sono i tre spazi di indirizzamento definiti dallo standard PCI e qual è il ruolo dello spazio di configurazione?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+Il bus **PCI** (Peripheral Component Interconnect) definisce **tre spazi di indirizzamento distinti** per gestire la comunicazione tra CPU e periferiche in modo organizzato e senza conflitti. Ogni spazio ha caratteristiche e scopi specifici.
+
+_**- I tre spazi di indirizzamento PCI**_
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Lo standard definisce inoltre **tre spazi di indirizzamento**: _spazio di memoria_, _spazio di I/O_ e _spazio di configurazione_.
+>
+> I primi due spazi sono completamente analoghi a quelli che già conosciamo e sono quelli che il _software_ **deve utilizzare per dialogare con le periferiche connesse al bus**.
+
+**1. Spazio di Memoria**
+
+**Caratteristiche:**
+- **Identico** allo spazio di memoria tradizionale del sistema
+- Utilizzato per **registri di controllo e buffer dati** delle periferiche
+- **Accesso diretto** dalla CPU tramite istruzioni di memoria standard
+- **Dimensioni variabili** a seconda delle esigenze della periferica
+- **Gestione tramite registri BAR** di tipo memoria
+
+**2. Spazio di I/O**
+
+**Caratteristiche:**
+- **Identico** allo spazio di I/O tradizionale del sistema  
+- Utilizzato per **registri di comando e stato** delle periferiche
+- **Accesso tramite istruzioni IN/OUT** specifiche
+- **Dimensioni limitate** rispetto allo spazio di memoria
+- **Gestione tramite registri BAR** di tipo I/O
+
+Dal file [`PCI.md`](./PCI.md):
+
+> La dimensione del blocco è $2^b$ dove $b$ è il numero di bit **non scrivibili** utilizzati per fornire al _software di inizializzazione_ indicazioni sul tipo di blocco e sulla sua dimensione. In particolare il bit `0` serve a capire se il blocco è pensato per lo spazio di `I/O` (`1`) o di `memoria` (`0`).
+
+**3. Spazio di Configurazione**
+
+**Caratteristiche:**
+- **Spazio specializzato** per la configurazione delle periferiche
+- **Unico per ogni funzione** PCI nel sistema
+- **Accesso tramite registri speciali** CAP e CDP
+- **Dimensione fissa**: 256 byte (64 parole da 4 byte) per funzione
+
+_**- Ruolo specifico dello spazio di configurazione**_
+
+Lo **spazio di configurazione** rappresenta l'innovazione principale del bus PCI per risolvere i conflitti di indirizzamento.
+
+**Funzioni principali:**
+
+**1. Identificazione automatica delle periferiche**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Tramite questi registri il software di avvio (`PCI BIOS`) può scoprire quali periferiche sono connesse al bus. Non solo, capisce anche di quanti indirizzi hanno bisogno e programma di conseguenza i comparatori affinché non ci siano _sovrapposizioni_.
+
+**2. Assegnazione automatica degli indirizzi**
+
+> Lo scopo principale della fase di configurazione dei dispositivi è quello di **assegnare indirizzi univoci negli spazi di `I/O` e/o di `memoria`**.
+
+**3. Controllo dei comparatori programmabili**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Le _periferiche_ che rispettano lo standard **non possono scegliere autonomamente gli indirizzi dei propri registri**, ma devono contenere dei _**comparatori programmabili**_ in modo che questi indirizzi _siano impostati dal software della macchina_.
+
+**Struttura dell'indirizzamento di configurazione:**
+
+**Indirizzo di configurazione** composto da:
+- **Bus** (8 bit): identificativo del bus PCI
+- **Device** (5 bit): posizione fisica della scheda  
+- **Function** (3 bit): funzione specifica del dispositivo
+- **Offset** (8 bit): offset del registro nella configurazione
+
+**Registri obbligatori dello spazio di configurazione:**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Tutte le funzioni devono avere i seguenti registri:
+> - `Vendor ID`: un codice che identifica il produttore della funzione
+> - `Device ID`: un codice che identifica la funzione  
+> - `Command`: permette di abilitare o disabilitare varie capacità della funzione
+> - `Status`: descrive alcune capacità della funzione
+> - `Class Code`: un codice che identifica in modo generico il tipo di funzione
+
+**Meccanismo di accesso al PC:**
+
+**Registri del ponte ospite-PCI:**
+- **CAP (Configuration Address Port)** all'indirizzo `0xCF8`: specifica bus, device, function e offset
+- **CDP (Configuration Data Port)** all'indirizzo `0xCFC`: trasferisce i dati di configurazione
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Una volta che `CAP` è stato impostato, il _ponte ospite-PCI_ tradurrà le letture e le scritture in `CDP` in corrispondenti transizioni nello _spazio di configurazione_.
+
+**Registri BAR (Base Address Register):**
+
+**Funzione dei BAR:**
+- **Dichiarazione dei requisiti** di spazio da parte delle periferiche
+- **Configurazione degli indirizzi** assegnati dal BIOS
+- **Distinzione tra spazio memoria e I/O** tramite bit specifici
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Il _software di inizializzazione_ sceglierà quindi la regione e ne scriverà il numero nei bit scrivibili del `BAR`, così che contenga l'indirizzo di partenza del blocco.
+
+**Processo di configurazione automatica:**
+
+1. **Scoperta**: Il BIOS esplora lo spazio di configurazione
+2. **Identificazione**: Legge Vendor ID, Device ID e Class Code  
+3. **Dimensionamento**: Analizza i BAR per scoprire i requisiti di spazio
+4. **Assegnazione**: Programma i comparatori con indirizzi univoci
+5. **Attivazione**: Abilita le funzioni tramite il registro Command
+
+**Vantaggi dello spazio di configurazione:**
+
+1. **Eliminazione dei conflitti** di indirizzamento tra periferiche
+2. **Configurazione automatica** senza intervento manuale  
+3. **Identificazione univoca** di ogni periferica e funzione
+4. **Standardizzazione** dell'interfaccia di configurazione
+5. **Supporto per architetture complesse** con più bus
+
+**Collegamento con altri argomenti:**
+
+- **Bus Mastering**: Abilitato tramite bit 2 del registro Command
+- **Gestione interruzioni**: Configurazione tramite registri di configurazione
+- **Driver**: Utilizzano lo spazio di configurazione per l'inizializzazione
+
+---
+
+### Domanda 11.3 (answered)
+
+**Domanda:** Come avvengono le trasmissioni all'interno di un architettura con il bus PCI?
+
+**Risposta:**
+
+Le **trasmissioni nel bus PCI** seguono un **protocollo strutturato a fasi** che garantisce comunicazione affidabile e coordinata tra dispositivi attraverso un meccanismo di **handshake** e **arbitraggio**, permettendo trasferimenti efficienti tra iniziatori e obiettivi.
+
+**Concetto fondamentale di transazione:**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Le operazioni (lettura, scrittura, ...) sul _bus_ `PCI` sono dette **transazioni**.
+> Le _transazioni_ sono iniziate da un dispositivo _iniziatore_ che cerca di operare su un altro dispositivo _obiettivo_, e seguono il `clock`.
+
+**Caratteristica chiave:**
+> Lo standard permette a **qualsiasi dispositivo di essere _iniziatore_ o _obiettivo_ in transazioni diverse**.
+> Questo meccanismo permette il meccanismo di _accesso diretto alla memoria_ di cui parleremo in seguito.
+>
+> *Fonte: [PCI.md](./PCI.md)*
+
+**Struttura delle transazioni:**
+
+**1. Fasi della transazione:**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Le transazioni si svolgono in più fasi:
+> - **Fase di Indirizzamento**: dopo che l'_iniziatore_ specifica il tipo di operazione e l'indirizzo del primo byte da leggere/scrivere, **tutti i dispositivi che hanno registri nello spazio** confrontano queste informazioni con il contenuto dei loro comparatori. Al più uno troverà una corrispondenza, e quello diventerà l'_obiettivo_ della transazione.
+> - **Fase/i di Scambio di Dati**: Avviene quindi il trasferimento dei dati dall'_iniziatore_ all'_obiettivo_ (_scrittura_) o dall'_obiettivo_ all'_iniziatore_ (_lettura_).
+
+**2. Segnali di controllo principali:**
+
+| **Segnale**    | **Iniziatore** | **Obiettivo** | **Funzione**                                                    |
+| -------------- | -------------- | ------------- | --------------------------------------------------------------- |
+| `FRAME#`       | Uscita         | Ingresso      | Delimita l'inizio e il termine di ogni transazione             |
+| `DEVSEL#`      | Ingresso       | Uscita        | Segnale che l'obiettivo riconosce uno dei propri indirizzi     |
+| `C[3:0]`       | Uscita         | Ingresso      | Codificano il tipo di operazione nell'indirizzamento           |
+| `BE#[3:0]`     | Uscita         | Ingresso      | Fungono da byte-enabler nelle fasi di trasferimento            |
+| `AD[31:0]`     | I/O            | I/O           | Indirizzo (fase addressing) / Dati (fasi trasferimento)        |
+| `TRDY#`        | Ingresso       | Uscita        | Target ready - Handshake nelle fasi di scambio dati           |
+| `IRDY#`        | Uscita         | Ingresso      | Initiator ready - Handshake nelle fasi di scambio dati        |
+| `STOP#`        | Ingresso       | Uscita        | Termina prematuramente una transazione                         |
+| `CLK`          | Ingresso       | Ingresso      | Clock di sincronizzazione (33MHz o 64MHz)                     |
+
+**Protocollo di trasmissione dettagliato:**
+
+**1. Inizializzazione della transazione:**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Il collegamento segue il seguente protocollo:
+> - L'_iniziatore_ pilota `C[3:0]` e `AD[31:0]` con il tipo di operazione e l'indirizzo iniziale del trasferimento
+> - Attiva `FRAME#` per segnalare l'inizio di una _transazione_
+> - Se un dispositivo riconosce il tipo di operazione e l'indirizzo attiva `DEVSEL#`
+> - Se nessuno lo attiva entro un certo numero di `clock`, l'inizializzatore termina l'operazione con un errore
+> - Altrimenti si prosegue con le fasi di trasferimento dati.
+
+**2. Operazioni di lettura:**
+
+**Meccanismo handshake per la lettura:**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Nelle **operazioni di lettura**:
+> - L'_obiettivo_ pilota le linee `AD[31:0]` e segnala la loro validità tramite la linea `TRDY#`.
+> - Attende quindi che l'_iniziatore_ segnali di aver ricevuto i dati attivando `IRDY#`.
+> - Viceversa, l'_iniziatore_ era in attesa di `TRDY#` e quando lo trova attivo campiona `AD[31:0]` e una volta pronto attiva `IRDY#`.
+
+**Sequenza completa:**
+1. **Iniziatore** specifica indirizzo e tipo operazione
+2. **Obiettivo** attiva `DEVSEL#` se riconosce l'indirizzo
+3. **Obiettivo** mette i dati su `AD[31:0]` e attiva `TRDY#`
+4. **Iniziatore** legge i dati e attiva `IRDY#`
+5. **Entrambi** `TRDY#` e `IRDY#` attivi → trasferimento completato
+
+**3. Operazioni di scrittura:**
+
+**Meccanismo handshake per la scrittura:**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Nelle **operazioni di scrittura** invece avviene l'opposto:
+> - L'_iniziatore_ pilota le linee `AD[31:0]` e `BE#[3:0]` per poi attivare `IRDY#` quando è pronto,
+> - Attende quindi che l'_obiettivo_ segnali che le linee sono valide tramite `TRDY#`.
+> - Viceversa, l'_obiettivo_ era in attesa di `IRDY#`, e quando lo trova attivo campiona `AD[31:0]` e `BE#[3:0]` e una volta pronto attiva `TRDY#`.
+
+**Sequenza completa:**
+1. **Iniziatore** specifica indirizzo e tipo operazione
+2. **Obiettivo** attiva `DEVSEL#` se riconosce l'indirizzo
+3. **Iniziatore** mette i dati su `AD[31:0]` e byte-enable su `BE#[3:0]`, attiva `IRDY#`
+4. **Obiettivo** riceve i dati e attiva `TRDY#`
+5. **Entrambi** `TRDY#` e `IRDY#` attivi → trasferimento completato
+
+**Caratteristiche prestazionali:**
+
+**1. Trasferimenti multi-fase:**
+
+Dal file [`PCI.md`](./PCI.md):
+
+> Ogni fase dati trasferisce **al più `4Byte` allineati naturalmente**.
+> Ciascuna fase si conclude quando sia `IRDY#` che `TRDY#` sono **attivi sullo stesso fronte di salita del clock**.
+
+**2. Ottimizzazione dei trasferimenti:**
+
+> Il riutilizzo delle stesse linee per scopi diversi riduce i costi a scapito però della velocità di trasferimento. Fortunatamente, la possibilità di eseguire **più fasi dati** con _una singola fase di indirizzamento_ ci fa recuperare un po' di velocità. È infatti sufficiente che l'_iniziatore_ mantenga `FRAME#` attivo quando lo è anche `IRDY#`.
+>
+> *Fonte: [PCI.md](./PCI.md)*
+
+**Gestione delle interruzioni:**
+
+**Terminazione prematura:**
+> L'_obiettivo_ può inoltre **attivare** `STOP#` per terminare forzatamente la transazione.
+>
+> *Fonte: [PCI.md](./PCI.md)*
+
+**Arbitraggio nel Bus Mastering:**
+
+**Coordinamento dispositivi multipli:**
+
+Dal file [`DMA.md`](./DMA.md#3-pci-bus-mastering):
+
+> Poiché diversi dispositivi possono agire da `bus master` dobbiamo prevederne _un coordinamento_, affinché non possano entrare in comunicazione tutti insieme.
+> Introduciamo quindi un `arbitro`, un ulteriore dispositivo (spesso integrato nel `ponte` stesso) che gestisce tramite _handshake_ tutte le richieste di trasferimento.
+> Quando un `bus master` vuole iniziare una richiesta invia il segnale di `REQ` all'`arbitro`.
+> Appena è il suo turno l'`arbitro` invia un segnale chiamato di _grant_ `GNT` o segnale di _acknowledge_ `ACK`.
+
+**Ottimizzazione temporale:**
+> Per ottimizzare i tempi, l'_arbitraggio_ può verificarsi mentre è ancora in corso una precedente transazione.
+> Infatti il dispositivo che ottiene `GNT`, prima di iniziare la propria transazione, necessita comunque che sia `FRAME#` che `IRDY#` siano disattivati, ovvero che il **_bus sia libero_**. Perciò rimarrà in attesa finché la precedente operazione non sarà terminata.
+>
+> *Fonte: [DMA.md](./DMA.md#3-pci-bus-mastering)*
+
+**Architettura Bus Master:**
+
+**Ruolo del ponte:**
+
+Dal file [`DMA.md`](./DMA.md#3-pci-bus-mastering):
+
+> Per essere precisi, in realtà i `bus master` inizializzano il trasferimento verso il `ponte` non direttamente verso la **RAM**. È infatti quest'ultimo che poi reindirizza i dati alla **RAM**.
+> Le informazioni vengono quindi passate attraverso l'`arbitro` al `ponte`, che poi si occuperà di trasferirle al destinatario sul `bus principale`.
+
+**Bufferizzazione:**
+> Nonostante il trasferimento avvenga quindi in _asincrono_, il `ponte` invia comunque un segnale di **trasferimento completato** al `bus master` che si occupa delle operazioni <u>nel momento della ricezione in locale delle informazioni</u>.
+> Questo permette infatti di ottimizzare i tempi, facendo iniziare un nuovo ciclo di ricezione/scrittura dati, anche quando in realtà le informazioni sono ancora contenute solamente in locale al `ponte`.
+> Questa tipo di gestione delle informazioni viene chiamata **_bufferizzazione_**.
+>
+> *Fonte: [DMA.md](./DMA.md#3-pci-bus-mastering)*
+
+**Temporizzazioni e sincronizzazione:**
+
+**Clock di riferimento:**
+- **Frequenza originale**: 33MHz
+- **Evoluzione**: 64MHz nelle versioni successive
+- **Sincronizzazione**: Tutti i dispositivi campionano sui fronti di salita del clock
+- **Coordinamento**: Handshake `IRDY#`/`TRDY#` sincronizzato con il clock
+
+**Vantaggi del protocollo PCI:**
+
+1. **Flessibilità**: Qualsiasi dispositivo può essere iniziatore o obiettivo
+2. **Efficienza**: Trasferimenti burst con multiple fasi dati per singolo indirizzamento
+3. **Affidabilità**: Handshake garantisce trasferimenti corretti
+4. **Scalabilità**: Arbitraggio permette multiple richieste simultanee
+5. **Ottimizzazione**: Bufferizzazione e pipelining delle operazioni
+
+**Confronto con architetture precedenti:**
+
+| **Aspetto**                  | **Bus ISA**               | **Bus PCI**                         |
+| ---------------------------- | ------------------------- | ----------------------------------- |
+| **Arbitraggio**              | Fisso/manuale             | Dinamico via arbitro hardware       |
+| **Configurazione**           | Manuale (jumper)          | Automatica (spazio configurazione)  |
+| **Iniziatori**               | Solo CPU                  | Qualsiasi dispositivo (Bus Master)  |
+| **Handshake**                | Limitato                  | Completo (IRDY#/TRDY#)              |
+| **Trasferimenti burst**      | Non supportati            | Supportati con multiple fasi dati   |
+| **Gestione conflitti**       | Problematica              | Risolta via comparatori programmabili |
+
+**Approfondimenti:**
+- **Collegamento con Domanda 11.1 (answered)**: I comparatori programmabili evitano conflitti durante l'indirizzamento
+- **Collegamento con Domanda 13.4 (answered)**: Il PCI Bus Mastering è l'evoluzione del DMA tradizionale
+- **Aspetti pratici**: Le moderne interfacce PCIe mantengono compatibilità con il protocollo PCI base
+- **Importanza per l'esame**: Comprensione fondamentale delle comunicazioni nei sistemi moderni
+
+Il protocollo PCI rappresenta quindi un **equilibrio ottimale** tra semplicità implementativa, prestazioni e flessibilità, fornendo le basi per tutte le architetture di comunicazione moderne.
 
 ---
 <div class="stop"></div>
 
 ---
+
 
 ## 12. I/O e Driver
 
@@ -3173,11 +3836,263 @@ Questo meccanismo garantisce che l'accesso alle periferiche avvenga sempre sotto
 
 ---
 
-### Domanda 12.4
+### Domanda 12.4 (answered)
 **Domanda:** Com'è collegato il modulo I/O con il resto del sistema?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+Il **modulo I/O** è collegato al resto del sistema attraverso un'architettura sofisticata che integra **separazione modulare**, **comunicazione tramite primitive** e **gestione coordinata delle interruzioni**, garantendo isolamento e funzionalità avanzate.
+
+**Architettura modulare del sistema:**
+
+Dal file [`IO.md`](./IO.md#3-modulo-io):
+
+> Il `modulo I/O` è un modulo indipendente, così come `sistema` e `utente`.
+> Come `utente`, anch'egli può affidarsi sulle funzioni di `sistema`, come se fosse un'altra via per accedervi.
+
+**Struttura dei tre moduli:**
+
+Dal file [`Sistemi Multiprocesso e Processi.md`](./Sistemi%20Multiprocesso%20e%20Processi.md#24-semplice-sistema-multiprocesso):
+
+> Il sistema che realizzeremo è organizzato in tre moduli:
+> - `sistema`
+> - `io`
+> - `utente`
+>
+> Entrambi questi due moduli vengono eseguiti con il processore a **_livello sistema_**, in un contesto privilegiato, mentre `utente` verrà eseguito al _**livello utente**_.
+
+**1. Separazione fisica e mappatura in memoria:**
+
+**Compilazione separata:**
+> Nella nostra implementazione, i file che contengono il codice di questo modulo si trovano nella cartella `io/` e sono `io.cpp` e `io.s`.
+> Una volta compilati e collegati produrranno il file `build/io` che verrà caricato in memoria durante l'avvio del sistema e mappato **nello spazio di indirizzamento di ogni processo**, nella sezione `IO/condivisa`.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**Memoria virtuale separata:**
+
+Dal log di avvio del sistema [`Sistemi Multiprocesso e Processi.md`](./Sistemi%20Multiprocesso%20e%20Processi.md#242-avvio-sistema):
+
+```log
+19 | [INF] - Suddivisione della memoria virtuale:
+20 | [INF] - - sis/cond [ 0, 8000000000)
+21 | [INF] - - sis/priv [ 8000000000, 10000000000)
+22 | [INF] - - io /cond [ 10000000000, 18000000000)
+23 | [INF] - - usr/cond [ffff800000000000, ffffc00000000000)
+```
+
+**Mappatura del modulo I/O:**
+
+```log
+25 | [INF] - mappo il modulo I/O:
+26 | [INF] - - segmento sistema read-only mappato a [ 10000000000, 1000000f000)
+27 | [INF] - - segmento sistema read/write mappato a [ 10000010000, 10000031000)
+28 | [INF] - - heap: [ 10000031000, 10000131000)
+29 | [INF] - - entry point: start [io.s:11]
+```
+
+**2. Isolamento e protezione tramite collegamento:**
+
+**Protezione accidentale:**
+> Separando i due moduli (`sistema` e `I/O`) siamo in grado di **intercettare errori involontari**, come chiamate interne a `salva/carica_stato` o l'accesso a _code processi_, poiché sono dichiarate in un'altro modulo che il _collegatore_ non associa.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**Vantaggi dell'isolamento:**
+- **Prevenzione errori**: Il linker impedisce accessi non autorizzati alle strutture interne
+- **Modularità**: Ogni modulo ha responsabilità ben definite
+- **Debugging facilitato**: Errori sono localizzati al modulo specifico
+
+**3. Comunicazione tramite primitive specializzate:**
+
+**Primitive riservate al modulo I/O:**
+> In `I/O` e in `sistema` devono essere inoltre caricate ulteriori primitive aggiuntive, dedicate esclusivamente a `I/O`, salvate nella tabella `IDT` con il bit `DPL = LIV_SISTEMA`.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**Interfaccia utente:**
+
+Dal file [`IO.md`](./IO.md#3-modulo-io):
+
+> I moduli `utente` e `I/O` permettono la _non atomicità_, che invece è obbligatoria nel modulo `sistema`.
+> L'utente ha acesso alle _primitive_ di `sistema` sia alle nuove _primitive_ realizzate in `I/O`, accessibili sempre tramite `INT`.
+
+**4. Gestione dei processi esterni tramite `activate_pe()`:**
+
+**Meccanismo di attivazione:**
+> Una delle _primitive_ riservate al modulo `I/O` è la primitiva `activate_pe()`, che serve ad **attivare un processo esterno**.
+> Questa primitiva ha gli stessi parametri della normale `activate_p()`, con l'aggiunta di un'ulteriore parametro `irq` corrispondente al **numero del piedino dell'`APIC` da cui arriveranno le richieste** al quale il processo dovrà rispondere.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**Tabella di associazione:**
+> In particolare `I/O` ha una tabella `a_p` con **un entrata per ogni piedino dell'`APIC`** (24 piedini → 24 entrate).
+> La `activate_pe()`, dopo aver attivato un _processo_, inserirà il corrispondente `des_proc` nell'entrata opportuna di `a_p` invece che inserirlo in `pronti`.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**5. Catena di collegamento IRQ → Tipo → Handler → Processo:**
+
+**Implementazione completa:**
+
+Dal file [`IO.md`](./IO.md#3-modulo-io):
+
+```cpp
+// Creiamo il collegamento irq->tipo->handler->processo esterno
+
+// irq->tipo (tramite l'APIC)
+apic::set_VECT(irq, tipo);
+
+// Associazione tipo->handler (tramite la IDT)
+// Nota: in sistema.s abbiamo creato un handler diverso per ogni possibile irq.
+// L'irq che passiamo a load_handler serve ad identificare l'handler che ci serve.
+load_handler(tipo, irq);
+
+// Associazione handler->processo esterno (tramite 'a_p')
+a_p[irq] = p;
+
+// Ora che tutti i collegamenti sono stati creati possiamo iniziare a ricevere
+// interruzioni da irq.
+// Smascheriamo dunque le richieste irq nell'APIC
+apic::set_MIRQ(irq, false);
+```
+
+**6. Gestione delle interruzioni attraverso handler standardizzati:**
+
+**Struttura degli handler:**
+
+Dal file [`IO.md`](./IO.md#3-modulo-io):
+
+```x86asm
+handler_i:
+	; Salvo lo stato del processo che stava girando
+	CALL salva_stato
+
+	; Lo inserisco in cima alla coda pronti
+	; Essendo quello attualmente in esecuzione avrà
+	;  sicuramente la priorità più alta degli altri
+	CALL inspronti
+
+	; Equivalente di esecuzione = a_p[i]
+	MOVq a_p+i*8, %rax
+	MOVq %rax, esecuzione
+
+	; Cedo il controllo al processo esterno
+	CALL carica_stato
+	IRETQ
+```
+
+**7. Primitiva `wfi()` per la sincronizzazione:**
+
+**Implementazione coordinata:**
+
+Dal file [`IO.md`](./IO.md#3-modulo-io):
+
+**Modulo I/O (`io.s`):**
+```x86asm
+.global wfi
+wfi:
+	INT $TIPO_WFI
+	RET
+```
+
+**Modulo Sistema (`sistema.s`):**
+```x86asm
+; Primitiva di sistema wfi() (waiting_for_interrupt)
+a_wfi:
+	; Stato del processo esterno riferito sopra
+	CALL salva_stato
+	CALL apic_send_EOI
+
+	; Non abbiamo certezza di chi riprenderà l'esecuzione
+	; Infatti questa porzione viene eseguita con interruzioni
+	; abilitate, perciò potrebbe esserci qualcun'altro diverso
+	; dal processo inserito con la inspronti() in cima a 'pronti'
+	CALL schedulatore
+	CALL carica_stato
+	RET
+```
+
+**8. Processo di inizializzazione e avvio:**
+
+**Sequenza di avvio coordinata:**
+
+Dal log [`Sistemi Multiprocesso e Processi.md`](./Sistemi%20Multiprocesso%20e%20Processi.md#242-avvio-sistema):
+
+```log
+42 | [INF] 1 Creo il processo main I/O
+43 | [INF] 1 proc=2 entry=start [io.s:11](1024) prio=1278 liv=0
+44 | [INF] 1 Attendo inizializzazione modulo I/O...
+45 | [INF] 2 Heap del modulo I/O: 100000B [0x10000031000, 0x10000131000)
+46 | [INF] 2 Inizializzo la console (kbd + vid)
+47 | [INF] 2 estern=3 entry=estern_kbd(int) [io.cpp:168](0) prio=1104 (tipo=50) liv=0 irq=1
+```
+
+**9. Livelli di privilegio e controllo accessi:**
+
+**Scelta del livello di sistema:**
+> Non avendo però a disposizione questo livello ideale siamo costretti a scenglierne uno tra i due che abbiamo a disposizione. `I/O` gira quindi a `LIV_SISTEMA`.
+> Questa scelta deriva da tutta una serie di motivi, in particolare:
+> - Nell'architettura come l'abbiamo pensata fino a questo punto, non riusciremmo a distinguere `utente` e `I/O` nella gestione delle periferiche _io_ se fossero allo stesso livello.
+> - Nei processori _Intel_ vi è un'associazione tra `IN` e `OUT` ai comandi `CLI` e `STI`. Se ponessimo il `LIV_UTENTE`, forniremmo l'accesso all'`utente` anche a queste istruzioni, cosa che abbiamo già visto non va fatta.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**Gestione delle interruzioni:**
+> Pur avendo `LIV_SISTEMA`, il modulo girerà **a interruzioni abilitate** così come il codice del modulo `utente`. Questo vale sia per il codice dei _processi esterni_ sia per il codice delle _nuove primitive interne_.
+> Eventuali problemi di _mutua esclusione_ dovranno quindi essere risolti **utilizzando i semafori del `sistema`**.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**10. Utilizzo pratico dei processi esterni:**
+
+**Struttura dei processi I/O:**
+
+Dal file [`IO.md`](./IO.md#3-modulo-io):
+
+```cpp
+extern "C" processo_esterno(natl i){
+	// Accedo al descrittore di una specifica interfaccia i
+	// Non è necessario validarlo poiché viene dal modulo io stesso
+	des_io* d = &array_des_io[i];
+
+	// Vado in attesa fino alla prossima wait_for_interrupt
+	// Senza mai terminare
+	for(;;){
+		// Corpo del Processo
+		wfi();
+	}
+}
+```
+
+**Riepilogo dell'architettura di collegamento:**
+
+| **Aspetto**               | **Meccanismo**                         | **Scopo**                         |
+| ------------------------- | -------------------------------------- | --------------------------------- |
+| **Separazione fisica**    | Moduli compilati separatamente         | Isolamento e modularità           |
+| **Mappatura memoria**     | Spazi virtuali dedicati                | Protezione e organizzazione       |
+| **Comunicazione**         | Primitive tramite IDT                  | Interfaccia controllata           |
+| **Gestione interruzioni** | Handler → Processi esterni             | Risposta asincrona agli eventi    |
+| **Attivazione processi**  | `activate_pe()` con tabella `a_p`      | Associazione IRQ → Processo       |
+| **Sincronizzazione**      | `wfi()` cross-modulo                   | Coordinamento tra moduli          |
+| **Privilegi**             | LIV_SISTEMA con interruzioni abilitate | Accesso hardware con responsività |
+
+**Vantaggi del collegamento:**
+
+1. **Modularità**: Ogni modulo ha responsabilità specifiche e ben definite
+2. **Isolamento**: Errori di un modulo non propagano automaticamente agli altri
+3. **Flessibilità**: Facile aggiungere nuove funzionalità I/O senza modificare il kernel
+4. **Sicurezza**: Controllo degli accessi tramite primitive dedicate
+5. **Prestazioni**: Handler leggeri e processi esterni specializzati
+6. **Manutenibilità**: Codice separato facilita debugging e aggiornamenti
+
+**Collegamento con il resto del corso:**
+- **Domanda 12.6 (answered)**: Distinzione tra componenti nell'architettura I/O
+- **Domanda 3.3 (answered)**: Meccanismo APIC per la gestione delle interruzioni
+- **Domanda 8.1 (answered)**: Context switching necessario per i processi esterni
+- **Aspetti pratici**: Questo design è alla base dei moderni driver kernel e microkernel
+
+Il modulo I/O rappresenta quindi un **ponte architetturale** tra il kernel di base e le periferiche, fornendo un'interfaccia controllata e modulare per l'accesso all'hardware mantenendo isolamento e sicurezza.
 
 ---
 
@@ -3189,11 +4104,191 @@ Questo meccanismo garantisce che l'accesso alle periferiche avvenga sempre sotto
 
 ---
 
-### Domanda 12.6
+### Domanda 12.6 (answered)
 **Domanda:** Quali sono le differenze tra primitiva di sistema e driver, primitiva di I/O e handler?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+Le differenze tra questi componenti riflettono la **separazione di responsabilità** nell'architettura del sistema di I/O, dove ogni elemento ha un ruolo specifico nella gestione delle operazioni con le periferiche.
+
+**1. PRIMITIVA DI SISTEMA vs DRIVER**
+
+**Primitiva di Sistema:**
+> L'unica possibilità che gli abbiamo lasciato è quella di usare una _primitiva_, nella nostra macchina ad esempio abbiamo `readconsole()` e `writeconsole()`.
+>
+> *Fonte: [IO.md](./IO)*
+
+Le primitive di sistema sono **interfacce software** che:
+- Forniscono un'**API uniforme** per i processi utente
+- Operano a **livello sistema** con privilegi elevati
+- Gestiscono la **sincronizzazione** e la **mutua esclusione**
+- **Non accedono direttamente all'hardware**
+
+**Driver:**
+> Il _driver_ ha il compito di trasferire effettivamente i byte e sbloccare il processo quando l'operazione si è conclusa.
+>
+> *Fonte: [IO.md](./IO)*
+
+I driver sono **gestori hardware** che:
+- Interagiscono **direttamente con le periferiche**
+- Utilizzano istruzioni **privilegiate** (`IN`, `OUT`)
+- Gestiscono i **registri specifici** del dispositivo
+- Trasferiscono **effettivamente i dati**
+
+**Divisione delle responsabilità:**
+> L'operazione nel suo complesso ha quindi due attori:
+> - La _primitiva_ ha lo scopo di avviare l'operazione di `I/O` e bloccare il processo, garantendo la _mutua esclusione_
+> - Il _driver_ ha il compito di trasferire effettivamente i byte e sbloccare il processo quando l'operazione si è conclusa.
+>
+> *Fonte: [IO.md](./IO)*
+
+**2. PRIMITIVA DI I/O vs HANDLER**
+
+**Primitiva di I/O (es. `read_n`, `write_n`):**
+
+Dal file [`IO.md`](./IO):
+
+```cpp
+extern "C" void c_read_n(natl id, natb *buf, natl quanti){
+    des_io *d = &array_des_io[id];
+
+    sem_wait(d->mutex);     // Garantisce mutua esclusione
+
+    // Trasferisce informazioni al descrittore
+    d->buf = buf;
+    d->quanti = quanti;
+
+    // Abilita le interruzioni sulla periferica
+    outputb(1, d->iCTL);
+
+    // Blocca il processo in attesa del completamento
+    sem_wait(d->sync);
+
+    sem_signal(d->mutex);   // Rilascia mutua esclusione
+}
+```
+
+Le primitive di I/O:
+- **Avviano** le operazioni di I/O
+- **Bloccano** il processo richiedente
+- Gestiscono la **sincronizzazione** con i semafori
+- **Non gestiscono interruzioni**
+
+**Handler (Interrupt Handler):**
+
+Dal file [`IO.md`](./IO):
+
+```x86asm
+a_wfi:
+	CALL salva_stato
+	CALL apic_send_EOI  ; ← Invio EOI all'APIC
+```
+
+Gli handler sono **routine di interruzione** che:
+- Vengono **attivati dalle interruzioni hardware**
+- **Processano i dati** ricevuti/trasmessi
+- **Sbloccano i processi** in attesa
+- Eseguono **acknowledge** delle interruzioni
+
+**3. ARCHITETTURA DEL MODULO I/O**
+
+**Separazione architettuale:**
+> Per risolvere invece il secondo punto "trasformiamo" il _driver_ in un _processo_ in un nuovo modulo, chiamato `modulo I/O`.
+> Il `modulo I/O` è un modulo indipendente, così come `sistema` e `utente`.
+>
+> *Fonte: [IO.md](./IO)*
+
+**Struttura del sistema:**
+
+Dal file [`IO.md`](./IO):
+
+```cpp
+// Associazione irq->tipo (tramite l'APIC)
+apic::set_VECT(irq, tipo);
+// Associazione tipo->handler (tramite la IDT)
+gate_init(tipo, routine);
+// Smascheriamo le richieste irq nell'APIC
+apic::set_MIRQ(irq, false);
+```
+
+**4. FLUSSO OPERATIVO COMPLETO**
+
+**Chiamata da processo utente:**
+
+Dal file [`IO.md`](./IO):
+
+```x86asm
+; Utente.s
+.global read_n
+read_n:
+    int $IO_TIPO_RN  ; Chiamata primitiva tramite interruzione software
+    ret
+```
+
+**Gestione nel sistema:**
+
+```x86asm
+; Sistema.s
+.global a_read_n
+.extern c_read_n
+a_read_n:
+    call c_read_n    ; Non salva/carica stato per efficienza
+    iretq
+```
+
+**Completamento tramite interruzione:**
+
+Dal file [`IO.md`](./IO):
+
+```cpp
+extern "C" void c_driver_con(){
+    array_des_io[0].buf[quanti_letti] = char(inputb(array_des_io[0].iOUT));
+    // ... gestione carattere ...
+    
+    quanti_letti++;
+    if(quanti_letti == array_des_io[0].quanti) {
+        // Operazione completata - risveglia processo
+        quanti_letti = 0;
+        sem_signal(array_des_io[0].sync);
+    }
+    
+    apic_send_EOI();
+}
+```
+
+**5. RIEPILOGO COMPARATIVO**
+
+| **Componente**        | **Dove opera** | **Ruolo principale**            | **Accesso hardware** | **Gestione processi**   |
+| --------------------- | -------------- | ------------------------------- | -------------------- | ----------------------- |
+| **Primitiva Sistema** | Modulo Sistema | API uniforme, controllo accessi | No                   | Validazione, protezione |
+| **Driver**            | Modulo I/O     | Interfaccia hardware diretta    | Sì (IN/OUT)          | No                      |
+| **Primitiva I/O**     | Modulo Sistema | Sincronizzazione, avvio I/O     | Tramite driver       | Blocca/sblocca processi |
+| **Handler**           | Modulo I/O     | Gestione eventi asincroni       | Sì (ACK interrupt)   | Sblocca processi        |
+
+**6. ESEMPIO PRATICO: Lettura da Console**
+
+**Sequenza completa:**
+1. **Processo utente** chiama `read_n()` (primitiva di sistema)
+2. **Primitiva I/O** `c_read_n()` configura dispositivo e blocca processo
+3. **Driver** nel modulo I/O gestisce la comunicazione hardware
+4. **Handler** `c_driver_con()` gestisce le interruzioni e sblocca il processo
+
+**Coordinamento tramite semafori:**
+> Nel nostro sistema, i processi del `modulo I/O` vengono bloccati tramite la **primitiva `wfi()`** (Wait For Interrupt), che sospende il processo fino al verificarsi della corrispondente interruzione.
+>
+> *Fonte: [IO.md](./IO)*
+
+**Approfondimenti:**
+- **Collegamento con Domanda 12.1 (answered)**: La protezione impone questa separazione per sicurezza
+- **Collegamento con Domanda 8.1 (answered)**: Il cambio di contesto è cruciale per la gestione dei processi bloccati
+- **Aspetti pratici**: Questa architettura garantisce modularità, sicurezza e manutenibilità del sistema
+
+**Conclusioni:**
+La distinzione tra questi componenti riflette i **principi fondamentali** dell'architettura moderna:
+- **Separazione di privilegi**: Primitive in sistema, driver in modulo separato
+- **Responsabilità specifiche**: Ogni componente ha un ruolo ben definito
+- **Modularità**: Facilita manutenzione e testing del sistema
+- **Sicurezza**: Controllo degli accessi attraverso le primitive di sistema
 
 ---
 
@@ -3221,11 +4316,183 @@ Questo meccanismo garantisce che l'accesso alle periferiche avvenga sempre sotto
 
 ---
 
-### Domanda 12.10
+### Domanda 12.10 (answered)
 **Domanda:** Quali sono i vantaggi e gli svantaggi dell'approccio con driver separati?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+
+L'approccio con **driver separati** in un modulo I/O dedicato rappresenta un'evoluzione architettuale che risolve problemi fondamentali dei driver tradizionali, pur introducendo nuove complessità.
+
+**Problemi dell'approccio tradizionale:**
+
+Dal file [`IO.md`](./IO#3-modulo-io):
+
+> La gestione con il meccanismo dei _driver_ che abbiamo visto, per quanto funzionante, è però poco flessibile ed efficiente per due motivi:
+> 1. Il driver deve essere eseguito con **interruzioni disabilitate**, in quanto manipola direttamente le _code processi_
+> 2. Il driver **non si può bloccare**, in quanto non è un processo
+
+**VANTAGGI dell'approccio con driver separati:**
+
+**1. Gestione delle interruzioni migliorata:**
+
+> Il primo punto può causare problemi, in quanto costringe anche le interruzioni a priorità maggiore ad aspettare l'esecuzione prima di poter agire.
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Soluzione con modulo separato:**
+> Tramite questa soluzione risolviamo anche il problema delle interruzioni disabilitate, poiché, essendo adesso un _processo_ come gli altri, basterà disattivarle utilizzando `cli` e `sti` **solo nei punti dove si accede effettivamente alle strutture dati condivise**.
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Vantaggi:**
+- **Interruzioni selettive**: Le interruzioni vengono disabilitate solo quando necessario
+- **Priorità rispettate**: Le interruzioni ad alta priorità non vengono bloccate inutilmente
+- **Responsività migliorata**: Il sistema rimane più reattivo
+
+**2. Capacità di blocking I/O:**
+
+**Problema driver tradizionale:**
+> Il driver **non si può bloccare**, in quanto non è un processo
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Soluzione:**
+> Per risolvere invece il secondo punto "trasformiamo" il _driver_ in un _processo_ in un nuovo modulo, chiamato `modulo I/O`.
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Vantaggi:**
+- **Operazioni bloccanti**: I driver possono attendere eventi senza bloccare il sistema
+- **Gestione asincrona**: Possibilità di gestire operazioni I/O complesse
+- **Utilizzo dei semafori**: Sincronizzazione controllata con il resto del sistema
+
+**3. Isolamento e sicurezza:**
+
+**Separazione moduli:**
+> Separando i due moduli (`sistema` e `I/O`) siamo in grado di **intercettare errori involontari**, come chiamate interne a `salva/carica_stato` o l'accesso a _code processi_, poiché sono dichiarate in un'altro modulo che il _collegatore_ non associa.
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Vantaggi:**
+- **Protezione accidentale**: Prevenzione di errori di programmazione
+- **Isolamento dei bug**: Errori nei driver non corrompono strutture critiche del sistema
+- **Verificabilità**: Più facile debuggare e testare i componenti separatamente
+
+**4. Architettura modulare:**
+
+Dal file [`IO.md`](./IO#3-modulo-io):
+
+> Più precisamente, facciamo in modo che l'interruzione non mandi in esecuzione l'intero _driver_, ma solo un piccolo _handler_ che ha come scopo mandare in esecuzione il _processo_, chiamato **processo esterno**, che si preoccuperà di svolgere le istruzioni che prima erano svolte dal driver.
+
+**Vantaggi:**
+- **Handler leggeri**: Gli interrupt handler rimangono minimali e veloci
+- **Processi dedicati**: Ogni dispositivo ha un processo dedicato per la gestione
+- **Scalabilità**: Facile aggiungere nuovi dispositivi senza modificare il core
+
+**5. Flessibilità nella gestione:**
+
+**Gestione delle primitive:**
+> In `I/O` e in `sistema` devono essere inoltre caricate ulteriori primitive aggiuntive, dedicate esclusivamente a `I/O`, salvate nella tabella `IDT` con il bit `DPL = LIV_SISTEMA`.
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Vantaggi:**
+- **API specializzate**: Primitive ottimizzate per ogni tipo di dispositivo
+- **Estensibilità**: Facile aggiungere nuove funzionalità senza modificare il kernel
+
+**SVANTAGGI dell'approccio con driver separati:**
+
+**1. Complessità implementativa:**
+
+> Questa soluzione, per quanto utilizzata in sistemi reali, comporta grandi complicazione nella scrittura del codice.
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Problemi:**
+- **Sincronizzazione complessa**: Gestione coordinata tra moduli diversi
+- **Debugging difficile**: Errori possono propagarsi tra moduli
+- **Overhead di comunicazione**: Necessità di IPC tra sistema e I/O
+
+**2. Gestione dei livelli di privilegio:**
+
+**Compromesso necessario:**
+> Idealmente vorremmo che il codice contenuto in questo nuovo modulo girasse ad un livello **intermedio tra `LIV_UTENTE` e `LIV_SISTEMA`** in quanto:
+> - Deve avere più diritti degli _utenti_, come il poter agire con le periferiche di _io_
+> - Non deve poter accedere direttamente alle strutture dati del sistema, come _code processi_, _tabelle di paginazione_, `IDT`, `GDT`, ...
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Problemi:**
+- **Privilegio eccessivo**: I driver hanno accesso a LIV_SISTEMA completo
+- **Sicurezza compromessa**: Accesso potenziale a strutture critiche del sistema
+- **Protezione limitata**: Non completamente isolati dal kernel
+
+**3. Gestione della concorrenza:**
+
+**Problemi di mutua esclusione:**
+> Eventuali problemi di _mutua esclusione_ dovranno quindi essere risolti **utilizzando i semafori del `sistema`**.
+>
+> *Fonte: [IO.md](./IO#3-modulo-io)*
+
+**Problemi:**
+- **Deadlock potenziali**: Rischio di stalli tra semafori diversi
+- **Contesa delle risorse**: Competizione per semafori condivisi
+- **Performance impact**: Overhead dei meccanismi di sincronizzazione
+
+**4. Overhead di context switching:**
+
+**Costi aggiuntivi:**
+- **Cambio contesto**: Ogni interruzione richiede attivazione di processo esterno
+- **Latenza aumentata**: Tempo aggiuntivo per gestire le operazioni I/O
+- **Memoria aggiuntiva**: Ogni driver richiede il proprio stack e contesto
+
+**5. Verifica e validazione dati:**
+
+**Problemi di sicurezza:**
+> Lo standard che assumiamo è quello di **_non fidarci dell'utente_**.
+> Sarà quindi necessario controllare e approvare i dati che l'utente ci fornisce, in particolare il _buffer_ dove salvare i dati, che ci è restituito attraverso un'indirizzo.
+>
+> *Fonte: [IO.md](./IO#23-verifica-dati-utente)*
+
+**Problemi:**
+- **Validation overhead**: Controlli aggiuntivi su ogni parametro utente
+- **Indirizzi cavalli di Troia**: Rischio di accessi non autorizzati
+- **Complessità delle verifiche**: Controlli di normalizzazione, mappatura e privilegi
+
+**RIEPILOGO COMPARATIVO:**
+
+| **Aspetto**        | **Driver Tradizionali**    | **Driver Separati**             |
+| ------------------ | -------------------------- | ------------------------------- |
+| **Interruzioni**   | Sempre disabilitate        | Disabilitate solo se necessario |
+| **Blocking I/O**   | Non supportato             | Completamente supportato        |
+| **Isolamento**     | Nessuno                    | Moderato tramite linking        |
+| **Complessità**    | Bassa                      | Alta                            |
+| **Sicurezza**      | Rischio corruzione sistema | Protezione parziale             |
+| **Performance**    | Handler veloci             | Overhead context switching      |
+| **Manutenibilità** | Difficile                  | Migliore modularità             |
+| **Scalabilità**    | Limitata                   | Buona                           |
+
+**Conclusioni:**
+
+L'approccio con driver separati rappresenta un **compromesso architetturale** che:
+
+**Pro:**
+- Migliora significativamente la **gestione delle interruzioni** e la **responsività**
+- Abilita **operazioni I/O complesse** con capacità di blocking
+- Fornisce **isolamento parziale** e migliore **modularità**
+- Facilita **debugging** e **manutenzione** del codice
+
+**Contro:**
+- Introduce **complessità significativa** nell'implementazione
+- Richiede **gestione sofisticata** della concorrenza
+- Ha **overhead di performance** per context switching
+- Non risolve completamente i **problemi di sicurezza**
+
+**Approfondimenti:**
+- **Collegamento con Domanda 12.6 (answered)**: La separazione dei ruoli tra primitive, driver e handler
+- **Collegamento con Domanda 8.1 (answered)**: Il context switching è fondamentale per i processi esterni
+- **Aspetti pratici**: Questo approccio è utilizzato in sistemi operativi moderni come Linux (kernel threads) e Windows (system worker threads)
+- **Evoluzione moderna**: Nei sistemi attuali si utilizzano microkernel o driver in user space per risolvere completamente i problemi di isolamento
 
 ---
 
