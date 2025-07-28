@@ -125,3 +125,14 @@ jobs:
             echo "Nessuna modifica staged da committare"
           fi
         fi
+        
+    - name: Cleanup temporary files
+      run: |
+        # Rimuovi i file JSON temporanei
+        if [ -f ".github/json/qa-stats.json" ]; then
+          rm -f .github/json/qa-stats.json
+          echo "File JSON temporaneo rimosso"
+        fi
+        
+        # Rimuovi la cartella se è vuota (ignora errori se contiene altri file)
+        rmdir .github/json 2>/dev/null || echo "Cartella json non rimossa (contiene altri file)"

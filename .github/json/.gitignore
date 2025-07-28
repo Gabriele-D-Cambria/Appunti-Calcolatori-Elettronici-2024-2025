@@ -1,5 +1,5 @@
-# Ignora i file di test
-*-test.json
+# Ignora tutti i file JSON temporanei
+*.json
 
-# Mantieni i file di produzione
-!qa-stats.json
+# Eccezione: mantieni solo questo file .gitignore
+!.gitignore
