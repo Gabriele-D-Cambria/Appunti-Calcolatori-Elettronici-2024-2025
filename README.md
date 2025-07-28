@@ -1,7 +1,7 @@
 # Appunti Calcolatori Elettronici A.A. 2024-2025
 
 Questi sono gli appunti del corso di Calcolatori Elettronici 2024-2025 dell'Università di Pisa.
-Per una visualizzazione ottimale con formattazione completa e rendering delle formule matematiche, si consiglia di consultare la versione online disponibile su [GitHub Pages](https://gabriele-d-cambria.github.io/Appunti-Calcolatori-Elettronici-2024-2025/).
+Per una visualizzazione ottimale con formattazione completa, rendering delle formule matematiche e funzionamento dei link di navigazione, si consiglia di consultare la versione online disponibile su [GitHub Pages](https://gabriele-d-cambria.github.io/Appunti-Calcolatori-Elettronici-2024-2025/).
 
 ## 📚 Informazioni sul Corso
 
@@ -61,7 +61,7 @@ La raccolta include sia domande effettivamente poste dal professore durante gli 
 - Per qualsiasi dubbio, fare sempre **riferimento alle lezioni** e al materiale del professore
 - Sono disponibile ad aggiornare la raccolta con nuove domande dai prossimi appelli. Per contribuire è possibile inviare una mail al [seguente indirizzo](mailto:gabrielecambria04@gmail.com?subject=Integrazione%20domande%20calcolatori%20elettronici) oppure creare una `pull request` aggiungendo le domande nella sezione appropriata.
 
-📝 **Stato del lavoro:** Sto attivamente lavorando all'espansione e al miglioramento di questa sezione. Attualmente il 50.5% delle domande ha una risposta
+📝 **Stato del lavoro:** Sto attivamente lavorando all'espansione e al miglioramento di questa sezione. Attualmente il <!-- QA_PERCENTAGE --><!-- /QA_PERCENTAGE --> delle domande ha una risposta
 
 ## 📜 Disclaimer
 

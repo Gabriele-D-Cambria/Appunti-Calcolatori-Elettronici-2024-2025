@@ -1,0 +1,5 @@
+# Ignora i file di test
+*-test.json
+
+# Mantieni i file di produzione
+!qa-stats.json

@@ -1,0 +1,127 @@
+name: Update Q&A Statistics
+
+on:
+  push:
+    paths:
+      - 'Domande e Risposte.md'
+  schedule:
+    - cron: '0 6 * * 1'  # Esegue ogni lunedì alle 6:00 AM
+  workflow_dispatch:  # Permette esecuzione manuale
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Calculate Q&A Statistics
+      run: |
+        node << 'EOF'
+        const fs = require('fs');
+        
+        try {
+          // Leggi il file Domande e Risposte
+          const qaFilePath = './Domande e Risposte.md';
+          
+          if (!fs.existsSync(qaFilePath)) {
+            console.log('File "Domande e Risposte.md" non trovato');
+            process.exit(1);
+          }
+          
+          const content = fs.readFileSync(qaFilePath, 'utf8');
+          
+          // Trova tutte le domande (linee complete per analisi accurata)
+          const allQuestionLines = content.split('\n').filter(line => 
+            line.match(/^###\s+Domanda\s+\d+\.\d+/)
+          );
+          
+          // Trova le domande con risposta
+          const answeredQuestionLines = allQuestionLines.filter(line => 
+            line.includes('(answered)')
+          );
+          
+          const totalQuestions = allQuestionLines.length;
+          const answeredCount = answeredQuestionLines.length;
+          const percentage = totalQuestions > 0 ? ((answeredCount / totalQuestions) * 100).toFixed(1) : '0.0';
+          
+          console.log(`Domande totali: ${totalQuestions}`);
+          console.log(`Domande con risposta: ${answeredCount}`);
+          console.log(`Percentuale: ${percentage}%`);
+          
+          // Crea la cartella se non esiste
+          if (!fs.existsSync('.github/json')) {
+            fs.mkdirSync('.github/json', { recursive: true });
+          }
+          
+          // Salva le statistiche
+          fs.writeFileSync('.github/json/qa-stats.json', JSON.stringify({
+            total: totalQuestions,
+            answered: answeredCount,
+            percentage: percentage,
+            timestamp: new Date().toISOString()
+          }, null, 2));
+          
+        } catch (error) {
+          console.error('Errore durante il calcolo delle statistiche:', error);
+          process.exit(1);
+        }
+        EOF
+        
+    - name: Update README
+      run: |
+        # Verifica se il file qa-stats.json esiste
+        if [ ! -f ".github/json/qa-stats.json" ]; then
+          echo "File .github/json/qa-stats.json non trovato"
+          exit 1
+        fi
+        
+        # Leggi la percentuale dalle statistiche
+        PERCENTAGE=$(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).percentage")
+        
+        echo "Aggiornamento percentuale a: ${PERCENTAGE}%"
+        
+        # Aggiorna il README usando i placeholder
+        sed -i "s/<!-- QA_PERCENTAGE -->[0-9.]*%<!-- \/QA_PERCENTAGE -->/<!-- QA_PERCENTAGE -->${PERCENTAGE}%<!-- \/QA_PERCENTAGE -->/g" README.md
+        
+        # Verifica se ci sono state modifiche
+        if git diff --quiet README.md; then
+          echo "Nessuna modifica necessaria"
+        else
+          echo "README aggiornato con successo"
+        fi
+        
+    - name: Commit and Push changes
+      run: |
+        # Configura Git
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        # Verifica se ci sono modifiche da committare
+        if git diff --staged --quiet && git diff --quiet; then
+          echo "Nessuna modifica da committare"
+        else
+          # Aggiungi le modifiche
+          git add README.md
+          
+          # Committa solo se ci sono modifiche staged
+          if ! git diff --staged --quiet; then
+            git commit -m "🤖 Aggiornamento statistiche Q&A automatico
+            
+            - Domande totali: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).total")
+            - Domande con risposta: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).answered") 
+            - Percentuale completamento: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).percentage")%"
+            
+            git push
+          else
+            echo "Nessuna modifica staged da committare"
+          fi
+        fi
