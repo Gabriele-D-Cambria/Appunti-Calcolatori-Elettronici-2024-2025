@@ -344,24 +344,19 @@ body {
 }
 
 .site-nav {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .nav-internal {
     display: flex;
     align-items: center;
     gap: 1rem;
-}
-
-.nav-external {
-    display: flex;
-    align-items: center;
 }
 
 .home-link, .questions-link {
