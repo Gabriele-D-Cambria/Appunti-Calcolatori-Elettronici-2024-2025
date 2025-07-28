@@ -9,6 +9,9 @@ on:
     - cron: '0 6 * * 1'  # Esegue ogni lunedì alle 6:00 AM
   workflow_dispatch:  # Permette esecuzione manuale
 
+permissions:
+  contents: write  # Necessario per fare commit e push
+
 jobs:
   update-stats:
     runs-on: ubuntu-latest
