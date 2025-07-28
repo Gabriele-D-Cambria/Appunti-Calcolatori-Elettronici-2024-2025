@@ -123,7 +123,7 @@
   - [14. Architettura Moderna CPU](#14-architettura-moderna-cpu)
     - [Domanda 14.1 (answered)](#domanda-141-answered)
     - [Domanda 14.2 (answered)](#domanda-142-answered)
-    - [Domanda 14.3](#domanda-143)
+    - [Domanda 14.3 (answered)](#domanda-143-answered)
     - [Domanda 14.4](#domanda-144)
     - [Domanda 14.5](#domanda-145)
     - [Domanda 14.6](#domanda-146)
@@ -7695,11 +7695,236 @@ La risoluzione delle dipendenze sul controllo rappresenta un equilibrio tra pres
 
 ---
 
-### Domanda 14.3
+### Domanda 14.3 (answered)
 **Domanda:** Spieghi l'esecuzione speculativa e out of order con diagrammi. Come funziona la pipeline?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+L'esecuzione speculativa e out-of-order rappresenta l'evoluzione moderna dell'architettura delle CPU Intel, permettendo di superare i limiti sequenziali del codice assemblato per massimizzare il throughput delle istruzioni.
+
+**1. Pipeline Tradizionale - Fondamenti**
+
+**Struttura base della pipeline:**
+> Le istruzioni passeranno adesso in diverse fasi:
+> 1. **_Prelievo_**
+> 2. **_Decodifica_**
+> 3. **_Prelevio Operandi_** <small>(dalla memoria o dai registri)</small>
+> 4. **_Esecuzione dell'istruzione_**
+> 5. **_Scrittura del risultato nella destinazione_**
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#2-pipeline)*
+
+**Diagramma pipeline base:**
+
+| Tempo | Prelievo | Decodifica | Prelevio Operandi | Esecuzione | Scrittura |
+|-------|----------|------------|-------------------|------------|-----------|
+| t₀    | i        |            |                   |            |           |
+| t₁    | i+1      | i          |                   |            |           |
+| t₂    | i+2      | i+1        | i                 |            |           |
+| t₃    | i+3      | i+2        | i+1               | i          |           |
+| t₄    | i+4      | i+3        | i+2               | i+1        | i         |
+
+> In questo modo moltiplichiamo il numero di istruzioni completate al secondo per 5, ovvero _il numero di stadi nella pipeline_.
+
+**Problemi - ALEE (Hazards):**
+> All'interno del flusso delle istruzioni ci sono alcune situazioni che ci impediscono di eseguire un'istruzione ad ogni ciclo di _clock_. Queste situazioni prendono il nome di `ALEE`.
+>
+> Ne esistono di tre tipi:
+> - `ALEE strutturali`
+> - `ALEE sui dati`  
+> - `ALEE sul controllo`
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#22-problemi-legati-alla-pipeline-alee)*
+
+**2. Architettura Intel Moderna - Esecuzione Out-of-Order**
+
+**Principio base:**
+> Prendere le istruzioni `CISC` e **_tradurle internamente in istruzioni_** `RISC`.
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#3-architettura-intel)*
+
+**Fetch & Decode avanzate:**
+> Il circuito di `Fetch` ha al suo interno due buffer da `16Byte` l'uno. Sono due poiché, per via delle dimensioni variabili delle operazioni `CISC`, non sappiamo nemmeno dove l'operazione inizi.
+>
+> Il circuito di `Decode` si divide invece in due fasi:
+> 1. _Fase di predecodifica_: questa fase è necessaria a capire **dove si trovano le istruzioni**
+> 1. _Fase di decodifica_: si occupa di decodificare le istruzioni recuperate dalla `Fetch` per tradurle in _microistruzioni `RISC`_.
+
+**Architettura di esecuzione fuori ordine:**
+
+```
+  FETCH & DECODE
+       ↓
+   EMISSIONE ← [Registri interni con campi W,C]
+       ↓
+   ┌─────────────────────────────────┐
+   │    Stazioni di Prenotazione     │
+   ├─────────┬─────────┬─────────────┤
+   │  ALU 1  │  ALU 2  │   ALU n     │
+   └─────────┴─────────┴─────────────┘
+       ↓          ↓          ↓
+      BUS (risultati verso registri)
+```
+
+> Per ottenere questo risultato immaginiamo di avere più di un'unica `ALU`, ognuna preceduta da quelle che chiamiamo `stazioni di prenotazione`.
+> Questo componente riceve le istruzioni dalla `decode` e le smisterà nelle varie `stazioni di prenotazione` passando attraverso i **registri interni**, diversi da quelli utilizzabili dal programmatore e che, oltre ai dati stessi, contengono anche due campi aggiuntivi:
+> - `W` (_writing_)
+> - `C` (_count_)
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#32-esecuzione-fuori-ordine)*
+
+**3. Gestione delle Dipendenze**
+
+**Classificazione:**
+> Affinché il risultato finale dei registri sia significativo, dobbiamo rispettare una serie di condizioni chiamate **_Dipendenze_**, che si dividono in tre tipi:
+> - **_Dipendenze sui Dati_**
+> - **_Dipendenze sui Nomi_**  
+> - **_Dipendenze sui Controllo_**
+>
+> Le **_dipendenze_** sono **proprietà del programma**, _indipendenti dal circuito che esegue il programma_.
+
+**A) Dipendenze sui Dati (RAW - Read After Write):**
+> Un'istruzione `i` **dipende dai dati** di un'altra istruzione `j`, _precedente ad essa_, se `i` utilizza come uno dei registri `src` il registro `dst` di `j`.
+
+**Esempio:**
+```x86asm
+ADD R1, R2, R3    ; j scrive R3
+SUB R3, R4, R5    ; i legge R3 - dipendenza sui dati
+```
+
+**Risoluzione:**
+> Per risolvere questo tipo di dipendenze, facciamo in modo che l'`emissione` setti il bit `W` del registro `dst` dell'istruzione che sta emettendo.
+> La stazione di `emissione`, prima di inviare i dati alla `ALU`, valuterà il bit `W` dei sorgenti, inviandoli **solamente quando `dst->W == 0`**.
+
+**B) Dipendenze sui Nomi:**
+
+**Antidipendenze (WAR - Write After Read):**
+```x86asm
+ADD R1, R2, R3    ; i legge R1
+SUB R4, R5, R1    ; j scrive R1 - antidipendenza
+```
+
+**Dipendenze in uscita (WAW - Write After Write):**
+```x86asm
+ADD R1, R2, R3    ; i scrive R3
+SUB R4, R5, R3    ; j scrive R3 - dipendenza in uscita
+```
+
+**Risoluzione - Register Renaming:**
+> Per quanto riguarda le **dipendenze sui nomi**, esse sono anche chiamate **dipendenze fittizie**, questo perché se andiamo a sovrascrivere il contenuto di un registro è perché adesso lo vogliamo utilizzare per fare altro.
+>
+> Un modo per semplificare questo passaggio è inserire, prima degli $n$ registri fisici `Fi`, una tabella contentente $m$ **_registri logici_** `Ri` che punteranno ai registri fisici non in uso.
+
+**Traduzione Logico → Fisico:**
+```
+Registri Logici → Tabella di Rinomina → Registri Fisici
+    R1    →           F6            →      F6
+    R2    →           F2            →      F2  
+    R3    →           F7            →      F7
+```
+
+**4. Esecuzione Speculativa e Predizione dei Salti**
+
+**Branch Target Buffer (BTB):**
+> In generale tutte queste cose vengono fatte dal **_Branch Target Buffer_** (`BTB`), a tutti gli effetti una _cache_, che:
+> Ha come scopo associare ad ogni salto il proprio esito e la destinazione del salto (se avviene)
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#232-alee-sul-controllo)*
+
+**Predittore a quattro stati:**
+```
+SNT ←→ WNT ←→ WT ←→ ST
+(Strongly Not Taken) → (Weakly Not Taken) → (Weakly Taken) → (Strongly Taken)
+```
+
+**Principio dell'esecuzione speculativa:**
+> Per quanto riguarda le **dipendenze sul controllo** anche qui, come per la _pipeline_, continuiamo a esaminare le informazioni come se il flusso dei dati fosse corretto.
+> In questo caso la nostra architettura andrà a _eseguire_ queste istruzioni predette **prima di sapere se debbano o meno essere eseguite**.
+> Questa tecnica si chiama **_Speculazione_**.
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#335-esecuzione-speculativa)*
+
+**5. ReOrder Buffer (ROB) - Cuore dell'Esecuzione Speculativa**
+
+**Struttura e funzione:**
+> Per un'implementazione corretta della _specuazione_ è necessaria una nuova struttura dati chiamata **_ReOrder Buffer_** `ROB`. Questa struttura dati è una _coda_ che **ricostruisce l'ordine di emissione delle istruzioni**.
+> Al suo interno ha un bit `T` che, se settato, indica che l'operazione associata è terminata.
+>
+> In questa nuova architettura, le istruzioni vanno a scrivere i risultati nei registri **_solo dopo che sono state ritirate dal `ROB`_**.
+
+**Diagramma architettura completa con ROB:**
+
+```
+    FETCH & DECODE
+         ↓
+      EMISSIONE ← [Tabella Registri Logici]
+         ↓
+    ┌─────────────────────────────────┐
+    │    Stazioni di Prenotazione     │     ┌─────────────┐
+    ├─────────┬─────────┬─────────────┤  →  │     ROB     │
+    │  ALU 1  │  ALU 2  │   ALU n     │     │ [T][OP][DST]│
+    └─────────┴─────────┴─────────────┘     │ [T][OP][DST]│
+         ↓          ↓          ↓             │ [T][OP][DST]│
+        BUS (risultati speculativi)          └─────────────┘
+                  ↓                               ↓
+              Registri Speculativi    →    Registri Non-Speculativi
+```
+
+**Gestione errori di predizione:**
+> Adesso, quando terminiamo un'istruzione di `Jcond` e ne conosciamo l'esito, setteremo il suo bit `T` e la estraemo. Successivamente, valutandone l'esito:
+> - Se **si effettua dove ci aspettiamo** continuiamo a prelevare dal `ROB`
+> - Se **abbiamo sbagliato** allora **_svuotiamo il `ROB`_**.
+>
+> Finché le istruzioni del `ROB` non sono prelevate **_non abbiamo infatti effetti sui registri veri e propri_**, perciò possiamo tranquillamente eseguire codice che non siamo sicuri vada eseguito.
+
+**6. Registri Speculativi vs Non-Speculativi**
+
+**Architettura duale:**
+> Modifichiamo quindi gli indirizzi logici, in modo che invece di avere un solo indirizzo logico per ogni registro, ne conserviamo adesso due:
+> - Nel primo inseriamo l'_informazione certa_, quella che siamo sicuri vada lì ottenuta dall'estrazione dal `ROB`
+> - Nel secondo inseriamo invece l'_informazione speculativa_ derivata dalle `ALU` e potenzialmente annullabile con l'annullamento del `ROB`
+
+**Recupero dagli errori:**
+> In questo modo, quando svuotiamo il `ROB` nel caso delle `Jcond` che non hanno l'esito atteso, è sufficente copiare i valori _non speculativi_ nei registri _speculativi_.
+> Così facendo, alla prossima operazione, prelevando dal registro _non speculativo_, **non avremo effetti collaterali** poiché quelli salvati sono valori certi.
+
+**7. Gestione LOAD e STORE Speculative**
+
+**Store Buffer:**
+> Questo si ottiene inserendo uno `Store Buffer`, una _coda_ nella quale effettuiamo le scritture/letture durante l'esecuzione speculativa, senza quindi accedere direttamente in memoria. 
+> Copieremo i dati in memoria _**solamente quando l'istruzione verrà recuperata**_ dal `ROB`.
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#34-istuzioni-di-ld-e-st)*
+
+**Gestione eccezioni speculative:**
+> Per evitare quindi che si possa generare un `fault` in questi casi, quello che facciamo è dedicare un'ulteriore bit `fault` all'interno del `ROB`.
+> Adesso, l'eccezione verrà sollevata **_solamente quando l'istruzione con il bit settato viene prelevata_**.
+
+**8. Vantaggi dell'Architettura Moderna**
+
+**Prestazioni:**
+> In questa architettura l'esecuzione va in attesa **_solo per via di limiti fisici_**.
+> Per migliorare le prestazioni è infatti sufficente aumentare i parametri fisici: le dimensioni del `ROB`, il numero di `ALU` e `stazioni di controllo`, il numero di _registri_, ...
+
+**Esempio pratico:**
+Dal file [`Architettura Moderna CPU Intel.md`](./Architettura%20Moderna%20CPU%20Intel#31-fase-di-fetch-e-decode):
+
+```cpp
+// Ciclo for indipendente - perfetto per esecuzione out-of-order
+for(int i = 0; i < 100000; ++i){
+    a[i] = v1[i] + v2[i];  // Ogni iterazione è indipendente
+}
+```
+
+> Ogni operazione effettuata nei vari cicli del `for` **_è indipendente dalle altre_**.
+> Non abbiamo quindi _nessun obbligo ad eseguirle nell'ordine che il programmatore desidera_. Infatti, se avessimo sufficenti sommatori a disposizione, potremmo persino _effettuarle tutte insieme in parallelo_.
+
+**Conclusione:**
+L'esecuzione speculativa e out-of-order rappresenta un equilibrio sofisticato tra prestazioni e complessità, permettendo alle CPU moderne di superare i limiti imposti dalle dipendenze del codice sequenziale mantenendo la correttezza semantica dei programmi.
+
+**Approfondimenti:**
+- **Collegamento con Domanda 14.1 (answered)**: Le dipendenze sono alla base dell'intero sistema di esecuzione fuori ordine
+- **Collegamento con Domanda 14.2 (answered)**: La predizione dei salti è essenziale per l'esecuzione speculativa efficace
+- **Aspetti pratici**: ROB e BTB sono componenti critici per le prestazioni moderne; la loro dimensione determina la capacità di esecuzione parallela
 
 ---
 
