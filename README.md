@@ -63,6 +63,30 @@ La raccolta include sia domande effettivamente poste dal professore durante gli 
 
 📝 **Stato del lavoro:** Sto attivamente lavorando all'espansione e al miglioramento di questa sezione. Attualmente il <!-- QA_PERCENTAGE -->51.4%<!-- /QA_PERCENTAGE --> delle domande ha una risposta.
 
+## 🎯 Script Estrattore Domande
+
+Per facilitare lo studio è disponibile uno **script interattivo Python** (`estrattore domande.py`) che simula un'interrogazione, permettendo di esercitarsi con le domande in modalità casuale.
+
+### 📋 Funzionalità principali:
+- **🎲 Selezione casuale** delle domande con risposta
+- **📊 Visualizzazione statistiche** di completamento per sezione
+- **🔍 Filtraggio** tra domande con e senza risposta
+- **⚡ Comandi rapidi** a singolo carattere per navigazione veloce
+- **📁 Verifica automatica** della presenza del file necessario
+
+### 🚀 Come usarlo:
+1. Scarica il file `estrattore domande.py` nella stessa directory del file `Domande e Risposte.md`
+2. Esegui lo script: `python3 "estrattore domande.py"`
+3. Usa i comandi disponibili per navigare tra le domande:
+   - **c/n** → Estrai una domanda con risposta
+   - **z**   → Estrai una domanda senza risposta
+   - **r**   → Mostra la risposta (se presente)
+   - **s**   → Statistiche
+   - **h**   → Aiuto comandi
+   - **e/q** → Esci
+
+Lo script è **completamente portatile** e funziona automaticamente ovunque venga posizionato, a patto che sia presente il file `Domande e Risposte.md` <u>**nella stessa cartella**</u>.
+
 ## 📜 Disclaimer
 
 Questi appunti sono personali e destinati esclusivamente all'uso didattico. 
