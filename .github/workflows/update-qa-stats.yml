@@ -89,8 +89,8 @@ jobs:
         
         echo "Aggiornamento percentuale a: ${PERCENTAGE}%"
         
-        # Aggiorna il README usando i placeholder
-        sed -i "s/<!-- QA_PERCENTAGE -->[0-9.]*%<!-- \/QA_PERCENTAGE -->/<!-- QA_PERCENTAGE -->${PERCENTAGE}%<!-- \/QA_PERCENTAGE -->/g" README.md
+        # Aggiorna il README usando i placeholder - pattern più robusto
+        sed -i "s/<!-- QA_PERCENTAGE -->[0-9.]*%*<!-- \/QA_PERCENTAGE -->/<!-- QA_PERCENTAGE -->${PERCENTAGE}%<!-- \/QA_PERCENTAGE -->/g" README.md
         
         # Verifica se ci sono state modifiche
         if git diff --quiet README.md; then
@@ -105,26 +105,24 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        # Verifica se ci sono modifiche da committare
-        if git diff --staged --quiet && git diff --quiet; then
-          echo "Nessuna modifica da committare"
-        else
-          # Aggiungi le modifiche
-          git add README.md
-          
-          # Committa solo se ci sono modifiche staged
-          if ! git diff --staged --quiet; then
-            git commit -m "🤖 Aggiornamento statistiche Q&A automatico
-            
-            - Domande totali: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).total")
-            - Domande con risposta: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).answered") 
-            - Percentuale completamento: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).percentage")%"
-            
-            git push
-          else
-            echo "Nessuna modifica staged da committare"
-          fi
+        # Verifica se ci sono modifiche nel README
+        if git diff --quiet README.md; then
+          echo "Nessuna modifica nel README, skip del commit"
+          exit 0
         fi
+        
+        echo "Modifiche rilevate nel README, procedo con il commit"
+        
+        # Aggiungi le modifiche
+        git add README.md
+        
+        # Committa e pusha
+        git commit -m "🤖 Aggiornamento statistiche Q&A automatico:
+        - Domande totali: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).total")
+        - Domande con risposta: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).answered") 
+        - Percentuale completamento: $(node -p "JSON.parse(require('fs').readFileSync('.github/json/qa-stats.json', 'utf8')).percentage")%"
+        
+        git push
         
     - name: Cleanup temporary files
       run: |
