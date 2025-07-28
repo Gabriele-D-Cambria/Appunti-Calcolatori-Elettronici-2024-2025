@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'Domande e Risposte.md'
+      - 'README.md'
   schedule:
     - cron: '0 6 * * 1'  # Esegue ogni lunedì alle 6:00 AM
   workflow_dispatch:  # Permette esecuzione manuale
