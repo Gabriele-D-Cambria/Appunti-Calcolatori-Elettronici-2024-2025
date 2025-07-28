@@ -3,6 +3,7 @@
 ## Indice
 - [Domande e Risposte - Calcolatori Elettronici A.A. 2024-2025](#domande-e-risposte---calcolatori-elettronici-aa-2024-2025)
   - [Indice](#indice)
+  - [Note per lo Studio](#note-per-lo-studio)
   - [1. Architettura di Base e Memoria](#1-architettura-di-base-e-memoria)
     - [Domanda 1.1 (answered)](#domanda-11-answered)
     - [Domanda 1.2 (answered)](#domanda-12-answered)
@@ -128,9 +129,17 @@
     - [Domanda 14.6](#domanda-146)
     - [Domanda 14.7](#domanda-147)
     - [Domanda 14.8](#domanda-148)
-  - [Note per lo Studio](#note-per-lo-studio)
 
+## Note per lo Studio
+
+- Ogni risposta include riferimenti specifici ai file sorgente ai quali si riferisce
+- Gli esempi pratici sono forniti per aiutare a consolidare i concetti teorici, ma potrebbero non essere perfettamente accurati
+- Si consiglia di rispondere prima autonomamente e poi confrontare con la risposta fornita
+
+---
 <div class="stop"></div>
+
+---
 
 ## 1. Architettura di Base e Memoria
 
@@ -7731,15 +7740,3 @@ La risoluzione delle dipendenze sul controllo rappresenta un equilibrio tra pres
 
 **Risposta:**
 *[La risposta verrà aggiunta quando richiesta]*
-
----
-<div class="stop"></div>
-
----
-
-## Note per lo Studio
-
-- Le risposte verranno aggiunte progressivamente durante le sessioni di studio
-- Ogni risposta includerà riferimenti specifici ai file sorgente
-- Gli esempi pratici aiuteranno a consolidare i concetti teorici
-- Si consiglia di rispondere prima autonomamente e poi confrontare con la risposta ufficiale
