@@ -65,7 +65,7 @@ La raccolta include sia domande effettivamente poste dal professore durante gli 
 
 ## 🎯 Script Estrattore Domande
 
-Per facilitare lo studio è disponibile uno **script interattivo Python** (`estrattore domande.py`) che simula un'interrogazione, permettendo di esercitarsi con le domande in modalità casuale.
+Per facilitare lo studio è disponibile uno [**script interattivo Python**](https://github.com/Gabriele-D-Cambria/Appunti-Calcolatori-Elettronici-2024-2025/blob/master/estrattore%20domande.py) (`estrattore domande.py`) che simula un'interrogazione, permettendo di esercitarsi con le domande in modalità casuale.
 
 ### 📋 Funzionalità principali:
 - **🎲 Selezione casuale** delle domande con risposta
@@ -85,7 +85,7 @@ Per facilitare lo studio è disponibile uno **script interattivo Python** (`estr
    - **h**   → Aiuto comandi
    - **e/q** → Esci
 
-Lo script è **completamente portatile** e funziona automaticamente ovunque venga posizionato, a patto che sia presente il file `Domande e Risposte.md` <u>**nella stessa cartella**</u>.
+Lo script è **completamente portatile** e funziona automaticamente ovunque venga posizionato, a patto che sia presente il file `Domande e Risposte.md` <u><strong>nella stessa cartella</strong></u>.
 
 ## 📜 Disclaimer
 
