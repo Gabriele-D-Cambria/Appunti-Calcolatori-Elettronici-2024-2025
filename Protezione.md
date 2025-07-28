@@ -91,8 +91,8 @@ Parleremo più avanti della _paginazione_, per ora facciamo invece una semplific
 Immaginiamo dunque di avere un registro nel processore che contiene **l'ultimo indirizzo valido di memoria utilizzabile dagli utenti**.
 Ogni qualvolta che il processore effettuerà un accesso in memoria, prima controllerà il contesto e, nel caso fosse nel _contesto utente_, controllerà che l'indirizzo desiderato sia **_maggiore o uguale_** a quello contenuto nel registro.
 
-Da ora in poi chiameremo `M1` la parte di memoria ad indirizzi inferiori al limite (_system-only_), e `M2` la rimanente.
-Il registro contenente l'indirizzo di separazione viene inizializzato tramite il programma di _bootstrap_, lo stesso che carica `IDT` e il corpo delle varie _orutine_ e strutture dati
+Da ora in poi chiameremo `M1` la parte di memoria ad indirizzi superiori al limite (_system-only_), e `M2` la rimanente.
+Il registro contenente l'indirizzo di separazione viene inizializzato tramite il programma di _bootstrap_, lo stesso che carica `IDT` e il corpo delle varie _routine_ e strutture dati
 
 ## 2.2. Passaggi tra contesti
 

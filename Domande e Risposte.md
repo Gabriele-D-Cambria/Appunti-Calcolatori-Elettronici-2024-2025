@@ -13,32 +13,32 @@
     - [Domanda 2.2 (answered)](#domanda-22-answered)
     - [Domanda 2.3 (answered)](#domanda-23-answered)
     - [Domanda 2.4 (answered)](#domanda-24-answered)
-    - [Domanda 2.5](#domanda-25)
+    - [Domanda 2.5 (answered)](#domanda-25-answered)
     - [Domanda 2.6 (answered)](#domanda-26-answered)
-    - [Domanda 2.7](#domanda-27)
-    - [Domanda 2.8](#domanda-28)
+    - [Domanda 2.7 (answered)](#domanda-27-answered)
+    - [Domanda 2.8 (answered)](#domanda-28-answered)
   - [3. Interruzioni](#3-interruzioni)
     - [Domanda 3.1 (answered)](#domanda-31-answered)
     - [Domanda 3.2 (answered)](#domanda-32-answered)
     - [Domanda 3.3 (answered)](#domanda-33-answered)
     - [Domanda 3.4 (answered)](#domanda-34-answered)
-    - [Domanda 3.5](#domanda-35)
-    - [Domanda 3.6](#domanda-36)
-    - [Domanda 3.7](#domanda-37)
-    - [Domanda 3.8](#domanda-38)
-    - [Domanda 3.9](#domanda-39)
-    - [Domanda 3.10](#domanda-310)
-    - [Domanda 3.11](#domanda-311)
-    - [Domanda 3.12](#domanda-312)
+    - [Domanda 3.5 (answered)](#domanda-35-answered)
+    - [Domanda 3.6 (answered)](#domanda-36-answered)
+    - [Domanda 3.7 (answered)](#domanda-37-answered)
+    - [Domanda 3.8 (answered)](#domanda-38-answered)
+    - [Domanda 3.9 (answered)](#domanda-39-answered)
+    - [Domanda 3.10 (answered)](#domanda-310-answered)
+    - [Domanda 3.11 (answered)](#domanda-311-answered)
+    - [Domanda 3.12 (answered)](#domanda-312-answered)
     - [Domanda 3.13 (answered)](#domanda-313-answered)
   - [4. Eccezioni](#4-eccezioni)
     - [Domanda 4.1 (answered)](#domanda-41-answered)
     - [Domanda 4.2 (answered)](#domanda-42-answered)
-    - [Domanda 4.3](#domanda-43)
-    - [Domanda 4.4](#domanda-44)
+    - [Domanda 4.3 (answered)](#domanda-43-answered)
+    - [Domanda 4.4 (answered)](#domanda-44-answered)
   - [5. Protezione](#5-protezione)
     - [Domanda 5.1 (answered)](#domanda-51-answered)
-    - [Domanda 5.2](#domanda-52)
+    - [Domanda 5.2 (answered)](#domanda-52-answered)
     - [Domanda 5.3 (answered)](#domanda-53-answered)
     - [Domanda 5.4](#domanda-54)
     - [Domanda 5.5](#domanda-55)
@@ -67,7 +67,7 @@
     - [Domanda 6.20](#domanda-620)
   - [7. Sistemi Multiprocesso e Processi](#7-sistemi-multiprocesso-e-processi)
     - [Domanda 7.1 (answered)](#domanda-71-answered)
-    - [Domanda 7.2](#domanda-72)
+    - [Domanda 7.2 (answered)](#domanda-72-answered)
     - [Domanda 7.3](#domanda-73)
     - [Domanda 7.4](#domanda-74)
     - [Domanda 7.5](#domanda-75)
@@ -87,10 +87,9 @@
     - [Domanda 8.7](#domanda-87)
     - [Domanda 8.8](#domanda-88)
     - [Domanda 8.9](#domanda-89)
-    - [Domanda 8.10](#domanda-810)
   - [9. Semafori](#9-semafori)
     - [Domanda 9.1 (answered)](#domanda-91-answered)
-    - [Domanda 9.2](#domanda-92)
+    - [Domanda 9.2 (answered)](#domanda-92-answered)
     - [Domanda 9.3](#domanda-93)
   - [10. Delay e Gestione del Tempo](#10-delay-e-gestione-del-tempo)
     - [Domanda 10.1 (answered)](#domanda-101-answered)
@@ -122,7 +121,7 @@
     - [Domanda 13.7 (answered)](#domanda-137-answered)
   - [14. Architettura Moderna CPU](#14-architettura-moderna-cpu)
     - [Domanda 14.1 (answered)](#domanda-141-answered)
-    - [Domanda 14.2](#domanda-142)
+    - [Domanda 14.2 (answered)](#domanda-142-answered)
     - [Domanda 14.3](#domanda-143)
     - [Domanda 14.4](#domanda-144)
     - [Domanda 14.5](#domanda-145)
@@ -573,7 +572,6 @@ In sintesi, la cache è una memoria piccola, veloce e costosa che funge da buffe
 **Domanda:** I principi di località valgono sempre? Quando sono rispettati i principi di località?
 
 **Risposta:**
-
 I principi di località **non valgono sempre** e sono violati in specifici pattern di accesso alla memoria. La loro validità dipende dal tipo di algoritmo e dalla struttura dati utilizzata.
 
 **Definizione dei principi di località:**
@@ -693,7 +691,6 @@ I principi di località sono **osservazioni statistiche** sui pattern comuni di 
 **Domanda:** Come funziona la cache a indirizzamento diretto? Descriva l'implementazione.
 
 **Risposta:**
-
 La cache a indirizzamento diretto è il tipo più semplice di cache, dove ogni indirizzo di memoria ha una sola posizione possibile nella cache determinata da una funzione matematica.
 
 **Principio di funzionamento:**
@@ -828,7 +825,6 @@ La cache a indirizzamento diretto rappresenta la forma più semplice ed efficien
 **Domanda:** Come è fatta una cacheline? Quali informazioni contiene e come viene gestita?
 
 **Risposta:**
-
 Una **cacheline** è l'unità fondamentale di trasferimento e memorizzazione nella memoria cache, composta da **dati effettivi** e **metadati di controllo** che permettono la gestione efficiente delle operazioni di lettura e scrittura.
 
 _**Struttura di una Cacheline**_
@@ -946,11 +942,186 @@ La cacheline rappresenta quindi un'**unità di memorizzazione intelligente** che
 
 ---
 
-### Domanda 2.5
+### Domanda 2.5 (answered)
 **Domanda:** Descriva le politiche di sostituzione delle cacheline e i loro vantaggi/svantaggi. Spiega LRU e pseudo-LRU.
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Le politiche di sostituzione delle cacheline determinano quale cacheline rimuovere quando la cache è piena e deve essere caricata una nuova cacheline. La scelta della politica influenza direttamente le prestazioni del sistema.
+
+**Contesto del problema:**
+
+> La scelta di quale dato sovrascrivere può essere determinata automaticamente dall'architettura (come nel nostro caso) oppure può utilizzare diversi meccanismi di selezione specifici dell'architettura stessa.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#3-memoria-cache)*
+
+**Differenza tra cache a indirizzamento diretto e associative:**
+
+**Cache a indirizzamento diretto:**
+- **Nessuna scelta**: Ogni indirizzo ha una sola posizione possibile nella cache
+- **Sostituzione obbligata**: Se la posizione è occupata, la cacheline viene sempre sostituita
+
+> Questo tipo di _cache_ è particolarmente poco efficente quando cerchiamo di accedere a due _cacheline_ in memoria allineate naturalmente alla dimensione della _cache_.
+> In questo caso ogni accesso causa una `miss`, proprio perché i due indirizzi collidono.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto)*
+
+**Cache associative per insiemi:**
+- **Scelta multipla**: Ogni indirizzo può essere memorizzato in più posizioni (vie)
+- **Politiche di sostituzione**: È necessario decidere quale via sostituire
+
+_**- POLITICHE DI SOSTITUZIONE**_
+
+**1. LRU (Least Recently Used)**
+
+**Principio:**
+> Si utilizzano le due cache in parallelo, in caso di conflitti, andremo a sovrascrivere la _cacheline_ che non si utilizza da più tempo.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#32-cache-associative-ad-insiemi)*
+
+**Implementazione hardware:**
+
+> Oltre alle cache, si introduce anche un ulteriore registro `R` che contiene tanti bit quanti sono necessari per ricordare l'ordinamento delle scritture.
+>
+> In caso di due vie in `R` è sufficente `1bit`, che codifica quale delle due _cache_ non si utilizza da più tempo in quella _line_.
+> In caso di quattro vie il registro viene chiamato `LRU` e contiene `5bit`.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#32-cache-associative-ad-insiemi)*
+
+**Vantaggi dell'LRU:**
+1. **Ottimalità teorica**: Approssima il comportamento ottimale per molti pattern di accesso
+2. **Sfrutta la località temporale**: Mantiene in cache i dati utilizzati più di recente
+3. **Prestazioni predibili**: Comportamento consistente per pattern sequenziali
+
+**Svantaggi dell'LRU:**
+1. **Complessità hardware**: Richiede hardware aggiuntivo per tracciare l'ordine di accesso
+2. **Overhead**: Ogni accesso deve aggiornare i bit di stato
+3. **Non sempre ottimale**: Può fallire in pattern specifici
+
+> Tuttavia anche con il registro `LRU` è possibile generare sempre `miss`.
+> Basta infatti effettuare un accesso in più di quelli possibili in parallelo, ad esempio se avessimo quattro cache e facessimo l'accesso a 5 linee allineate, genereremmo sempre una `miss`.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#32-cache-associative-ad-insiemi)*
+
+**2. Pseudo-LRU**
+
+**Motivazione:**
+L'LRU vero richiede hardware complesso, specialmente per cache con molte vie. Il pseudo-LRU offre un compromesso tra prestazioni e complessità hardware.
+
+**Implementazione nei processori x86:**
+
+> Tuttavia, nel processore _x86_, è stato implementato uno `pseudo-LRU` a `3bit`
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#32-cache-associative-ad-insiemi)*
+
+**Algoritmo pseudo-LRU per 4 vie:**
+
+Dal file [`Memoria e Periferiche.md`](./Memoria%20e%20Periferiche#32-cache-associative-ad-insiemi):
+
+**Stato iniziale**: `000` (`b0`|`b1`|`b2`)
+
+**Sequenza di accessi (assumendo sempre miss):**
+
+1. **Primo accesso**: Salvato in cache `A` seguendo percorso `b0`-`b1`
+   - Bit invertiti → Nuovo stato: `110`
+
+2. **Secondo accesso**: Salvato in cache `C` seguendo percorso `b0`-`b2`
+   - Nuovo stato: `011`
+
+3. **Terzo accesso**: Salvato in cache `B`
+   - Nuovo stato: `101`
+
+4. **Quarto accesso**: Salvato in cache `D`
+   - Stato ritorna a: `000`
+
+**Struttura ad albero:**
+
+L'algoritmo usa un albero binario dove ogni nodo interno rappresenta un bit di decisione che indica quale sottoalbero è stato usato più di recente.
+
+**Vantaggi del Pseudo-LRU:**
+1. **Semplicità hardware**: Solo 3 bit per 4 vie (vs 5 bit per LRU vero)
+2. **Buone prestazioni**: Approssima bene l'LRU nella maggior parte dei casi
+3. **Scalabilità**: L'overhead cresce logaritmicamente con il numero di vie
+
+**Svantaggi del Pseudo-LRU:**
+
+> Questa politica si chiama `pseudo-LRU` perché, ipotizzando di aver appena salvato una _cacheline_ in `C`, il prossimo miss salverà la _cacheline_ in `B`. Quando, magari, in realtà abbiamo fatto un accesso più vecchio a `D` che dovrebbe essere lui a cambiare.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#32-cache-associative-ad-insiemi)*
+
+**Limitazioni:**
+- **Non perfettamente LRU**: Può sostituire cacheline che non sono effettivamente le meno recenti
+- **Pattern patologici**: Alcuni pattern di accesso possono confondere l'algoritmo
+
+_**- ALTRE POLITICHE DI SOSTITUZIONE**_
+
+**3. FIFO (First In, First Out)**
+**Vantaggi:**
+- Semplicità massima di implementazione
+- Hardware minimale richiesto
+
+**Svantaggi:**
+- Non considera la località temporale
+- Prestazioni inferiori all'LRU
+
+**4. Random**
+**Vantaggi:**
+- Implementazione estremamente semplice
+- Immune a pattern patologici specifici
+
+**Svantaggi:**
+- Prestazioni imprevedibili
+- Non sfrutta principi di località
+
+**5. NMRU (Not Most Recently Used)**
+**Vantaggi:**
+- Compromesso tra LRU e Random
+- Hardware più semplice dell'LRU
+
+**Svantaggi:**
+- Prestazioni intermedie
+
+_**- CONSIDERAZIONI PRATICHE**_
+
+**Scelta della politica:**
+
+La scelta dipende da:
+1. **Vincoli hardware**: Complessità accettabile del controllore cache
+2. **Pattern di accesso**: Caratteristiche dell'applicazione
+3. **Costi/benefici**: Trade-off tra prestazioni e risorse hardware
+
+**Impatto sulle prestazioni:**
+
+> Questo è ciò che genera gli "scalini" nel grafico visto all'inizio e qui riproposto nel dettaglio:
+> Dalla pendenza del singolo scalino si può dedurre quante cache associative abbiamo.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#32-cache-associative-ad-insiemi)*
+
+**Collegamento con il TLB:**
+
+Dal file [`Paginazione.md`](./Paginazione#332-tlb):
+
+> Inseriamo quindi una _cache_ alla `MMU` chiamata `TLB` (_Translation Lookaside Buffer_).
+
+Il TLB utilizza anch'esso politiche di sostituzione simili per gestire le traduzioni degli indirizzi virtuali.
+
+_**- RIEPILOGO COMPARATIVO**_
+
+| Politica       | Complessità HW | Prestazioni | Vantaggi                | Svantaggi                  |
+| -------------- | -------------- | ----------- | ----------------------- | -------------------------- |
+| **LRU**        | Alta           | Ottime      | Ottimale teorico        | Hardware complesso         |
+| **Pseudo-LRU** | Media          | Buone       | Buon compromesso        | Non perfettamente ottimale |
+| **FIFO**       | Bassa          | Discrete    | Semplice                | Ignora località temporale  |
+| **Random**     | Minima         | Variabili   | Immune a pattern strani | Imprevedibile              |
+
+**Conclusioni:**
+
+Le politiche di sostituzione rappresentano un compromesso fondamentale nell'architettura delle cache. Il **pseudo-LRU** emerge come soluzione preferita nei processori moderni perché bilancia efficacemente:
+
+- **Prestazioni**: Vicine all'LRU ottimale nella maggior parte dei casi
+- **Complessità**: Hardware gestibile anche con molte vie
+- **Scalabilità**: Overhead logaritmico vs lineare
+
+L'evoluzione dalle cache a indirizzamento diretto alle cache associative con politiche sofisticate di sostituzione rappresenta uno dei progressi chiave nell'architettura dei processori moderni, permettendo di sfruttare al meglio i principi di località pur gestendo i conflitti in modo intelligente.
 
 ---
 
@@ -1005,19 +1176,457 @@ La cache associativa per insiemi è un'evoluzione della cache a indirizzamento d
 
 ---
 
-### Domanda 2.7
+### Domanda 2.7 (answered)
 **Domanda:** Cosa sono le politiche `write-through` e `write-back`? Quando si usano?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Le politiche `write-through` e `write-back` determinano **quando e come** vengono effettuate le scritture in memoria principale (RAM) quando si verifica un hit di scrittura nella cache. La scelta della politica influenza le prestazioni, la coerenza dei dati e la complessità del sistema.
+
+**Contesto delle politiche di scrittura:**
+
+Le politiche di scrittura entrano in gioco durante le operazioni di scrittura in cache. Dal file [`Memoria e Periferiche.md`](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto):
+
+> Quando il processore richiede una locazione di memoria, si effettua un controllo per verificare che si trovi o meno nella _cache_.
+> Il segnale di `hit` indica che la memoria si trova già nella _cache_, perciò è sufficente leggere quella.
+
+_**- POLITICHE DI SCRITTURA**_
+
+**1. Write-Through (Scrittura Diretta)**
+
+**Definizione:**
+> In caso di scrittura con `hit` abbiamo due possibili politiche:
+> - `Write Through`: scrive il nuovo valore sia in _cache_ che in **RAM**;
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto)*
+
+**Meccanismo:**
+- **Scrittura simultanea**: Ogni scrittura aggiorna sia la cacheline che la corrispondente locazione in RAM
+- **Coerenza immediata**: Cache e RAM sono sempre sincronizzate
+- **Nessun dirty bit necessario**: Non serve tracciare se la cacheline è stata modificata
+
+**Vantaggi del Write-Through:**
+
+**1. Semplicità di gestione:**
+- **Coerenza garantita**: RAM sempre aggiornata
+- **Nessuna perdita di dati**: Interruzioni di corrente non causano perdite
+- **Hardware più semplice**: Non necessita del dirty bit per le decisioni di write-back
+
+**2. Interazione con DMA semplificata:**
+
+Dal file [`DMA.md`](./DMA#211-politica-write-through):
+
+> È il caso più semplice poiché all'inizio del trasferimento tutte le `cacheline` eventualmente presenti contengono lo stesso valore delle corrispondenti `cacheline` in **RAM**.
+> Questo implica che non ci sono problemi nel caso di operazione di _uscita su_ `DMA` (_lettura_), poiché i dati in **RAM** sono aggiornati coerentemente con le modifiche salvate nelle `cacheline`.
+
+**Svantaggi del Write-Through:**
+
+**1. Prestazioni ridotte:**
+- **Latenza**: Ogni scrittura deve attendere l'accesso alla RAM lenta
+- **Traffico sul bus**: Maggior utilizzo del bus di sistema
+- **Bandwidth**: Consumo maggiore della banda passante verso la RAM
+
+**2. Inefficienza per scritture multiple:**
+- Scritture ripetute sulla stessa locazione generano accessi multipli alla RAM
+- Non sfrutta la località temporale delle scritture
+
+**2. Write-Back (Scrittura Ritardata)**
+
+**Definizione:**
+> - `Write Back`: scrive il nuovo valore solo nella _cache_.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto)*
+
+**Meccanismo:**
+- **Scrittura differita**: Le modifiche vengono scritte solo in cache
+- **Dirty bit**: Traccia se la cacheline è stata modificata
+- **Write-back su sostituzione**: La scrittura in RAM avviene solo quando necessario
+
+**Implementazione del Dirty Bit:**
+
+> Per migliorare il tempo si aggiunge un'ulteriore `bit` alle etichette chiamato `D` (_Dirty_) che identifica se in una determinata _cache-line_ sono avvenute o meno scritture.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto)*
+
+**Vantaggi del Write-Back:**
+
+**1. Prestazioni superiori:**
+
+> Per quanto riguarda la `write-back`, la scrittura verrà comunque eseguita in **RAM** prima o poi, nel peggiore dei casi quando quella _cache line_ viene sostituita.
+> Il guadagno del non fare direttamente il `write-through` si vede quando effettuiamo un numero molto elevato di scritture nella stessa _cache-line_.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto)*
+
+**2. Efficienza del bus:**
+- **Riduzione del traffico**: Meno accessi alla RAM
+- **Aggregazione**: Multipli aggiornamenti sulla stessa cacheline richiedono un solo write-back
+- **Località temporale**: Sfrutta meglio i pattern di accesso dei programmi
+
+**Svantaggi del Write-Back:**
+
+**1. Complessità hardware:**
+- **Dirty bit**: Hardware aggiuntivo per tracciare lo stato
+- **Logica di write-back**: Circuiti per gestire la scrittura ritardata
+- **Gestione coerenza**: Più complessa con sistemi multiprocessore
+
+**2. Problemi di coerenza:**
+
+Dal file [`DMA.md`](./DMA#212-cache-con-politica-write-back):
+
+> In questa politica le scritture della **CPU** vengono mantenute soltanto in _cache_ e effettuate in maniera _sincrona_ in secondi momenti (come quando la `cacheline dirty` verrebbe sovrascritta).
+> Le `cacheline ~dirty` invece continuano a contenere _le stesse informazioni_ della **RAM**.
+> 
+> Questa politica comporta un problema sia nelle operazioni di _uscita_ su `DMA`, poiché il buffer di lettura in **RAM** **potrebbe contenere memoria non aggiornata**.
+
+_**- INTERAZIONE CON IL DMA**_
+
+**Write-Through e DMA:**
+
+**Gestione semplificata:**
+- **Letture DMA**: Nessun problema, RAM sempre aggiornata
+- **Scritture DMA**: Invalidazione automatica delle cacheline coinvolte
+
+**Soluzioni hardware (Intel):**
+
+> Nei processori _Intel_ la soluzione è risolta in `hardware`.
+> Si fa in modo che il _controllore cache_ **_osservi tutte le possibili sorgenti di scritture in RAM_** attraverso il bus condiviso, processo chiamato di _snooping_.
+> Se le linee di controllo identificano un operazione di _scrittura_, il controllore può usare il contenuto delle linee di indirizzo per eseguire una normale ricerca in _cache_, e **nel caso di `hit` invalidare in autonomia la corrispondente `cacheline`**.
+>
+> *Fonte: [DMA.md](./DMA#211-politica-write-through)*
+
+**Soluzioni software (ARM):**
+
+> Nei sistemi `ARM` il problema è invece delegato al _software_, tramite istruzioni dedicate che permettono alla **CPU** di interagire direttamente con il _controllore cache_ e invalidarne le `cacheline`.
+> Il _software_ dovrà quindi eseguire tutte le istruzioni specificando l'intervallo `[b, b+n)` (allineato opportunamente alle _cacheline_) **_subito dopo che il trasferimento sia terminato_**.
+>
+> *Fonte: [DMA.md](./DMA#211-politica-write-through)*
+
+**Write-Back e DMA:**
+
+**Problemi complessi:**
+
+> Infatti, nelle _scritture_, il `DMA` potrebbe andare a modificare **_solo una parte della `cacheline dirty`_**, perciò la mera _invalidazione_ porterebbe a perdere le modifiche effettuate sulle parti di `cacheline` non comprese nel _buffer_.
+>
+> *Fonte: [DMA.md](./DMA#212-cache-con-politica-write-back)*
+
+**Gestione delle letture DMA:**
+
+Dal file [`DMA.md`](./DMA#213-letture):
+
+**Protocollo in più fasi:**
+1. **Fase di richiesta**: Il DMA comunica gli indirizzi al controllore cache
+2. **Risposta controllore**: Segnala hit/miss e stato del dirty bit
+3. **Gestione per casi**:
+   - `miss || (hit && ~dirty)`: Accesso normale alla RAM
+   - `hit && dirty`: Write-back obbligatorio prima della lettura DMA
+
+**Gestione delle scritture DMA:**
+
+Dal file [`DMA.md`](./DMA#214-scritture):
+
+**Strategie per `hit && dirty`:**
+- **Write and Invalidate**: Se il DMA sovrascrive l'intera cacheline
+- **Write-back + Invalidazione**: Write-back in RAM, poi scrittura DMA
+- **Trasferimento diretto**: Cacheline dirty trasferita direttamente al DMA
+
+**Soluzione software:**
+
+> Nella soluzione interamente _software_, la politica più comune è quella di **_invalidazione senza write back_**. Consiste nell'eseguire sempre il `write-back` di un certo intervallo di indirizzi (quelli del _buffer_) **_prima di avviare il trasferimento_**, invalidandoli successivamente.
+>
+> *Fonte: [DMA.md](./DMA#214-scritture)*
+
+_**- POLITICHE PER MISS DI SCRITTURA**_
+
+Oltre alle politiche per hit, esistono politiche per i miss di scrittura:
+
+> Anche in caso di `miss` la scrittura ha due possibili politiche:
+> - `Write Allocate`: copia l'elemento dalla **RAM** nella _cache_ prima della modifica, e poi lo ritrasmette aggiornato;
+> - `Write No-Allocate`: effettua l'aggiornamento **solo** in **RAM**, senza salvare nulla in _cache_.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto)*
+
+_**- INTERAZIONE CON LA PAGINAZIONE**_
+
+Le politiche di scrittura possono essere influenzate dalla paginazione:
+
+Dal file [`Paginazione.md`](./Paginazione#31-super-mmu):
+
+> - `PWT`: _Page Write Through_, se settato ordina alla cache di usare la politica di _write-through_ per questo accesso (solo se in scrittura).
+>   È annullato da `PCD` se quest'ultimo è settato
+
+Questo permette di controllare la politica di scrittura a livello di singole pagine di memoria virtuale.
+
+_**- QUANDO USARE OGNI POLITICA**_
+
+**Write-Through è preferibile quando:**
+
+**1. Sistemi critici:**
+- **Affidabilità**: Nessuna perdita di dati in caso di interruzioni
+- **Debugging**: Stato della memoria sempre coerente
+- **Sistemi real-time**: Comportamento più prevedibile
+
+**2. Sistemi con DMA intensivo:**
+- **Semplicità**: Gestione automatica della coerenza
+- **Meno overhead**: Nessuna gestione complessa di dirty bit
+
+**3. Pattern di scrittura sparsi:**
+- **Località bassa**: Quando le scritture non si concentrano su poche cacheline
+- **Write-once**: Dati scritti una sola volta
+
+**Write-Back è preferibile quando:**
+
+**1. Sistemi ad alte prestazioni:**
+- **Throughput**: Massimizzazione delle prestazioni di scrittura
+- **Località alta**: Pattern con molte scritture ripetute
+- **Computational intensive**: Applicazioni con molti calcoli
+
+**2. Sistemi con banda limitata:**
+- **Efficienza del bus**: Riduzione del traffico verso la RAM
+- **Energia**: Meno accessi alla RAM (importante per dispositivi mobili)
+
+**3. Cache di grandi dimensioni:**
+- **Hit rate alto**: Benefici maggiori quando la maggior parte degli accessi sono hit
+- **Working set**: Quando il working set dell'applicazione si adatta alla cache
+
+_**- RIEPILOGO COMPARATIVO**_
+
+| Aspetto                | Write-Through    | Write-Back                |
+| ---------------------- | ---------------- | ------------------------- |
+| **Prestazioni**        | Più lente        | Più veloci                |
+| **Coerenza**           | Sempre garantita | Complessa                 |
+| **Hardware**           | Più semplice     | Più complesso (dirty bit) |
+| **Interazione DMA**    | Semplice         | Complessa                 |
+| **Affidabilità**       | Alta             | Richiede gestione errori  |
+| **Traffico bus**       | Alto             | Basso                     |
+| **Energia**            | Maggiore consumo | Minore consumo            |
+| **Località temporale** | Non sfruttata    | Sfruttata efficacemente   |
+
+_**- TECNICHE IBRIDE**_
+
+Alcuni sistemi moderni utilizzano approcci ibridi:
+
+**1. Write-through con write buffer:**
+- Buffer per nascondere la latenza della RAM
+- Coerenza del write-through con prestazioni migliorate
+
+**2. Politiche adaptive:**
+- Cambio dinamico basato sui pattern di accesso
+- Write-through per dati critici, write-back per calcoli
+
+**3. Controllo a livello software:**
+- Istruzioni specifiche per forzare write-back
+- Cache coloring per controllare il comportamento
+
+**Conclusioni:**
+
+Le politiche `write-through` e `write-back` rappresentano un trade-off fondamentale tra **prestazioni** e **semplicità**. La scelta dipende dai requisiti specifici del sistema:
+
+- **Write-through**: Priorità su affidabilità, semplicità e coerenza
+- **Write-back**: Priorità su prestazioni ed efficienza energetica
+
+La tendenza moderna è verso sistemi write-back con meccanismi sofisticati per gestire la coerenza, specialmente nei processori ad alte prestazioni dove il guadagno in velocità giustifica la complessità aggiuntiva.
 
 ---
 
-### Domanda 2.8
+### Domanda 2.8 (answered)
 **Domanda:** Come interagisce la cache con la memoria virtuale e la paginazione?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+L'interazione tra **cache**, **memoria virtuale** e **paginazione** rappresenta uno dei meccanismi più complessi e critici per le prestazioni dei sistemi moderni. Questi tre sistemi lavorano a livelli diversi della gerarchia di memoria e devono essere perfettamente coordinati per garantire correttezza ed efficienza.
+
+_**- Architettura del sistema di memoria:**_
+
+**Ordine di traduzione e caching:**
+
+Dal punto di vista architetturale, negli attuali processori Intel/AMD l'ordine di operazione è:
+
+1. **CPU** genera **indirizzo virtuale**
+2. **MMU + TLB** traducono in **indirizzo fisico** 
+3. **Cache** utilizza l'**indirizzo fisico** per il lookup
+
+> La memoria cache lavora _solo_ sulla **RAM**, non ha alcun senso che lavori per l'_I/O_, poiché manca il principio base (_I/O_ ha effetti collaterali voluti).
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#3-memoria-cache)*
+
+**TLB: La cache del sistema di paginazione:**
+
+**Funzione e necessità:**
+
+Il **TLB (Translation Lookaside Buffer)** è essenzialmente una cache specializzata per le traduzioni di indirizzi:
+
+> Introducendo la `MMU`, per ogni accesso in memoria da parte del software, accediamo ad un minimo di 4 tabelle per recuperare l'indirizzo fisico al quale successivamente accedere.
+> Se consideriamo che la `MMU` deve aggiornare i `bit` `A` e `D`, possiamo arrivare a **8 accessi** o persino **12** nei casi peggiori.
+> Ciò riguarda anche gli accessi in _cache_.
+> 
+> Tutto questo processo non fa altro che **rallentare la nostra CPU**.
+> 
+> Inseriamo quindi una _cache_ alla `MMU` chiamata `TLB` (_Translation Lookaside Buffer_).
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Meccanismo del TLB:**
+
+> Lo scopo della `TLB` è di **ricordare le _traduzioni_ utilizzate più recentemente**, dove per _traduzioni_ intendiamo ciò che è contenuto nei descrittori di `livello 1`, insieme alle informazioni accessorie.
+> 
+> Quando `MMU` accede alla memoria tramite un'indirizzo virtuale, può quindi salvare nel `TLB` la sua traduzione.
+> Agli accessi successivi si controllerà prima se in `TLB` è già presente il descrittore che si sta cercando, altrimenti ci si comporta come descritto fin'ora, tramite _table-walk_.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Gestione della coerenza nei cambi di contesto:**
+
+**Invalidazione del TLB:**
+
+> Questo processo è obbligatorio nei cambi di contesto, in quanto le traduzioni di `P1` non hanno senso per `P2`.
+> Nei processori _Intel_ questo svuotamento avviene **in automatico quando viene scritto `%cr3`**, anche se viene cambiato in se stesso. (`MOV %cr3, %cr3`)
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Problemi specifici con i bit A e D:**
+
+> Il bit `A` viene settato **_durante il table-walk_**, diventa quindi un problema azzerarlo via software. Infatti, se l'indirizzo è presente nel `TLB`, non viene rieseguito l'accesso al _trie_.
+> In questo caso la soluzione è quella di **azzerare le righe corrispondenti nel `TLB`** prima di effettuare gli accessi che modificano `A`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**Politiche di scrittura e coerenza della cache:**
+
+**Write-Through vs Write-Back:**
+
+La scelta della politica di scrittura della cache influenza l'interazione con la memoria virtuale:
+
+**1. Write-Through:**
+
+> È il caso più semplice poiché all'inizio del trasferimento tutte le `cacheline` eventualmente presenti contengono lo stesso valore delle corrispondenti `cacheline` in **RAM**.
+> Questo implica che non ci sono problemi nel caso di operazione di _uscita su_ `DMA` (_lettura_), poiché i dati in **RAM** sono aggiornati coerentemente con le modifiche salvate nelle `cacheline`.
+>
+> *Fonte: [DMA.md](./DMA#211-politica-write-through)*
+
+**2. Write-Back (più complessa):**
+
+> Per quanto riguarda la `write-back`, la scrittura verrà comunque eseguita in **RAM** prima o poi, nel peggiore dei casi quando quella _cache line_ viene sostituita.
+> Il guadagno del non fare direttamente il `write-through` si vede quando effettuiamo un numero molto elevato di scritture nella stessa _cache-line_.
+>
+> *Fonte: [Memoria e Periferiche.md](./Memoria%20e%20Periferiche#31-cache-ad-indirizzamento-diretto)*
+
+
+**Interazione con DMA e dispositivi esterni:**
+
+**Snooping hardware per la coerenza:**
+
+Nei processori Intel, la coerenza viene mantenuta tramite meccanismi hardware:
+
+> Si fa in modo che il _controllore cache_ **_osservi tutte le possibili sorgenti di scritture in RAM_** attraverso il bus condiviso, processo chiamato di _snooping_.
+> Se le linee di controllo identificano un operazione di _scrittura_, il controllore può usare il contenuto delle linee di indirizzo per eseguire una normale ricerca in _cache_, e **nel caso di `hit` invalidare in autonomia la corrispondente `cacheline`**.
+>
+> *Fonte: [DMA.md](./DMA#211-politica-write-through)*
+
+**Problema degli indirizzi fisici vs virtuali:**
+
+> Tuttavia il _software_ utilizza **_soltanto indirizzi virtuali_** `[b, b+n)`.
+> 
+> Sono quindi necessari i seguenti accorgimenti per integrare `DMA` e `MMU`:
+> 1. Al `DMA` andrà comunicato l'indirizzo **fisico** `f(b)` e non quello _virtuale_ `b`
+>
+> *Fonte: [DMA.md](./DMA#22-interazione-con-mmu)*
+
+**Gestione delle pagine nel DMA:**
+
+1. **Pinning delle pagine in memoria:**
+   - Le pagine coinvolte nel DMA vengono marcate come "non swappabili"
+   - Il processo non può essere rimosso dalla RAM durante il trasferimento
+   - Richiede gestione dello stato delle pagine nel descrittore di processo
+
+2. **Frammentazione fisica:**
+   - Buffer contigui in memoria virtuale diventano frammentati fisicamente
+   - Necessità di utilizzare scatter-gather DMA per buffer non contigui
+
+**Bit di controllo e performance:**
+
+**Bit PWT e PCD per il controllo della cache:**
+
+Nella configurazione della memoria virtuale, specifici bit controllano il comportamento della cache:
+
+Dal file [`Memoria Virtuale nel Nucleo.md`](./Memoria%20Virtuale%20nel%20Nucleo#3-implementazione):
+
+```cpp
+// [0xa0000, 0xc0000): memoria video
+if (map(root_tab, 0xa0000, 0xc0000, BIT_RW|BIT_PWT, identity_map) != 0xc0000)
+    return false;
+    
+// Mappiamo tutti gli altri indirizzi, fino a 4GiB, settando sia PWT che PCD
+if (map(root_tab, beg_pci, end_pci, BIT_RW|BIT_PCD|BIT_PWT, identity_map, 2) != end_pci)
+    return false;
+```
+
+- **BIT_PWT**: Page Write-Through, forza write-through per la pagina
+- **BIT_PCD**: Page Cache Disable, disabilita la cache per la pagina
+
+**Traduzioni identità per il kernel:**
+
+**Problema delle traduzioni nel kernel:**
+
+> Quando una tabella, a questo punto in un `frame`, si riferisce alla tabella successiva in un'altro `frame`, conserva il suo **indirizzo fisico**, poiché gli _indirizzi virtuali_ esistono solo per la **CPU** prima dell'attraversamento della `MMU`.
+> 
+> Questo genera però dei problemi, in quanto il contenuto in `%cr3` è appunto un'indirizzo fisico, e la lettura provoca una traduzione non significativa.
+>
+> *Fonte: [Paginazione.md](./Paginazione#331-traduzioni-identità)*
+
+**Soluzione delle traduzioni identità:**
+
+> Nella parte `sistema` inizializziamo quindi le **traduzioni identità**, che mappano un indirizzo virtuale `x` nell'indirizzo fisico `x`, affinché gli indirizzi virtuali e fisici combacino numericamente.
+> 
+> Questo permette alle esecuzioni in modalità `sistema` di poter accedere a tutta la **RAM**, "bypassando" gli indirizzi virtuali, accedendo praticamente agli indirizzi fisici.
+>
+> *Fonte: [Paginazione.md](./Paginazione#331-traduzioni-identità)*
+
+**Ottimizzazioni per pagine di grandi dimensioni:**
+
+**TLB multipli:**
+
+> La soluzione moderna a questo problema è quella di avere un `TLB` **per ogni dimensione**.
+> La traduzione verrà quindi cercata **_in parallelo_** in _ciascuno_ dei `TLB`, come nel caso di `TLB` a più vie, e verrà selezionata solamente quella desiderata.
+>
+> *Fonte: [Paginazione.md](./Paginazione#34-pagine-di-grandi-dimensioni)*
+
+**Vantaggi delle pagine grandi:**
+
+Utilizzare pagine di 2MiB o 1GiB invece di 4KiB:
+- **Riduce la pressione sul TLB**: Meno traduzioni necessarie
+- **Migliora le prestazioni**: Meno miss del TLB 
+- **Semplicità di gestione**: Meno entrate nelle tabelle di paginazione
+
+**Aspetti pratici e ottimizzazioni:**
+
+**1. Località degli accessi:**
+- Cache e TLB sfruttano entrambi il **principio di località temporale e spaziale**
+- Programmi che accedono a pagine adiacenti beneficiano di entrambi i sistemi
+
+**2. Sincronizzazione delle invalidazioni:**
+- L'invalidazione di una pagina deve essere coordinata tra TLB e cache
+- Funzioni come `invalida_entrata_TLB(v)` e `invalida_TLB()` garantiscono coerenza
+
+**3. Gestione delle prestazioni:**
+- **TLB hit**: ~0 cicli aggiuntivi per la traduzione
+- **TLB miss**: 4-12 accessi alla RAM per il table-walk
+- **Cache hit + TLB hit**: Scenario ottimale per le prestazioni
+- **Cache miss + TLB miss**: Scenario più costoso
+
+**Conclusioni:**
+
+L'interazione tra cache, memoria virtuale e paginazione è fondamentale per le prestazioni moderne perché:
+
+1. **Il TLB è essenzialmente una cache** per le traduzioni di indirizzi, riducendo drasticamente l'overhead della paginazione
+2. **La cache lavora su indirizzi fisici** post-traduzione, garantendo coerenza tra processi diversi
+3. **Meccanismi di snooping hardware** mantengono automaticamente la coerenza nei sistemi Intel/AMD
+4. **Traduzioni identità nel kernel** permettono accesso diretto agli indirizzi fisici quando necessario
+5. **Bit di controllo specifici** (PWT, PCD) permettono controllo granulare del comportamento della cache per diverse regioni di memoria
+
+Senza questa coordinazione, i sistemi moderni sarebbero **inutilizzabili** a causa dell'overhead eccessivo degli accessi alla memoria. Il TLB in particolare è **assolutamente critico**: senza di esso, ogni accesso in memoria richiederebbe 4-12 accessi aggiuntivi per la traduzione, rendendo la memoria virtuale impraticabile.
+
+**Approfondimenti:**
+- **Collegamento con Domanda 2.7 (answered)**: Le politiche write-through/write-back influenzano l'interazione con la memoria virtuale
+- **Collegamento con Domanda 6.9 (answered)**: Il TLB è il componente chiave che rende utilizzabile la paginazione  
+- **Aspetti pratici**: Queste interazioni sono alla base delle prestazioni di database, compilatori e macchine virtuali
 
 ---
 <div class="stop"></div>
@@ -1370,67 +1979,990 @@ Una semplice `CALL` non può garantire questi requisiti di sicurezza e controllo
 
 ---
 
-### Domanda 3.5
+### Domanda 3.5 (answered)
 **Domanda:** Cosa sono le interruzioni esterne? A che serve la `apic_send_EOI()`?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Le interruzioni esterne sono eventi asincroni generati da dispositivi hardware esterni al processore, che richiedono attenzione immediata della CPU per gestire operazioni di I/O o eventi temporizzati.
+
+**Definizione e caratteristiche delle interruzioni esterne:**
+
+**Natura degli eventi:**
+> Il processore lavora su un flusso di controllo, determinato esclusivamente e univocamente da software. Il programmatore però potrebbe utilizzare un modello di programmazione diverso, in grado di associare i programmi a degli **eventi**. Questi eventi sono un numero finito e ben stabilito, ed il programmatore vi può associare una _propria routine_.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**Timing delle interruzioni esterne:**
+> Quello che possiamo fare per supportare gli eventi di questa interfaccia è collegare fisicamente il bit della stampante alla **CPU** e aggiungere una $\mu$-istruzione che controlla il bit al termine di ogni istruzione.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**Differenza con le interruzioni interne:**
+A differenza delle eccezioni (interruzioni interne), le interruzioni esterne:
+- **Timing**: Vengono controllate e accettate solo **tra un'istruzione e la successiva**
+- **Asincronia**: Generate da eventi esterni (tastiera, timer, dispositivi I/O)
+- **Prevedibilità**: Il processore è sempre in uno stato consistente quando vengono gestite
+
+**Dispositivi che generano interruzioni esterne:**
+
+Nel nostro sistema i principali dispositivi sono:
+> Nel nostro calcolatore i dispositivi rilevanti sono connessi ai seguenti piedini
+> - **Tastiera** ↔ `1`
+> - **Timer** ↔ `2`
+> - **Hard Disk** ↔ `14`
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Gestione tramite APIC:**
+
+**Meccanismo di controllo:**
+> Per gestire tutte le richieste viene introdotto una nuova componente, detto **_Controllore delle Interruzioni_** l'`APIC` (_Advanced Programmable Interrupt Controller_).
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Registri di gestione:**
+> Per gestire le richieste di interruzione, l'`APIC`, oltre a `EOI`, possiede altri due registri a `256bit`:
+> - `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
+> - `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**La funzione apic_send_EOI():**
+
+**Scopo principale:**
+La funzione `apic_send_EOI()` (End Of Interrupt) serve a comunicare all'APIC che la gestione dell'interruzione è stata completata, permettendo al controllore di accettare nuove richieste.
+
+**Meccanismo di controllo su livello:**
+> Per capire se c'è una nuova richiesta o meno, si utilizza un metodo software chiamato **controllo su Livello**. Questo tipo di controllo fa in modo che l'`APIC`, dopo aver inviato una richiesta, guardi nuovamente i piedini **<u>solo dopo aver ricevuto il segnale di gestione completata dell'interruzione</u>**.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Importanza del timing:**
+> Per evitare comportamenti indesiderati da parte dell'`APIC` è importante che questo `bit` venga settato **quando tutta la routine è terminata** e non c'è altro da fare. Se così non fosse, il controllore potrebbe reinviare segnali di interruzioni su eventi già gestiti.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Esempio pratico nel codice:**
+
+**Struttura tipica di un handler:**
+Dal file [`IO.md`](./IO#3-modulo-io):
+```x86asm
+; `sistema.s`
+
+a_wfi:
+	CALL salva_stato
+	CALL apic_send_EOI  ; ← Invio EOI all'APIC
+	CALL schedulatore
+	CALL carica_stato
+	RET
+```
+
+**In una routine C++:**
+```cpp
+extern "C" void c_tastiera(){
+    /* Implementazione della gestione */
+    
+    // Processamento del carattere dalla tastiera
+    array_des_io[0].buf[quanti_letti] = char(inputb(array_des_io[0].iOUT));
+    quanti_letti++;
+    
+    if(quanti_letti == array_des_io[0].quanti) {
+        // Operazione completata - risveglia processo
+        quanti_letti = 0;
+        sem_signal(array_des_io[0].sync);
+    }
+    
+    apic::setEOI();         // IMPORTANTE: Segnala fine gestione
+}
+```
+
+**Funzionamento del protocollo EOI:**
+
+1. **IRR**: Tiene traccia delle richieste ricevute ma non ancora elaborate
+2. **ISR**: Tiene traccia delle interruzioni attualmente in elaborazione  
+3. **EOI**: Segnala la fine dell'elaborazione e permette all'APIC di:
+   - Rimuovere l'interruzione da ISR
+   - Elaborare nuove richieste in IRR
+   - Ristabilire la priorità normale del sistema
+
+**Conseguenze della mancanza di EOI:**
+Senza `apic_send_EOI()`:
+- L'APIC continuerebbe a considerare l'interruzione "in corso"
+- Potrebbero essere bloccate nuove interruzioni dello stesso tipo
+- Il sistema potrebbe perdere eventi importanti
+- Possibili deadlock o comportamenti imprevedibili
+
+**RIEPILOGO:**
+Le interruzioni esterne sono il meccanismo fondamentale che permette ai dispositivi hardware di comunicare asincronamente con la CPU, mentre `apic_send_EOI()` è essenziale per mantenere il corretto flusso di controllo e sincronizzazione nel sistema di gestione delle interruzioni.
 
 ---
 
-### Domanda 3.6
+### Domanda 3.6 (answered)
 **Domanda:** Descriva l'annidamento delle interruzioni con l'utilizzo dei due registri `ISR` e `IRR`. Cosa comporta programmare con le interruzioni attive?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+L'annidamento delle interruzioni è un meccanismo che permette di gestire richieste di interruzione multiple con diversi livelli di priorità, utilizzando i registri ISR e IRR dell'APIC per tracciare e coordinare l'esecuzione.
+
+**Meccanismo di annidamento con ISR e IRR:**
+
+**Registri fondamentali dell'APIC:**
+> Per gestire le richieste di interruzione, l'`APIC`, oltre a `EOI`, possiede altri due registri a `256bit`:
+> - `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
+> - `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Gestione delle priorità:**
+> Il programmatore ha quindi il compito di assegnare una **precedenza** alle varie richieste, e lo fa tramite il **tipo**. Quando assegna un tipo il programmatore ha `8bit`, dove i 4 più significativi indicano la _classe di precedenza_.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Logica di annidamento:**
+> Se arriva una nuova richiesta che ha _classe strettamente maggiore_ l'`APIC` invierà una **nuova richiesta**, negli altri casi attenderà `EOI`, per poi inviare la successiva richiesta con classe più alta in `IRR`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Processo di annidamento dettagliato:**
+
+**1. Arrivo delle richieste:**
+- Le richieste di interruzione vengono registrate nel **IRR**
+- L'APIC valuta le priorità basate sui 4 bit più significativi del tipo
+
+**2. Accettazione da parte della CPU:**
+> In ogni caso <u>l'ultima parola sull'eseguire in maniera effettiva o meno l'interruzione spetta alla <strong>CPU</strong>.</u> Solamente quando la **CPU** invierà il segnale di `INTA` l'`APIC` sceglierà la richiesta di classe più elevata in `IRR` e la sposterà in `ISR`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**3. Gestione delle interruzioni concorrenti:**
+> Se manteniamo il `IF = 1`, quando avvengono due richieste di interruzione dobbiamo porci la domanda se abbia senso interrompere la prima interruzione o attendere prima che questa venga completata.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Controllo del flag IF:**
+> Il comando `gate_init()` ha un terzo parametro settato di default su `false`, che imposta `IF = 0` durante le _routine_, affinché non possano essere interrotte. Se volessimo invece che una _routine_ possa essere interrotta, dobbiamo impostarlo esplicitamente a `true`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Cosa comporta programmare con le interruzioni attive:**
+
+**1. Problemi di concorrenza - "Vaso di Pandora":**
+> Il problema di quando più flussi operano sulle stesse variabili è stato chiamato _"Vaso di Pandora"_ da _Dijsktra_. La gestione di questi casi può diventare infatti estremamente complessa.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#212-gestione-corretta-delle-routine)*
+
+**2. Interferenze tra flussi di esecuzione:**
+Dal file [`Realizzazione Primitive.md`](./Realizzazione%20Primitive#2-reaizzazione-primitive):
+> Più in generale, quello che abbiamo descritto è un problema di **_interferenza tra due flussi_** di esecuzione che lavorano **su una stessa struttura dati**. La causa di queste _interferenze_ è dovuta alle _interruzioni_, poiché rende visibili ad altri processi gli **stati inconsistenti** dovute a **espressioni non atomiche**.
+
+**3. Gestione dei registri:**
+> Un altro errore comune generato dalle interruzioni è quello di **sovrascrivere i registri utilizzati dal flusso principale**. Questo succede per via di una **_convenzione_**, che stabilisce che alcuni registri sono _ad utilizzo libero_, e non è quindi richiesto alle funzioni di ripristinarli al termine della loro esecuzione.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#212-gestione-corretta-delle-routine)*
+
+**Soluzioni per programmare con interruzioni attive:**
+
+**1. Salvataggio completo dei registri:**
+```x86asm
+#include <libce.h>
+	.global a_tastiera
+	.extern c_tastiera
+a_tastiera:
+	salva_registri
+	call c_tastiera
+	carica_registri
+	iretq
+```
+*Fonte: [Interruzioni.md](./Interruzioni#212-gestione-corretta-delle-routine)*
+
+**2. Controllo selettivo delle interruzioni:**
+> Interrompere le interruzioni è ovviamente un'operazione lecita, dopotutto le interruzioni funzionano _a pila_, e non vanno a toccarsi tra di loro <u>se ben gestite</u>.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**3. Gestione delle priorità strategica:**
+> La scelta ricade esclusivamente sulla priorità che **il programmatore** dà alle varie interruzioni, e può cambiare da caso a caso: attendere per la visualizzazione di un carattere a schermo può non provocare problemi, mentre se abbiamo una richiesta attraverso il timer, non gestirla può provocare perdita di richieste, e quindi ha più senso interrompere anche le eventuali interruzioni.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Esempio pratico di annidamento:**
+
+**Scenario**: Timer (priorità alta) interrompe routine tastiera (priorità bassa)
+
+1. **Tastiera attiva**: Richiesta memorizzata in IRR, spostata in ISR quando accettata
+2. **Timer arriva**: Richiesta con priorità maggiore in IRR
+3. **APIC invia nuova richiesta**: Timer può interrompere la routine tastiera
+4. **Esecuzione annidata**: 
+   - Timer esegue con IF=0 (non interrompibile)
+   - Al termine: `apic_send_EOI()` per timer
+   - Ripresa routine tastiera dal punto di interruzione
+
+**Vantaggi e sfide:**
+
+**Vantaggi:**
+- **Responsività**: Eventi critici non vengono ritardati
+- **Efficienza**: Utilizzo ottimale del processore
+- **Flessibilità**: Priorità configurabili dal programmatore
+
+**Sfide:**
+- **Complessità**: Gestione degli stati condivisi
+- **Atomicità**: Necessità di operazioni non interrompibili
+- **Debug**: Difficoltà nel tracciare comportamenti asincroni
+
+**RIEPILOGO:**
+L'annidamento delle interruzioni con ISR/IRR fornisce un sistema robusto per gestire eventi multipli con priorità, ma richiede attenzione particolare nella programmazione per evitare interferenze e garantire la correttezza del sistema.
 
 ---
 
-### Domanda 3.7
+### Domanda 3.7 (answered)
 **Domanda:** Quando si accodano le richieste di interruzione su `IRR`? Perché quando si attraversa il gate viene salvato il registro dei flag?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Le richieste di interruzione si accodano nell'IRR in momenti specifici determinati dalla gestione delle priorità dell'APIC, mentre il salvataggio del registro dei flag durante l'attraversamento del gate è essenziale per preservare lo stato del processore e garantire un ritorno corretto al contesto precedente.
+
+**Accodamento delle richieste in IRR:**
+
+**Meccanismo dell'IRR (Interrupt Request Register):**
+> Per gestire le richieste di interruzione, l'`APIC`, oltre a `EOI`, possiede altri due registri a `256bit`:
+> - `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
+> - `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Quando avviene l'accodamento:**
+
+**1. Ricezione della richiesta:**
+Quando una periferica (tastiera, timer, hard disk) genera un segnale di interruzione sul proprio piedino dell'APIC, la richiesta viene immediatamente memorizzata nell'IRR:
+
+> Quando uno di questi segnali viene settato l'`APIC` invia alla **CPU** un segnale tramite un suo registro interno chiamato `INTR` (_INTervall Request_), inizializzando un _handshake_.
+> 
+> Per permettere di capire chi è la sorgente del segnale, **il programmatore** associa ad ogni piedino del controllore `APIC` un _tipo_, ovvero una codifica su `8bit`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**2. Gestione delle priorità:**
+> Il programmatore ha quindi il compito di assegnare una **precedenza** alle varie richieste, e lo fa tramite il **tipo**. Quando assegna un tipo il programmatore ha `8bit`, dove i 4 più significativi indicano la _classe di precedenza_.
+>
+> Se arriva una nuova richiesta che ha _classe strettamente maggiore_ l'`APIC` invierà una **nuova richiesta**, negli altri casi attenderà `EOI`, per poi inviare la successiva richiesta con classe più alta in `IRR`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**3. Controllo della CPU:**
+> In ogni caso <u>l'ultima parola sull'eseguire in maniera effettiva o meno l'interruzione spetta alla <strong>CPU</strong>.</u> Solamente quando la **CPU** invierà il segnale di `INTA` l'`APIC` sceglierà la richiesta di classe più elevata in `IRR` e la sposterà in `ISR`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Timing del controllo delle interruzioni:**
+> Le interruzioni vengono **controllate e accettate solo tra un'istruzione e la successiva**. Il processore verifica la presenza di richieste di interruzione alla fine di ogni istruzione completata, quando il processore si trova in uno stato consistente.
+>
+> *Fonte: basato su [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**Salvataggio del registro dei flag (RFLAGS):**
+
+**Necessità del salvataggio:**
+Il salvataggio del registro RFLAGS durante l'attraversamento del gate è cruciale per diversi motivi:
+
+**1. Preservazione dello stato del processore:**
+> Quando il processore _accetta un'interruzione_ salva nella pila diverse informazioni, tra le quali:
+> - `RIP` per capire dove tornare al termine della routine
+> - `RFLAG` per poter poi ripristinare i flag come se la routine non fosse mai avvenuta.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**2. Informazioni salvate automaticamente:**
+> 7. Salva in pila `5 long word`. In ordine:
+> - [0] `SS`: `1 long word` non significativa
+> - [1] `SRSP`: pila salvata al passo 5
+> - [2] `RFLAGS`: registro dei flag
+> - [3] `CS`: vecchio valore del `CS` da ripristinare successivamente
+> - [4] `RIP`: indirizzo della prima istruzione da eseguire all'uscita del gate
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**3. Gestione del flag IF (Interrupt Flag):**
+> Per quanto riguarda la gestione delle interruzioni durante _routine_, nel processore _intelx86_ esiste un **flag aggiuntivo** in `RFLAG`, chiamato `IF` (_Interrupt Flag_). Se il bit è resettato, il processore **non accetta nuove richieste** finché non ha terminato quella attuale.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**Controllo dei gate:**
+> Il comando `gate_init()` ha un terzo parametro settato di default su `false`, che imposta `IF = 0` durante le _routine_, affinché non possano essere interrotte. Se volessimo invece che una _routine_ possa essere interrotta, dobbiamo impostarlo esplicitamente a `true`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**4. Ripristino trasparente:**
+Il salvataggio di RFLAGS permette al processore di tornare esattamente allo stato precedente quando la routine termina:
+
+> Utilizzare l'istruzione `IRETq` piuttosto che `RET`. `IRETq` infatti si ripristina lo stato del processore a prima che la routine iniziasse, in particolare ripristina `RFLAG` e gli altri registri prima di ripristinare `RIP`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**Interazione IRR-ISR durante l'esecuzione:**
+
+**Flusso completo:**
+1. **Periferica genera richiesta** → **Accodamento in IRR**
+2. **APIC invia INTR** → **CPU controlla tra istruzioni**
+3. **CPU accetta con INTA** → **Movimento da IRR a ISR**
+4. **Salvataggio automatico** → **Include RFLAGS nella pila**
+5. **Esecuzione routine** → **IF controllato dal tipo di gate**
+6. **EOI inviato** → **Bit in ISR azzerato, nuove richieste possibili**
+
+**RIEPILOGO:**
+Le richieste si accodano in IRR quando le periferiche generano segnali ma la CPU non può ancora accettarle (per priorità o timing), mentre il salvataggio di RFLAGS garantisce che lo stato completo del processore venga preservato durante le transizioni di contesto, permettendo un ritorno trasparente al codice interrotto.
 
 ---
 
-### Domanda 3.8
+### Domanda 3.8 (answered)
 **Domanda:** Come gestiamo le periferiche che agiscono sullo stesso piedino dell'`APIC`? Quanti piedini ha l'`APIC`?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+L'APIC dispone di **24 piedini** per la gestione delle interruzioni, e quando più periferiche condividono lo stesso piedino si utilizzano tecniche software per identificare la sorgente effettiva dell'interruzione, spesso attraverso il polling dei registri di stato delle periferiche coinvolte.
+
+**Numero di piedini dell'APIC:**
+
+**Capacità hardware:**
+> In particolare `I/O` ha una tabella `a_p` con **un entrata per ogni piedino dell'`APIC`** (24 piedini → 24 entrate).
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+Questo significa che l'APIC può gestire fino a **24 richieste di interruzione simultanee** da altrettante periferiche o gruppi di periferiche.
+
+**Dispositivi collegati nel nostro sistema:**
+
+**Assegnazione dei piedini:**
+> Nel nostro calcolatore i dispositivi rilevanti sono connessi ai seguenti piedini
+> - **Tastiera** ↔ `1`
+> - **Timer** ↔ `2`
+> - **Hard Disk** ↔ `14`
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Gestione delle periferiche sullo stesso piedino:**
+
+**Problema della condivisione:**
+Quando più periferiche condividono lo stesso piedino dell'APIC, sorge il problema di **identificare quale periferica specifica ha generato l'interruzione**, poiché l'APIC può solo identificare il piedino attivato, non la periferica individuale.
+
+**Soluzione attraverso il polling:**
+
+**1. Meccanismo software di identificazione:**
+Quando un'interruzione arriva su un piedino condiviso, il sistema deve:
+
+1. **Leggere i registri di stato** di tutte le periferiche collegate a quel piedino
+2. **Identificare quale periferica** ha effettivamente richiesto l'interruzione
+3. **Gestire la richiesta** della periferica corretta
+4. **Ripetere il controllo** per eventuali altre periferiche pendenti
+
+**2. Esempio nel bus PCI:**
+Il problema della condivisione è molto comune nel bus PCI, dove più funzioni possono condividere gli stessi piedini di interruzione:
+
+> Ogni dispositivo ha fino a quattro piedini in uscita per le richieste di interruzione: `INTA#`, `INTB#`, `INTC#` e `INTD#`.
+> 
+> Ogni funzione può quindi essere collegata ad **al più uno di questi piedini**.
+> Inoltre, funzioni dello stesso dispositivo possono essere collegate allo stesso piedino.
+>
+> *Fonte: [PCI.md](./PCI.md#22-gestione-interruzioni)*
+
+**3. Identificazione tramite registri di configurazione:**
+> Il piedino utilizzato deve essere leggibile dal _registro di configurazione_ chiamato `Intr. Pin`, grande `1Byte` e di sola _lettura_.
+> Se vale `0` indica che la funzione non genera interruzione, `1` che utilizza `INTA#`, `2` che utilizza `INTB#` e così via...
+>
+> Nel nostro caso il `BIOS` scrive in `Intr. line` **proprio il numero del piedino** dell'`APIC`, quindi possiamo limitarci a leggere questo registro.
+>
+> *Fonte: [PCI.md](./PCI.md#22-gestione-interruzioni)*
+
+**Processo di gestione pratico:**
+
+**Routine di interruzione condivisa:**
+```cpp
+extern "C" void c_shared_irq_handler() {
+    bool handled = false;
+    
+    // Controlla ogni periferica collegata al piedino
+    for (int dev = 0; dev < NUM_DEVICES_ON_PIN; dev++) {
+        if (device_has_pending_interrupt(dev)) {
+            handle_device_interrupt(dev);
+            handled = true;
+        }
+    }
+    
+    // Se nessuna periferica ha richiesto l'interruzione
+    if (!handled) {
+        // Interruzione spuria o errore
+        log_spurious_interrupt();
+    }
+    
+    apic_send_EOI();  // Sempre necessario
+}
+```
+
+**Vantaggi e svantaggi:**
+
+**Vantaggi:**
+- **Riduzione del numero di piedini** necessari
+- **Flessibilità** nell'assegnazione delle periferiche
+- **Compatibilità** con standard come PCI che prevedono condivisione
+
+**Svantaggi:**
+- **Latenza aggiuntiva** dovuta al polling
+- **Complessità software** nella gestione delle routine
+- **Possibili interruzioni spurie** se una periferica non azzera correttamente i suoi flag
+
+**Tecniche avanzate:**
+
+**Message Signaled Interrupts (MSI):**
+> Un ultima soluzione moderna prevede invece che le richieste di interruzione non viaggino su linee separate, ma **_siano inoltrate come speciali transazioni sul bus `PCI` stesso_**, sotto forma di scritture a particolari indirizzi chiamati **_Message Signaled Interrupts_**.
+>
+> *Fonte: [DMA.md](./DMA.md#31-interazione-con-le-interruzioni)*
+
+Questa tecnica moderna risolve il problema della condivisione assegnando a ogni periferica un **indirizzo univoco** per le sue interruzioni, eliminando la necessità di condividere piedini fisici.
+
+**RIEPILOGO:**
+L'APIC ha **24 piedini** disponibili per le interruzioni. Quando più periferiche condividono lo stesso piedino, il sistema utilizza tecniche software di **polling** per identificare la sorgente effettiva dell'interruzione, controllando i registri di stato di tutte le periferiche collegate a quel piedino. Le soluzioni moderne come MSI eliminano questo problema assegnando indirizzi univoci a ogni periferica.
 
 ---
 
-### Domanda 3.9
+### Domanda 3.9 (answered)
 **Domanda:** Chi configura i registri dell'`APIC` e la `IDT`? Chi stabilisce le classi di priorità nelle interruzioni e come si riconoscono?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+La configurazione dei registri dell'APIC e della IDT è una responsabilità condivisa tra il BIOS/bootstrap, il kernel/nucleo e il programmatore di sistema, con un meccanismo ben definito per stabilire e riconoscere le classi di priorità delle interruzioni.
+
+**Configurazione dei registri dell'APIC:**
+
+**1. Inizializzazione hardware dal BIOS:**
+Il BIOS configura le informazioni hardware di base per collegare le periferiche ai piedini dell'APIC:
+
+> Nel nostro caso il `BIOS` scrive in `Intr. line` **proprio il numero del piedino** dell'`APIC`, quindi possiamo limitarci a leggere questo registro.
+>
+> *Fonte: [PCI.md](./PCI.md#22-gestione-interruzioni)*
+
+**2. Configurazione software dal programmatore:**
+Il programmatore di sistema configura i registri dell'APIC tramite apposite funzioni:
+
+> **Il programmatore** associa ad ogni piedino del controllore `APIC` un _tipo_, ovvero una codifica su `8bit`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Esempio di configurazione APIC:**
+```cpp
+// Associazione irq->tipo (tramite l'APIC)
+apic::set_VECT(irq, tipo);
+
+// Configurazione trigger mode e mask
+apic::set_TRGM(2, false);  // fronte/livello
+apic::set_MIRQ(irq, false); // abilita interruzione
+```
+
+**3. Registri chiave dell'APIC:**
+L'APIC mantiene tre informazioni fondamentali per ogni piedino:
+
+> Vedremo successivamente che l'`APIC` conserva tre informazioni per ogni piedino:
+> - `VECT`: Tipo associato alle interruzioni su quel piedino
+> - `TRGM`: (_Trigger Mode_) indica se generare segnali su _livello_ o su _fronte_
+> - `MIRQ`: Maschera che indica se l'`APIC` deve stare in ascolto su quel piedino o meno
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Configurazione della IDT (Interrupt Descriptor Table):**
+
+**1. Inizializzazione dal programma di bootstrap:**
+La IDT viene creata e inizializzata durante il bootstrap del sistema:
+
+> La `IDT` viene inizializzata tramite il programma di _bootstrap_, in particolare utilizzando l'istruzione `LIDTR` che carica l'indirizzo della `IDT` nel registro `IDTR` che il processore utilizza per accedere ala tabella e allocando `IDT` nella memoria `M1`.
+> Per non permettere la modifica di `IDT` da parte dell'utente l'istruzione `LIDTR` è anch'essa **vietata** nel contesto _utente_.
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**2. Popolamento delle entry dal kernel:**
+Il kernel popola le singole entry della IDT associando tipi a routine specifiche:
+
+> La `IDT` **deve essere allocata dal programmatore**, e ogni sua riga viene identificata dal _tipo_ che il programmatore ha precedentemente dato ai piedini dell'`APIC`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Esempio di configurazione IDT:**
+```cpp
+// Associazione tipo->handler (tramite la IDT)
+gate_init(tipo, routine);
+
+// Esempio specifico
+const natb TIM_VECT = 0x50;
+apic::set_VECT(2, TIM_VECT);    // piedino 2 → tipo 0x50
+gate_init(TIM_VECT, a_timer);   // tipo 0x50 → routine a_timer
+```
+
+**3. Processo di collegamento completo nel modulo I/O:**
+Il modulo I/O gestisce la catena completa di configurazione:
+
+> Creiamo il collegamento irq->tipo->handler->processo esterno
+>
+> // irq->tipo (tramite l'APIC)
+> apic::set_VECT(irq, tipo);
+>
+> // Associazione tipo->handler (tramite la IDT)
+> load_handler(tipo, irq);
+>
+> // Associazione handler->processo esterno (tramite 'a_p')
+> a_p[irq] = p;
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**Stabilimento delle classi di priorità:**
+
+**1. Chi stabilisce le priorità:**
+Le classi di priorità sono stabilite dal **programmatore di sistema** attraverso la scelta del tipo:
+
+> Il programmatore ha quindi il compito di assegnare una **precedenza** alle varie richieste, e lo fa tramite il **tipo**. Quando assegna un tipo il programmatore ha `8bit`, dove i 4 più significativi indicano la _classe di precedenza_.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**2. Schema delle priorità nel modulo I/O:**
+Nel modulo I/O, le priorità seguono uno schema specifico:
+
+> La soluzione che adottiamo prevede quindi che tale precedenza debba avere la forma: `MIN_EXT_PRIO + prio` dove:
+> - `MIN_EXT_PRIO` è una costante definita in `costanti.h` che stabilisce la massima priorita per i processi `utente`
+> - `prio` è un numero naturale minore di `256`.
+>
+> *Fonte: [IO.md](./IO.md#3-modulo-io)*
+
+**Come si riconoscono le classi di priorità:**
+
+**1. Struttura del tipo a 8 bit:**
+I 4 bit più significativi del tipo definiscono la classe di priorità:
+
+```
+Tipo (8 bit): [CCCC][PPPP]
+              ↑    ↑
+              |    └─ Priorità all'interno della classe (4 bit)
+              └────── Classe di precedenza (4 bit)
+```
+
+**2. Meccanismo di valutazione dell'APIC:**
+L'APIC valuta le priorità automaticamente:
+
+> Se arriva una nuova richiesta che ha _classe strettamente maggiore_ l'`APIC` invierà una **nuova richiesta**, negli altri casi attenderà `EOI`, per poi inviare la successiva richiesta con classe più alta in `IRR`.
+>
+> Nel caso in cui ci fossero più richieste con la stessa classe di priorità, andrà a discriminare sui `4bit` meno significativi, inviando quella con il valore più alto.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**3. Controllo finale dalla CPU:**
+La CPU ha l'ultima parola sull'accettazione delle interruzioni:
+
+> In ogni caso l'ultima parola sull'eseguire in maniera effettiva o meno l'interruzione spetta alla **CPU**. Solamente quando la **CPU** invierà il segnale di `INTA` l'`APIC` sceglierà la richiesta di classe più elevata in `IRR` e la sposterà in `ISR`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Registri per il tracking delle priorità:**
+
+**Registri ISR e IRR:**
+L'APIC utilizza registri specializzati per tracciare le priorità:
+
+> Per gestire le richieste di interruzione, l'`APIC`, oltre a `EOI`, possiede altri due registri a `256bit`:
+> - `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
+> - `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Esempio pratico di configurazione completa:**
+
+**Per la tastiera:**
+```cpp
+const natb KBD_VECT = 0x40;             // Classe 4, priorità 0
+
+apic::set_VECT(1, KBD_VECT);        // Piedino 1 → tipo 0x40
+gate_init(KBD_VECT, a_tastiera);    // Tipo 0x40 → routine tastiera
+apic::set_MIRQ(1, false);           // Abilita interruzioni
+kbd::enable_intr();                 // Abilita hardware tastiera
+```
+
+**Per il timer:**
+```cpp
+const natb TIM_VECT = 0x50;         // Classe 5, priorità 0 (maggiore di tastiera)
+
+apic::set_VECT(2, TIM_VECT);
+gate_init(TIM_VECT, a_timer);
+apic::set_MIRQ(2, false);
+```
+
+**Protezione e sicurezza:**
+
+**Controlli di accesso:**
+Il sistema garantisce che solo il kernel possa modificare queste configurazioni:
+
+> Per non permettere la modifica di `IDT` da parte dell'utente l'istruzione `LIDTR` è anch'essa **vietata** nel contesto _utente_.
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**RIEPILOGO:**
+- **APIC**: Configurato dal programmatore di sistema tramite `apic::set_VECT()`, `apic::set_MIRQ()`, etc.
+- **IDT**: Inizializzata dal bootstrap con `LIDTR`, popolata dal kernel con `gate_init()`
+- **Priorità**: Stabilite dal programmatore tramite i 4 bit più significativi del tipo
+- **Riconoscimento**: Automatico da parte dell'APIC, che valuta classe e priorità e gestisce ISR/IRR
+- **Controllo finale**: La CPU decide definitivamente l'accettazione con il segnale INTA
 
 ---
 
-### Domanda 3.10
+### Domanda 3.10 (answered)
 **Domanda:** Qual è la differenza tra interrupt su fronte e su livello? È possibile che si perdano interruzioni?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+La differenza tra interrupt su fronte e su livello risiede nel momento e nella modalità con cui l'APIC riconosce e gestisce le richieste di interruzione. Sì, è possibile che si perdano interruzioni in determinate circostanze, particolarmente con la gestione su fronte.
+
+**Interrupt su fronte (Edge-triggered):**
+
+**Modalità di riconoscimento:**
+> È inoltre possibile configurare l'`APIC` affinché legga le richieste sui fronti di salita o sui fronti di discesa.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Caratteristiche degli interrupt su fronte:**
+
+**1. Riconoscimento su transizione:**
+L'APIC riconosce la richiesta di interruzione nel momento della transizione del segnale (fronte di salita o discesa), non sulla durata del segnale stesso.
+
+**2. Configurazione software:**
+Dal codice degli esempi del timer:
+```cpp
+apic::set_TRGM(2, false);  // false = riconoscimento su fronte
+/*
+* Trigger Mode: genera segnale sul piedino 2 quando avviene
+*   false=riconoscimento su fronte,
+*   true=riconoscimento su livello
+*/
+```
+
+**3. Vantaggi:**
+- **Efficienza**: Una sola richiesta per evento, non ripetizioni
+- **Controllo temporale**: Utile per eventi temporizzati come il timer
+
+**4. Esempio pratico del timer:**
+```cpp
+extern "C" void c_timer() {
+    counter++;
+    apic::send_EOI();
+}
+```
+
+> IL timer genera un'onda quadra. Abbiamo inserito un periodo di `50ms` perciò il segnale sarà ad `1` per `25ms` e a `0` per `25ms`.
+> Se avessimo impostato `apic::setTRGM(2, true)`, avremmo avuto molte più richieste.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Interrupt su livello (Level-triggered):**
+
+**Modalità di riconoscimento:**
+Il controllo su livello è il meccanismo utilizzato dalla maggior parte delle periferiche moderne, inclusa la tastiera.
+
+**1. Riconoscimento continuo:**
+> Per capire se c'è una nuova richiesta o meno, si utilizza un metodo software chiamato **controllo su Livello**. Questo tipo di controllo fa in modo che l'`APIC`, dopo aver inviato una richiesta, guardi nuovamente i piedini **<u>solo dopo aver ricevuto il segnale di gestione completata dell'interruzione</u>**.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**2. Configurazione software:**
+```cpp
+apic::set_TRGM(1, true);   // true = riconoscimento su livello (default)
+```
+
+**3. Meccanismo EOI essenziale:**
+> Per evitare comportamenti indesiderati da parte dell'`APIC` è importante che questo `bit` venga settato **quando tutta la routine è terminata** e non c'è altro da fare.
+> Se così non fosse, il controllore potrebbe reinviare segnali di interruzioni su eventi già gestiti.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**4. Comportamento con durata prolungata:**
+> Infatti, il segnale è settato per `25ms`, che è un tempo **molto maggiore** del tempo necessario a eseguire la _routine_, e ogni volta che terminerà la _routine_ la farà ripartire con lo stesso segnale.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Possibilità di perdita di interruzioni:**
+
+**1. Perdita su fronte (Edge-triggered):**
+
+**Scenario critico:**
+Con la gestione su fronte, se due eventi si verificano in rapida successione, il secondo evento può essere perso se il primo non è ancora stato completamente gestito.
+
+**Meccanismo di perdita:**
+- Se un fronte viene generato mentre la CPU ha le interruzioni disabilitate (IF=0)
+- Se due fronti consecutivi si verificano prima del riconoscimento del primo
+- Il segnale deve avere una durata sufficiente per essere campionato
+
+**2. Gestione con livello - protezione dalla perdita:**
+
+**Accodamento in IRR:**
+> Per gestire le richieste di interruzione, l'`APIC`, oltre a `EOI`, possiede altri due registri a `256bit`:
+> - `ISR` (_In Service Register_): conserva informazioni relative ai tipi accettati dalla **CPU** e non ancora terminati.
+> - `IRR` (_Interrupt Request Register_): conserva informazioni relative alle richieste dei tipi non ancora accettati.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**Meccanismo di protezione:**
+Le richieste su livello sono più robuste perché:
+- Il segnale rimane attivo finché la periferica non viene servita
+- L'APIC continua a vedere il segnale e lo mantiene in IRR
+- Solo dopo l'EOI l'APIC può rilevare nuove richieste
+
+**3. Controllo finale della CPU:**
+> In ogni caso l'ultima parola sull'eseguire in maniera effettiva o meno l'interruzione spetta alla **CPU**. Solamente quando la **CPU** invierà il segnale di `INTA` l'`APIC` sceglierà la richiesta di classe più elevata in `IRR` e la sposterà in `ISR`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**Prevenzione della perdita di interruzioni:**
+
+**1. Tempistiche adeguate:**
+Per eventi critici che non possono essere persi, la gestione su livello è preferibile.
+
+**2. Gestione delle priorità:**
+> La scelta ricade esclusivamente sulla priorità che **il programmatore** dà alle varie interruzioni, e può cambiare da caso a caso: attendere per la visualizzazione di un carattere a schermo può non provocare problemi, mentre se abbiamo una richiesta attraverso il timer, non gestirla può provocare perdita di richieste, e quindi ha più senso interrompere anche le eventuali interruzioni.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#211-gestione-più-richieste)*
+
+**3. Tecnologie moderne - Message Signaled Interrupts:**
+> Un ultima soluzione moderna prevede invece che le richieste di interruzione non viaggino su linee separate, ma **_siano inoltrate come speciali transazioni sul bus `PCI` stesso_**, sotto forma di scritture a particolari indirizzi chiamati **_Message Signaled Interrupts_**. Poiché prima che la richiesta di interruzione arrivi, il buffer del `ponte` dovrà essere svuotato dai precedenti contenuti, si risolve anche in questo modo il problema delle corse.
+>
+> *Fonte: [DMA.md](./DMA#31-interazione-con-le-interruzioni)*
+
+**RIEPILOGO:**
+- **Su fronte**: Riconoscimento sulla transizione, efficiente ma può perdere eventi rapidi
+- **Su livello**: Riconoscimento continuo finché attivo, più robusto contro le perdite
+- **Perdite possibili**: Principalmente su fronte con eventi consecutivi rapidi
+- **Protezione**: Livello + EOI + gestione priorità + tecnologie moderne (MSI)
 
 ---
 
-### Domanda 3.11
+### Domanda 3.11 (answered)
 **Domanda:** Quando si traduce una funzione in C++ sono ripristinati tutti i registri? Quali sono le istruzioni che ci permettono di usare le interruzioni?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+No, quando si traduce una funzione in C++ **non sono ripristinati tutti i registri**. Il comportamento dipende dalle **calling conventions** del linguaggio. Le istruzioni fondamentali per le interruzioni sono `STI`, `CLI` e `IRETQ`.
+
+**Calling Conventions e gestione dei registri in C++:**
+
+**1. Convenzioni standard:**
+Le funzioni C++ seguono convenzioni che dividono i registri in categorie:
+
+> Un altro errore comune generato dalle interruzioni è quello di **sovrascrivere i registri utilizzati dal flusso principale**. Questo succede per via di una **_convenzione_**, che stabilisce che alcuni registri sono _ad utilizzo libero_, e non è quindi richiesto alle funzioni di ripristinarli al termine della loro esecuzione. Tra questi registri abbiamo ad esempio il registro `%rcx`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#212-gestione-corretta-delle-routine)*
+
+**2. Categorie di registri:**
+- **Caller-saved**: Registri che la funzione chiamante deve salvare se ne ha bisogno (come `%rcx`, `%rdx`)
+- **Callee-saved**: Registri che la funzione chiamata deve ripristinare se li modifica (come `%rbx`, `%rbp`)
+
+**3. Problemi con le interruzioni:**
+> Nel caso in cui **sia il nostro flusso principale che la _routine_** utilizzino `%rcx` la probabilità che il programma abbia dei comportamenti inaspettati è molto elevata.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#212-gestione-corretta-delle-routine)*
+
+**Compilatore e gestione dei registri:**
+
+**1. Limitazioni del compilatore:**
+> Il compilatore **non ha idea di come distinguere le _funzioni routine_** dalle altre. Perciò il comportamento di _default_ segue le classiche politiche di compilazione:
+> - Terminare la traduzione del codice con una classica `RET` invece che di `IRETq`,
+> - Ottimizzare il codice senza tenere conto del fatto che, per via delle interruzioni, alcune variabili/registri potrebbero subire modifiche in maniera non prevedibile
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#212-gestione-corretta-delle-routine)*
+
+**2. Salvataggio completo necessario:**
+> Per ovviare anche a questo la soluzione è quella di salvare il contenuto di **tutti i registri** nella pila. In `assembly` su `64bit` non esistono equivalenti della `PUSHAD`/`POPAD`, ma possiamo utilizzare una macro messa a disposizione dalla libreria
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#212-gestione-corretta-delle-routine)*
+
+**Istruzioni fondamentali per le interruzioni:**
+
+**1. STI e CLI - Controllo del flag IF:**
+> Per quanto riguarda la gestione delle interruzioni durante _routine_, nel processore _intelx86_ esiste un **flag aggiuntivo** in `RFLAG`, chiamato `IF` (_Interrupt Flag_). Se il bit è resettato, il processore **non accetta nuove richieste** finché non ha terminato quella attuale. Per poterlo manipolare esistono due istruzioni:
+> - `STI` (_SeT Interrupt flag_)
+> - `CLI` (_CLear Interrupt flag_).
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**2. IRETQ - Ritorno dalle interruzioni:**
+> Nelle routine ci sono alcune regole da seguire:
+> 1. Ricordarsi di settare e resettare correttamente `IF` tramite le istruzioni `STI` e `CLI`
+> 1. Utilizzare l'istruzione `IRETq` piuttosto che `RET`. `IRETq` infatti si ripristina lo stato del processore a prima che la routine iniziasse, in particolare ripristina `RFLAG` e gli altri registri prima di ripristinare `RIP`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**3. Salvataggio automatico dell'hardware:**
+> Quando il processore _accetta un'interruzione_ salva nella pila diverse informazioni, tra le quali:
+> - `RIP` per capire dove tornare al termine della routine
+> - `RFLAG` per poter poi ripristinare i flag come se la routine non fosse mai avvenuta.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#2-interruzioni)*
+
+**Struttura completa di una routine di interruzione:**
+
+**1. Routine assembly corretta:**
+```x86asm
+#include <libce.h>
+	.global a_tastiera
+	.extern c_tastiera
+a_tastiera:
+	salva_registri
+	call c_tastiera
+	carica_registri
+	iretq
+```
+
+**2. Funzioni di sistema:**
+Dal file [`Sistemi Multiprocesso e Processi.md`](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi):
+```x86asm
+routine_gate:
+    CALL salva_stato        ; Macro che salva il contenuto di tutti i registri in pila
+    /*
+    * corpo routine
+    */
+    CALL carica_stato       ; Macro che carica il contenuto di tutti i registri dalla pila
+    IRETQ
+```
+
+**3. Primitive di sistema:**
+> Le routine avranno quindi tutte **lo stesso formato**.
+>
+> ```x86asm
+> a_primitiva_i:
+>     CALL salva_stato
+>     CALL c_primitiva;
+>     CALL carica_stato
+>     IRETQ
+> ```
+>
+> *Fonte: [Realizzazione Primitive.md](./Realizzazione%20Primitive#3-meccanismo-di-chiamata)*
+
+**Macro della libreria:**
+
+**1. salva_registri e carica_registri:**
+Utilizzate per il salvataggio completo in routine di interruzione esterne.
+
+**2. salva_stato e carica_stato:**
+Utilizzate per la gestione del contesto dei processi nelle primitive di sistema:
+
+> Per capire a quale processo ci stiamo riferendo quando invochiamo `salva_stato` e `carica_stato` utilizziamo come già detto una variabile globale `esecuzione`.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Istruzioni specifiche per controllo interruzioni:**
+
+**1. Controllo manuale:**
+- **`STI`**: Abilita le interruzioni (setta IF=1)
+- **`CLI`**: Disabilita le interruzioni (azzera IF=0)
+
+**2. Gate della IDT:**
+> Il comando `gate_init()` ha un terzo parametro settato di default su `false`, che imposta `IF = 0` durante le _routine_, affinché non possano essere interrotte. Se volessimo invece che una _routine_ possa essere interrotta, dobbiamo impostarlo esplicitamente a `true`.
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**3. Ritorno sicuro:**
+**`IRETQ`** è l'unica istruzione che permette il ritorno corretto dalle interruzioni, ripristinando:
+- RIP, CS, RFLAGS, RSP, SS dalle 5 long word salvate automaticamente
+- Lo stato completo del processore
+
+**RIEPILOGO:**
+- **C++ standard**: Non ripristina tutti i registri, segue calling conventions
+- **Routine interruzioni**: Richiedono salvataggio completo manuale
+- **Istruzioni chiave**: `STI` (abilita), `CLI` (disabilita), `IRETQ` (ritorno)
+- **Macro necessarie**: `salva_registri`/`carica_registri` o `salva_stato`/`carica_stato`
 
 ---
 
-### Domanda 3.12
+### Domanda 3.12 (answered)
 **Domanda:** Come si gestisce il problema del _Cavallo di Troia_ nel contesto delle interruzioni e del sistema di protezione?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Il problema del **Cavallo di Troia** nelle interruzioni e nel sistema di protezione si riferisce a situazioni in cui **un processo utente malevolo fornisce deliberatamente indirizzi non validi o pericolosi al sistema**, sfruttando la differenza di privilegio tra contesti per accedere o modificare aree di memoria che non dovrebbe.
+
+**Definizione del problema:**
+
+> Questo problema, che ricade nei problemi degli _**indirizzi cavalli di Troia**_, richiede quindi un'estrema attenzione e un'attenta validazione dei dati.
+>
+> *Fonte: [IO.md](./IO#23-verifica-dati-utente)*
+
+**Scenarios tipici di attacco:**
+
+**1. Buffer malevoli nelle primitive di I/O:**
+Quando un processo utente chiama una primitiva di sistema passando un buffer, questo potrebbe:
+
+> Questo intervallo di indirizzi di memoria `[buf, buf + quanti)`, potrebbe infatti trovarsi in una sezione di memoria alla quale lui non può accedere, ma il `sistema` sì.
+>
+> *Fonte: [IO.md](./IO#23-verifica-dati-utente)*
+
+**2. Contesto di esecuzione confuso:**
+Il driver esegue con privilegi di sistema ma deve operare su dati del processo utente:
+
+> Questi controlli, tediosi ma generalmente semplici, sono affetti da un'ulteriore complicazione: il _driver_ gira infatti mentre in `esecuzione` c'è `P2` e non `P1`.
+> L'indirizzo privato fornitoci da `P1`, senza apporre le giuste precauzioni, verrebbe utilizzato nel contesto di `P2`, sovrascrivendone la memoria privata.
+>
+> *Fonte: [IO.md](./IO#23-verifica-dati-utente)*
+
+**Meccanismi di protezione implementati:**
+
+**1. Principio di non fiducia:**
+> Lo standard che assumiamo è quello di **_non fidarci dell'utente_**.
+> Sarà quindi necessario controllare e approvare i dati che l'utente ci fornisce.
+>
+> *Fonte: [IO.md](./IO#23-verifica-dati-utente)*
+
+**2. Controlli di validazione sistematici:**
+Per ogni indirizzo fornito dall'utente, il sistema deve verificare:
+
+> 1. Che l'indirizzo sia _normalizzato_;
+> 2. Che l'indirizzo sia _mappato_ nel _trie_ del processo;
+> 3. Nel caso di scritture di _buffer_, che si abbia accesso in scrittura a quest'ultimo
+> 4. Che `buf + i` non faccia _wrap-around_, con $0 \le i < quanti$
+> 5. Che `[buf, buf+quanti)` stia tutto nella stessa porzione di memoria
+>
+> *Fonte: [IO.md](./IO#23-verifica-dati-utente)*
+
+**3. Restrizione alla memoria condivisa:**
+> La soluzione più semplice, che è anche quella che generalmente adoperiamo, è quella di **imporre** la necessità che il _buffer_ **_stia tutto nella parte condivisa_**, così da non scrivere nelle parti private di altri processi.
+>
+> *Fonte: [IO.md](./IO#23-verifica-dati-utente)*
+
+**Protezione hardware delle strutture critiche:**
+
+**1. Separazione dei livelli di privilegio:**
+> Il livello di privilegio può essere cambiato solo in due modi:
+>
+> | Operazione         | Livello di privilegio    |
+> | ------------------ | ------------------------ |
+> | _gate_ della `IDT` | `utente` $\to$ `sistema` |
+> | Istruzione `IRETQ` | `sistema` $\to$ `utente` |
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**2. Controlli di accesso ai gate:**
+> Se sta gestendo una _interruzione software_ o `int3`, confronta il livello corrente con il campo `DPL` del gate.
+> Se il livello corrente è meno privilegiato di `DPL` si genera una _eccezione di protezione_ `13`.
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**3. Protezione della pila sistema:**
+> Il cambio di pila è **_necessario_**, è ha due motivazioni:
+> - Il processore deve garantire di poter scrivere le 5 `long word` senza sovrascrivere altre cose, e non può quindi fidarsi di `RSP` che è completamente a servizio dell'utente.
+> - Queste informazioni sono salvate nella memoria di sistema, in modo che l'utente **non le possa corrompere**.
+>   In particolare, è bene che l'utente non possa modificare il valore salvato di `CS`.
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**Funzione di controllo access():**
+Il sistema fornisce una funzione dedicata per la validazione:
+
+```cpp
+extern "C" bool c_access(vaddr begin, natq dim, bool writeable, bool shared = true)
+```
+
+Questa funzione verifica che l'intervallo di memoria richiesto sia:
+- **Valido** (non genera wrap-around)
+- **Condiviso** (se richiesto)
+- **Mappato** nel processo corrente
+- **Accessibile** con i permessi richiesti (lettura/scrittura)
+
+**Implicazioni per la sicurezza:**
+La gestione del problema del Cavallo di Troia è **fondamentale** per:
+1. **Prevenire privilege escalation**: impedire ai processi utente di ottenere accesso a memoria di sistema
+2. **Mantenere l'isolamento**: garantire che i processi non possano corrompere la memoria di altri processi
+3. **Preservare l'integrità**: proteggere le strutture dati critiche del sistema (IDT, GDT, tabelle di paginazione)
+
+In sintesi, la protezione contro i Cavalli di Troia richiede una **validazione sistematica e rigorosa** di tutti gli indirizzi forniti dai processi utente, combinata con meccanismi hardware di protezione dei livelli di privilegio e separazione delle pile di sistema e utente.
 
 ---
 
@@ -1682,7 +3214,6 @@ Questa distinzione è fondamentale per capire come il processore gestisce gli ev
 **Domanda:** Come funziona l'eccezione di debug `int3` e come viene utilizzata dai debugger per implementare i breakpoint?
 
 **Risposta:**
-
 L'eccezione di debug `int3` è un meccanismo hardware fondamentale che permette ai debugger di controllare l'esecuzione dei programmi attraverso i breakpoint. È implementata tramite l'eccezione tipo 3 della IDT.
 
 **Caratteristiche dell'eccezione `int3`:**
@@ -1780,19 +3311,268 @@ Il meccanismo `int3` rappresenta quindi la base hardware fondamentale per tutti 
 
 ---
 
-### Domanda 4.3
+### Domanda 4.3 (answered)
 **Domanda:** Che fa la CPU quando rileva un'eccezione? Come fa la CPU a capire dove saltare?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Quando la CPU rileva un'eccezione, attiva un meccanismo hardware ben definito che gestisce automaticamente il salto alla routine di gestione appropriata attraverso la IDT (Interrupt Descriptor Table).
+
+**Rilevamento delle eccezioni:**
+
+**1. Natura delle eccezioni:**
+> Le eccezioni, quando vengono _sollevate_, sono quindi gestite immediatamente attraverso _routine_.
+>
+> *Fonte: [Eccezioni.md](./Eccezioni#2-eccezioni)*
+
+Le eccezioni sono eventi **sincroni** che possono essere sollevati:
+
+> Mentre le interruzioni possono accedere solo tra un'istruzione e la successiva, le eccezioni possono essere sollevate **in un momento qualunque di un'istruzione** (lettura, decodifica, esecuzione).
+>
+> *Fonte: [Eccezioni.md](./Eccezioni#22-gestione-eccezioni)*
+
+**2. Tipi di eccezioni predefiniti:**
+> Le _routine_ delle eccezioni sono anch'esse salvate nella `IDT`, in particolare nelle **prime 32 entrate**. I loro tipi sono **fissi e impliciti**, consultabili nel manuale del processore.
+> Alcune eccezioni famose sono:
+> - `0`: **Divisione per zero**
+> - `1`: **Single-Step**: viene avviato se il flag `TF` è settato.
+> - `3`: **Eccezione di debug** (istruzione `int3`)
+>
+> *Fonte: [Eccezioni.md](./Eccezioni#2-eccezioni)*
+
+**Meccanismo di salto attraverso la IDT:**
+
+**1. Identificazione del tipo:**
+> Quando il processore accede all'`IDT` accadono questi passaggi:
+>
+> 1. Innanzitutto il processore si procura il _tipo_ dell'interruzione
+>    - In caso di _eccezione_ il tipo è implicito;
+>    - In caso di _interruzione **esterna**_, riceve il tipo dall'`APIC`;
+>    - In caso di _interruzione **software**_ è l'argomento specificato nell'istruzione `INT $tipo`.
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**2. Accesso alla IDT:**
+> Affinché tutto questo funzioni, la **CPU** ha un suo registro interno chiamato `IDTR` (_Interrupt Descriptor Table Register_) che ha salvato l'indirizzo della `IDT` salvata in memoria.
+> La `IDT` è una tabella che ha per ogni riga delle informazioni che vedremo meglio nel dettaglio nella sezione dedicata alla [Protezione](./Protezione).
+> Alcune informazioni sono:
+> - _Indirizzo della routine_ dove saltare
+>
+> *Fonte: [Interruzioni.md](./Interruzioni#21-interruzioni-a-più-sorgenti---apic)*
+
+**3. Controlli di sicurezza:**
+> 2. Verifica se il bit `P` associato al tipo è zero, generando un'eccezione di _gate non presente_ `11` in caso positivo, negli altri casi procede.
+>
+> 3. Se sta gestendo una _interruzione software_ o `int3`, confronta il livello corrente con il campo `DPL` del gate.
+>    Se il livello corrente è meno privilegiato di `DPL` si genera una _eccezione di protezione_ `13`.
+>
+> 4. Altrimenti, confronta `CS` con `L`.
+>    Se `L` è **inferiore**, si genera ancora un'_eccezione di protezione_ `13`.
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**Salvataggio automatico dello stato:**
+
+**1. Cambio di pila e salvataggio:**
+> 5. Negli altri casi, il processore salva in un registro di appoggio (chiamiamolo `SRSP`) il contenuto corrente di `RSP`
+>
+> 6. Se `CS` è diverso da `L` esegue un _cambio di pila_ (_pila sistema/utente_ nel nostro caso), caricando un nuovo valore in `RSP`
+>
+> 7. Salva in pila `5 long word`. In ordine:
+>    - [0] `SS`: `1 long word` non significativa (rimasuglio della segmentazione, ...)
+>    - [1] `SRSP`: pila salvata al passo 5. Nel caso di cambio pila è quella `utente`, altrimenti punta alla pila `sistema` stessa
+>    - [2] `RFLAGS`: registro dei flag
+>    - [3] `CS`: vecchio valore del `CS` da ripristinare successivamente
+>    - [4] `RIP`: indirizzo della prima istruzione da eseguire all'uscita del gate. Nel caso di interruzioni software `INT $tipo` questo contiene l'istruzione immediatamente successiva
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**2. Configurazione dei flag:**
+> 8. Il processore poi azzera:
+>    - `TF` in ogni caso;
+>    - `IF` solo se il gate è di tipo _Interrupt_.
+>
+> 9. Salta infine all'indirizzo della _routine_ puntata dal gate.
+>
+> *Fonte: [Protezione.md](./Protezione#22-passaggi-tra-contesti)*
+
+**Classificazione delle eccezioni per gestione:**
+
+Le eccezioni vengono classificate in base al momento e alle modalità di gestione:
+
+> | Tipo    | Quando viene generata                             | Indirizzo salvato                             | Scopo/Effetto                                                                           |
+> | ------- | ------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
+> | `Fault` | Durante l'esecuzione di un'istruzione             | Indirizzo dell'istruzione che stava eseguendo | La routine dovrebbe sistemare il problema per poter rieseguire l'istruzione             |
+> | `Trap`  | Tra l'esecuzione di un'istruzione e la successiva | Indirizzo dell'istruzione successiva          | -                                                                                       |
+> | `Abort` | In qualsiasi momento                              | -                                             | Gestisce errori particolarmente gravi, tipicamente causa lo spegnimento del calcolatore |
+>
+> *Fonte: [Eccezioni.md](./Eccezioni#22-gestione-eccezioni)*
+
+**Esempio pratico - Divisione per zero:**
+
+```cpp
+#include <libce.h>
+
+extern "C" void a_divPerZero();
+extern "C" void c_divPerZero(natq rip) {
+    printf("Divisione per 0, all'indirizzo %lx!\n", rip);
+}
+
+int main() {
+    int b = 0;
+    gate_init(0, a_divPerZero);  // Associa tipo 0 alla routine custom
+    /*
+    *  Inizializzo la riga 0 della IDT(DivisionPerZeroFault)
+    *  con la mia funzione
+    */
+    int a = 3 / b;  // Genera eccezione tipo 0
+}
+```
+
+**Processo completo:**
+1. **Rilevamento**: La CPU rileva la divisione per zero durante l'esecuzione
+2. **Tipo implicito**: Automaticamente identifica il tipo 0 (divisione per zero)
+3. **Accesso IDT**: Usa IDTR per accedere alla entry 0 della IDT
+4. **Controlli**: Verifica presenza del gate e privilegi
+5. **Salvataggio**: Salva automaticamente stato del processore in pila
+6. **Salto**: Salta alla routine `a_divPerZero` specificata nel gate
+7. **Gestione**: Esegue la routine di gestione dell'eccezione
+
+In sintesi, la CPU gestisce le eccezioni attraverso un meccanismo hardware completamente automatico che garantisce transizioni sicure e controllate verso le routine di gestione appropriate, utilizzando la IDT come tabella di dispatch e preservando automaticamente lo stato del processore per un eventuale recupero.
 
 ---
 
-### Domanda 4.4
+### Domanda 4.4 (answered)
 **Domanda:** Cosa succede se ho un `page fault` su una istruzione `LOAD`? Come viene gestita questa situazione?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Un page fault su un'istruzione `LOAD` rappresenta una delle situazioni più comuni e critiche nella gestione della memoria virtuale, richiedendo un meccanismo sofisticato di gestione delle eccezioni di tipo **Fault**.
+
+**Natura del page fault durante una LOAD:**
+
+**1. Classificazione dell'eccezione:**
+Un page fault è un'eccezione di tipo **Fault**, il che significa:
+
+> | Tipo    | Quando viene generata                             | Indirizzo salvato                             | Scopo/Effetto                                                                           |
+> | ------- | ------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
+> | `Fault` | Durante l'esecuzione di un'istruzione             | Indirizzo dell'istruzione che stava eseguendo | La routine dovrebbe sistemare il problema per poter rieseguire l'istruzione             |
+>
+> *Fonte: [Eccezioni.md](./Eccezioni#22-gestione-eccezioni)*
+
+**2. Momento del sollevamento:**
+> Mentre le interruzioni possono accedere solo tra un'istruzione e la successiva, le eccezioni possono essere sollevate **in un momento qualunque di un'istruzione** (lettura, decodifica, esecuzione).
+>
+> *Fonte: [Eccezioni.md](./Eccezioni#22-gestione-eccezioni)*
+
+**Meccanismo di rilevamento del page fault:**
+
+**1. Controllo del bit P durante la traduzione:**
+> Se uno qualsiasi dei bit `P` incontrati durante la traduzione vale `0`, la **Trie-MMU** smette di tradurre e solleva un'eccezione di _page fault_.
+>
+> *Fonte: [Paginazione.md](./Paginazione#321-formato-delle-tabelle)*
+
+**2. Interruzione del processo di traduzione:**
+Durante un'istruzione `LOAD`, la MMU esegue il table-walk per tradurre l'indirizzo virtuale:
+- Accede alle tabelle di paginazione seguendo il percorso nel trie
+- Se incontra un bit `P = 0` in qualsiasi livello, interrompe immediatamente la traduzione
+- Solleva un'eccezione di page fault (tipo 14)
+
+**Salvataggio dello stato durante il page fault:**
+
+**1. Informazioni salvate automaticamente:**
+> Quando si accede ad un _gate_ della `IDT` (tramite _interruzione_, _eccezione_ o `int`), sappiamo che vengono già salvate delle informazioni (`5 long word`):
+> - [0] Informazioni per noi non rilevanti
+> - [1] `RSP`: indirizzo della _pila_ al momento del passaggio
+> - [2] `RFLAGS`: stato dei _flag_ al momento del passaggio
+> - [3] `CS`: livello precedente all'attraversamento del _gate_
+> - [4] `RIP`: istruzione dalla quale ripartire
+>
+> *Fonte: [Domande e Risposte.md](./Domande%20e%20Risposte#72-descrittori-di-processo)*
+
+**2. Indirizzo dell'istruzione che ha causato il fault:**
+Per le eccezioni di tipo Fault, `RIP` contiene l'indirizzo dell'istruzione che ha generato l'eccezione, **non** dell'istruzione successiva. Questo permette di riprovare l'istruzione dopo aver risolto il problema.
+
+**Gestione del page fault da parte del kernel:**
+
+**1. Routine di gestione:**
+Il kernel ha una routine dedicata per gestire i page fault, registrata nella entry 14 della IDT.
+
+**2. Casi possibili:**
+- **Pagina non presente**: La pagina richiesta non è stata ancora caricata in memoria
+- **Violazione di protezione**: Tentativo di accesso non autorizzato (lettura/scrittura/esecuzione)
+- **Pagina swappata**: La pagina è stata trasferita in memoria secondaria
+
+**3. Strategia di recovery:**
+Per un Fault, la strategia è sempre quella di:
+1. **Identificare la causa** del page fault
+2. **Risolvere il problema** (caricare la pagina, aggiornare i permessi, etc.)
+3. **Riprovare l'istruzione** originale
+
+**Esempio di gestione:**
+
+```cpp
+extern "C" void a_page_fault();
+extern "C" void c_page_fault(natq rip, natq error_code) {
+    // Ottieni l'indirizzo che ha causato il fault dal registro CR2
+    vaddr fault_addr = readCR2();
+    
+    if (error_code & 0x1) {
+        // Violazione di protezione
+        handle_protection_violation(fault_addr, rip);
+    } else {
+        // Pagina non presente - carica la pagina
+        if (load_page_from_swap(fault_addr)) {
+            // Pagina caricata con successo, l'istruzione verrà riprovata
+            return;
+        } else {
+            // Errore irrecuperabile
+            terminate_process();
+        }
+    }
+}
+```
+
+**Interazione con il TLB:**
+
+**1. Invalidazione necessaria:**
+> Un esempio di `TLB` a due vie può essere il seguente: [...] Questo processo è obbligatorio nei cambi di contesto, in quanto le traduzioni di `P1` non hanno senso per `P2`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#332-tlb)*
+
+**2. Aggiornamento dopo recovery:**
+Dopo aver risolto il page fault e caricato la pagina:
+- La traduzione viene aggiornata nelle tabelle di paginazione
+- Il TLB potrebbe essere invalidato per quella entry specifica
+- La prossima esecuzione dell'istruzione LOAD utilizzerà la nuova traduzione
+
+**Ripristino dell'esecuzione:**
+
+**1. Ritorno con IRETQ:**
+Dopo aver gestito il page fault, la routine termina con `IRETQ`, che:
+- Ripristina automaticamente `RIP` all'indirizzo dell'istruzione originale
+- Ripristina `RFLAGS`, `CS`, e `RSP`
+- Permette alla CPU di **riprovare esattamente la stessa istruzione LOAD**
+
+**2. Successo del recovery:**
+Se il page fault è stato gestito correttamente:
+- L'istruzione LOAD viene rieseguita
+- La MMU trova ora la pagina presente (bit `P = 1`)
+- La traduzione procede normalmente
+- L'operazione di caricamento viene completata
+
+**Considerazioni prestazionali:**
+
+I page fault sono eventi costosi perché richiedono:
+- Cambio di contesto (utente → sistema)
+- Accesso a memoria secondaria (se pagina swappata)
+- Aggiornamento delle strutture dati del kernel
+- Invalidazione del TLB
+
+Tuttavia, rappresentano un meccanismo fondamentale per:
+- **Memoria virtuale**: Permettere spazi di indirizzamento più grandi della RAM
+- **Paginazione su domanda**: Caricare solo le pagine effettivamente utilizzate
+- **Protezione**: Intercettare accessi non autorizzati
+
+In sintesi, un page fault su un'istruzione `LOAD` attiva un meccanismo sofisticato di gestione delle eccezioni che permette al sistema operativo di gestire dinamicamente la memoria virtuale, mantenendo l'illusione di uno spazio di indirizzamento continuo e illimitato per i processi utente.
 
 ---
 <div class="stop"></div>
@@ -1908,11 +3688,82 @@ I livelli di privilegio rappresentano quindi una **barriera hardware fondamental
 
 ---
 
-### Domanda 5.2
+### Domanda 5.2 (answered)
 **Domanda:** Cosa sono `M1` e `M2`? Come viene controllato l'accesso alla memoria per livello di privilegio?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+`M1` e `M2` rappresentano le due macro-zone in cui è divisa la memoria fisica per implementare la **protezione hardware** tra contesto sistema e contesto utente.
+
+**Definizione di M1 e M2:**
+
+> Da ora in poi chiameremo `M1` la parte di memoria ad indirizzi superiori al limite (_system-only_), e `M2` la rimanente.
+> Il registro contenente l'indirizzo di separazione viene inizializzato tramite il programma di _bootstrap_, lo stesso che carica `IDT` e il corpo delle varie _routine_ e strutture dati
+>
+> *Fonte: [Protezione.md](./Protezione#21-disponibilità-della-memoria)*
+
+**Caratteristiche delle zone:**
+
+**M1 (Memoria Sistema):**
+- **Accesso esclusivo**: Solo il contesto sistema può accedervi
+- **Contenuti**: IDT, routine di sistema, kernel, strutture dati critiche
+- **Protezione**: Inaccessibile ai processi utente
+
+> In tutto questo contesto va però _ridefinita la porzione di memoria concessa all'utente_.
+> Se infatti avesse a disposizione tutta la memoria l'utente potrebbe:
+> - Modificare le _routine_ a suo piacimento
+> - Modificare la tabella `IDT` e rimuovere le routine presenti
+>
+> *Fonte: [Protezione.md](./Protezione#21-disponibilità-della-memoria)*
+
+**M2 (Memoria Utente/Sistema):**
+- **Accesso controllato**: Accessibile sia dal sistema che dall'utente
+- **Contenuti**: Memoria privata dei processi, dati utente
+- **Protezione**: Limitata tramite registri limite
+
+**Controllo dell'accesso per livello di privilegio:**
+
+**1. Meccanismo hardware di verifica:**
+> Ogni qualvolta che il processore effettuerà un accesso in memoria, prima controllerà il contesto e, nel caso fosse nel _contesto utente_, controllerà che l'indirizzo desiderato sia **_maggiore o uguale_** a quello contenuto nel registro.
+>
+> *Fonte: [Protezione.md](./Protezione#21-disponibilità-della-memoria)*
+
+**2. Implementazione con registri limite:**
+Nel sistema con paginazione si utilizzano i registri `LINF` e `LSUP`:
+
+> Per vietare all'`utente` l'accesso alle porzioni di `M2` di processi diversi, si inseriscono nella **CPU** _due registri_, `LINF` e `LSUP`, che hanno come compito quello **di contenere gli indirizzi dell'inizio e della fine della porzione di memoria virtuale del processo in esecuzione**.
+> Entrambi i registri sono scrivibili _**solo da livello `sistema`**_.
+>
+> *Fonte: [Paginazione.md](./Paginazione#21-registri-limite-inferiore-e-superiore)*
+
+**3. Controllo degli accessi:**
+> Quando la **CPU** lavora in modalità `utente`, deve controllare che gli accessi siano in indirizzi **_compresi_** nell'intervallo $\Bigl[$`LINF`, `LSUP`$\Bigr)$.
+> In caso di accessi _out-of-bound_ si genererà invece un'eccezione di protezione `13`.
+>
+> *Fonte: [Paginazione.md](./Paginazione#21-registri-limite-inferiore-e-superiore)*
+
+**Architettura della memoria virtuale:**
+
+Con l'introduzione della paginazione, la separazione diventa più sofisticata:
+
+> La parte che va dall'indirizzo `0x0000 0000 0000 0000` all'indirizzo `0x0000 7fff ffff ffff` è dedicata al `sistema`, ed ha quindi settato il bit `U/S = 0`, mentre la parte che va da `0xffff 8000 0000 0000` a `0xffff ffff ffff ffff` è dedicata all'`utente`, ed ha quindi settato il bit `U/S = 1`.
+>
+> *Fonte: [Memoria Virtuale nel Nucleo.md](./Memoria%20Virtuale%20nel%20Nucleo#2-la-memoria-virtuale)*
+
+**Organizzazione di M1 nella memoria fisica:**
+> La parte `M1` della memoria fisica è così organizzata:
+> - I primi due `MiB` contengono lo _heap di sistema_: è una zona di memoria in cui le primitive _allocano i `des_proc`_, le strutture `richiesta` e in generale qualunque struttura dati allocata _dinamicamente_ tramite `new` e `delete`.
+> - La parte dedicata al `modulo sistema` contiene le sezioni `.text` e `.data` estratte dal file `build/sistema` e caricate al loro _indirizzo di collegamento_.
+>
+> *Fonte: [Memoria Virtuale nel Nucleo.md](./Memoria%20Virtuale%20nel%20Nucleo#2-la-memoria-virtuale)*
+
+**Vantaggi del sistema M1/M2:**
+
+1. **Protezione hardware**: Impossibilità per i processi utente di corrompere il sistema
+2. **Isolamento**: Separazione netta tra risorse di sistema e utente  
+3. **Sicurezza**: Prevenzione di modifiche non autorizzate alle strutture critiche
+4. **Flessibilità**: M2 può essere gestita dinamicamente per i processi
+
+In sintesi, M1 e M2 rappresentano una **separazione fisica fondamentale** che, combinata con i livelli di privilegio e la paginazione, garantisce l'integrità e la sicurezza del sistema operativo.
 
 ---
 
@@ -2312,7 +4163,6 @@ Questa architettura è alla base dei moderni sistemi di memoria virtuale e rappr
 **Domanda:** Spiega il funzionamento del TLB (Translation Lookaside Buffer). Perché è necessario per le prestazioni?
 
 **Risposta:**
-
 Il **TLB (Translation Lookaside Buffer)** è una cache hardware specializzata che memorizza le traduzioni di indirizzi virtuali in indirizzi fisici utilizzate più recentemente, rappresentando un componente fondamentale per le prestazioni dei sistemi con memoria virtuale.
 
 **Problema delle prestazioni senza TLB:**
@@ -2700,11 +4550,179 @@ In sintesi, mentre un **programma** è semplicemente una sequenza di istruzioni 
 
 ---
 
-### Domanda 7.2
+### Domanda 7.2 (answered)
 **Domanda:** Cosa comprende il contesto di un processo? Come viene gestito durante i cambi di processo?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Il contesto di un processo rappresenta tutte le informazioni necessarie per permettere al sistema di sospendere e riprendere l'esecuzione di quel processo specifico in modo trasparente. La gestione del contesto è fondamentale per il funzionamento di un sistema multiprogrammato.
+
+**Definizione del contesto di un processo:**
+
+Dal file [`Sistemi Multiprocesso e Processi.md`](./Sistemi%20Multiprocesso%20e%20Processi#22-contesti):
+
+> Il _contesto di un processo_ comprenderà quindi:
+> - Tutta la memoria (`M2`) usata dal processo. Qualora il processo non fosse in esecuzione, la immaginiamo per ora salvata nell'`HD`
+> - Una **copia privata** di tutti i registri del processore, salvati in una opportuna struttura dati.
+
+**Componenti del contesto:**
+
+**1. Stato dei registri del processore:**
+
+Tutti i registri generali del processore devono essere preservati:
+
+Dal file [`Sistemi Multiprocesso e Processi.md`](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi):
+```cpp
+struct des_proc {
+    natw id;                    // identificatore numerico del processo
+    natw livello;              // livello di privilegio (LIV_UTENTE o LIV_SISTEMA)
+    natl precedenza;           // precedenza nelle code dei processi
+    vaddr punt_nucleo;         // indirizzo della base della pila sistema
+    natq contesto[N_REG];      // copia dei registri generali del processore
+    paddr cr3;                 // radice del TRIE del processo
+    des_proc* puntatore;       // prossimo processo in coda
+    void (*corpo)(natq);       // funzione da eseguire
+    natq parametro;            // parametro della funzione
+};
+```
+
+
+**2. Informazioni salvate automaticamente dall'hardware:**
+
+Quando si accede a un gate della IDT, il processore salva automaticamente 5 long word:
+
+> Quando si accede ad un _gate_ della `IDT` (tramite _interruzione_, _eccezione_ o `int`), sappiamo che vengono già salvate delle informazioni (`5 long word`):
+> - [0] Informazioni per noi non rilevanti
+> - [1] `RSP`: indirizzo della _pila_ al momento del passaggio
+> - [2] `RFLAGS`: stato dei _flag_ al momento del passaggio
+> - [3] `CS`: livello precedente all'attraversamento del _gate_
+> - [4] `RIP`: istruzione dalla quale ripartire
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**3. Stato della memoria:**
+
+- **Memoria del processo**: Tutto lo spazio `M2` utilizzato dal processo
+- **Pila sistema**: Ogni processo ha la propria pila sistema privata
+- **Pila utente**: Separata per ogni processo
+- **Strutture dati del kernel**: Descrittore di processo, code, ecc.
+
+**Meccanismo di gestione del contesto:**
+
+**Principio fondamentale:**
+
+> **_L'unico modo per transizionare da un processo ad un altro è tramite un gate della `IDT`_**.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Sequenza completa del cambio di contesto:**
+
+Dal file [`Sistemi Multiprocesso e Processi.md`](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi):
+
+```x86asm
+routine_gate:
+    CALL salva_stato        ; Macro che salva il contenuto di tutti i registri in pila
+    /*
+    * corpo routine - qui può cambiare la variabile esecuzione
+    */
+    CALL carica_stato       ; Macro che carica il contenuto di tutti i registri dalla pila
+    IRETQ
+```
+
+**Funzioni di gestione del contesto:**
+
+**1. `salva_stato`:**
+- Salva tutti i registri generali nell'array `contesto[N_REG]` del processo corrente
+- Utilizza la variabile globale `esecuzione` per identificare il processo
+- Preserva lo stato completo della CPU
+
+**2. `carica_stato`:**
+- Ripristina tutti i registri dall'array `contesto[N_REG]` del nuovo processo
+- Ricostruisce lo stato della CPU per il processo selezionato
+- Prepara il processore per la ripresa dell'esecuzione
+
+**Variabile `esecuzione`:**
+
+> Per capire a quale processo ci stiamo riferendo quando invochiamo `salva_stato` e `carica_stato` utilizziamo come già detto una variabile globale `esecuzione`.
+> `esecuzione` è implementata come un **puntatore a descrittore di processo** `des_proc*`
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Gestione delle pile:**
+
+**Meccanismo delle pile separate:**
+
+> Quando entriamo nel _gate_ da un processo `P1` salviamo, tra le varie informazioni, l'indirizzo della pila utilizzata dal processo, nella sezione `rsp` della _pila di sistema di `P1`_.
+> Facciamo ciò perché il registro `rsp` del processo in questo istante punta proprio alla _pila di sistema di `P1`_.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Ripristino del contesto:**
+
+> Ciò significa che, `carica_stato` ripristinerà la _pila di sistema_ del processo `P2`, e la successiva `IRETQ` ripristinerà proprio le istruzioni relative a quel processo, reinserendo il valore della _pila di stack_ di `P2`.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Punto chiave:**
+
+> Tutto il necessario per cambiare _processo_ è quindi **cambiare la variabile `esecuzione`** all'interno del _corpo della routine_.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#31-transizione-processi)*
+
+**Atomicità delle operazioni:**
+
+**Prevenzione dell'interferenza:**
+
+Dal file [`Realizzazione Primitive.md`](./Realizzazione%20Primitive#2-reaizzazione-primitive):
+
+> Per risolvere il problema delle _interferenze_ è sufficiente rendere **_atomiche_** le **primitive di sistema**.
+> L'_atomicità_ implica che **tutta l'operazione deve essere eseguita interamente oppure per niente**, senza possibilità di essere interrotta.
+
+**Gestione della memoria del processo:**
+
+**Tecnica software:**
+
+> Per cambiare il contesto quando passiamo da un processo all'altro (ovvero quando eseguiamo _swap-out_ e _swap-in_ della memoria) utilizziamo tecniche _sofware_:
+> Ogni volta che si effettua un cambio di processo, andiamo a **salvare in una struttura dati** i valori dei registri e della memoria del processo terminato.
+> Successivamente _copiamo i valori precedentemente salvati_ nella struttura dati associata al nuovo processo, rendendolo il **processo corrente**
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#22-contesti)*
+
+**Significato contestuale:**
+
+> In un sistema multiprocesso infatti, il significato di una istruzione _dipende dal processo che la sta eseguendo_.
+> Se un processo `P1` esegue una istruzione `MOV %rax, 1000` si sta riferendo al "suo" registro `%rax` e al "suo" indirizzo `1000`.
+> Mentre se la esegue un processo `P2` parlerà di un diverso `%rax` e di un diverso contenuto dell'indirizzo `1000`.
+>
+> *Fonte: [Sistemi Multiprocesso e Processi.md](./Sistemi%20Multiprocesso%20e%20Processi#22-contesti)*
+
+**Esempio pratico di cambio contesto:**
+
+**Scenario**: Il processo P1 viene sospeso e il processo P2 viene messo in esecuzione:
+
+1. **Evento scatenante**: Interruzione, eccezione, o chiamata `INT`
+2. **Salvataggio automatico**: Hardware salva le 5 long word nella pila sistema di P1
+3. **`salva_stato`**: Salva tutti i registri di P1 in `P1->contesto[N_REG]`
+4. **Corpo routine**: Modifica `esecuzione` da P1 a P2
+5. **`carica_stato`**: Ripristina tutti i registri da `P2->contesto[N_REG]`
+6. **`IRETQ`**: Ripristina le 5 long word nella pila di P2 e gli trasferisce il controllo
+
+**Vantaggi di questo approccio:**
+
+1. **Trasparenza**: Il processo non si accorge di essere stato sospeso
+2. **Completezza**: Tutto lo stato necessario viene preservato
+3. **Efficienza**: Cambio di contesto rapido tramite operazioni di copia
+4. **Sicurezza**: Ogni processo ha il proprio spazio privato
+5. **Atomicità**: Le operazioni sono protette dalle interruzioni
+
+**Collegamento con altri argomenti:**
+
+- **Collegamento con Domanda 3.13 (answered)**: Il cambio di contesto utilizza lo stesso meccanismo dei gate della IDT
+- **Collegamento con Domanda 8.1 (answered)**: La realizzazione delle primitive sfrutta questo meccanismo
+- **Aspetti pratici**: Il contesto è la base per l'implementazione dello scheduler e della multiprogrammazione
+
+**Conclusione:**
+
+Il contesto di un processo comprende tutti i registri, la memoria e le informazioni di stato necessarie per la sua esecuzione. La gestione del contesto avviene attraverso un meccanismo atomico e sicuro che utilizza i gate della IDT, le funzioni `salva_stato` e `carica_stato`, e la variabile globale `esecuzione`. Questo sistema garantisce che ogni processo possa essere sospeso e ripreso in modo completamente trasparente, permettendo l'implementazione efficace della multiprogrammazione.
 
 ---
 
@@ -2789,7 +4807,6 @@ In sintesi, mentre un **programma** è semplicemente una sequenza di istruzioni 
 **Domanda:** Cos'è il contesto di un processo e come viene gestito il cambio di contesto in un sistema multiprogrammato?
 
 **Risposta:**
-
 **Definizione del contesto di un processo:**
 
 Il contesto di un processo rappresenta tutto lo stato necessario per eseguire quel processo specifico. Nel nostro sistema comprende:
@@ -2876,14 +4893,6 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 ---
 
 ### Domanda 8.2
-**Domanda:** Descriva l'implementazione del cambio contesto. Cosa fanno le funzioni `salva_stato` e `carica_stato`? Come si relazionano con la variabile esecuzione?
-
-**Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
-
----
-
-### Domanda 8.3
 **Domanda:** Come avviene la creazione dei processi nel sistema? Quali sono gli stati di esecuzione dei processi? A che punto del codice un processo si può dire effettivamente in esecuzione?
 
 **Risposta:**
@@ -2891,7 +4900,7 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 
 ---
 
-### Domanda 8.4
+### Domanda 8.3
 **Domanda:** Come funziona l'I/O nel sistema multiprogrammato? Quali sono gli accorgimenti da fare per mutex e sync?
 
 **Risposta:**
@@ -2899,7 +4908,7 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 
 ---
 
-### Domanda 8.5
+### Domanda 8.4
 **Domanda:** Descriva l'avvio del sistema: quali strutture vengono create e come vengono inizializzate?
 
 **Risposta:**
@@ -2907,7 +4916,7 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 
 ---
 
-### Domanda 8.6
+### Domanda 8.5
 **Domanda:** Come avviene il cambio di processo? Perché `punt_nucleo` punta alla base?
 
 **Risposta:**
@@ -2915,7 +4924,7 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 
 ---
 
-### Domanda 8.7
+### Domanda 8.6
 **Domanda:** Come si passa il parametro alla `activate_p()`? Chi è che usa `punt_nucleo`?
 
 **Risposta:**
@@ -2923,7 +4932,7 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 
 ---
 
-### Domanda 8.8
+### Domanda 8.7
 **Domanda:** Perché usiamo una pila sistema diversa per ogni processo?
 
 **Risposta:**
@@ -2931,7 +4940,7 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 
 ---
 
-### Domanda 8.9
+### Domanda 8.8
 **Domanda:** Come è organizzata la memoria virtuale di un processo nel sistema studiato?
 
 **Risposta:**
@@ -2939,7 +4948,7 @@ Questo meccanismo garantisce che ogni processo mantenga il proprio contesto priv
 
 ---
 
-### Domanda 8.10
+### Domanda 8.9
 **Domanda:** Spieghi il problema dell'interferenza tra flussi di esecuzione. Faccia un esempio concreto di cosa potrebbe accadere durante l'inserimento di un processo nella coda "pronti", e esponga come viene risolto il problema degli stati inconsistenti nelle strutture dati del sistema
 
 **Risposta:**
@@ -3107,11 +5116,204 @@ Questi meccanismi sono fondamentali per costruire applicazioni concorrenti corre
 
 ---
 
-### Domanda 9.2
+### Domanda 9.2 (answered)
 **Domanda:** Come funzionano i semafori di Dijkstra? Spieghi le operazioni di inserimento e prelievo dei gettoni e il comportamento in caso di semaforo vuoto.
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+I semafori di Dijkstra sono strumenti fondamentali per la sincronizzazione e la mutua esclusione nella programmazione concorrente, implementando un meccanismo elegante basato su "scatole" contenenti "gettoni".
+
+**Origine e concetto base:**
+
+> Questo nome fu dato da _Dijkstra_ in relazione al fatto che nella prima formulazione ogni _semaforo_ poteva assumere solo due stati:
+> - "Rosso" → nessun _gettone_
+> - "Verde" → un _gettone_ presente
+>
+> *Fonte: [Semafori.md](./Semafori#2-semafori)*
+
+**Definizione concettuale:**
+> Per risolvere i problemi di _mutua esclusione_ e _sincronizzazione_, si suppone di avere delle scatore, chiamate _**semafori**_ che possono contenere degli oggetti, chiamati _**gettoni**_, tutti uguali.
+>
+> *Fonte: [Semafori.md](./Semafori#2-semafori)*
+
+**1. Le due operazioni fondamentali:**
+
+> Nei _semafori_ possono essere eseguite solo due operazioni con i gettoni: **Inserimento** e **Prelievo**.
+>
+> *Fonte: [Semafori.md](./Semafori#2-semafori)*
+
+**A) Operazione di Inserimento (sem_signal):**
+> Per quanto riguarda l'inserimento, non è necessario che il processo che insersce il gettone lo abbia precedentemente prelevato da qualche parte, può infatti crearlo sul momento.
+
+**B) Operazione di Prelievo (sem_wait):**
+> Nel caso invece del prelievo del gettone, se questo non è presente, il processo **deve aspettare che qualcun altro ne inserisca uno**, entrando in uno stato di attesa dove _non può fare nient'altro_
+
+**2. Interfaccia del sistema:**
+
+Dal file [`Semafori.md`](./Semafori#23-comandi-semafori-e-gettoni):
+
+```cpp
+/**
+ * Crea un nuovo semaforo con n gettoni
+ * @param n : numero gettoni
+ * @return identificatore (0xFFFFFFFF se non è stato possibile crearlo)
+ */
+sem = sem_ini(n);     
+
+/**
+ * Prende un gettone. Blocca il processo se il semaforo è vuoto
+ * @param sem : numero del semaforo
+ */
+sem_wait(sem);
+
+/**
+ * Inserisce un gettone, risvegliando uno dei processi bloccati in attesa
+ * @param sem: numero del semaforo 
+ */
+sem_signal(sem);
+```
+
+**3. Struttura dati interna:**
+
+**Implementazione nel sistema:**
+> Per realizzare i semafori prevediamo la seguente struttura dati **definita nel codice `sistema`**:
+>
+> ```cpp
+> struct des_sem {
+>     /// se >= 0, numero di gettoni contenuti;
+>     /// se < 0, il valore assoluto è il numero di processi in coda
+>     int counter;
+>     /// coda di processi bloccati sul semaforo
+>     des_proc* pointer;
+> };
+> ```
+>
+> *Fonte: [Semafori.md](./Semafori#24-realizzazione-dei-semafori)*
+
+**Significato dei campi:**
+- **`counter`**: conta i _gettoni_ contenuti nel _semaforo_ (se ≥ 0). Gli permettiamo di andare sotto zero, indicando il numero di _processi_ in attesa a quel _semaforo_
+- **`pointer`**: è la _coda_ dei _processi_ in attesa al _semaforo_, ordinati per precedenza decrescente (come lo è la coda `pronti`). Verranno rimessi in coda `pronti` quando riceveranno il _gettone_, per effetto di `sem_signal()`
+
+**4. Operazione sem_wait() - Prelievo gettone:**
+
+**Implementazione dettagliata:**
+
+Dal file [`Semafori.md`](./Semafori#24-realizzazione-dei-semafori):
+
+```cpp
+extern "C" void c_sem_wait(natl sem){
+    // una primitiva non deve mai fidarsi dei parametri
+    if (!sem_valido(sem)) {
+        flog(LOG_WARN, "sem_wait: semaforo errato: %u", sem);
+        c_abort_p();
+        return;
+    }
+
+    des_sem* s = &array_dess[sem];
+    s->counter--;
+
+    if (s->counter < 0) {
+        inserimento_lista(s->pointer, esecuzione);
+        schedulatore();
+    }
+}
+```
+
+**Comportamento dettagliato:**
+1. **Validazione**: Controlla che l'identificatore del semaforo sia valido
+2. **Decremento**: Riduce sempre il contatore di 1
+3. **Controllo disponibilità**: 
+   - Se `counter ≥ 0`: Il gettone era disponibile, il processo continua
+   - Se `counter < 0`: **Semaforo vuoto** → il processo viene bloccato
+
+**Comportamento in caso di semaforo vuoto:**
+> Nel caso di _semaforo_ senza _gettoni_, il processo attualmente in esecuzione viene inserito nella _coda del semaforo_ e ne viene scelto un altro invocando la funzione `schedulatore()`. 
+> Questa non fa altro che estrarre dalla _coda `pronti`_ il processo a più alta priorità e lo fa puntare dalla variabile `esecuzione`.
+> In questo modo, la _routine_ `carica_stato` (che verrà eseguita subito dopo) farà saltare al nuovo processo, di fatto bloccando il precedente.
+
+**5. Operazione sem_signal() - Inserimento gettone:**
+
+**Implementazione dettagliata:**
+
+```cpp
+extern "C" void c_sem_signal(natl sem)
+{
+    // una primitiva non deve mai fidarsi dei parametri
+    if (!sem_valido(sem)) {
+        flog(LOG_WARN, "sem_signal: semaforo errato: %u", sem);
+        c_abort_p();
+        return;
+    }
+
+    des_sem* s = &array_dess[sem];
+    s->counter++;
+
+    if (s->counter <= 0) {
+        des_proc* lavoro = rimozione_lista(s->pointer);
+        inspronti();    // preemption
+        inserimento_lista(pronti, lavoro);
+        schedulatore(); // preemption
+    }
+}
+```
+
+**Comportamento dettagliato:**
+1. **Validazione**: Controlla che l'identificatore del semaforo sia valido
+2. **Incremento**: Aumenta sempre il contatore di 1
+3. **Controllo processi in attesa**:
+   - Se `counter > 0`: Nessun processo in attesa, il gettone rimane disponibile
+   - Se `counter ≤ 0`: Ci sono processi in attesa → risveglia il processo a priorità più alta
+
+**Gestione del risveglio:**
+> Se ci sono _processi_ in coda sul semaforo, la primitiva estrae quello a priorità più alta attraverso la funzione `rimozione_lista()`. A questo punto la primitiva deve scegliere quale processo deve proseguire, tra quello in esecuzione e quello appena estratto.
+> La cosa più semplice è di inserire entrambi i processi in coda `pronti` e lasciar scegliere alla funzione `schedulatore()`, applicando la _preemption_.
+
+**6. Esempio pratico - Mutua Esclusione:**
+
+**Configurazione:**
+```cpp
+natl mutex = sem_ini(1);    // Inizializza con UN gettone
+
+void sezione_critica() {
+    sem_wait(mutex);        // Prende il gettone (blocca altri)
+    // ... operazioni critiche ...
+    sem_signal(mutex);      // Rilascia il gettone
+}
+```
+
+**Scenario operativo:**
+> Se una persona vuole compiere un'azione _deve prendere il gettone_, svuotando la scatola.
+> Se una seconda persona volesse compiere la stessa azione troverà il **semaforo vuoto**, e si troverà costretta attendere che la prima termini la sua.
+>
+> *Fonte: [Semafori.md](./Semafori#21-esempio---mutua-esclusione)*
+
+**7. Preemption e priorità:**
+
+**Effetto sulla schedulazione:**
+> Possiamo notare come in casi come questo può avvenire _preemption_.
+> Quando un processo riesce finalmente a recuperare il _gettone_, torna nella pila `pronti`, ed è quasi certo che abbia una priorità più elevata del processo attualmente in `esecuzione`, forzandone lo scambio.
+>
+> *Fonte: [Semafori.md](./Semafori#21-esempio---mutua-esclusione)*
+
+**8. Gestione errori e validazione:**
+
+**Controlli di sicurezza:**
+> Sia la `sem_wait()` che la `sem_signal()`, prima di usare `sem`, controllano che questo sia **un valido identificatore di semaforo**, ovvero che sia stato precedentemente restituito da una `sem_ini()` **_per il livello corretto_**, e terminare forzatamente il processo in caso contrario.
+>
+> *Fonte: [Semafori.md](./Semafori#24-realizzazione-dei-semafori)*
+
+**Approfondimenti:**
+- **Collegamento con Domanda 9.1 (answered)**: I semafori risolvono problemi di mutua esclusione e sincronizzazione
+- **Aspetti pratici**: Il contatore negativo rappresenta il numero di processi in attesa, permettendo gestione efficiente
+- **Preemption automatica**: Il sistema garantisce che processi risvegliati abbiano priorità adeguata
+
+**Riepilogo funzionamento:**
+1. **sem_ini(n)**: Crea semaforo con n gettoni iniziali
+2. **sem_wait()**: Decrementa sempre; se risultato negativo blocca il processo
+3. **sem_signal()**: Incrementa sempre; se c'erano processi in attesa ne risveglia uno
+4. **Contatore**: Positivo = gettoni disponibili, negativo = processi in attesa
+5. **Coda processi**: Ordinata per priorità, gestita automaticamente dal sistema
+
+I semafori di Dijkstra forniscono quindi un meccanismo robusto e elegante per coordinare l'accesso alle risorse condivise in ambienti concorrenti.
 
 ---
 
@@ -3132,7 +5334,6 @@ Questi meccanismi sono fondamentali per costruire applicazioni concorrenti corre
 **Domanda:** Come viene implementata la primitiva `delay(n)` nel sistema? Perché non si decrementa semplicemente un contatore per ogni processo sospeso?
 
 **Risposta:**
-
 La primitiva `delay(n)` è implementata attraverso un sistema sofisticato di gestione dei processi sospesi che utilizza un timer hardware e una lista ordinata per ottimizzare le prestazioni. Il sistema evita di decrementare singoli contatori per motivi di efficienza computazionale.
 
 **Implementazione del sistema timer:**
@@ -3235,7 +5436,6 @@ extern "C" void c_driver_td(void) {
 **Domanda:** Quali problemi risolve lo standard PCI rispetto al bus ISA? Come viene evitato il problema degli indirizzi sovrapposti?
 
 **Risposta:**
-
 Lo standard PCI (Peripheral Component Interconnect) risolve diversi problemi critici del bus ISA, introducendo meccanismi innovativi per garantire compatibilità, espandibilità e gestione automatica delle risorse hardware.
 
 **Problemi del bus ISA:**
@@ -3325,7 +5525,6 @@ Dal file [`PCI.md`](./PCI.md):
 **Domanda:** Cosa sono i tre spazi di indirizzamento definiti dallo standard PCI e qual è il ruolo dello spazio di configurazione?
 
 **Risposta:**
-
 Il bus **PCI** (Peripheral Component Interconnect) definisce **tre spazi di indirizzamento distinti** per gestire la comunicazione tra CPU e periferiche in modo organizzato e senza conflitti. Ogni spazio ha caratteristiche e scopi specifici.
 
 _**- I tre spazi di indirizzamento PCI**_
@@ -3457,7 +5656,6 @@ Dal file [`PCI.md`](./PCI.md):
 **Domanda:** Come avvengono le trasmissioni all'interno di un architettura con il bus PCI?
 
 **Risposta:**
-
 Le **trasmissioni nel bus PCI** seguono un **protocollo strutturato a fasi** che garantisce comunicazione affidabile e coordinata tra dispositivi attraverso un meccanismo di **handshake** e **arbitraggio**, permettendo trasferimenti efficienti tra iniziatori e obiettivi.
 
 **Concetto fondamentale di transazione:**
@@ -3485,17 +5683,17 @@ Dal file [`PCI.md`](./PCI.md):
 
 **2. Segnali di controllo principali:**
 
-| **Segnale**    | **Iniziatore** | **Obiettivo** | **Funzione**                                                    |
-| -------------- | -------------- | ------------- | --------------------------------------------------------------- |
-| `FRAME#`       | Uscita         | Ingresso      | Delimita l'inizio e il termine di ogni transazione             |
-| `DEVSEL#`      | Ingresso       | Uscita        | Segnale che l'obiettivo riconosce uno dei propri indirizzi     |
-| `C[3:0]`       | Uscita         | Ingresso      | Codificano il tipo di operazione nell'indirizzamento           |
-| `BE#[3:0]`     | Uscita         | Ingresso      | Fungono da byte-enabler nelle fasi di trasferimento            |
-| `AD[31:0]`     | I/O            | I/O           | Indirizzo (fase addressing) / Dati (fasi trasferimento)        |
-| `TRDY#`        | Ingresso       | Uscita        | Target ready - Handshake nelle fasi di scambio dati           |
-| `IRDY#`        | Uscita         | Ingresso      | Initiator ready - Handshake nelle fasi di scambio dati        |
-| `STOP#`        | Ingresso       | Uscita        | Termina prematuramente una transazione                         |
-| `CLK`          | Ingresso       | Ingresso      | Clock di sincronizzazione (33MHz o 64MHz)                     |
+| **Segnale** | **Iniziatore** | **Obiettivo** | **Funzione**                                               |
+| ----------- | -------------- | ------------- | ---------------------------------------------------------- |
+| `FRAME#`    | Uscita         | Ingresso      | Delimita l'inizio e il termine di ogni transazione         |
+| `DEVSEL#`   | Ingresso       | Uscita        | Segnale che l'obiettivo riconosce uno dei propri indirizzi |
+| `C[3:0]`    | Uscita         | Ingresso      | Codificano il tipo di operazione nell'indirizzamento       |
+| `BE#[3:0]`  | Uscita         | Ingresso      | Fungono da byte-enabler nelle fasi di trasferimento        |
+| `AD[31:0]`  | I/O            | I/O           | Indirizzo (fase addressing) / Dati (fasi trasferimento)    |
+| `TRDY#`     | Ingresso       | Uscita        | Target ready - Handshake nelle fasi di scambio dati        |
+| `IRDY#`     | Uscita         | Ingresso      | Initiator ready - Handshake nelle fasi di scambio dati     |
+| `STOP#`     | Ingresso       | Uscita        | Termina prematuramente una transazione                     |
+| `CLK`       | Ingresso       | Ingresso      | Clock di sincronizzazione (33MHz o 64MHz)                  |
 
 **Protocollo di trasmissione dettagliato:**
 
@@ -3619,14 +5817,14 @@ Dal file [`DMA.md`](./DMA.md#3-pci-bus-mastering):
 
 **Confronto con architetture precedenti:**
 
-| **Aspetto**                  | **Bus ISA**               | **Bus PCI**                         |
-| ---------------------------- | ------------------------- | ----------------------------------- |
-| **Arbitraggio**              | Fisso/manuale             | Dinamico via arbitro hardware       |
-| **Configurazione**           | Manuale (jumper)          | Automatica (spazio configurazione)  |
-| **Iniziatori**               | Solo CPU                  | Qualsiasi dispositivo (Bus Master)  |
-| **Handshake**                | Limitato                  | Completo (IRDY#/TRDY#)              |
-| **Trasferimenti burst**      | Non supportati            | Supportati con multiple fasi dati   |
-| **Gestione conflitti**       | Problematica              | Risolta via comparatori programmabili |
+| **Aspetto**             | **Bus ISA**      | **Bus PCI**                           |
+| ----------------------- | ---------------- | ------------------------------------- |
+| **Arbitraggio**         | Fisso/manuale    | Dinamico via arbitro hardware         |
+| **Configurazione**      | Manuale (jumper) | Automatica (spazio configurazione)    |
+| **Iniziatori**          | Solo CPU         | Qualsiasi dispositivo (Bus Master)    |
+| **Handshake**           | Limitato         | Completo (IRDY#/TRDY#)                |
+| **Trasferimenti burst** | Non supportati   | Supportati con multiple fasi dati     |
+| **Gestione conflitti**  | Problematica     | Risolta via comparatori programmabili |
 
 **Approfondimenti:**
 - **Collegamento con Domanda 11.1 (answered)**: I comparatori programmabili evitano conflitti durante l'indirizzamento
@@ -3648,7 +5846,6 @@ Il protocollo PCI rappresenta quindi un **equilibrio ottimale** tra semplicità 
 **Domanda:** Perché in un sistema protetto un processo non può dialogare direttamente con le periferiche? Come vengono gestite le primitive di I/O?
 
 **Risposta:**
-
 In un sistema protetto, i processi utente non possono dialogare direttamente con le periferiche per garantire **sicurezza**, **stabilità** e **controllo centralizzato** dell'accesso alle risorse hardware.
 
 **Motivazioni della protezione:**
@@ -3840,7 +6037,6 @@ Questo meccanismo garantisce che l'accesso alle periferiche avvenga sempre sotto
 **Domanda:** Com'è collegato il modulo I/O con il resto del sistema?
 
 **Risposta:**
-
 Il **modulo I/O** è collegato al resto del sistema attraverso un'architettura sofisticata che integra **separazione modulare**, **comunicazione tramite primitive** e **gestione coordinata delle interruzioni**, garantendo isolamento e funzionalità avanzate.
 
 **Architettura modulare del sistema:**
@@ -4108,7 +6304,6 @@ Il modulo I/O rappresenta quindi un **ponte architetturale** tra il kernel di ba
 **Domanda:** Quali sono le differenze tra primitiva di sistema e driver, primitiva di I/O e handler?
 
 **Risposta:**
-
 Le differenze tra questi componenti riflettono la **separazione di responsabilità** nell'architettura del sistema di I/O, dove ogni elemento ha un ruolo specifico nella gestione delle operazioni con le periferiche.
 
 **1. PRIMITIVA DI SISTEMA vs DRIVER**
@@ -4320,7 +6515,6 @@ La distinzione tra questi componenti riflette i **principi fondamentali** dell'a
 **Domanda:** Quali sono i vantaggi e gli svantaggi dell'approccio con driver separati?
 
 **Risposta:**
-
 L'approccio con **driver separati** in un modulo I/O dedicato rappresenta un'evoluzione architettuale che risolve problemi fondamentali dei driver tradizionali, pur introducendo nuove complessità.
 
 **Problemi dell'approccio tradizionale:**
@@ -4513,7 +6707,6 @@ L'approccio con driver separati rappresenta un **compromesso architetturale** ch
 **Domanda:** Cos'è il DMA e quali vantaggi offre rispetto al controllo di programma e alle interruzioni?
 
 **Risposta:**
-
 Il **DMA (Direct Memory Access)** è una modalità di trasferimento dati che permette ai dispositivi di scambiare informazioni direttamente con la memoria RAM **senza coinvolgere la CPU**, eliminando l'overhead delle modalità tradizionali.
 
 **Definizione e Meccanismo:**
@@ -4597,7 +6790,6 @@ Il DMA rappresenta quindi la **soluzione ottimale per trasferimenti di grandi qu
 **Domanda:** Come interagisce il DMA con la MMU? Quali problemi sorgono con la memoria virtuale?
 
 **Risposta:**
-
 L'interazione tra DMA e MMU presenta **sfide fondamentali** nell'architettura moderna, poiché il DMA opera esclusivamente su indirizzi fisici mentre il software utilizza indirizzi virtuali. Questa separazione crea problemi complessi che richiedono soluzioni sofisticate.
 
 **Problema fondamentale:**
@@ -4745,7 +6937,6 @@ Nei sistemi moderni si utilizza una IOMMU che:
 **Domanda:** Cos'è il PCI Bus Mastering? Come funziona l'arbitraggio tra più dispositivi?
 
 **Risposta:**
-
 Il **PCI Bus Mastering** è una tecnica che permette ai dispositivi collegati al bus PCI di diventare "master" del bus e di effettuare trasferimenti di dati direttamente tra loro e la memoria, senza coinvolgere il processore. Questo meccanismo è fondamentale per implementare il DMA (Direct Memory Access) su architetture moderne.
 
 **Definizione e concetto base:**
@@ -4872,7 +7063,6 @@ extern "C" void c_bmide(){
 **Domanda:** Cosa sono i PRD (Physical Region Descriptors)? Come gestiscono buffer discontigui?
 
 **Risposta:**
-
 I **PRD (Physical Region Descriptors)** sono strutture dati utilizzate dal sistema PCI Bus Mastering per descrivere regioni di memoria fisica dove trasferire i dati durante operazioni DMA. Permettono di gestire efficacemente **buffer discontigui** in memoria attraverso un meccanismo di **scatter/gather**.
 
 **Definizione e struttura:**
@@ -5010,7 +7200,6 @@ I PRD si integrano perfettamente con:
 **Domanda:** Quali sono i registri del Bus Master IDE Controller e come vengono programmati?
 
 **Risposta:**
-
 Il **Bus Master IDE Controller** utilizza tre registri principali per gestire le operazioni DMA con dispositivi IDE/SATA. Questi registri sono mappati nello spazio di I/O e permettono il controllo completo delle operazioni di trasferimento dati.
 
 **Architettura e indirizzamento:**
@@ -5370,11 +7559,130 @@ Questo sistema è alla base delle moderne CPU Intel e permette di ottenere prest
 
 ---
 
-### Domanda 14.2
+### Domanda 14.2 (answered)
 **Domanda:** Come si risolvono le dipendenze sul controllo nell'architettura moderna?
 
 **Risposta:**
-*[La risposta verrà aggiunta quando richiesta]*
+Le dipendenze sul controllo rappresentano una delle sfide più complesse nell'architettura moderna dei processori, poiché determinano quale codice deve essere eseguito in base al risultato di istruzioni di salto condizionato. La loro risoluzione richiede tecniche sofisticate che combinano predizione dei salti ed esecuzione speculativa.
+
+**Definizione delle dipendenze sul controllo:**
+
+> Un istruzione `i` è **_dipendente dal controllo_** di una istruzione `j`, _precedente ad essa_, se `j` potrebbe comportare un salto che produrrà un flusso non definito a priori del programma.
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#333-dipendenze-sul-controllo)*
+
+**Esempio di dipendenze sul controllo:**
+```x86asm
+    CMP ;...
+    JE fine1
+
+    ADD ;...        # Sono Dipendenti sul Controllo della JE
+    SUB ;...        # Sono Dipendenti sul Controllo della JE
+    JMP fine2
+fine1:
+    DIV ;...        # È dipendente sul controllo della JE a causa di JMP fine2
+fine2:
+    MUL ;...        # In maniera raffinata questa non è dipendente
+```
+
+**1. Predizione dei Salti (Branch Prediction)**
+
+**Approccio base - Predizione statica:**
+> Al primo salto il processore segue regole _statiche_ per indovinare dove andrà a finire:
+> - Se l'indirizzo di destinazione è precedente a quello dell'istruzione si aspetta un **loop**, indirizzerà quindi ad una delle etichette precedenti.
+> - Se l'indirizzo di destinazione è successivo a quello dell'istruzione si comporta come se la `Jcond` fosse un semplice `NOP`, prelevando l'istruzione successiva
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#232-alee-sul-controllo)*
+
+**Predizione dinamica - Contatori di saturazione:**
+> Per rendere questo processo dinamico **salviamo in una struttura dati tutta una serie di informazioni relative ai salti già eseguiti**.
+> Le istruzioni di salto già avvenute cercano quindi di capire l'esito del salto riutilizzando questi dati, ricordando quando e dove siamo saltati e quando invece siamo "andati dritti".
+> 
+> *Fonte: [`Architettura Moderna CPU Intel.md`](./Architettura%20Moderna%20CPU%20Intel#232-alee-sul-controllo)*
+
+Sempre dal file [`Architettura Moderna CPU Intel.md`](./Architettura%20Moderna%20CPU%20Intel#232-alee-sul-controllo):
+
+> **Il contatore è un circuito a quattro stati:**
+> - **Strongly Not Taken** (_SNT_)
+> - **Weakly Not Taken** (_WNT_)
+> - **Weakly Taken** (_WT_)
+> - **Strongly Taken** (_ST_)
+
+**Regole di funzionamento:**
+- La prima volta, a seconda che si salti o meno assumerà lo stato di _WNT_ o _WT_
+- Aumenta di uno per ogni salto effettuato (_SNT_ → _WNT_ → _WT_ → _ST_)
+- Diminuisce di uno per ogni salto non effettuato (_SNT_ ← _WNT_ ← _WT_ ← _ST_)
+
+**2. Branch Target Buffer (BTB)**
+
+> In generale tutte queste cose vengono fatte dal **_Branch Target Buffer_** (`BTB`), a tutti gli effetti una _cache_, che:
+> Ha come scopo associare ad ogni salto il proprio esito e la destinazione del salto (se avviene)
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#232-alee-sul-controllo)*
+
+**Caratteristiche del BTB:**
+> L'operatore di _prelievo_ si baserà quindi proprio sul contenuto di `BTB` per scegliere da dove recuperare i dati dopo aver riconosciuto un istruzione di salto.
+>
+> Il `BTB` non si preoccupa delle colllisioni come avviene con la _cache di memoria_, poiché un suo errore non porta a effetti disastrosi ma "solamente" degli step della _pipeline_.
+
+**Predittori avanzati:**
+> Predittori migliori ricordano anche la _storia del salto_, associando uno _sheet register_ contenente una sequenza di `bit` che rappresentano lo storico dei salti effettuati (`1`) e non (`0`).
+> Da questa informazione il predittore cerca quindi di **_imparare a utilizzarlo_**, cercando di trovare _pattern_.
+
+**3. Esecuzione Speculativa**
+
+**Principio base:**
+> Per quanto riguarda le **dipendenze sul controllo** anche qui, come per la _pipeline_, continuiamo a esaminare le informazioni come se il flusso dei dati fosse corretto.
+> Infatti la `Fetch & Decode` ha continuato a prelevare istruzioni dal punto indicato nel `BTB`, supponendo di aver effettuato una _predizione corretta_.
+>
+> In questo caso la nostra architettura andrà a _eseguire_ queste istruzioni predette **prima di sapere se debbano o meno essere eseguite**.
+> Questa tecnica si chiama **_Speculazione_**.
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#335-esecuzione-speculativa)*
+
+**4. ReOrder Buffer (ROB)**
+
+**Struttura e funzione:**
+> Per un'implementazione corretta della _specuazione_ è necessaria una nuova struttura dati chiamata **_ReOrder Buffer_** `ROB`. Questa struttura dati è una _coda_ che **ricostruisce l'ordine di emissione delle istruzioni**.
+> Al suo interno ha un bit `T` che, se settato, indica che l'operazione associata è terminata.
+>
+> In questa nuova architettura, le istruzioni vanno a scrivere i risultati nei registri **_solo dopo che sono state ritirate dal `ROB`_**.
+
+**Gestione degli errori di predizione:**
+> Adesso, quando terminiamo un'istruzione di `Jcond` e ne conosciamo l'esito, setteremo il suo bit `T` e la estraemo. Successivamente, valutandone l'esito:
+> - Se **si effettua dove ci aspettiamo** continuiamo a prelevare dal `ROB`
+> - Se **abbiamo sbagliato** allora **_svuotiamo il `ROB`_**.
+>
+> Finché le istruzioni del `ROB` non sono prelevate **_non abbiamo infatti effetti sui registri veri e propri_**, perciò possiamo tranquillamente eseguire codice che non siamo sicuri vada eseguito.
+
+**5. Registri Speculativi e Non-Speculativi**
+
+**Architettura duale:**
+> Modifichiamo quindi gli indirizzi logici, in modo che invece di avere un solo indirizzo logico per ogni registro, ne conserviamo adesso due:
+> - Nel primo inseriamo l'_informazione certa_, quella che siamo sicuri vada lì ottenuta dall'estrazione dal `ROB`
+> - Nel secondo inseriamo invece l'_informazione speculativa_ derivata dalle `ALU` e potenzialmente annullabile con l'annullamento del `ROB`
+
+**Recupero dagli errori:**
+> In questo modo, quando svuotiamo il `ROB` nel caso delle `Jcond` che non hanno l'esito atteso, è sufficente copiare i valori _non speculativi_ nei registri _speculativi_.
+> Così facendo, alla prossima operazione, prelevando dal registro _non speculativo_, **non avremo effetti collaterali** poiché quelli salvati sono valori certi.
+
+**6. Alternative Semplici**
+
+**Approccio conservativo:**
+> Se non vogliamo implementare la "raffinatezza", possiamo creare una dipendenza sul controllo **nel momento in cui viene emessa una `Jcond`** che genera uno _stallo_ finché non si recupera il risultato.
+>
+> *Fonte: [Architettura Moderna CPU Intel.md](./Architettura%20Moderna%20CPU%20Intel#333-dipendenze-sul-controllo)*
+
+Questo approccio è più semplice ma meno efficiente, poiché ferma completamente l'esecuzione in attesa del risultato del salto.
+
+**Approfondimenti:**
+
+- **Collegamento con Domanda 14.1 (answered)**: Le dipendenze sul controllo si integrano con dipendenze sui dati e sui nomi
+- **Aspetti pratici**: Il BTB è fondamentale per le prestazioni moderne; errori di predizione costano molto in termini di cicli
+- **Considerazioni di sicurezza**: La speculazione ha portato a vulnerabilità come Spectre, che sfruttano proprio il BTB
+
+**Conclusione:**
+La risoluzione delle dipendenze sul controllo rappresenta un equilibrio tra prestazioni e complessità. L'architettura moderna privilegia l'esecuzione speculativa con predizione dinamica, accettando il costo del recupero dagli errori per massimizzare il throughput delle istruzioni.
 
 ---
 
