@@ -58,7 +58,7 @@ Il corso include una **parte pratica** fondamentale per l'esame:
 
 Gli appunti del laboratorio sono disponibili nel file **[Laboratorio](./Laboratorio)**.
 
-� **Materiale aggiuntivo:** È disponibile anche un **[Cheatsheet Assembler x64](./cheatsheet_assemblerx64.pdf)** in formato PDF, utile come riferimento rapido durante la programmazione assembler.
+� **Materiale aggiuntivo:** È disponibile anche un **[Cheatsheet Assembler x64](https://github.com/Gabriele-D-Cambria/Appunti-Calcolatori-Elettronici-2024-2025/blob/master/cheatsheet_assemblerx64.pdf)** in formato PDF, utile come riferimento rapido durante la programmazione assembler.
 
 �💡 **Consiglio personale:** Studiare prima gli argomenti teorici per una comprensione completa dell'architettura dei calcolatori, e successivamente cimentarsi a fare quante puù prove possibili, cercando di capire il perché di determinate scelte nelle soluzioni fornite dal docente.
 
