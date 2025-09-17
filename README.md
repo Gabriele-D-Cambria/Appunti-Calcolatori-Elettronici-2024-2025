@@ -48,6 +48,20 @@ Focus sull'architettura **CPU - Memoria - I/O** per l'esecuzione del software.
 13. [DMA](./DMA)
 14. [Architettura Moderna CPU Intel](./Architettura%20Moderna%20CPU%20Intel)
 
+## 🧪 Laboratorio
+
+Il corso include una **parte pratica** fondamentale per l'esame:
+- Viene **conservata per 5 appelli** una volta superata
+- Richiede conoscenze pratiche di programmazione assembler e sistemi
+- Viene mantenuta anche dopo una bocciatura all'orale
+- Utilizza gli stessi strumenti del laboratorio (compilatori, QEMU, etc.)
+
+Gli appunti del laboratorio sono disponibili nel file **[Laboratorio](./Laboratorio)**.
+
+� **Materiale aggiuntivo:** È disponibile anche un **[Cheatsheet Assembler x64](./cheatsheet_assemblerx64.pdf)** in formato PDF, utile come riferimento rapido durante la programmazione assembler.
+
+�💡 **Consiglio personale:** Studiare prima gli argomenti teorici per una comprensione completa dell'architettura dei calcolatori, e successivamente cimentarsi a fare quante puù prove possibili, cercando di capire il perché di determinate scelte nelle soluzioni fornite dal docente.
+
 ## ❓ Domande e Risposte
 
 È disponibile una raccolta di **[Domande e Risposte](./Domande%20e%20Risposte)** che copre i principali argomenti del corso, organizzata per facilitare la preparazione all'esame.
