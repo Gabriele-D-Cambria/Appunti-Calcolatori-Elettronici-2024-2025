@@ -74,24 +74,24 @@ Nell'assembelr a `64bit` esistono delle regole sui registri "sporcabili" dai pro
 
 <div class="flexbox index" style="margin-bottom: 0px; padding-bottom: 16px" markdown="1">
 
-| Registro | Descrizione                             | Stato di utilizzo             |
-| -------- | --------------------------------------- | ----------------------------- |
-| `%rax`   | Usato per i valori di ritorno           | **Utilizzabile**              |
-| `%rbx`   | Generalmente salvato dal chiamato       | Non tipicamente utilizzabile  |
-| `%rcx`   | Comunemente usato per i contatori       | **Utilizzabile**              |
-| `%rdx`   | Spesso usato per operazioni I/O         | **Utilizzabile**              |
-| `%rsi`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile  |
-| `%rdi`   | Spesso usato per operazioni su stringhe | Non tipicamente utilizzabile  |
-| `%rbp`   | Puntatore base per il frame dello stack | <u>**_Non utilizzabile_**</u> |
-| `%rsp`   | Puntatore dello stack                   | <u>**_Non utilizzabile_**</u> |
-| `%r8`    | Registro utilizzabile                   | **Utilizzabile**              |
-| `%r9`    | Registro utilizzabile                   | **Utilizzabile**              |
-| `%r10`   | Registro utilizzabile                   | **Utilizzabile**              |
-| `%r11`   | Registro utilizzabile                   | **Utilizzabile**              |
-| `%r12`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile  |
-| `%r13`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile  |
-| `%r14`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile  |
-| `%r15`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile  |
+| Registro | Descrizione                             | Stato di utilizzo                                 |
+| -------- | --------------------------------------- | ------------------------------------------------- |
+| `%rax`   | Usato per i valori di ritorno           | **Utilizzabile**                                  |
+| `%rbx`   | Generalmente salvato dal chiamato       | Non tipicamente utilizzabile                      |
+| `%rcx`   | Comunemente usato per i contatori       | **Utilizzabile**                                  |
+| `%rdx`   | Spesso usato per operazioni I/O         | **Utilizzabile**                                  |
+| `%rsi`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile                      |
+| `%rdi`   | Spesso usato per operazioni su stringhe | Non tipicamente utilizzabile                      |
+| `%rbp`   | Puntatore base per il frame dello stack | <u><strong><em>Non utilizzabile</em></strong></u> |
+| `%rsp`   | Puntatore dello stack                   | <u><strong><em>Non utilizzabile</em></strong></u> |
+| `%r8`    | Registro utilizzabile                   | **Utilizzabile**                                  |
+| `%r9`    | Registro utilizzabile                   | **Utilizzabile**                                  |
+| `%r10`   | Registro utilizzabile                   | **Utilizzabile**                                  |
+| `%r11`   | Registro utilizzabile                   | **Utilizzabile**                                  |
+| `%r12`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile                      |
+| `%r13`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile                      |
+| `%r14`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile                      |
+| `%r15`   | Tipicamente salvato dal chiamato        | Non tipicamente utilizzabile                      |
 
 </div>
 
@@ -199,7 +199,7 @@ c++filt _Z5somma4caso5puntoS_
 c++filt _Z5somma4caso5puntoS0_
 c++filt _Z5somma4casoP5puntoS0_
 ```
-> somma(caso, punto caso)
+> somma(caso, punto caso) <br>
 > somma(caso, punto, punto)
 
 ## 5.1. Struttura
@@ -219,38 +219,38 @@ extern int somma_struttura(st struttura);
 
 Il file assembly diventa così:
 ```x86asm
-
 .global _Z15somma_struttura2st
 
-/*
-* args:
-*   - st struttura: %rdi
-* return:
-*   %rax
-*   |000000000000000|
-*   +---------------+  <- %rsp
-*   |   a   |   b   |
-*   +---------------+  <- %rbp  (base pointer)
-*   |fffffffffffffff|
-*/
+;
+; args:
+;   - st struttura: %rdi
+; return:
+;   %rax
+;   |000000000000000|
+;   +---------------+  <- %rsp
+;   |   a   |   b   |
+;   +---------------+  <- %rbp  (base pointer)
+;   |fffffffffffffff|
+;
 
 .set struttura, -8
 .set freccia_a, 0
 .set freccia_b, 4
 
 _Z15somma_struttura2st:
-    # Prologo
+    ; Prologo
     PUSH %RPB
     MOVq %RSP, %RBP
     SUB $8, %RSP
 
+    ; Corpo
     MOVq %rdi, struttura(%rbp)
 
     MOVl struttura+freccia_a(%rbp), %eax
     addl struttura+freccia_b(%rbp), %eax
 
 
-    # Epilogo
+    ; Epilogo
     LEAVE
 
     RET
@@ -270,34 +270,33 @@ extern int somma_struttura(st* struttura);
 ```
 
 Il file assembly diventa così:
-```
-
+```x86asm
 .global _Z18somma_struttura_ptP2st
 
-/*
-* args:
-*   - st* struttura: %rdi
-* return:
-*   struttura->a + struttura->b 
-*   %rax
-*   |000000000000000|
-*   +---------------+  <- %rsp                              +---------------+
-*   | st* struttura |   ----------------------------------> |   a   |   b   |
-*   +---------------+  <- %rbp  (base pointer)              +---------------+
-*   |fffffffffffffff|
-*/
+;
+; args:
+;   - st* struttura: %rdi
+; return:
+;   struttura->a + struttura->b 
+;   %rax
+;   |000000000000000|
+;   +---------------+  <- %rsp                              +---------------+
+;   | st* struttura |   ----------------------------------> |   a   |   b   |
+;   +---------------+  <- %rbp  (base pointer)              +---------------+
+;   |fffffffffffffff|
+;
 
 .set struttura_pt, -8
 .set freccia_a, 0
 .set freccia_b, 4
 
 _Z15somma_struttura2st:
-    # Prologo
+    ; Prologo
     PUSH %RPB
     MOVq %RSP, %RBP
     SUB $8, %RSP
 
-    # Corpo
+    ; Corpo
     MOVq %rdi, struttura_pt(%rbp)
 
     MOVq struttura_pt(%rbp), %rsi
@@ -306,7 +305,7 @@ _Z15somma_struttura2st:
     ADDl freccia_b(%rsi), %eax
 
 
-    # Epilogo
+    ; Epilogo
     LEAVE
 
     RET
