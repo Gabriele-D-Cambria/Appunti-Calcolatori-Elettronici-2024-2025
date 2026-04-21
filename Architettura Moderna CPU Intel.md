@@ -75,7 +75,7 @@ Una prima descrizione della _pipeline_ è la seguente:
 
 <img class="80" src="./images/Pipeline/Pipeline Scheme.png">
 
-Con questa configurazione però il `clock` deve avere un periodo che deve essere almeno uguale al massimo <code>$\Delta_i$</code>:
+Con questa configurazione però il `clock` deve avere un periodo che deve essere almeno uguale al massimo $\Delta_i$:
 $$
 	\Delta = \max_{i\:\in\:[1,5]}\{\Delta_i\} + t_{setup}
 $$
