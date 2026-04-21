@@ -1,6 +1,6 @@
 markdown: kramdown
 kramdown:
-  math_engine: mathjax
+  math_engine: null
   math_engine_opts:
     preview: true
     preview_as_code: false
