@@ -6,26 +6,26 @@ title: "Pipeline"
 
 - [1. Indice](#1-indice)
 - [2. Pipeline](#2-pipeline)
-	- [2.1. Processori `RISC`](#21-processori-risc)
-	- [2.2. Problemi legati alla Pipeline (`ALEE`)](#22-problemi-legati-alla-pipeline-alee)
-	- [2.3. Ottimizzazioni](#23-ottimizzazioni)
-		- [2.3.1. ALEE sui dati](#231-alee-sui-dati)
-		- [2.3.2. ALEE sul controllo](#232-alee-sul-controllo)
-			- [2.3.2.1. `RET`](#2321-ret)
+  - [2.1. Processori `RISC`](#21-processori-risc)
+  - [2.2. Problemi legati alla Pipeline (`ALEE`)](#22-problemi-legati-alla-pipeline-alee)
+  - [2.3. Ottimizzazioni](#23-ottimizzazioni)
+    - [2.3.1. ALEE sui dati](#231-alee-sui-dati)
+    - [2.3.2. ALEE sul controllo](#232-alee-sul-controllo)
+      - [2.3.2.1. `RET`](#2321-ret)
 - [3. Architettura Intel](#3-architettura-intel)
-	- [3.1. Fase di Fetch e Decode](#31-fase-di-fetch-e-decode)
-	- [3.2. Esecuzione fuori ordine](#32-esecuzione-fuori-ordine)
-	- [3.3. Dipendenze](#33-dipendenze)
-		- [3.3.1. Dipendenze sui Dati](#331-dipendenze-sui-dati)
-		- [3.3.2. Dipendenze sui Nomi](#332-dipendenze-sui-nomi)
-		- [3.3.3. Dipendenze sul Controllo](#333-dipendenze-sul-controllo)
-		- [3.3.4. Ottimizzazioni](#334-ottimizzazioni)
-		- [3.3.5. Esecuzione speculativa](#335-esecuzione-speculativa)
-	- [3.4. Istuzioni di `LD` e `ST`](#34-istuzioni-di-ld-e-st)
-	- [3.5. Interazione con la _cache_](#35-interazione-con-la-cache)
+  - [3.1. Fase di Fetch e Decode](#31-fase-di-fetch-e-decode)
+  - [3.2. Esecuzione fuori ordine](#32-esecuzione-fuori-ordine)
+  - [3.3. Dipendenze](#33-dipendenze)
+    - [3.3.1. Dipendenze sui Dati](#331-dipendenze-sui-dati)
+    - [3.3.2. Dipendenze sui Nomi](#332-dipendenze-sui-nomi)
+    - [3.3.3. Dipendenze sul Controllo](#333-dipendenze-sul-controllo)
+    - [3.3.4. Ottimizzazioni](#334-ottimizzazioni)
+    - [3.3.5. Esecuzione speculativa](#335-esecuzione-speculativa)
+  - [3.4. Istuzioni di `LD` e `ST`](#34-istuzioni-di-ld-e-st)
+  - [3.5. Interazione con la _cache_](#35-interazione-con-la-cache)
 - [4. Problemi di Sicurezza della speculazione](#4-problemi-di-sicurezza-della-speculazione)
-	- [4.1. Meltdown](#41-meltdown)
-	- [4.2. Spectre](#42-spectre)
+  - [4.1. Meltdown](#41-meltdown)
+  - [4.2. Spectre](#42-spectre)
 
 È importante sottolineare da subito che le specifiche precise dei processori _Intel_ sono note **solamente da _Intel_**.
 Quello che faremo noi è darne una buona aprossimazione.
@@ -37,6 +37,7 @@ Il processore per come lo abbiamo visto fin'ora si occupa di eseguire tre operaz
 Le **CPU** moderne fanno ancora la stessa cosa, ma introducendo tutta una serie di accorgimenti che permettono di aumentare la velocità di esecuzione delle istruzioni.
 
 Tra le varie possibilità per migliorare l'efficenza del processore abbiamo:
+
 - Rendere il _clock_ più veloce: ma la **CPU** ha un limite sopra al quale non riesce a stare al passo
 - Diminuire le dimensioni dei _transistor_ nel processore, così da poterne inserire di più: anche qui ormai siamo ai limiti imposti dalla fisica quantistica
 - Inserire più processori in uno stesso _chip_, creando architetture **_multicore_**.
@@ -46,6 +47,7 @@ Noi vediamo quindi come in un unico _core_ il processore riesca ad eseguire più
 L'idea alla base di _Intel_, adottata già dal `x486`, è quella della **_pipeline_**.
 
 Le istruzioni passeranno adesso in diverse fasi:
+
 1. **_Prelievo_**
 2. **_Decodifica_**
 3. **_Prelevio Operandi_** <small>(dalla memoria o dai registri)</small>
@@ -77,7 +79,7 @@ Una prima descrizione della _pipeline_ è la seguente:
 
 Con questa configurazione però il `clock` deve avere un periodo che deve essere almeno uguale al massimo $\Delta_i$:
 $$
-	\Delta = \max_{i\:\in\:[1,5]}\{\Delta_i\} + t_{setup}
+ \Delta = \max_{i\:\in\:[1,5]}\{\Delta_i\} + t_{setup}
 $$
 
 Potremmo quindi velocizzare di `5 volte` il `clock` solamente se $\Delta_i = \Delta_j, \forall i \ne j$, ovvero $\Delta_i = {1 \over 5}\Delta_T$.
@@ -88,6 +90,7 @@ Il recupero di un informazione da un registro è infatti molto più veloce del t
 Un altro problema sorge anche tra il _prelievo_ e la _decodifica_ dell'informazione. Infatti, senza aver decodificato l'immediato, nell'`assembler` non abbiamo idea a priori di quanto sia grande l'istruzione, perciò ci è impossibile capire quale sarà la prossima istruzione.
 
 Le istruzioni _Intel a 64bit_ hanno infatti una dimensione che può variare da `1Byte`, ad esempio `PUSH %eax`, al massimo di `16Byte` che contiene:
+
 - 2 Prefissi
 - Operatore
 - La tripla `(scala, indice, base)`
@@ -103,6 +106,7 @@ Queste istruzioni sono dette dette `CISC` (_Complex Istruction Set Computer_).
 Per poter riuscire a risolvere parte dei problemi delle operazioni `CISC` sono stati introdotti negli anni _'80_ i **processori `RISC`** (_Reduced Istruction Set Computer_).
 
 Tutti i processori `RISC` hanno istruzioni grandi tipicamente `4Byte`, al cui interno le posizioni dei campi sono **fissi**:
+
 ```x86asm
 OPCODE codiceOperando1 codiceOperando2 codiceDestinazione
 ```
@@ -112,6 +116,7 @@ Il formato `RISC` impone che le istruzioni siano _regolari_ e _semplici_, e inol
 Il `RISC` permette di _**semplificare le operazioni necessarie all'`assembler` per eseguire una qualsiasi operazione**_, così da poter  diminuire il tempo di esecuzione.
 
 Un'ulteriore differenza è che i processori `RISC` presentano una **netta separazione** tra le operazioni che operano nella memoria e quelle che non lo fanno. Saranno solamente le operazioni di `LD` (_LoaD_) e `ST` (_STore_) a comunicare con la memoria, e avranno il formato:
+
 ```x86asm
 LD offset(base), dst
 ST src, offset(base)
@@ -127,8 +132,8 @@ All'interno del flusso delle istruzioni ci sono alcune situazioni che ci impedis
 Queste situazioni prendono il nome di `ALEE`.
 Esse comprendono tutti quei casi in cui il flusso di istruzioni ci impedisce di utilizzare la _pipeline_, generando gli **stalli della pipeline**.
 
-
 Ne esistono di tre tipi:
+
 - `ALEE strutturali`
 - `ALEE sui dati`
 - `ALEE sul controllo`
@@ -136,6 +141,7 @@ Ne esistono di tre tipi:
 Le `ALEE strutturali` nascono dal fatto che l'esecuzione di due istruzioni in parallelo possa richiedere _l'utilizzo della stessa risorsa_.
 
 Immaginiamo infatti il seguente caso:
+
 ```x86asm
 ST %rax, (%rsi)
 MOV $5, %rax
@@ -146,6 +152,7 @@ In questo caso l'istruzione di `LD` si trova 2 istruzioni dopo quella di `ST`.
 Quando la `ST` sarà all'ultima fase della _pipeline_ (scrittura in memoria), la `LD` sarà alla terza (lettura dalla memoria), ed entrambe vorranno utilizzare il circuito che opera sulla memoria.
 
 Le `ALEE sui dati` sono generate da istruzioni che utilizzano il risultato di un'istruzione precedente, come ad esempio:
+
 ```x86asm
 op1 R1, R2, R3
 op2 R3, R4, R5
@@ -155,12 +162,12 @@ Senza _pipeline_ questo problema non sussite, in quanto attenderemmo che la prim
 
 Utilizzando invece la _pipeline_, quando `op2` necessita `R3` come sorgente, `op1` si trova ancora all'esecuzione, e non avrà ancora inserito il risultato.
 
-
 Le `ALEE sul controllo` sono generate da tutte quelle operazioni che potrebbero alterare il normale flusso di esecuzione del programma, come ad esempio salti condizionati `Jcond`.
 
 Per riuscire a gestire queste `ALEE` si inserisce nella _pipeline_ un circuito di controllo che si occupa di prevenire i problemi.
 
 Il controllo inserisce delle **_bolle_** (equivalenti ad una o più istruzioni `NOP`) che mettono in attesa un'operazione affinché quando entra nella successiva fase della _pipeline_ non verranno generati comportamenti indesiderati:
+
 - Nel caso delle due operazioni che utilizzano `R3` basta inserire **_2 bolle_** prima dell'ingresso di `op2`.
 - Nel caso di `LD` e `ST` è sufficente invece inserire una bolla tra un'operazione e l'altra.
 - Nel caso di `Jcond` la situazione è più complessa ma sempre gestibile.
@@ -168,7 +175,6 @@ Il controllo inserisce delle **_bolle_** (equivalenti ad una o più istruzioni `
 Inserire le bolle ovviamente **_diminuisce il numero di istruzioni al secondo_**. Inserire `5 bolle` equivale di fatti a tornare al processore senza _pipeline_.
 
 <img class="40" src="./images/Pipeline/Controllo scheme.png">
-
 
 ## 2.3. Ottimizzazioni
 
@@ -189,6 +195,7 @@ SUB R3, R4, R5
 ADD R6, R7, R8
 SUB R9, R0, RA
 ```
+
 </div>
 <div class="top">
 <div class="p">
@@ -202,6 +209,7 @@ ADD R6, R7, R8
 SUB R9, R0, RA
 SUB R3, R4, R5
 ```
+
 </div>
 </div>
 
@@ -210,6 +218,7 @@ SUB R3, R4, R5
 ### 2.3.1. ALEE sui dati
 
 Riprendiamo il caso
+
 ```x86asm
 op1 R1, R2, R3
 op2 R3, R4, R5
@@ -232,6 +241,7 @@ Uno sbaglio in questa predizione comporta pagare il prezzo di quella che è chia
 Possiamo permetterci ciò anche in virtù del fatto che quanto precalcolato **non ha effetti a lungo termine**, in quanto questi avvengono solo alla scrittura.
 
 Al primo salto il processore segue regole _statiche_ per indovinare dove andrà a finire:
+
 - Se l'indirizzo di destinazione è precedente a quello dell'istruzione si aspetta un **loop**, indirizzerà quindi ad una delle etichette precedenti.
 - Se l'indirizzo di destinazione è successivo a quello dell'istruzione si comporta come se la `Jcond` fosse un semplice `NOP`, prelevando l'istruzione successiva
 
@@ -239,6 +249,7 @@ Per rendere questo processo dinamico **salviamo in una struttura dati tutta una 
 Le istruzioni di salto già avvenute cercano quindi di capire l'esito del salto riutilizzando questi dati, ricordando quando e dove siamo saltati e quando invece siamo "andati dritti".
 
 Nel caso dei cicli tuttavia potremmo andare in errore ben due volte:
+
 1. All'ultima esecuzione del `Jcond` che _non dovrà più essere eseguita_
 2. Alla prima esecuzione della stessa `Jcond` qual'ora vi tornassimo in un secondo momento
 
@@ -248,6 +259,7 @@ Una delle tecniche per conservare i dati sui salti precedenti è implementare pe
 <div class="">
 
 Il _contatore_ è un circuito a quattro stati:
+
 - **Strongly Not Taken** (_SNT_)
 - **Weakly Not Taken** (_WNT_)
 - **Weakly Taken** (_WT_)
@@ -260,12 +272,11 @@ Il _contatore_ è un circuito a quattro stati:
 </div>
 </div>
 
-
 La regola è che:
+
 - La prima volta, a seconda che si salti o meno assumerà lo stato di _WNT_ o _WT_.
 - Aumenta di uno per ogni salto effettuato (_SNT_ $\to$ _WNT_ $\to$ _WT_ $\to$ _ST_)
 - Diminuisce di uno per ogni salto non effettuato. (_SNT_ $\leftarrow$ _WNT_ $\leftarrow$ _WT_ $\leftarrow$ _ST_)
-
 
 Predittori migliori ricordano anche la _storia del salto_, associando uno _sheet register_ contenente una sequenza di `bit` che rappresentano lo storico dei salti effettuati (`1`) e non (`0`).
 Da questa informazione il predittore cerca quindi di **_imparare a utilizzarlo_**, cercando di trovare _pattern_.
@@ -278,7 +289,6 @@ L'operatore di _prelievo_ si baserà quindi proprio sul contenuto di `BTB` per s
 Il `BTB` non si preoccupa delle colllisioni come avviene con la _cache di memoria_, poiché un suo errore non porta a effetti disastrosi ma  "solamente" degli step della _pipeline_.
 
 <img class="30" src="./images/Pipeline/BTB.png">
-
 
 #### 2.3.2.1. `RET`
 
@@ -294,46 +304,50 @@ _Intel_ ha tentato di cambiarne degli aspetti nel tempo, ma con esito insufficen
 L'idea principale di questo processore è:
 > Prendere le istruzioni `CISC` e **_tradurle internamente in istruzioni_** `RISC`.
 
-Da ora in poi faremo delle ipotesi sulle operazioni vere e prorie utilizzate.
+Da ora in poi faremo delle ipotesi sulle operazioni vere e proprie utilizzate.
 
 ## 3.1. Fase di Fetch e Decode
 
 La prima fase dei processori _Intel_ è composta da `Fetch` e da `Decode`.
 
-Questa fase prelieva _microistruzioni_ `CISC` per tradurle in _microistruzioni_ `RISC`.
+Questa fase preleva _microistruzioni_ `CISC` per tradurle in _microistruzioni_ `RISC`.
 
 Una singola **microistruzione `CISC`** può tradursi come:
+
 - Un'unica **microistruzione `RISC`**
 - Più **microistruzioni `RISC`** <small>(più raro ma possibile)</small>
 
 Il circuito di `Fetch` ha al suo interno due buffer da `16Byte` l'uno. Sono due poiché, per via delle dimensioni variabili delle operazioni `CISC`, non sappiamo nemmeno dove l'operazione inizi. È quindi possibile che una singola istruzione possa sforare il primo registro.
 
 Il circuito di `Decode` si divide invece in due fasi:
+
 1. _Fase di predecodifica_: questa fase è necessaria a capire **dove si trovano le istruzioni** passate dalla `Fetch`;
 1. _Fase di decodifica_: si occupa di decodificare le istruzioni recuperate dalla `Fetch` per tradurle in _microistruzioni `RISC`_.
    Nel _Pentium Pro_ venivano decodificate fino a 3 istruzioni alla volta, oggi, nei processori moderni, si arriva a 5.
 
 Facciamo quindi un esempio di quello che compiono la `Fetch` e la `Decode`, immaginando di avere la seguente istruzione:
+
 ```x86asm
 ADD %rax, 1000(%ebx, %ecx, 8)
 ```
 
 La traduzione utilizza **registri interni ai quali il programmatore _non ha accesso_**, che chiamiamo per adesso `tmp`.
 La traduzione diventa quindi la seguente:
+
 ```x86asm
-SHL %ecx, 	$3, tmp1
+SHL %ecx,  $3, tmp1
 ADD %ebx, tmp1, tmp1
-LD	1000(tmp1),	tmp2
+LD 1000(tmp1), tmp2
 ADD %rax, tmp2, tmp2
 ST  tmp2, 1000(tmp2)
 ```
 
-
 Immaginiamo invece di avere il sequente spezzone di programma:
+
 ```cpp
 // ...
 for(int i = 0; i < 100000; ++i){
-	a[i] = v1[i] + v2[i];
+ a[i] = v1[i] + v2[i];
 }
 // ...
 ```
@@ -352,6 +366,7 @@ Dobbiamo quindi riservarci un modo che ci permetta di effettuare il _rollback de
 Portando degli accorgimenti al processore, possiamo permettergli di eseguire delle istruzioni **_fuori ordine_** rispetto a quello imposto dal programmatore, o persino in parallelo tra di loro.
 
 Queste modifiche avvengono dopo la fase di `Fetch` e `Decode`, quindi lavoreremo con istruzioni `RISC`:
+
 ```x86asm
 op1 src1, src2, dst
 ```
@@ -367,6 +382,7 @@ Nella realtà ognuna delle varie `ALU` è specializzata in qualcosa di diverso d
 
 Proseguiamo aggiungendo un'ulteriore componente che chiamiamo `emissione`.
 Questo componente riceve le istruzioni dalla `decode` e le smisterà nelle varie `stazioni di prenotazione` passando attraverso i **registri interni**, diversi da quelli utilizzabili dal programmatore e che, oltre ai dati stessi, contengono anche due campi aggiuntivi:
+
 - `W` (_writing_)
 - `C` (_count_)
 
@@ -381,6 +397,7 @@ Le `ALU` invieranno i risultati in automatico, tramite 1 o più _bus_, ai regist
 ## 3.3. Dipendenze
 
 Affinché il risultato finale dei registri sia significativo, dobbiamo rispettare una serie di condizioni chiamate **_Dipendenze_**, che si dividono in tre tipi:
+
 - **_Dipendenze sui Dati_**
 - **_Dipendenze sui Nomi_**
 - **_Dipendenze sui Controllo_**
@@ -398,7 +415,6 @@ ADD R1, R2, R3
 SUB R3, R4, R5
 ```
 
-
 Le **_Dipendenze sui Dati_** forzano le istruzioni dipendenti a _non poter essere riordinate liberamente_, poiché è necessario che l'istruzione `i` venga eseguita <u>dopo</u> `j`, per avere il contenuto corretto del registro che dovrà utilizzare.
 
 Per risolvere questo tipo di dipendenze, facciamo in modo che l'`emissione` setti il bit `W` del registro `dst` dell'istruzione che sta emettendo.
@@ -408,9 +424,9 @@ La stazione di `emissione`, prima di inviare i dati alla `ALU`, valuterà il bit
 ### 3.3.2. Dipendenze sui Nomi
 
 Le dipendenze sui nomi si differenziano in due tipi:
+
 - **Antidipendenze**
 - **Dipendenze in uscita**
-
 
 <div class="grid2">
 <div class="top">
@@ -420,14 +436,16 @@ Antidipendenza
 </div>
 
 Sono così definite:
-> Un'istruizone `i` si dice _**antidipendente**_ da un'altra istruzione `j`, _successiva ad essa_, se `i` utilizza come `src` lo stesso registro `dst` di `j`.
+> Un'istruzione `i` si dice _**antidipendente**_ da un'altra istruzione `j`, _successiva ad essa_, se `i` utilizza come `src` lo stesso registro `dst` di `j`.
 
 Per questo tipo di dipendenze è quindi necessario che `j` venga eseguita <u>dopo</u> di `i`, affinché non aggiorni troppo presto i suoi sorgenti
+
 ```x86asm
 ADD R1, R2, R3
 ; ...
 SUB R4, R5, R1
 ```
+
 </div>
 <div class="top">
 <div class="p">
@@ -439,11 +457,13 @@ Sono così definite:
 > Un'istruzione `i` si dice **_dipendente in uscita_** rispetto ad un'altra `j`, se entrambe vogliono scrivere nello stesso registro `dst`.
 
 In questo caso rischiamo che eventuali istruzioni tra le due lavorino con l'uscita di quella successiva, e non della precedente.
+
 ```x86asm
 ADD R1, R2, R3
 ; ...
 SUB R4, R5, R3
 ```
+
 </div>
 </div>
 
@@ -454,26 +474,27 @@ Per le **dipendenze in uscita**, verrà controllato il bit `dst->W`, e propagher
 Per quanto riguarda le **antidipendenze**, si valuterà il campo `dst->C`. Anche in questo caso l'istruzione verrà propagata <u>solo se</u> `dst->C == 0`.
 
 Il campo `C` di un registro viene:
+
 - **Incrementato dal circuito di `emissione`** ogni qual volta quel registro è un `src`.
 - **Decrementato dalla `ALU`** quando l'operazione viene completata.
-
 
 ### 3.3.3. Dipendenze sul Controllo
 
 > Un istruzione `i` è **_dipendente dal controllo_** di una istruzione `j`, _precedente ad essa_, se `j` potrebbe comportare un salto che produrrà un flusso non definito a priori del programma.
 
 Le **Dipendenze sul Controllo** indicano quindi che l'esecuzione di una serie di istruzioni dipende dal controllo dell'esito di una precedente.
-```x86asm
-	CMP ;...
-	JE fine1
 
-	ADD ;...		# Sono Dipendenti sul Controllo della JE
-	SUB ;...		# Sono Dipendenti sul Controllo della JE
-	JMP fine2
+```x86asm
+ CMP ;...
+ JE fine1
+
+ ADD ;...  # Sono Dipendenti sul Controllo della JE
+ SUB ;...  # Sono Dipendenti sul Controllo della JE
+ JMP fine2
 fine1:
-	DIV ;...		# È dipendente sul controllo della JE a causa di JMP fine2
+ DIV ;...  # È dipendente sul controllo della JE a causa di JMP fine2
 fine2:
-	MUL ;...		# In maniera raffinata questa non è dipendente
+ MUL ;...  # In maniera raffinata questa non è dipendente
 
 ```
 
@@ -498,6 +519,7 @@ Vediamo quindi uno schema delle dipendenze date due istruzioni `i` e `j` con `i`
 Per quanto riguarda le **dipendenze sui nomi**, esse sono anche chiamate **dipendenze fittizie**, questo perché se andiamo a sovrascrivere il contenuto di un registro è perché adesso lo vogliamo utilizzare per fare altro.
 
 Possiamo quindi risolverle in questo modo:
+
 - _Antidipendenze_: è sufficiente cambiare il registro `dst` di `j`.
 - _Dipendenze in uscita_: cerchiamo per ogni scrittura un registro non utilizzato da nessun'altro.
 
@@ -519,9 +541,10 @@ ADD R1, R2, R3
 
 SUB R4, R5, R2
 ```
+
 $$
 \begin{CD}
-	@VVV
+ @VVV
 \end{CD}
 $$
 
@@ -539,22 +562,21 @@ $$
 \def\arraystretch{1.75}
 
 \begin{matrix}
-		&     &     & & [\;\text{Dati}\;| \;C\; | \;W\; ] \\[0.5em] \hline
-	R_1 & \to & F_1 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
-	R_2 & \to & F_2 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
-	R_3 & \to & F_6 & = & [\;X\; | \;0\; | \;1\; ] \\ \hline
-	R_4 & \to & F_4 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
-	R_5 & \to & F_5 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
-	R_2 & \to & F_6 & = & [\;X\; | \;0\; | \;1\; ] \\ \hline
-	
+  &     &     & & [\;\text{Dati}\;| \;C\; | \;W\; ] \\[0.5em] \hline
+ R_1 & \to & F_1 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+ R_2 & \to & F_2 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+ R_3 & \to & F_6 & = & [\;X\; | \;0\; | \;1\; ] \\ \hline
+ R_4 & \to & F_4 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+ R_5 & \to & F_5 & = & [\;X\; | \;1\; | \;0\; ] \\ \hline
+ R_2 & \to & F_6 & = & [\;X\; | \;0\; | \;1\; ] \\ \hline
+
 \end{matrix}
 $$
 
 </div>
 </div>
 
-
-### 3.3.5. Esecuzione speculativa 
+### 3.3.5. Esecuzione speculativa
 
 Per quanto riguarda le **dipendenze sul controllo** anche qui, come per la _pipeline_, continuiamo a esaminare le informazioni come se il flusso dei dati fosse corretto.
 Infatti la `Fetch & Decode` ha continuato a prelevare istruzioni dal punto indicato nel `BTB`, supponendo di aver effettuato una _predizione corretta_.
@@ -570,6 +592,7 @@ In questa nuova architettura, le istruzioni vanno a scrivere i risultati nei reg
 Il trucco è che il `ROB`, in quanto _coda_, <u>può solo effettuare prelievi dalla testa</u>.
 
 Adesso, quando terminiamo un'istruzione di `Jcond` e ne conosciamo l'esito, setteremo il suo bit `T` e la estraemo. Successivamente, valutandone l'esito:
+
 - Se **si effettua dove ci aspettiamo** continuiamo a prelevare dal `ROB`
 - Se **abbiamo sbagliato** allora **_<u>svuotiamo il <code>ROB</code></u>_**.
 
@@ -579,6 +602,7 @@ Il fatto che le modifiche sui registri non si manifestino immediatamente al comp
 Dobbiamo quindi modificare il modo in cui le `stazioni di prenotazione` prelevano i valori, introducendo un meccanismo di prelievo dal `ROB`.
 
 Modifichiamo quindi gli indirizzi logici, in modo che invece di avere un solo indirizzo logico per ogni registro, ne conserviamo adesso due:
+
 - Nel primo inseriamo l'_informazione certa_, quella che siamo sicuri vada lì ottenuta dall'estrazione dal `ROB`
 - Nel secondo inseriamo invece l'_informazione speculativa_ derivata dalle `ALU` e potenzialmente annullabile con l'annullamento del `ROB`
 
@@ -597,14 +621,13 @@ Per migliorare le prestazioni è infatti sufficente aumentare i parametri fisici
 
 <img class="75" src="./images/Pipeline/ROB.png">
 
-
 ## 3.4. Istuzioni di `LD` e `ST`
 
 Le istruzioni di `LD` e `ST` sono più complicate delle istruzioni viste fin'ora.
 
 Come prima cosa, la `ST` effettua **modifiche in memoria**. Perciò, se dovesse essere eseguita speculativamente dovremmo trovare un modo per poter effettuare il _rollback_ di queste scritture in memoria.
 
-Questo si ottiene inserendo uno `Store Buffer`, una _coda_ nella quale effettuiamo le scritture/letture durante l'esecuzione speculativa, senza quindi accedere direttamente in memoria. 
+Questo si ottiene inserendo uno `Store Buffer`, una _coda_ nella quale effettuiamo le scritture/letture durante l'esecuzione speculativa, senza quindi accedere direttamente in memoria.
 Copieremo i dati in memoria _**solamente quando l'istruzione verrà recuperata**_ dal `ROB`.
 
 Per le letture, questa operazione si chiama `Store Buffer Forwarding`. Permettiamo infatti alla `ALU` di eseguire l'operazione, ma prima di andare a recuperare i dati dalla memoria, controlliamo eventuali `hit` all'interno dello `Store Buffer`.
@@ -615,10 +638,11 @@ Le istruzione `LD` e `ST` contengono indirizzi del tipo `offset(base)`, calcolat
 Dobbiamo quindi prestare attenzione alla loro **esecuzione speculativa**, poiché potrebbe portare ad accessi in _zone di memoria non accedibili_, generando eccezioni.
 
 Vediamo un'esempio:
+
 ```x86asm
-	CMP $1000, %rbx
-	JAE fine
-	MOV off(%rbx), %rax
+ CMP $1000, %rbx
+ JAE fine
+ MOV off(%rbx), %rax
 fine:
 ```
 
@@ -647,6 +671,7 @@ Agli inizio di Gennaio 2018 è stato scoperto che la **_speculazione ha problemi
 È infatti possibile per chi attacca le macchine, bypassare i servizi di sicurezza _hardware_ implementanti nel processore, riuscendo ad accedere liberamente alle informazioni proprio struttando i problemi di annullamento della speculazione.
 
 I due problemi principali sono:
+
 - **_Meltdown_**: sfrutta le misure di sicurezza _hardware_ di permessi di accesso e mancati accorgimenti progettuali. Oggi è ampiamente risolto
 - **_Spectre_**: sfrutta gli accorgimenti non vitali per il funzionamento della nostra architettura (indirizzi virtuali, _cache_, ...) ed è intrinseco nell'idea stessa della speculazione.
 
@@ -670,7 +695,7 @@ Il problema sfrutta proprio queste operazioni per permettere all'attaccante di p
 ; Svuoto la cache
 
 XOR %rax, %rax
-MOV indirizzo_vietato, %al	; questa operazione genera `segmentation fault`
+MOV indirizzo_vietato, %al ; questa operazione genera `segmentation fault`
 ; -------------------------------------------------------------------------
 ; questa sezione non dovrebbe essere eseguita dall'architettura
 ; che rileva che non abbiamo i privilegi di accesso
@@ -678,8 +703,8 @@ MOV indirizzo_vietato, %al	; questa operazione genera `segmentation fault`
 ; ma sono annullate prima che possa accadere
 
 
-SHL $12, %rax				; trasformo %al in un indice di cacheline ($12 per disattivare il prefetch, meccanismo non visto in questo corso ma presente)
-MOV vettore(%rax), %rbx		; leggo dalla memoria l'indirizzo vettore[%rax], che verrà salvato alla cacheline n° %rax
+SHL $12, %rax    ; trasformo %al in un indice di cacheline ($12 per disattivare il prefetch, meccanismo non visto in questo corso ma presente)
+MOV vettore(%rax), %rbx  ; leggo dalla memoria l'indirizzo vettore[%rax], che verrà salvato alla cacheline n° %rax
 
 ; -------------------------------------------------------------------------
 ; intercetto il fault e proseguo da qui (con dei try{}catch{} o in altri modi)
@@ -694,6 +719,7 @@ Se quindi ci preoccupiamo di intercettarlo, per il continuo del programma sarà 
 
 Sarà quindi sufficente scrivere una sezione di codice che **_controlla il tempo di estrazione delle informazioni di ogni indice del `vettore`_**.
 Questo produrrà due valori diversi:
+
 - **Alto**: se l'elemento `vettore[i]` non era presente in _cache_ e abbiamo dovuto recuperarlo dalla **RAM**
 - **Basso**: se l'elemento `vettore[i]` <u>era già presente in <em>cache</em></u>
 
@@ -701,8 +727,8 @@ Poiché ci siamo assicurati di svuotare la _cache_ prima di eseguire questo codi
 
 Siamo così riusciti a prelevare il contenuto di un'`indirizzo_vietato` senza accedervi direttamente, sfuttando la _speculazione_.
 
-
 Oggi questa vulnerabilità è stata risolta in diversi modi, ne citiamo due:
+
 - **_Rimozione delle traduzioni univoche nella parte utente_**, che infatti oggi non sono più presenti.
 - **_Riconoscere l'eccezione di protezione e terminare la speculazione da quel punto in poi_**.
 
