@@ -16,7 +16,7 @@ function setupPrismCodeBlocks() {
             }
         }
     });
-    
+
     // Crea un alias per x86asm che usa la grammatica NASM
     if (window.Prism && Prism.languages.nasm) {
         Prism.languages.x86asm = Prism.languages.nasm;
@@ -39,17 +39,17 @@ function setupDynamicHeader() {
     let lastScrollY = window.scrollY;
     let isScrollingDown = false;
     let ticking = false;
-    
+
     const header = document.querySelector('.site-header');
-    
+
     if (!header) {
         console.warn('Header non trovato');
         return;
     }
-    
+
     function updateHeader() {
         const currentScrollY = window.scrollY;
-        
+
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             // Scrolling down - hide header
             if (!isScrollingDown) {
@@ -65,24 +65,24 @@ function setupDynamicHeader() {
                 isScrollingDown = false;
             }
         }
-        
+
         // Se siamo in cima alla pagina, rimuovi tutte le classi
         if (currentScrollY <= 50) {
             header.classList.remove('hidden', 'visible');
             isScrollingDown = false;
         }
-        
+
         lastScrollY = currentScrollY;
         ticking = false;
     }
-    
+
     function requestTick() {
         if (!ticking) {
             requestAnimationFrame(updateHeader);
             ticking = true;
         }
     }
-    
+
     window.addEventListener('scroll', requestTick);
 }
 
@@ -114,17 +114,6 @@ window.MathJax = {
     startup: {
         ready() {
             MathJax.startup.defaultReady();
-            
-            // Hook per processare il contenuto dopo il rendering
-            const originalTypesetPromise = MathJax.typesetPromise;
-            MathJax.typesetPromise = function(elements) {
-                return originalTypesetPromise.call(this, elements).then(function() {
-                    // Dopo che MathJax ha fatto il rendering, applica le nostre correzioni
-                    if (window.processMathBlocks) {
-                        window.processMathBlocks();
-                    }
-                });
-            };
         }
     }
 };
@@ -137,15 +126,9 @@ window.MathJax = {
  * Inizializzazione principale del sito
  */
 function initializeSite() {
-    // Esponi le funzioni globalmente per compatibilità
-    window.processMathBlocks = processMathBlocks;
-    
     // Configura i blocchi di codice Prism
     setupPrismCodeBlocks();
-    
-    // Configura i blocchi matematici MathJax
-    setupMathBlocks();
-    
+
     // Configura l'header dinamico
     setupDynamicHeader();
 }
